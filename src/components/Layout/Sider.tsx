@@ -7,7 +7,7 @@ import styled from "styled-components";
 const { Sider: SiderAnt } = Layout;
 
 const StyledSider = styled(SiderAnt)`
-  padding: 30px 0 0 30px;
+  /* padding: 30px 0 0 30px; */
   overflow: auto;
   height: 100vh;
   position: fixed;

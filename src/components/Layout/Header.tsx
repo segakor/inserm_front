@@ -10,14 +10,16 @@ const StyledHeader = styled(HeaderAnt)`
   border: 1px solid green;
   position: fixed;
   width: 100vw;
+  height: 60px;
   background: white;
   z-index: 2;
-  @media (max-width: 768px) {
+  padding:20px 20px 20px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media (min-width: 768px) {
     display: none;
-  }
-  @media (max-width: 1025px) {
-    display: flex;
-  }
+  } 
 `;
 
 type Props = {

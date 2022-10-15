@@ -9,9 +9,11 @@ const StyledContent = styled(ContentAnt)`
   background-color: #daedff;
   min-height: 100vh;
   border: 1px solid red;
-  padding: 100px 30px 30px 30px;
+  padding: 90px 30px 30px 30px;
   display: flex;
-  /* position: "relative", */
+  @media (min-width: 768px) {
+    padding: 20px 30px 30px 30px;
+  }
 `;
 
 type Props = {
