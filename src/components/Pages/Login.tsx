@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ProjectCard } from "../ProjectCard";
-import { Header } from "../Typography";
+import { LoginForm } from "../LoginForm";
 
 const Page = styled.div`
   display: flex;
@@ -10,11 +9,10 @@ const Page = styled.div`
 `;
 
 
-export const Projects = () => {
+export const Login = () => {
   return (
     <Page>
-      <Header>Мои проекты</Header>
-      <ProjectCard />
+      <LoginForm />
     </Page>
   );
 };

@@ -15,16 +15,20 @@ margin-left: 200px;
 
 const App: React.FC = () => {
 
+  console.log('app')
+
   return (
     <>
-      {/* <Page /> */}
-      <StyledLayout>
-        <SiderComponent />
-        <MainRoutes />
-      </StyledLayout>
-
+      <Provider>
+        <StyledLayout>
+          <SiderComponent />
+          <MainRoutes />
+        </StyledLayout>
+        {/* <Page /> */}
+      </Provider>
     </>
   );
 };
 
 export default App;
+

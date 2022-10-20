@@ -1,22 +1,25 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useLocalState } from "../context/hooks";
-import { Button, Form, Input, Typography } from "antd";
+import { Button, Form, Input } from "antd";
 import { openNotificationWithIcon } from "../utils/notification";
 import "antd/dist/antd.css";
-import "./AntComponentStyle.css";
+/* import "./AntComponentStyle.css"; */
+import { Title } from "./Typography";
 
-const { Title } = Typography;
-
-const Wrapper = styled.div<{ isMobile: boolean }>`
-  width: ${(props) => (props.isMobile ? "auto" : "520px")};
-  height: ${(props) => (props.isMobile ? "auto" : "400px")};
+const Wrapper = styled.div`
   background-color: #ffffff;
   border: 1px solid #000000;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  padding: ${(props) =>
-    props.isMobile ? "20px 20px 0px 20px" : "40px 40px 20px 40px"};
   border-radius: 20px;
+  padding: 20px 20px 0px 20px;
+  width: auto;
+  height: auto;
+  @media (min-width: 768px) {
+    padding: 40px 40px 20px 40px;
+    width: 520px;
+    height: 400px;
+  }
 `;
 const StyledInput = styled(Input)`
   border-radius: 10px;
@@ -40,13 +43,18 @@ const RememberPassword = styled.div`
   text-decoration-line: underline;
   cursor: pointer;
   margin-bottom: 40px;
-  width: 120px;
+`;
+const HeaderForm = styled(Title)`
+  margin-bottom: 40px !important;
+`;
+const DescRestore = styled(Title)`
+  margin-bottom: 30px !important;
 `;
 
 export const LoginForm = () => {
   const [form] = Form.useForm();
-  const username = Form.useWatch('username', form);
-  const password = Form.useWatch('password', form);
+  const username = Form.useWatch("username", form);
+  const password = Form.useWatch("password", form);
 
   const [isRestore, setIsRestore] = useState(false);
 
@@ -61,24 +69,30 @@ export const LoginForm = () => {
   };
 
   const onClickRestore = () => {
-    console.log('onClickRestore')
+    console.log("onClickRestore");
     setIsRestore(true);
   };
-  const ButtonName = !isRestore ? 'Войти' : 'Отправить';
+  const ButtonName = !isRestore ? "Войти" : "Отправить";
 
   const onSubmit = () => {
     if (!isRestore) {
-      console.log()
-    } else { setIsRestore(false); form.setFieldsValue({ password: '' }); console.log(form) }
-  }
+      console.log();
+    } else {
+      setIsRestore(false);
+      form.setFieldsValue({ password: "" });
+      console.log(form);
+    }
+  };
 
-  console.log(username, password)
+  console.log(username, password);
   return (
     <>
-      <Wrapper isMobile={isMobile}>
-        <Title level={isMobile ? 4 : 3}>
-          {!isRestore ? "Вход в личный кабинет" : "Восстановление пароля"}
-        </Title>
+      <Wrapper>
+        <HeaderForm level={isMobile ? 4 : 3} style={{ fontWeight: "800" }}>
+          {!isRestore
+            ? "Войдите в свой личный кабинет"
+            : "Восстановление пароля"}
+        </HeaderForm>
         <StyledForm
           name="basic"
           initialValues={{ remember: true }}
@@ -92,7 +106,10 @@ export const LoginForm = () => {
               <Form.Item
                 name="username"
                 rules={[
-                  { required: true, message: "Please input your username!" },
+                  {
+                    required: true,
+                    message: "Пожалуйста, введите адрес электронной почты!",
+                  },
                 ]}
               >
                 <StyledInput placeholder="Электронная почта" />
@@ -101,7 +118,7 @@ export const LoginForm = () => {
               <Form.Item
                 name="password"
                 rules={[
-                  { required: true, message: "Please input your password!" },
+                  { required: true, message: "Пожалуйста, введите пароль!" },
                 ]}
               >
                 <StyledInputPassword placeholder="Пароль" />
@@ -114,11 +131,16 @@ export const LoginForm = () => {
           )}
           {isRestore && (
             <>
-              <div>Укажите вашу почту для восстановления пароля</div>
+              <DescRestore level={5} style={{ fontWeight: "400" }}>
+                Укажите вашу почту для восстановления пароля
+              </DescRestore>
               <Form.Item
                 name="username"
                 rules={[
-                  { required: true, message: "Please input your username!" },
+                  {
+                    required: true,
+                    message: "Пожалуйста, введите адрес электронной почты!",
+                  },
                 ]}
               >
                 <StyledInput placeholder="Электронная почта" />
@@ -137,7 +159,7 @@ export const LoginForm = () => {
             </StyledButton>
           </Form.Item>
         </StyledForm>
-        <Button
+        {/*         <Button
           onClick={() =>
             openNotificationWithIcon({
               type: "success",
@@ -147,7 +169,7 @@ export const LoginForm = () => {
           }
         >
           Success
-        </Button>
+        </Button> */}
       </Wrapper>
     </>
   );

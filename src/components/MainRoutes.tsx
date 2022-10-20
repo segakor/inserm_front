@@ -5,7 +5,7 @@ import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { Content } from "./Layout/Content";
 import { HeaderComponent } from "./HeaderComponent";
 import { Contacts } from "./Pages/Contacts";
-import { LoginForm } from "./LoginForm";
+import { Login } from "./Pages/Login";
 import { Foundation } from "./Pages/Foundation";
 import { Profile } from "./Pages/Profile";
 import { Tariff } from "./Pages/Tariff";
@@ -26,18 +26,14 @@ export const MainRoutes = () => {
       <HeaderComponent />
       <Content>
         <Routes>
-          <Route path="/" element={<Outlet />}>
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/" element={<Outlet />}>
-              <Route path="/project" element={<Projects />} />
-              <Route path="/project/:projectId" element={<Project />} />
-            </Route>
-            <Route path="/tariff" element={<Tariff />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/foundation" element={<Foundation />} />
-            <Route path="/contacts" element={<Contacts />} />
-            <Route path="/help" element={<Help />} />
-          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/project" element={<Projects />} />
+          <Route path="/project/:projectId" element={<Project />} />
+          <Route path="/tariff" element={<Tariff />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/foundation" element={<Foundation />} />
+          <Route path="/contacts" element={<Contacts />} />
+          <Route path="/help" element={<Help />} />
         </Routes>
       </Content>
     </StyledLayout>
