@@ -1,6 +1,5 @@
 import React, { ReactElement } from "react";
 import { Layout } from "antd";
-import "antd/dist/antd.css";
 import { useLocalState } from "../../context/hooks";
 import styled from "styled-components";
 

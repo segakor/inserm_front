@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { useLocalState } from "../context/hooks";
 import { Button, Form, Input } from "antd";
 import { openNotificationWithIcon } from "../utils/notification";
-import "antd/dist/antd.css";
-/* import "./AntComponentStyle.css"; */
 import { Title } from "./Typography";
 
 const Wrapper = styled.div`
@@ -39,6 +37,7 @@ const StyledButton = styled(Button)`
   height: 50px;
 `;
 const RememberPassword = styled.div`
+  width: 50%;
   color: #8e8e8e;
   text-decoration-line: underline;
   cursor: pointer;
@@ -83,6 +82,13 @@ export const LoginForm = () => {
       console.log(form);
     }
   };
+
+  const isDisableBtn =
+    username && password && !isRestore
+      ? false
+      : username && isRestore
+        ? false
+        : true;
 
   console.log(username, password);
   return (
@@ -154,6 +160,8 @@ export const LoginForm = () => {
               htmlType="submit"
               block
               onClick={onSubmit}
+              disabled={isDisableBtn}
+              loading
             >
               {ButtonName}
             </StyledButton>

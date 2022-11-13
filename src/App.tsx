@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { Provider } from "./context/Provider";
-import { Page } from "./components/Page"
+/* import { Page } from "./components/Page" */
 import { SiderComponent } from './components/SiderComponent'
 import { MainRoutes } from './components/MainRoutes';
 import { Layout } from "antd";
+import "antd/dist/antd.css";
 
 const StyledLayout = styled(Layout)`
 margin-left: 200px;

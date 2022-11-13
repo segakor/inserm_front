@@ -1,21 +1,21 @@
 import React from "react";
-import "antd/dist/antd.css";
 import styled from "styled-components";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import { Sider } from "./Layout/Sider";
 import { MenuComponent } from "./Menu";
+import { useLocation } from "react-router-dom";
 
 const LogoIcon = styled(Logo)`
-  margin:30px 0px 60px 30px;
+  margin: 30px 0px 60px 30px;
 `;
 
 export const SiderComponent = () => {
-
+  const location = useLocation();
 
   return (
     <Sider>
       <LogoIcon />
-      <MenuComponent />
+      {location.pathname !== "/login" ? <MenuComponent /> : <></>}
     </Sider>
   );
-}
+};

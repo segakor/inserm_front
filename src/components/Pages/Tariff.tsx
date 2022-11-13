@@ -10,17 +10,10 @@ const Page = styled.div`
 
 export const Tariff = () => {
 
-  console.log('Tariff')
-
-  useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/todos/${1}`)
-      .then(response => response.json())
-      .then(json => console.log(json))
-  }, [])
-
   return (
     <Page>
       <Header>Управление тарифами</Header>
+      <Title level={5} style={{ fontWeight: "400" }}>Ваш текущий тариф по проекту</Title>
     </Page>
   );
 };

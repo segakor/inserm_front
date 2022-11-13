@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import "antd/dist/antd.css";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import { ReactComponent as MoreIcon } from "../assets/moreBtn.svg";
 import { LoginForm } from "./LoginForm";

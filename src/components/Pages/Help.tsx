@@ -12,6 +12,7 @@ export const Help = () => {
   return (
     <Page>
       <Header>Нужна помощь?</Header>
+      <Title level={5}>Используйте Telegram</Title>
     </Page>
   );
 };
