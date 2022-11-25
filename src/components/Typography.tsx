@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import styled from "styled-components";
 import { Typography } from "antd";
 const { Title: TitleAnt } = Typography;
@@ -11,6 +11,13 @@ export const Title = styled(TitleAnt)`
 type Props = {
   children: string;
 };
+
+/* type PropsTitle = {
+  children: React.ReactNode;
+  level?: 1 | 2 | 5 | 3 | 4 | undefined;
+  style?: React.CSSProperties | undefined;
+}; */
+
 const StyledHeader = styled(Title)`
   font-size: 30px !important;
   font-weight: 800 !important;
@@ -25,3 +32,7 @@ const StyledHeader = styled(Title)`
 export const Header = ({ children }: Props) => {
   return <StyledHeader>{children}</StyledHeader>;
 };
+
+/* export const Title1 = ({ children, level, style }: PropsTitle) => {
+  return <Title level={level} style={style}>{children}</Title>;
+}; */

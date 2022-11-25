@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useLocalState } from "../context/hooks";
 import { Button, Form, Input } from "antd";
-import { openNotificationWithIcon } from "../utils/notification";
 import { Title } from "./Typography";
+import { useAuth } from '../hooks/useAuth';
 
 const Wrapper = styled.div`
   background-color: #ffffff;
@@ -36,8 +35,8 @@ const StyledButton = styled(Button)`
   border-radius: 10px;
   height: 50px;
 `;
-const RememberPassword = styled.div`
-  width: 50%;
+const SubTitle = styled.div`
+  width: fit-content; 
   color: #8e8e8e;
   text-decoration-line: underline;
   cursor: pointer;
@@ -52,49 +51,35 @@ const DescRestore = styled(Title)`
 
 export const LoginForm = () => {
   const [form] = Form.useForm();
-  const username = Form.useWatch("username", form);
+  const email = Form.useWatch("username", form);
   const password = Form.useWatch("password", form);
 
   const [isRestore, setIsRestore] = useState(false);
 
-  const { isMobile } = useLocalState();
+  const handleLogin = useAuth();
 
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  const onClickRestore = () => {
-    console.log("onClickRestore");
-    setIsRestore(true);
-  };
-  const ButtonName = !isRestore ? "Войти" : "Отправить";
+  const buttonName = !isRestore ? "Войти" : "Отправить";
 
   const onSubmit = () => {
     if (!isRestore) {
-      console.log();
+      handleLogin({ email, password })
     } else {
-      setIsRestore(false);
       form.setFieldsValue({ password: "" });
-      console.log(form);
+      alert('handleRestore')
     }
   };
 
   const isDisableBtn =
-    username && password && !isRestore
+    email && password && !isRestore
       ? false
-      : username && isRestore
+      : email && isRestore
         ? false
         : true;
 
-  console.log(username, password);
   return (
     <>
       <Wrapper>
-        <HeaderForm level={isMobile ? 4 : 3} style={{ fontWeight: "800" }}>
+        <HeaderForm level={3} style={{ fontWeight: "800" }}>
           {!isRestore
             ? "Войдите в свой личный кабинет"
             : "Восстановление пароля"}
@@ -102,8 +87,6 @@ export const LoginForm = () => {
         <StyledForm
           name="basic"
           initialValues={{ remember: true }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
           form={form}
         >
@@ -130,9 +113,9 @@ export const LoginForm = () => {
                 <StyledInputPassword placeholder="Пароль" />
               </Form.Item>
 
-              <RememberPassword onClick={onClickRestore}>
+              <SubTitle onClick={() => setIsRestore(true)}>
                 Не помню пароль
-              </RememberPassword>
+              </SubTitle>
             </>
           )}
           {isRestore && (
@@ -151,6 +134,9 @@ export const LoginForm = () => {
               >
                 <StyledInput placeholder="Электронная почта" />
               </Form.Item>
+              <SubTitle onClick={() => setIsRestore(false)}>
+                Назад
+              </SubTitle>
             </>
           )}
 
@@ -161,23 +147,12 @@ export const LoginForm = () => {
               block
               onClick={onSubmit}
               disabled={isDisableBtn}
-              loading
+            /* loading */
             >
-              {ButtonName}
+              {buttonName}
             </StyledButton>
           </Form.Item>
         </StyledForm>
-        {/*         <Button
-          onClick={() =>
-            openNotificationWithIcon({
-              type: "success",
-              message: "test",
-              description: "test2",
-            })
-          }
-        >
-          Success
-        </Button> */}
       </Wrapper>
     </>
   );

@@ -14,8 +14,8 @@ export const openNotificationWithIcon = ({
   description,
 }: Props) => {
   notification[type]({
-    duration: 0,
-    placement: "bottomRight",
+    duration: 3,
+    placement: "bottom",
     message: message,
     description: description,
   });

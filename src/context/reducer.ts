@@ -8,6 +8,7 @@ import {
 export const initialState: LocalState = {
   currentPage: PAGE.INTRODUCTION,
   isMobile: false,
+  role: undefined
 };
 
 function setIsMobile(

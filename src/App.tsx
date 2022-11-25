@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Provider } from "./context/Provider";
-/* import { Page } from "./components/Page" */
 import { SiderComponent } from './components/SiderComponent'
 import { MainRoutes } from './components/MainRoutes';
 import { Layout } from "antd";
@@ -16,8 +15,6 @@ margin-left: 200px;
 
 const App: React.FC = () => {
 
-  console.log('app')
-
   return (
     <>
       <Provider>
@@ -25,7 +22,6 @@ const App: React.FC = () => {
           <SiderComponent />
           <MainRoutes />
         </StyledLayout>
-        {/* <Page /> */}
       </Provider>
     </>
   );

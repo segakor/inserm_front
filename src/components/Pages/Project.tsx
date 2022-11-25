@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
-import { Button } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Modal } from "antd";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Title, Header } from "../Typography";
 import { DetailsCard } from "../DetailsCard";
+import { ModalBrif } from "../ModalBrif";
+import { TableProject } from "../TableProject";
 
 const Page = styled.div`
   display: flex;
@@ -45,11 +47,21 @@ export const Project = () => {
       .then((json) => console.log(json));
   }, [params.projectId]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <Page>
       <HeaderFlex>
         <Header>{`айди проекта ->>>${params.projectId}`}</Header>
-        <StyledButton>Открыть бриф</StyledButton>
+        <StyledButton onClick={handleOpen}>Открыть бриф</StyledButton>
       </HeaderFlex>
       <CardBlock>
         <TitleDate level={5} style={{ fontSize: "14px", fontWeight: "400" }}>
@@ -57,6 +69,8 @@ export const Project = () => {
         </TitleDate>
         <DetailsCard />
       </CardBlock>
+      <ModalBrif onClose={handleClose} isOpen={isModalOpen} />
+      <TableProject />
     </Page>
   );
 };

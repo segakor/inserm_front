@@ -10,9 +10,9 @@ const StyledContent = styled(ContentAnt)`
   border: 1px solid red;
   padding: 90px 30px 30px 30px;
   display: flex;
-  @media (min-width: 768px) {
+/*   @media (min-width: 768px) {
     padding: 20px 30px 30px 30px;
-  }
+  } */
 `;
 
 type Props = {

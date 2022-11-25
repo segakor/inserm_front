@@ -26,6 +26,10 @@ export const MainRoutes = () => {
       <HeaderComponent />
       <Content>
         <Routes>
+          <Route
+            path="*"
+            element={<Navigate to="/project" replace />}
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/project" element={<Projects />} />
           <Route path="/project/:projectId" element={<Project />} />

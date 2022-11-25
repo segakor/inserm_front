@@ -17,7 +17,7 @@ export const Foundation = () => {
     <Page>
       <Header>База знаний</Header>
       <StyledTitle level={5} style={{ fontWeight: "400" }}>
-        Если вы не нашли ответ на свой вопрос, перейдите в блок Нужна помощь и
+        Если вы не нашли ответ на свой вопрос, перейдите в блок <b>Нужна помощь</b> и
         уточните у техподдержки.
       </StyledTitle>
       <Collapse />
