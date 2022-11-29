@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Header, Title } from "../Typography";
-import { Collapse } from "../Collapse";
+import { Header, Title } from "../../Typography";
+import { Collapse } from "../../Collapse";
 
 const Page = styled.div`
   display: flex;

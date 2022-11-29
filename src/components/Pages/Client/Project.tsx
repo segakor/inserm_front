@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Button, Modal } from "antd";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Title, Header } from "../Typography";
-import { DetailsCard } from "../DetailsCard";
-import { ModalBrif } from "../ModalBrif";
-import { TableProject } from "../TableProject";
+import { Title, Header } from "../../Typography";
+import { DetailsCard } from "../../DetailsCard";
+import { ModalBrif } from "../../ModalBrif";
+import { TableProject } from "../../TableProject";
+import { ArchiveProject } from "../../ArchiveProject";
 
 const Page = styled.div`
   display: flex;
@@ -71,6 +72,7 @@ export const Project = () => {
       </CardBlock>
       <ModalBrif onClose={handleClose} isOpen={isModalOpen} />
       <TableProject />
+      <ArchiveProject />
     </Page>
   );
 };

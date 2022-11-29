@@ -6,7 +6,7 @@ import { MenuComponent } from "./Menu";
 import { useLocation } from "react-router-dom";
 
 const LogoIcon = styled(Logo)`
-  margin: 30px 0px 60px 30px;
+  margin: 30px 0px 50px 30px;
 `;
 
 export const SiderComponent = () => {

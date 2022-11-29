@@ -23,31 +23,33 @@ const columns: ColumnsType<DataType> = [
     title: "№",
     dataIndex: "id",
     key: "id",
-    width: "1%",
+    width: 30,
   },
   {
     title: "Ссылка на отзыв",
     dataIndex: "href",
     key: "href",
     render: (text) => <a onClick={() => window.open(text, "_blank")}>{text}</a>,
-    width: "18%",
+    width: 230,
+    ellipsis: true,
   },
   {
     title: "Текст отзыва",
     dataIndex: "text",
     key: "text",
-    width: "50%",
   },
   {
     title: "Статус отзыва",
     dataIndex: "status",
     key: "status",
-    render: (status: string) => <StatusComponent status={status} />
+    render: (status: string) => <StatusComponent status={status} />,
+    width: 150,
   },
   {
     title: "Дата размещения",
     dataIndex: "date",
     key: "date",
+    width: 150
   },
 ];
 
@@ -55,7 +57,7 @@ const columns: ColumnsType<DataType> = [
 const data: DataType[] = [
   {
     id: "1",
-    href: "https://market.yandex.ru/pro",
+    href: "https://market.yandex.ru/pro111111111111111111111111111111111111111111",
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam interdum purus a leo cursus bibendum. Donec nisl neque, rutrum a nisl et, accumsan tempor arcu. Donec tempus magna urna, non tempus quam eleifend ullamcorper. Nulla viverra convallis condimentum. Interdum et malesuada fames ac ante ipsum primis in faucibus. In sollicitudin quam tellus, a fringilla dolor faucibus quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     status: "Опубликовано",
     date: "01.09.2022",
@@ -111,14 +113,15 @@ export const TableProject = () => {
       title: "№",
       dataIndex: "id",
       key: "id",
-      width: "1%",
+      width: 30,
     },
     {
       title: "Ссылка на отзыв",
       dataIndex: "href",
       key: "href",
       render: (text) => <a onClick={() => window.open(text, "_blank")}>{text}</a>,
-      width: "18%",
+      width: 200,
+      ellipsis: true,
     },
     {
       title: "Детали",
@@ -133,6 +136,7 @@ export const TableProject = () => {
         columns={breakpoint === "mobile" ? mobileColumns : columns}
         dataSource={data}
         size="small"
+        bordered
       />
       <Modal
         open={isModalOpen}
@@ -140,6 +144,7 @@ export const TableProject = () => {
         onCancel={handleClose}
         footer={null}
         width={1000}
+        bodyStyle={{ overflowY: 'auto' }}
       >
         <Form layout={"vertical"} form={form} >
           <Form.Item label={<Title level={5}>Детали</Title>}>

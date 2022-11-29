@@ -9,7 +9,13 @@ import { ReactComponent as FoundationIcon } from "../assets/foundation.svg";
 import { ReactComponent as ContactsIcon } from "../assets/contacts.svg";
 import { ReactComponent as HelpIcon } from "../assets/help.svg";
 import { ReactComponent as ExitIcon } from "../assets/exit.svg";
+import { ReactComponent as ProjectCheckIcon } from "../assets/projectcheck.svg";
+import { ReactComponent as ReviewsforpaymentIcon } from "../assets/reviewsforpayment.svg";
+import { ReactComponent as SettingIcon } from "../assets/setting.svg";
+import { ReactComponent as PaidreviewsIcon } from "../assets/paidreviews.svg";
+import { ReactComponent as CreateadminIcon } from "../assets/createadmin.svg";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 type Props = {
   onHeaderClose?: () => void;
@@ -20,11 +26,15 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
 
   const navigation = useNavigate();
 
+  const { handleLogout, checkAuth } = useAuth();
+
+  const { role, auth } = checkAuth();
+
   const dividerItem = {
     type: "divider",
     className: "dividerItem-1",
     style: {
-      border: "2px solid #F0F0F0",
+      border: "1px solid #F0F0F0",
       margin: "1px 24px",
     },
   };
@@ -33,18 +43,18 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     type: "divider",
     className: "dividerItem-2",
     style: {
-      border: "2px solid #F0F0F0",
+      border: "1px solid #F0F0F0",
       margin: "70px 24px",
     },
   };
 
-  const items3: MenuProps["items"] = [
+  const itemClient: MenuProps["items"] = [
     {
       label: "Мои проекты",
-      key: "project",
+      key: "projects",
       icon: <ProjectIcon />,
       onTitleClick: () => {
-        navigation(`/project`);
+        navigation(`/client/projects`);
         setSelectedKeys([""]);
       },
       children: [
@@ -62,20 +72,110 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     { label: "Выход", key: "exit", icon: <ExitIcon /> },
   ];
 
-  const onClick: MenuProps["onClick"] = (e) => {
-    /*   console.log(e); */
+  const itemHost: MenuProps["items"] = [
+    { label: "Список проектов", key: "projects", icon: <ProjectIcon /> },
+    { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },
+    dividerItem2 as any,
+    { label: "Выход", key: "exit", icon: <ExitIcon /> },
+  ];
 
+  const itemSupervisor: MenuProps["items"] = [
+    { label: "Список проектов", key: "projects", icon: <ProjectIcon /> },
+    {
+      label: "Проекты на модерации",
+      key: "projectcheck",
+      icon: <ProjectCheckIcon />,
+    },
+    {
+      label: "Отзывы на оплату",
+      key: "reviewsforpayment",
+      icon: <ReviewsforpaymentIcon />,
+    },
+    {
+      label: "Оплаченные отзывы",
+      key: "paidreviews",
+      icon: <PaidreviewsIcon />,
+    },
+    { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },
+    dividerItem2 as any,
+    { label: "Вопросы клиентов", key: "clientquestions", icon: <HelpIcon /> },
+    { label: "Выход", key: "exit", icon: <ExitIcon /> },
+  ];
+
+  const itemSupport: MenuProps["items"] = [
+    { label: "Список проектов", key: "projects", icon: <ProjectIcon /> },
+    { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },
+    {
+      label: "Замена и создание \n нового тарифа",
+      key: "settingtariff",
+      icon: <SettingIcon />,
+      style: { whiteSpace: "normal", lineHeight: "20px" },
+    },
+    dividerItem2 as any,
+    { label: "Вопросы клиентов", key: "clientquestions", icon: <HelpIcon /> },
+    { label: "Выход", key: "exit", icon: <ExitIcon /> },
+  ];
+  const itemAdmin: MenuProps["items"] = [
+    { label: "Список проектов", key: "projects", icon: <ProjectIcon /> },
+    {
+      label: "Проекты на модерации",
+      key: "projectcheck",
+      icon: <ProjectCheckIcon />,
+    },
+    {
+      label: "Отзывы на оплату",
+      key: "reviewsforpayment",
+      icon: <ReviewsforpaymentIcon />,
+    },
+    {
+      label: "Оплаченные отзывы",
+      key: "paidreviews",
+      icon: <PaidreviewsIcon />,
+    },
+    { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },
+    { label: "Тарифы клиентов", key: "clienttariff", icon: <TariffIcon /> },
+    { label: "База знаний", key: "foundation", icon: <FoundationIcon /> },
+    {
+      label: "Замена и создание \n нового тарифа",
+      key: "settingtariff",
+      icon: <SettingIcon />,
+      style: { whiteSpace: "normal", lineHeight: "20px" },
+    },
+    {
+      label: "Создание админов",
+      key: "createadmin",
+      icon: <CreateadminIcon />,
+    },
+    dividerItem as any,
+    { label: "Вопросы клиентов", key: "clientquestions", icon: <HelpIcon /> },
+    { label: "Выход", key: "exit", icon: <ExitIcon /> },
+  ];
+
+  const setItem = () => {
+    const itemMap = {
+      CLIENT: itemClient,
+      HOST: itemHost,
+      SUPERVISOR: itemSupervisor,
+      SUPPORT: itemSupport,
+      ADMIN: itemAdmin,
+    };
+
+    return itemMap[role || "CLIENT"];
+  };
+
+  const onClick: MenuProps["onClick"] = (e) => {
     setSelectedKeys(e.keyPath);
 
     switch (true) {
+      //список проектов
       case e.keyPath.length === 2:
-        navigation(`/project/${e.key}`);
+        navigation(`client/project/${e.key}`);
         break;
       case e.key === "exit":
-        alert("exit");
+        handleLogout();
         break;
       default:
-        navigation(`${e.key}`);
+        navigation(`${role?.toLowerCase()}/${e.key}`);
         break;
     }
 
@@ -85,11 +185,15 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
   };
 
   return (
-    <Menu
-      onClick={onClick}
-      items={items3}
-      mode="inline"
-      selectedKeys={selectedKeys}
-    />
+    <>
+      {auth ? (
+        <Menu
+          onClick={onClick}
+          items={setItem()}
+          mode="inline"
+          selectedKeys={selectedKeys}
+        />
+      ) : null}
+    </>
   );
 };

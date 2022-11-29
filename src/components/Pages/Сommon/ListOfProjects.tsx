@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ProjectCard } from "../ProjectCard";
-import { Header } from "../Typography";
+import { Header, Title } from "../../Typography";
 
 const Page = styled.div`
   display: flex;
@@ -9,12 +8,10 @@ const Page = styled.div`
   width: 100%;
 `;
 
-
-export const Projects = () => {
+export const ListOfProject = () => {
   return (
     <Page>
-      <Header>Мои проекты</Header>
-      <ProjectCard />
+      <Header>Список проектов</Header>
     </Page>
   );
 };

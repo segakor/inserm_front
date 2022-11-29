@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { LoginForm } from "../LoginForm";
+import { Header, Title } from "../../Typography";
 
 const Page = styled.div`
   display: flex;
@@ -8,11 +8,10 @@ const Page = styled.div`
   width: 100%;
 `;
 
-
-export const Login = () => {
+export const ClientBase = () => {
   return (
     <Page>
-      <LoginForm />
+      <Header>База клиентов</Header>
     </Page>
   );
 };

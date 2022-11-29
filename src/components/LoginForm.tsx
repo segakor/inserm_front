@@ -56,7 +56,7 @@ export const LoginForm = () => {
 
   const [isRestore, setIsRestore] = useState(false);
 
-  const handleLogin = useAuth();
+  const { handleLogin } = useAuth();
 
   const buttonName = !isRestore ? "Войти" : "Отправить";
 
@@ -87,7 +87,7 @@ export const LoginForm = () => {
         <StyledForm
           name="basic"
           initialValues={{ remember: true }}
-          autoComplete="off"
+          autoComplete="on"
           form={form}
         >
           {!isRestore && (

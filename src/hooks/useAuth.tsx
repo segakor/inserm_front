@@ -1,25 +1,63 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { openNotificationWithIcon } from "../utils/notification";
-import { ResLogin } from '../type';
+import { ResLogin, ReqLogin } from '../type';
+import { useNavigate } from "react-router-dom"
+import { login } from '../request'
 
 
 export const useAuth = () => {
 
-  const handleLogin = async (value: ResLogin) => {
-    try {
+  const navigate = useNavigate()
 
-      const response = await axios.post('http://188.93.211.180:5001/api/user/login', { ...value })
+  const handleLogin = async (value: ReqLogin) => {
+    try {
+      const response = await login(value)
+      localStorage.setItem("loginData", JSON.stringify(response.data))
+      //TODO: сетить начальную страницу в зависимости от роли
+      navigate(`/${response.data.role?.toLowerCase()}`)
 
     } catch {
       openNotificationWithIcon({
         type: "error",
         message: "Ошибка",
-        description: "Неверный пароль или email",
+        description: "Неверный emal или пароль",
       })
     }
   }
 
+  const checkAuth = () => {
+    console.log('checkAuth');
+    let loginData: ResLogin = {
+      role: null,
+      token: ''
+    }
+    const _loginData = localStorage.getItem("loginData");
+    if (_loginData) {
+      loginData = JSON.parse(_loginData)
+    }
+    if (loginData.token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${loginData.token}`
+      return {
+        auth: true,
+        role: loginData.role,
+        token: loginData.token
+      }
+    } else {
+      return {
+        auth: false,
+        role: null,
+        token: null
+      }
+    }
+  }
 
-  return handleLogin;
+  const handleLogout = () => {
+    localStorage.removeItem("loginData")
+    navigate('/login')
+  }
+
+
+
+  return { handleLogin, checkAuth, handleLogout }
 }
