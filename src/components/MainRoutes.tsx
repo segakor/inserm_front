@@ -12,7 +12,7 @@ import { Tariff } from "./Pages/Client/Tariff";
 import { Projects } from "./Pages/Client/Projects";
 import { Help } from "./Pages/Client/Help";
 import { Project } from "./Pages/Client/Project";
-import { useAuth } from "../hooks/useAuth";
+import { useAuthCheck } from "../hooks/useAuthCheck";
 import { role } from '../type';
 import { ListOfProject } from "./Pages/Сommon/ListOfProjects";
 import { ClientBase } from "./Pages/Сommon/ClientBase";
@@ -29,11 +29,9 @@ type ProtectedRouteType = {
 }
 
 const ProtectedRoutes = (props: ProtectedRouteType) => {
-  const { checkAuth } = useAuth();
+  const { auth, role } = useAuthCheck()
 
-  const { auth, role } = checkAuth()
-
-  console.log(role, props.roleRequired)
+  /* console.log(role, props.roleRequired) */
 
   if (props.roleRequired) {
     return auth ? (
@@ -52,8 +50,7 @@ const ProtectedRoutes = (props: ProtectedRouteType) => {
 
 const PublicRoutes = () => {
 
-  const { checkAuth } = useAuth();
-  const { auth } = checkAuth()
+  const { auth } = useAuthCheck()
 
   return auth ? <Navigate to="/dashboard" /> : <Outlet />
 }

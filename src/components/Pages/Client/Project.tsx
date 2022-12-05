@@ -7,6 +7,8 @@ import { DetailsCard } from "../../DetailsCard";
 import { ModalBrif } from "../../ModalBrif";
 import { TableProject } from "../../TableProject";
 import { ArchiveProject } from "../../ArchiveProject";
+import { useLocalState } from "../../../context/hooks";
+import { getRangeDate } from "../../../utils/getRangeDate";
 
 const Page = styled.div`
   display: flex;
@@ -42,12 +44,6 @@ const TitleDate = styled(Title)`
 export const Project = () => {
   const params = useParams();
 
-  useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/todos/${params.projectId}`)
-      .then((response) => response.json())
-      .then((json) => console.log(json));
-  }, [params.projectId]);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpen = () => {
@@ -58,17 +54,30 @@ export const Project = () => {
     setIsModalOpen(false);
   };
 
+  const state = useLocalState();
+
+  const { clientProject } = state;
+
+  const currentProject = clientProject?.find(
+    (item) => item.id === Number(params.projectId)
+  );
+
   return (
     <Page>
       <HeaderFlex>
-        <Header>{`айди проекта ->>>${params.projectId}`}</Header>
-        <StyledButton onClick={handleOpen}>Открыть бриф</StyledButton>
+        <Header>{currentProject?.name || ""}</Header>
+        <StyledButton onClick={handleOpen}>
+          {currentProject?.brief ? "Открыть бриф" : "Заполнить бриф"}
+        </StyledButton>
       </HeaderFlex>
       <CardBlock>
         <TitleDate level={5} style={{ fontSize: "14px", fontWeight: "400" }}>
-          01.09.22-01.10.22
+          {getRangeDate(
+            currentProject?.tariff_start || 0,
+            currentProject?.tariff_end || 0
+          )}
         </TitleDate>
-        <DetailsCard />
+        <DetailsCard statuses={currentProject?.statuses} />
       </CardBlock>
       <ModalBrif onClose={handleClose} isOpen={isModalOpen} />
       <TableProject />

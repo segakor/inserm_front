@@ -10,7 +10,7 @@ export const useChangePassword = () => {
         .then(() => {
           openNotificationWithIcon({
             type: "success",
-            message: "Успешно",
+            message: "",
             description: "Пароль успешно изменен",
           });
           resolve(true);

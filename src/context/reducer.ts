@@ -1,26 +1,39 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { LocalState, PAGE } from "./types";
+import { LocalState } from "./types";
 import {
-  SetIsMobile,
-  SET_IS_MOBILE,
+  SetPersonInfo,
+  SetClientProject,
+  SET_PERSON_INFO,
+  SET_CLIENT_PROJECT,
 } from "./action";
 
 export const initialState: LocalState = {
-  currentPage: PAGE.INTRODUCTION,
-  isMobile: false,
-  role: undefined
+  personInfo: undefined,
+  clientProject: undefined,
+  role: undefined,
 };
 
-function setIsMobile(
+function setPersonInfo(
   state: LocalState,
-  { payload }: SetIsMobile
+  { payload }: SetPersonInfo
 ): LocalState {
   return {
     ...state,
-    isMobile: payload,
+    personInfo: payload,
+  };
+}
+
+function setClientProject(
+  state: LocalState,
+  { payload }: SetClientProject
+): LocalState {
+  return {
+    ...state,
+    clientProject: payload,
   };
 }
 
 export const reducer = createReducer(initialState, {
-  [SET_IS_MOBILE]: setIsMobile,
+  [SET_PERSON_INFO]: setPersonInfo,
+  [SET_CLIENT_PROJECT]: setClientProject,
 });

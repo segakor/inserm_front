@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Title } from "./Typography";
 import { Button } from "antd";
 import { DetailsCard } from "./DetailsCard";
+import { Project } from "../type";
+import { getRangeDate } from '../utils/getRangeDate';
 
 const Flex = styled.div`
   display: flex;
@@ -59,22 +61,23 @@ const StyledButton = styled(Button)`
   color: #1579e9;
 `;
 
-export const ProjectCard = () => {
+
+export const ProjectCard = (project: Project) => {
   return (
     <Flex>
       <CardBlock>
         <Header>
           <Title level={5} style={{ color: "white" }}>
-            Коты на гагарина
+            {project.name}
           </Title>
           <Title
             level={5}
             style={{ fontSize: "14px", color: "white", fontWeight: "400" }}
           >
-            01.09.22-01.10.22
+            {getRangeDate(project.tariff_start, project.tariff_end)}
           </Title>
         </Header>
-        <DetailsCard />
+        <DetailsCard statuses={project.statuses} />
         <Title
           level={5}
           style={{
@@ -93,9 +96,9 @@ export const ProjectCard = () => {
         <TariffCard>
           <Header>
             <Title level={5} style={{ fontWeight: "800" }}>
-              Тариф “S”
+              Тариф {project.tariff_name}
             </Title>
-            <TitleDate>01.09.22-01.12.22</TitleDate>
+            <TitleDate>{getRangeDate(project.tariff_start, project.tariff_end)}</TitleDate>
           </Header>
           <Title
             level={5}

@@ -1,11 +1,16 @@
-export const SET_IS_MOBILE = "SET_IS_MOBILE";
+export const SET_PERSON_INFO = "SET_PERSON_INFO";
+export const SET_CLIENT_PROJECT = "SET_CLIENT_PROJECT";
 
-export const setIsMobile = (payload: boolean) => ({
-  type: SET_IS_MOBILE,
+export const setPersonInfo = (payload: any) => ({
+  type: SET_PERSON_INFO,
+  payload,
+});
+export const setClientProject = (payload: any) => ({
+  type: SET_CLIENT_PROJECT,
   payload,
 });
 
-export type SetIsMobile = ReturnType<typeof setIsMobile>;
+export type SetClientProject = ReturnType<typeof setClientProject>;
+export type SetPersonInfo = ReturnType<typeof setPersonInfo>;
 
-export type ReducerAction =
-  SetIsMobile;
+export type ReducerAction = SetPersonInfo | SetPersonInfo;

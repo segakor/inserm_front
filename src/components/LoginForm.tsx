@@ -56,7 +56,7 @@ export const LoginForm = () => {
 
   const [isRestore, setIsRestore] = useState(false);
 
-  const { handleLogin } = useAuth();
+  const { handleLogin, isLoading } = useAuth();
 
   const buttonName = !isRestore ? "Войти" : "Отправить";
 
@@ -89,6 +89,7 @@ export const LoginForm = () => {
           initialValues={{ remember: true }}
           autoComplete="on"
           form={form}
+          disabled={isLoading}
         >
           {!isRestore && (
             <>
@@ -147,7 +148,7 @@ export const LoginForm = () => {
               block
               onClick={onSubmit}
               disabled={isDisableBtn}
-            /* loading */
+              loading={isLoading}
             >
               {buttonName}
             </StyledButton>

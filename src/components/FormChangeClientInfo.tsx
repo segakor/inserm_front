@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Title } from "./Typography";
-import { Button, Input, Form } from "antd";
+import { Button, Input, Form, Skeleton } from "antd";
+import { useLocalState } from "../context/hooks";
+import { usePerson } from "../hooks/usePerson";
+import { Person } from "../type";
 
 const Wrapper = styled.div`
   padding: 20px 20px 20px 20px;
@@ -32,25 +35,55 @@ const ButtonWrapper = styled.div`
   grid-gap: 20px;
 `;
 
-export const FormChangeClientInfo = () => {
+type Props = {
+  personInfo: Person | undefined;
+}
+
+export const FormChangeClientInfo = (/* { personInfo }: Props */) => {
   const [isEdit, setIsEdit] = useState(false);
 
+  const { handleChangePerson } = usePerson(true);
+  /* const { handleChangePerson } = useChangePerson(); */
+
   const [form] = Form.useForm();
-  const name = Form.useWatch("name", form);
-  const secondName = Form.useWatch("secondName", form);
+  const first_name = Form.useWatch("name", form);
+  const last_name = Form.useWatch("secondName", form);
+  const email = Form.useWatch("email", form);
+  const tg = Form.useWatch("tg", form);
+  const phone = Form.useWatch("phone", form);
 
   const handleEdit = () => {
     setIsEdit(!isEdit);
   };
 
   const onSumbit = () => {
-    console.log(name, secondName);
+    handleChangePerson({
+      first_name,
+      last_name,
+      email,
+      tg,
+      phone,
+    });
+    handleEdit();
   };
 
   const onResetSubmitEdit = () => {
     setIsEdit(!isEdit);
     form.resetFields();
   };
+
+  const state = useLocalState();
+  const { personInfo } = state;
+
+  useEffect(() => {
+    form.setFieldsValue({
+      name: personInfo?.first_name,
+      secondName: personInfo?.last_name,
+      phone: personInfo?.phone,
+      email: personInfo?.email,
+      tg: personInfo?.tg,
+    });
+  }, [form, personInfo]);
 
   return (
     <Wrapper>
@@ -59,19 +92,31 @@ export const FormChangeClientInfo = () => {
           О себе
         </Title>
         <Form.Item name="name">
-          <StyledInput placeholder="Имя" defaultValue={"Sergey"} />
+          <StyledInput
+            placeholder="Имя"
+            defaultValue={personInfo?.first_name}
+          />
         </Form.Item>
         <Form.Item name="secondName">
-          <StyledInput placeholder="Фамилия" />
+          <StyledInput
+            placeholder="Фамилия"
+            defaultValue={personInfo?.last_name}
+          />
         </Form.Item>
         <Form.Item name="email">
           <StyledInput placeholder="Электронная почта" />
         </Form.Item>
         <Form.Item name="phone">
-          <StyledInput placeholder="Номер телефона" />
+          <StyledInput
+            placeholder="Номер телефона"
+            defaultValue={personInfo?.phone}
+          />
         </Form.Item>
-        <Form.Item name="telegram">
-          <StyledInput placeholder="Логин телеграм" />
+        <Form.Item name="tg">
+          <StyledInput
+            placeholder="Логин телеграм"
+            defaultValue={personInfo?.tg}
+          />
         </Form.Item>
       </Form>
       {isEdit && (

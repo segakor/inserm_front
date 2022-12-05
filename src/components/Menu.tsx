@@ -16,6 +16,9 @@ import { ReactComponent as PaidreviewsIcon } from "../assets/paidreviews.svg";
 import { ReactComponent as CreateadminIcon } from "../assets/createadmin.svg";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { useGetProject } from "../hooks/useGetProject";
+import { useLocalState } from "../context/hooks";
+import { useAuthCheck } from "../hooks/useAuthCheck";
 
 type Props = {
   onHeaderClose?: () => void;
@@ -26,9 +29,20 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
 
   const navigation = useNavigate();
 
-  const { handleLogout, checkAuth } = useAuth();
+  const state = useLocalState();
 
-  const { role, auth } = checkAuth();
+  const { handleLogout } = useAuth();
+
+  const { role, auth } = useAuthCheck();
+
+  useGetProject();
+
+  const { clientProject } = state;
+
+  const listOfProject = clientProject?.map((item) => ({
+    label: item.name,
+    key: item.id,
+  }));
 
   const dividerItem = {
     type: "divider",
@@ -57,10 +71,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
         navigation(`/client/projects`);
         setSelectedKeys([""]);
       },
-      children: [
-        { label: "коты", key: "1" },
-        { label: "собаки", key: "2" },
-      ],
+      children: listOfProject || [],
     },
     { label: "Управление тарифами", key: "tariff", icon: <TariffIcon /> },
     dividerItem as any,

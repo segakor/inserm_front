@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Statuses } from "../type";
 import { Title } from "./Typography";
 
 const DetailsContainer = styled.div`
@@ -28,7 +29,12 @@ const Details = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `;
-export const DetailsCard = () => {
+
+type Props = {
+  statuses?: Statuses;
+}
+
+export const DetailsCard = ({ statuses }: Props) => {
   return (
     <DetailsContainer>
       <Details>
@@ -37,7 +43,7 @@ export const DetailsCard = () => {
         >
           Всего
         </Title>
-        <Title level={2}>15</Title>
+        <Title level={2}>{statuses?.all || 0}</Title>
       </Details>
       <Details>
         <Title
@@ -46,7 +52,7 @@ export const DetailsCard = () => {
           Опубликовано
         </Title>
         <Title level={2} style={{ color: "#1BBD3F" }}>
-          15
+          {statuses?.success || 0}
         </Title>
       </Details>
       <Details>
@@ -56,7 +62,7 @@ export const DetailsCard = () => {
           Осталось
         </Title>
         <Title level={2} style={{ color: "#8567FF" }}>
-          15
+          {statuses?.left || 0}
         </Title>
       </Details>
       <Details>
@@ -66,7 +72,7 @@ export const DetailsCard = () => {
           На модерации
         </Title>
         <Title level={2} style={{ color: "#5AA6FF" }}>
-          15
+          {statuses?.moderate || 0}
         </Title>
       </Details>
       <Details>
@@ -76,7 +82,7 @@ export const DetailsCard = () => {
           Не прошло
         </Title>
         <Title level={2} style={{ color: "#FA7211" }}>
-          15
+          {statuses?.reject || 0}
         </Title>
       </Details>
       <Details>
@@ -86,7 +92,7 @@ export const DetailsCard = () => {
           Удалено
         </Title>
         <Title level={2} style={{ color: "#FF1E1E" }}>
-          15
+          {statuses?.delete || 0}
         </Title>
       </Details>
     </DetailsContainer>

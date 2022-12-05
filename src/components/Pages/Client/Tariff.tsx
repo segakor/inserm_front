@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Title, Header } from "../../Typography";
+import { Header } from "../../Typography";
 import { CurrentTariff } from "../../CurrentTariff";
 
 const Page = styled.div`
@@ -9,13 +9,11 @@ const Page = styled.div`
   width: 100%;
 `;
 
-
 export const Tariff = () => {
 
   return (
     <Page>
       <Header>Управление тарифами</Header>
-      <Title level={5} style={{ fontWeight: "400" }}>Ваш текущий тариф по проекту</Title>
       <CurrentTariff />
     </Page>
   );
