@@ -1,6 +1,5 @@
 import React, { ReactElement } from "react";
 import { Layout } from "antd";
-import { useLocalState } from "../../context/hooks";
 import styled from "styled-components";
 
 const { Sider: SiderAnt } = Layout;
@@ -25,9 +24,6 @@ type Props = {
 };
 
 export const Sider = ({ children }: Props) => {
-  /* const { isMobile } = useLocalState();
-
-  if (isMobile) return null */
 
   return <StyledSider theme="light">{children}</StyledSider>;
 };

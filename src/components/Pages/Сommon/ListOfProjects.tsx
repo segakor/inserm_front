@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Header, Title } from "../../Typography";
+import { Header } from "../../Typography";
 
 const Page = styled.div`
   display: flex;

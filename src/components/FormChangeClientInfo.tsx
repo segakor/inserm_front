@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Title } from "./Typography";
-import { Button, Input, Form, Skeleton } from "antd";
+import { Button, Input, Form } from "antd";
 import { useLocalState } from "../context/hooks";
 import { usePerson } from "../hooks/usePerson";
-import { Person } from "../type";
 
 const Wrapper = styled.div`
   padding: 20px 20px 20px 20px;
@@ -35,15 +34,11 @@ const ButtonWrapper = styled.div`
   grid-gap: 20px;
 `;
 
-type Props = {
-  personInfo: Person | undefined;
-}
 
-export const FormChangeClientInfo = (/* { personInfo }: Props */) => {
+export const FormChangeClientInfo = () => {
   const [isEdit, setIsEdit] = useState(false);
 
   const { handleChangePerson } = usePerson(true);
-  /* const { handleChangePerson } = useChangePerson(); */
 
   const [form] = Form.useForm();
   const first_name = Form.useWatch("name", form);

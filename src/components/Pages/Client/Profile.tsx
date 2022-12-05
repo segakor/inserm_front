@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Title, Header } from "../../Typography";
 import { FormChangePassword } from "../../FormChangePassword";
 import { FormChangeClientInfo } from "../../FormChangeClientInfo";
 import { usePerson } from "../../../hooks/usePerson";
 import { useLocalState } from "../../../context/hooks";
-import { Skeleton } from "antd";
+/* import { Skeleton } from "antd"; */
 
 const Page = styled.div`
   display: flex;

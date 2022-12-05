@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Button } from "antd";
 import { Title } from "./Typography";
@@ -49,7 +49,7 @@ const StyledButton = styled(Button)`
   height: 40px;
   border: 2px solid #1579e9;
 `;
-
+/* 
 type Props = {
   name: string;
   period: string;
@@ -57,7 +57,7 @@ type Props = {
   price: string;
   totalPrice: string;
   channel: string;
-};
+}; */
 
 export const TariffItem =
   (/* { name, period, count, price, totalPrice, channel }: Props */) => {

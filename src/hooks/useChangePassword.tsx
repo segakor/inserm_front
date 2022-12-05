@@ -1,4 +1,3 @@
-import React from "react";
 import { openNotificationWithIcon } from "../utils/notification";
 import { ReqChangePassword } from "../type";
 import { changePassword } from "../request";

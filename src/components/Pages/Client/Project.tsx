@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Button, Modal } from "antd";
+import React, { useState } from "react";
+import { Button } from "antd";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Title, Header } from "../../Typography";

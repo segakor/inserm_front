@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { ReactComponent as LogoIcon } from "../assets/logo.svg";
 import { ReactComponent as MoreIcon } from "../assets/moreBtn.svg";
 import { Header } from "./Layout/Header";

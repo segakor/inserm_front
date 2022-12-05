@@ -1,6 +1,5 @@
 import React, { ReactElement } from "react";
 import { Layout } from "antd";
-import { useLocalState } from "../../context/hooks";
 import styled from "styled-components";
 
 const { Header: HeaderAnt } = Layout;
@@ -26,9 +25,6 @@ type Props = {
 };
 
 export const Header = ({ children }: Props) => {
-  /* const { isMobile } = useLocalState();
-
-  if (isMobile) return null */
 
   return (
     <StyledHeader>
