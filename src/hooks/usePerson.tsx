@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { getPerson, changePerson } from "../request";
 import { openNotificationWithIcon } from "../utils/notification";
 import { setPersonInfo } from "../context/action";
@@ -12,7 +12,6 @@ export const usePerson = (nowUpdate?: boolean) => {
   const handleGetPerson = async () => {
     try {
       const response = await getPerson();
-      /* console.log(response.data); */
       dispatch(setPersonInfo(response.data));
     } catch {
       openNotificationWithIcon({
@@ -43,6 +42,7 @@ export const usePerson = (nowUpdate?: boolean) => {
     if (!state.personInfo && !nowUpdate) {
       handleGetPerson();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { handleChangePerson, handleGetPerson };

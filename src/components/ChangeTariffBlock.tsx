@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Select, Button } from "antd";
 import "./AntSelectCustomStyle.css";
 import { TariffItem } from "./TariffItem";
 import { Title } from "./Typography";
-import { useLocalState } from "../context/hooks";
 import { TariffIndividual } from "./TariffIndividual";
 import { TariffPeriod } from "./TariffPeriod";
 

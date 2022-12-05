@@ -28,6 +28,7 @@ const columns: ColumnsType<DataType> = [
     title: "Ссылка на отзыв",
     dataIndex: "href",
     key: "href",
+    // eslint-disable-next-line jsx-a11y/anchor-is-valid
     render: (text) => <a onClick={() => window.open(text, "_blank")}>{text}</a>,
     width: 230,
     ellipsis: true,
@@ -118,6 +119,7 @@ export const TableProject = () => {
       title: "Ссылка на отзыв",
       dataIndex: "href",
       key: "href",
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
       render: (text) => <a onClick={() => window.open(text, "_blank")}>{text}</a>,
       width: 200,
       ellipsis: true,
@@ -125,6 +127,7 @@ export const TableProject = () => {
     {
       title: "Детали",
       key: "details",
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
       render: (row) => <a onClick={() => handleOpen(row)}>Смотреть</a>,
     },
   ];

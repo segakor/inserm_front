@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { openNotificationWithIcon } from "../utils/notification";
 import { ReqLogin } from "../type";
 import { useNavigate } from "react-router-dom";

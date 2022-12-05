@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Button } from "antd";
 import { Title } from "./Typography";
 
 const Box = styled.button`

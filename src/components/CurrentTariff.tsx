@@ -52,6 +52,7 @@ export const CurrentTariff = () => {
     if (listOfProject) {
       setValue(listOfProject[0].value)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clientProject])
 
   const currentTariff = clientProject?.find(item => item.name === value)?.tariff_name;

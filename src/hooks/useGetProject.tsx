@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { getProject } from "../request";
 import { openNotificationWithIcon } from "../utils/notification";
 import { setClientProject } from "../context/action";
@@ -26,6 +26,7 @@ export const useGetProject = () => {
     if (role === 'CLIENT') {
       handleGetClientProject();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {};

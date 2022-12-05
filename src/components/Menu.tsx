@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
 import { ReactComponent as ProjectIcon } from "../assets/project.svg";
