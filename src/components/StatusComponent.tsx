@@ -8,25 +8,47 @@ import {
   PauseCircleOutlined,
 } from "@ant-design/icons";
 
-
 //тут лучше айди в status
 const statusMap = [
-  { status: 'Опубликовано', icon: <CheckCircleOutlined />, color: '#1BBD3F' },
-  { status: 'На модерации', icon: <PauseCircleOutlined />, color: '#5AA6FF' },
-  { status: 'Удалено', icon: <ExclamationCircleOutlined />, color: '#FF1E1E' },
-  { status: 'Не прошло', icon: <MinusCircleOutlined />, color: '#FA7311' },
-  { status: 'В очереди', icon: <ClockCircleOutlined />, color: '#FFD600' },
-]
-
+  {
+    status: "success",
+    label: "Опубликовано",
+    icon: <CheckCircleOutlined />,
+    color: "#1BBD3F",
+  },
+  {
+    status: "moderate",
+    label: "На модерации",
+    icon: <PauseCircleOutlined />,
+    color: "#5AA6FF",
+  },
+  {
+    status: "delete",
+    label: "Удалено",
+    icon: <ExclamationCircleOutlined />,
+    color: "#FF1E1E",
+  },
+  {
+    status: "reject",
+    label: "Не прошло",
+    icon: <MinusCircleOutlined />,
+    color: "#FA7311",
+  },
+  {
+    status: "wait",
+    label: "В очереди",
+    icon: <ClockCircleOutlined />,
+    color: "#FFD600",
+  },
+];
 
 export const StatusComponent = ({ status }: { status: string }) => {
-
-  const setStatus = statusMap.find(item => item.status === status)
+  const setStatus = statusMap.find((item) => item.status === status);
 
   return (
     <div>
       <Tag icon={setStatus?.icon} color={setStatus?.color}>
-        {status}
+        {setStatus?.label}
       </Tag>
     </div>
   );

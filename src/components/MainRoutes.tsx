@@ -107,7 +107,7 @@ export const MainRoutes = () => {
             <Route path="/login" element={<Login />} />
           </Route>
           <Route path="/denied" element={<>Denied</>} />
-          <Route path='*' element={<>Not Found</>} />
+          <Route path='*' element={<Navigate replace to="login" />} />
         </Routes>
       </Content>
     </StyledLayout>

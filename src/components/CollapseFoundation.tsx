@@ -11,11 +11,8 @@ const Panel = styled.div`
   padding: 20px 20px 20px 20px;
   display: flex;
   flex-direction: column;
-  margin: 0 70px 10px 0;
+  margin-bottom: 10px;
   cursor:pointer;
-  @media (max-width: 768px) {
-    margin: 0 0 10px 0
-  }
   :hover {
     background-color: whitesmoke;
   }
@@ -37,7 +34,7 @@ const Icon = styled.div`
   cursor: pointer;
 `;
 
-export const Collapse = () => {
+export const CollapseFoundation = () => {
   const [chevron, setChevron] = useState(false);
 
   const onClickChevron = () => {

@@ -4,11 +4,12 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Title, Header } from "../../Typography";
 import { DetailsCard } from "../../DetailsCard";
-import { ModalBrif } from "../../ModalBrif";
+import { ModalBrief } from "../../ModalBrief";
 import { TableProject } from "../../TableProject";
 import { ArchiveProject } from "../../ArchiveProject";
 import { useLocalState } from "../../../context/hooks";
 import { getRangeDate } from "../../../utils/getRangeDate";
+import { useGetReviews } from "../../../hooks/useGetReviews";
 
 const Page = styled.div`
   display: flex;
@@ -61,6 +62,7 @@ export const Project = () => {
   const currentProject = clientProject?.find(
     (item) => item.id === Number(params.projectId)
   );
+  const { reviews, isLoading } = useGetReviews(params.projectId || "");
 
   return (
     <Page>
@@ -79,8 +81,14 @@ export const Project = () => {
         </TitleDate>
         <DetailsCard statuses={currentProject?.statuses} />
       </CardBlock>
-      <ModalBrif onClose={handleClose} isOpen={isModalOpen} />
-      <TableProject />
+      {isModalOpen && (
+        <ModalBrief
+          onClose={handleClose}
+          projectId={params.projectId || ""}
+          brief={currentProject?.brief}
+        />
+      )}
+      <TableProject reviews={reviews} isLoading={isLoading} />
       <ArchiveProject />
     </Page>
   );

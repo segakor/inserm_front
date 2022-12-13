@@ -53,3 +53,19 @@ export type Project = {
 export type ReqGetProject = {
   projectsArray: Project[];
 }
+
+export type Reviews = {
+  id: string;
+  link: string;
+  text: string;
+  status: string;
+}
+
+export type ReqGetDetails = {
+  reviews: Reviews[]
+}
+
+export type ReqBrief = {
+  projectId: string;
+  brief: string;
+}
