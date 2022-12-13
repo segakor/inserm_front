@@ -87,8 +87,8 @@ export const TableProject = ({ reviews, isLoading }: Props) => {
       title: "Ссылка на отзыв",
       dataIndex: "href",
       key: "href",
-      // eslint-disable-next-line jsx-a11y/anchor-is-valid
       render: (text) => (
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <a onClick={() => window.open(text, "_blank")}>{text}</a>
       ),
       width: 200,
