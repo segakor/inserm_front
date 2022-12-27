@@ -69,3 +69,59 @@ export type ReqBrief = {
   projectId: string;
   brief: string;
 }
+
+export type Tariff = {
+  amount: number;
+  id: number;
+  name: string;
+  price: number;
+}
+
+export type ReqGetTariff = {
+  tariffs: {
+    [key: number]: Tariff[]
+  }
+}
+
+export type ArchiveProject = {
+  id: number;
+  start: number;
+  end: number;
+  statuses: Statuses;
+}
+
+export type ReqArchiveProject = {
+  result: ArchiveProject[];
+}
+
+export type ReqArchiveDetail = {
+  result: Reviews[]
+}
+
+
+const foo = {
+  "result": [
+    {
+      "id": 1, "start": 1, "end": 2, "statuses": {
+        "all": 0,
+        "success": 0,
+        "left": 10,
+        "wait": 0,
+        "moderate": 0,
+        "reject": 0,
+        "delete": 0
+      }
+    },
+    {
+      "id": 1, "start": 1, "end": 2, "statuses": {
+        "all": 2,
+        "success": 3,
+        "left": 10,
+        "wait": 0,
+        "moderate": 0,
+        "reject": 0,
+        "delete": 0
+      }
+    }
+  ]
+}

@@ -8,6 +8,7 @@ export const createDataTable = (reviews: Reviews[] | undefined) => {
       status: item.status,
       text: item.text,
       date: "",
+      key: index
     }));
     return data;
   }

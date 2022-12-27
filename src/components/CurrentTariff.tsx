@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Select, Button } from "antd";
 import "./AntSelectCustomStyle.css";
-import { TariffItem } from "./TariffItem";
+/* import { TariffItem } from "./TariffItem"; */
 import { Title } from "./Typography";
 import { useLocalState } from "../context/hooks";
 import { ChangeTariffBlock } from "./ChangeTariffBlock";
@@ -50,7 +50,7 @@ export const CurrentTariff = () => {
 
   useEffect(() => {
     if (listOfProject) {
-      setValue(listOfProject[0].value)
+      setValue(listOfProject[0]?.value)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clientProject])
@@ -83,7 +83,8 @@ export const CurrentTariff = () => {
         </Wrapper>
       )}
       <CurrentTariffSection>
-        <TariffItem />
+        {/*  <TariffItem /> */}
+        <>тут должен быть текущий тариф</>
       </CurrentTariffSection>
       <ChangeTariffBlock />
     </>

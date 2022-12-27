@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Title } from "./Typography";
-import { PlusCircleOutlined } from "@ant-design/icons";
+import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
+import { Statuses } from "../type";
+import { getRangeDate } from "../utils/getRangeDate";
+import { useGetArchiveReviews } from '../hooks/useGetArchiveReviews';
+import { TableProject } from "./TableProject";
 
 const Wrapper = styled.div`
   border-radius: 10px;
-  border: 1px solid red;
   background-color: #ffff;
   padding: 20px;
+  margin-bottom: 20px;
 `;
 const Header = styled.div`
   display: flex;
@@ -29,6 +33,7 @@ const DetailCard = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 17px;
+  margin-bottom: 20px;
 `;
 
 const Card = styled.div`
@@ -41,22 +46,40 @@ const Card = styled.div`
   align-items: center;
 `;
 
-export const ArchiveProject = () => {
+type Props = {
+  id: number;
+  start: number;
+  end: number;
+  statuses: Statuses;
+};
+
+export const ArchiveProject = ({ id, start, end, statuses }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const { reviews, isLoading } = useGetArchiveReviews(id.toString())
+
   return (
     <Wrapper>
       <Header>
         <Title
           style={{ fontSize: "14px", color: "#1579E9", fontWeight: "700" }}
         >
-          01.08.22-31.08.22
+          {getRangeDate(start, end)}
         </Title>
         <HeaderAction>
           <div>
-            <PlusCircleOutlined style={{ color: "#1579E9" }} />
+            {!isOpen ? (
+              <PlusCircleOutlined style={{ color: "#1579E9" }} />
+            ) : (
+              <MinusCircleOutlined style={{ color: "#1579E9" }} />
+            )}
           </div>
           <div>
-            <Title style={{ fontSize: "14px", fontWeight: "700" }}>
-              Смотреть отчет
+            <Title
+              style={{ fontSize: "14px", fontWeight: "700" }}
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {!isOpen ? "Смотреть отчет" : "Закрыть отчет"}
             </Title>
           </div>
         </HeaderAction>
@@ -68,7 +91,9 @@ export const ArchiveProject = () => {
           >
             Всего
           </Title>
-          <Title style={{ fontSize: "14px", fontWeight: "800" }}>200</Title>
+          <Title style={{ fontSize: "14px", fontWeight: "800" }}>
+            {statuses?.all}
+          </Title>
         </Card>
         <Card>
           <Title
@@ -76,7 +101,9 @@ export const ArchiveProject = () => {
           >
             Опубликовано
           </Title>
-          <Title style={{ fontSize: "14px", fontWeight: "800" }}>200</Title>
+          <Title style={{ fontSize: "14px", fontWeight: "800" }}>
+            {statuses?.success}
+          </Title>
         </Card>
         <Card>
           <Title
@@ -84,7 +111,9 @@ export const ArchiveProject = () => {
           >
             Не прошло
           </Title>
-          <Title style={{ fontSize: "14px", fontWeight: "800" }}>200</Title>
+          <Title style={{ fontSize: "14px", fontWeight: "800" }}>
+            {statuses?.reject}
+          </Title>
         </Card>
         <Card>
           <Title
@@ -92,9 +121,12 @@ export const ArchiveProject = () => {
           >
             Удалено
           </Title>
-          <Title style={{ fontSize: "14px", fontWeight: "800" }}>200</Title>
+          <Title style={{ fontSize: "14px", fontWeight: "800" }}>
+            {statuses?.delete}
+          </Title>
         </Card>
       </DetailCard>
+      {isOpen && <TableProject reviews={reviews} isLoading={isLoading} />}
     </Wrapper>
   );
 };

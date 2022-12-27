@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { openNotificationWithIcon } from "../utils/notification";
 import { ReqLogin } from "../type";
 import { useNavigate } from "react-router-dom";
 import { login } from "../request";
+import { useAuthCheck } from "./useAuthCheck";
 
 export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  const { auth } = useAuthCheck();
 
   const handleLogin = async (value: ReqLogin) => {
     try {
@@ -32,6 +35,13 @@ export const useAuth = () => {
     localStorage.removeItem("loginData");
     navigate("/login");
   };
+
+  useEffect(() => {
+    if (!auth) {
+      navigate("/login");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth]);
 
   return { handleLogin, handleLogout, isLoading };
 };

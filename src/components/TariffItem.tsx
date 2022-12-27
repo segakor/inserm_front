@@ -26,16 +26,16 @@ const Card = styled.div`
     grid-gap: 10px;
     width: 100px;
     height: 85px;
-    h1{
+    h1 {
       font-size: 10px !important;
     }
-    h4{
+    h4 {
       font-size: 14px !important;
     }
   }
 `;
-const Card1 = styled(Card)`
-  background: #2cae97;
+const Card1 = styled(Card) <{ color: string }>`
+  background: ${(props) => props.color};
   color: #ffffff;
 `;
 const Card2 = styled(Card)`
@@ -49,65 +49,77 @@ const StyledButton = styled(Button)`
   height: 40px;
   border: 2px solid #1579e9;
 `;
-/* 
-type Props = {
-  name: string;
-  period: string;
-  count: string;
-  price: string;
-  totalPrice: string;
-  channel: string;
-}; */
 
-export const TariffItem =
-  (/* { name, period, count, price, totalPrice, channel }: Props */) => {
-    return (
-      <Wrapper>
-        <Row style={{ marginBottom: 40 }}>
-          <Title level={4} style={{ fontWeight: "800" }}>
-            Тариф “S”
-          </Title>
-          <Title style={{ fontSize: 14, fontWeight: "400" }}>12 месяцев</Title>
-        </Row>
-        <Row style={{ marginBottom: 20 }}>
-          <Card1>
-            <Title
-              style={{ fontSize: 14, fontWeight: "400", color: "#FFFFFF" }}
-            >
-              Отзывов в месяц
-            </Title>
-            <Title level={4} style={{ color: "#FFFFFF", fontWeight: "800" }}>
-              5
-            </Title>
-          </Card1>
-          <Card2>
-            <Title
-              style={{ fontSize: 14, fontWeight: "400", color: "#8E8E8E" }}
-            >
-              Стоимость за отзыв
-            </Title>
-            <Title level={4} style={{ fontWeight: "800" }}>
-              750 р
-            </Title>
-          </Card2>
-          <Card3>
-            <Title style={{ fontSize: 14, fontWeight: "400" }}>
-              Общая стоимость
-            </Title>
-            <Title level={4} style={{ color: "#1579E9", fontWeight: "800" }}>
-              3 750 р
-            </Title>
-          </Card3>
-        </Row>
-        <Row style={{ marginBottom: 30 }}>
-          <Title style={{ fontSize: 14, fontWeight: "400" }}>
-            Яндекс, Яндекс Маркет, 2ГИС, Zoon, Avito, Яндекс Услуги, Yell,
-            Яндекс Браузер
-          </Title>
-        </Row>
-        <StyledButton type="primary" block>
-          Выбрать тариф
-        </StyledButton>
-      </Wrapper>
-    );
+type Props = {
+  amount: number;
+  id: number;
+  name: string;
+  price: number;
+  period: number;
+};
+
+export const TariffItem = ({ amount, id, name, price, period }: Props) => {
+  const colorCard =
+    name === "S" ? "#2CAE97" : name === "M" ? "#ECA843" : " #EF5479";
+
+  const setPeriod = (period: number) => {
+    switch (true) {
+      case period === 1:
+        return "1 месяц";
+      case period === 3:
+        return "3 месяца";
+      case period === 6 || period === 12:
+        return `${period} месяцев`;
+      default:
+        return `нет данных`;
+    }
   };
+
+  return (
+    <Wrapper>
+      <Row style={{ marginBottom: 40 }}>
+        <Title level={4} style={{ fontWeight: "800" }}>
+          Тариф {name}
+        </Title>
+        <Title style={{ fontSize: 14, fontWeight: "400" }}>
+          {setPeriod(period)}
+        </Title>
+      </Row>
+      <Row style={{ marginBottom: 20 }}>
+        <Card1 color={colorCard}>
+          <Title style={{ fontSize: 14, fontWeight: "400", color: "#FFFFFF" }}>
+            Отзывов в месяц
+          </Title>
+          <Title level={4} style={{ color: "#FFFFFF", fontWeight: "800" }}>
+            {amount}
+          </Title>
+        </Card1>
+        <Card2>
+          <Title style={{ fontSize: 14, fontWeight: "400", color: "#8E8E8E" }}>
+            Стоимость за отзыв
+          </Title>
+          <Title level={4} style={{ fontWeight: "800" }}>
+            {price} р
+          </Title>
+        </Card2>
+        <Card3>
+          <Title style={{ fontSize: 14, fontWeight: "400" }}>
+            Общая стоимость
+          </Title>
+          <Title level={4} style={{ color: "#1579E9", fontWeight: "800" }}>
+            3 750 р
+          </Title>
+        </Card3>
+      </Row>
+      <Row style={{ marginBottom: 30 }}>
+        <Title style={{ fontSize: 14, fontWeight: "400" }}>
+          Яндекс, Яндекс Маркет, 2ГИС, Zoon, Avito, Яндекс Услуги, Yell, Яндекс
+          Браузер
+        </Title>
+      </Row>
+      <StyledButton type="primary" block onClick={() => alert(id)}>
+        Выбрать тариф
+      </StyledButton>
+    </Wrapper>
+  );
+};

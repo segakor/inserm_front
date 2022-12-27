@@ -4,7 +4,7 @@ import { ReactComponent as MoreIcon } from "../assets/moreBtn.svg";
 import { Header } from "./Layout/Header";
 import { MenuComponent } from "./Menu";
 import { Drawer } from "antd";
-import { useLocation } from "react-router-dom";
+import { useAuthCheck } from "../hooks/useAuthCheck";
 
 export const HeaderComponent = () => {
   const [open, setOpen] = useState(false);
@@ -19,12 +19,12 @@ export const HeaderComponent = () => {
 
   const drawerSize = document.documentElement.scrollWidth;
 
-  const location = useLocation();
+  const { auth } = useAuthCheck();
 
   return (
     <Header>
       <LogoIcon />
-      {location.pathname !== "/login" ? (
+      {auth ? (
         <>
           <MoreIcon onClick={showDrawer} style={{ cursor: "pointer" }} />
           <Drawer

@@ -6,7 +6,7 @@ import { Title, Header } from "../../Typography";
 import { DetailsCard } from "../../DetailsCard";
 import { ModalBrief } from "../../ModalBrief";
 import { TableProject } from "../../TableProject";
-import { ArchiveProject } from "../../ArchiveProject";
+import { ArchiveProjectList } from "../../ArchiveProjectList";
 import { useLocalState } from "../../../context/hooks";
 import { getRangeDate } from "../../../utils/getRangeDate";
 import { useGetReviews } from "../../../hooks/useGetReviews";
@@ -89,7 +89,7 @@ export const Project = () => {
         />
       )}
       <TableProject reviews={reviews} isLoading={isLoading} />
-      <ArchiveProject />
+      <ArchiveProjectList projectId={params.projectId || ''} />
     </Page>
   );
 };

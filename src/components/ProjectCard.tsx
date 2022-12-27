@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Title } from "./Typography";
 import { Button } from "antd";
 import { DetailsCard } from "./DetailsCard";
 import { Project } from "../type";
 import { getRangeDate } from '../utils/getRangeDate';
+import { useNavigate } from "react-router-dom";
+import { ModalBrief } from "./ModalBrief";
 
 const Flex = styled.div`
   display: flex;
@@ -63,6 +65,18 @@ const StyledButton = styled(Button)`
 
 
 export const ProjectCard = (project: Project) => {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const navigation = useNavigate();
   return (
     <Flex>
       <CardBlock>
@@ -87,12 +101,13 @@ export const ProjectCard = (project: Project) => {
             textDecorationLine: "underline",
             cursor: "pointer",
           }}
+          onClick={() => navigation(`/client/project/${project.id}`)}
         >
           Смотреть отчет
         </Title>
       </CardBlock>
       <TariffBlock>
-        <StyledButton>Открыть бриф</StyledButton>
+        <StyledButton onClick={handleOpen}>{project?.brief ? "Открыть бриф" : "Заполнить бриф"}</StyledButton>
         <TariffCard>
           <Header>
             <Title level={5} style={{ fontWeight: "800" }}>
@@ -109,11 +124,19 @@ export const ProjectCard = (project: Project) => {
               textDecorationLine: "underline",
               cursor: "pointer",
             }}
+            onClick={() => navigation(`/client/tariff`)}
           >
             Изменить тариф
           </Title>
         </TariffCard>
       </TariffBlock>
+      {isModalOpen && (
+        <ModalBrief
+          onClose={handleClose}
+          projectId={project.id.toString()}
+          brief={project.brief}
+        />
+      )}
     </Flex>
   );
 };

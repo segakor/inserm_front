@@ -34,7 +34,6 @@ const ButtonWrapper = styled.div`
   grid-gap: 20px;
 `;
 
-
 export const FormChangeClientInfo = () => {
   const [isEdit, setIsEdit] = useState(false);
 
@@ -90,27 +89,31 @@ export const FormChangeClientInfo = () => {
           <StyledInput
             placeholder="Имя"
             defaultValue={personInfo?.first_name}
+            title="Имя"
           />
         </Form.Item>
         <Form.Item name="secondName">
           <StyledInput
             placeholder="Фамилия"
             defaultValue={personInfo?.last_name}
+            title="Фамилия"
           />
         </Form.Item>
         <Form.Item name="email">
-          <StyledInput placeholder="Электронная почта" />
+          <StyledInput placeholder="Электронная почта" disabled title="email" />
         </Form.Item>
         <Form.Item name="phone">
           <StyledInput
             placeholder="Номер телефона"
             defaultValue={personInfo?.phone}
+            title="phone"
           />
         </Form.Item>
         <Form.Item name="tg">
           <StyledInput
             placeholder="Логин телеграм"
             defaultValue={personInfo?.tg}
+            title="telegram"
           />
         </Form.Item>
       </Form>
