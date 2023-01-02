@@ -1,4 +1,4 @@
-import { sendBrief } from "../request";
+import { getBrief } from "../request";
 import { openNotificationWithIcon } from "../utils/notification";
 
 export const useSendBrief = () => {
@@ -6,7 +6,7 @@ export const useSendBrief = () => {
   const handeSendBrief = async (projectId: string, brief: string) => {
     try {
       console.log(projectId, brief)
-      const response = await sendBrief({ projectId, brief });
+      const response = await getBrief(projectId);
       console.log(response.data);
     } catch {
       openNotificationWithIcon({

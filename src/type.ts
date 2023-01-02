@@ -1,34 +1,39 @@
-
 export type KeysFromConst<T extends {}> = T[keyof T];
 
-export type role = 'CLIENT' | 'HOST' | 'SUPERVISOR' | 'SUPPORT' | 'ADMIN' | null;
+export type role =
+  | "CLIENT"
+  | "HOST"
+  | "SUPERVISOR"
+  | "SUPPORT"
+  | "ADMIN"
+  | null;
 
 export type ResLogin = {
-  role: role
+  role: role;
   token: string;
-}
+};
 export type ReqLogin = {
   email: string;
   password: string;
-}
+};
 export type ReqChangePassword = {
   oldPassword: string;
   newPassword: string;
-}
+};
 export type Person = {
   first_name: string;
   last_name: string;
   email: string;
   phone: string;
   tg: string;
-}
+};
 export type ReqPersonChange = {
   first_name: string;
   last_name: string;
   email: string;
   phone: string;
   tg: string;
-}
+};
 
 export type Statuses = {
   all: number;
@@ -38,90 +43,89 @@ export type Statuses = {
   reject: number;
   success: number;
   wait: number;
-}
+};
+
+type TariffProject = {
+  amount: number;
+  end: number;
+  name: string;
+  price: number;
+  start: number;
+};
 
 export type Project = {
   brief: string;
   id: number;
   name: string;
   statuses?: Statuses;
-  tariff_end: number;
-  tariff_name: string;
-  tariff_start: number;
-}
+  tariff: TariffProject;
+};
 
 export type ReqGetProject = {
   projectsArray: Project[];
-}
+};
 
 export type Reviews = {
   id: string;
   link: string;
   text: string;
   status: string;
-}
+  date: number | string;
+  host: string;
+  in_work: boolean;
+  is_paid: boolean;
+  tg: string;
+};
 
 export type ReqGetDetails = {
-  reviews: Reviews[]
-}
-
-export type ReqBrief = {
-  projectId: string;
-  brief: string;
-}
+  reviews: Reviews[];
+  name: string;
+  statuses: Statuses;
+  tariff: TariffProject;
+};
 
 export type Tariff = {
   amount: number;
   id: number;
   name: string;
   price: number;
-}
+};
 
 export type ReqGetTariff = {
   tariffs: {
-    [key: number]: Tariff[]
-  }
-}
+    [key: number]: Tariff[];
+  };
+};
 
 export type ArchiveProject = {
   id: number;
   start: number;
   end: number;
   statuses: Statuses;
-}
+};
 
 export type ReqArchiveProject = {
   result: ArchiveProject[];
-}
+};
 
 export type ReqArchiveDetail = {
-  result: Reviews[]
-}
+  result: Reviews[];
+};
 
-
-const foo = {
-  "result": [
-    {
-      "id": 1, "start": 1, "end": 2, "statuses": {
-        "all": 0,
-        "success": 0,
-        "left": 10,
-        "wait": 0,
-        "moderate": 0,
-        "reject": 0,
-        "delete": 0
-      }
-    },
-    {
-      "id": 1, "start": 1, "end": 2, "statuses": {
-        "all": 2,
-        "success": 3,
-        "left": 10,
-        "wait": 0,
-        "moderate": 0,
-        "reject": 0,
-        "delete": 0
-      }
-    }
-  ]
-}
+export type ReqGetBrief = {
+  brief: {
+    id: number;
+    field_1: string;
+    field_2: string;
+    field_3: string;
+    field_4: string;
+    field_5: string;
+    field_6: string;
+    field_7: string;
+    field_8: string;
+    field_9: string;
+    field_10: string;
+    field_11: string;
+    field_12: string;
+  };
+};

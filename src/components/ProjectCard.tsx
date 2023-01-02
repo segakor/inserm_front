@@ -4,7 +4,7 @@ import { Title } from "./Typography";
 import { Button } from "antd";
 import { DetailsCard } from "./DetailsCard";
 import { Project } from "../type";
-import { getRangeDate } from '../utils/getRangeDate';
+import { getRangeDate } from '../utils/getDate';
 import { useNavigate } from "react-router-dom";
 import { ModalBrief } from "./ModalBrief";
 
@@ -66,6 +66,8 @@ const StyledButton = styled(Button)`
 
 export const ProjectCard = (project: Project) => {
 
+  const { name, tariff: { start, end, name: tariffName }, statuses, id } = project
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpen = () => {
@@ -82,16 +84,16 @@ export const ProjectCard = (project: Project) => {
       <CardBlock>
         <Header>
           <Title level={5} style={{ color: "white" }}>
-            {project.name}
+            {name}
           </Title>
           <Title
             level={5}
             style={{ fontSize: "14px", color: "white", fontWeight: "400" }}
           >
-            {getRangeDate(project.tariff_start, project.tariff_end)}
+            {getRangeDate({ start, end })}
           </Title>
         </Header>
-        <DetailsCard statuses={project.statuses} />
+        <DetailsCard statuses={statuses} />
         <Title
           level={5}
           style={{
@@ -101,7 +103,7 @@ export const ProjectCard = (project: Project) => {
             textDecorationLine: "underline",
             cursor: "pointer",
           }}
-          onClick={() => navigation(`/client/project/${project.id}`)}
+          onClick={() => navigation(`/client/project/${id}`)}
         >
           Смотреть отчет
         </Title>
@@ -111,9 +113,9 @@ export const ProjectCard = (project: Project) => {
         <TariffCard>
           <Header>
             <Title level={5} style={{ fontWeight: "800" }}>
-              Тариф {project.tariff_name}
+              Тариф {tariffName}
             </Title>
-            <TitleDate>{getRangeDate(project.tariff_start, project.tariff_end)}</TitleDate>
+            <TitleDate>{getRangeDate({ start, end })}</TitleDate>
           </Header>
           <Title
             level={5}

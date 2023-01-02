@@ -47,7 +47,7 @@ export const StatusComponent = ({ status }: { status: string }) => {
 
   return (
     <div>
-      <Tag icon={setStatus?.icon} color={setStatus?.color}>
+      <Tag icon={setStatus?.icon} color={setStatus?.color} style={{ width: 115 }}>
         {setStatus?.label}
       </Tag>
     </div>

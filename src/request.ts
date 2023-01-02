@@ -7,10 +7,11 @@ import {
   ReqPersonChange,
   ReqGetProject,
   ReqGetDetails,
-  ReqBrief,
   ReqGetTariff,
   ReqArchiveProject,
   ReqArchiveDetail,
+  ReqGetBrief,
+  Reviews,
 } from "./type";
 
 const URL = "https://lul.inserm.ru:5001/api";
@@ -63,12 +64,12 @@ export const getAllProject = async () => {
   return { data, status };
 };
 
-export const sendBrief = async (value: ReqBrief) => {
+/* export const sendBrief = async (value: ReqGetBrief) => {
   const { data, status } = await axios.post(URL + `/project/brief`, {
     ...value,
   });
   return { data, status };
-};
+}; */
 
 export const getAllTariff = async () => {
   const { data, status } = await axios.get<ReqGetTariff>(URL + `/tariff`);
@@ -96,11 +97,29 @@ export const getArchiveDetails = async (id: string) => {
 };
 
 export const getBrief = async (id: string) => {
-  const { data, status } = await axios.get<ReqArchiveDetail>(
-    URL + `/brief/${id}`
-  );
+  const { data, status } = await axios.get<ReqGetBrief>(URL + `/brief/${id}`);
   return {
     data,
     status,
   };
 };
+
+export const updateReview = async (value: Reviews) => {
+  const { data, status } = await axios.post(URL + `/review/update`, {
+    ...value,
+  });
+  return {
+    data,
+    status,
+  };
+};
+
+export const createReview = async (value: { text: string; link: string; projectId: number }) => {
+  const { data, status } = await axios.post(URL + `/review/create`, {
+    ...value,
+  });
+  return {
+    data,
+    status,
+  };
+}

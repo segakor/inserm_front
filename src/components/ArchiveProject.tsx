@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Title } from "./Typography";
 import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { Statuses } from "../type";
-import { getRangeDate } from "../utils/getRangeDate";
+import { getRangeDate } from "../utils/getDate";
 import { useGetArchiveReviews } from '../hooks/useGetArchiveReviews';
 import { TableProject } from "./TableProject";
 
@@ -64,7 +64,7 @@ export const ArchiveProject = ({ id, start, end, statuses }: Props) => {
         <Title
           style={{ fontSize: "14px", color: "#1579E9", fontWeight: "700" }}
         >
-          {getRangeDate(start, end)}
+          {getRangeDate({ start, end })}
         </Title>
         <HeaderAction>
           <div>

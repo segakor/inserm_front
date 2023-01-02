@@ -8,8 +8,6 @@ type Props = {
 export const ArchiveProjectList = ({ projectId }: Props) => {
   const { archiveProject } = useGetArchiveProject(projectId);
 
-  console.log(archiveProject);
-
   return (
     <>
       {archiveProject?.map((item, index) => (

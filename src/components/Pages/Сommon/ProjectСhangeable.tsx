@@ -5,11 +5,10 @@ import styled from "styled-components";
 import { Title, Header } from "../../Typography";
 import { DetailsCard } from "../../DetailsCard";
 import { ModalBrief } from "../../ModalBrief";
-import { TableProject } from "../../TableProject";
 import { ArchiveProjectList } from "../../ArchiveProjectList";
-import { useLocalState } from "../../../context/hooks";
 import { getRangeDate } from "../../../utils/getDate";
 import { useGetReviews } from "../../../hooks/useGetReviews";
+import { TableProjectChangeable } from "../../TableProjectChangeable";
 
 const Page = styled.div`
   display: flex;
@@ -42,7 +41,7 @@ const TitleDate = styled(Title)`
   margin-bottom: 20px !important;
 `;
 
-export const Project = () => {
+export const ProjectChangeable = () => {
   const params = useParams();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,41 +54,45 @@ export const Project = () => {
     setIsModalOpen(false);
   };
 
-  const state = useLocalState();
+  const {
+    reviews,
+    isLoading,
+    projectName,
+    statusess,
+    tariff,
+    handleGetReviews,
+  } = useGetReviews(params.projectId || "");
 
-  const { clientProject } = state;
-
-  const currentProject = clientProject?.find(
-    (item) => item.id === Number(params.projectId)
-  );
-
-  const { reviews, isLoading } = useGetReviews(params.projectId || "");
-
-  const start = currentProject?.tariff?.start;
-  const end = currentProject?.tariff?.end;
+  const start = tariff?.start;
+  const end = tariff?.end;
 
   return (
     <Page>
       <HeaderFlex>
-        <Header>{currentProject?.name || ""}</Header>
+        <Header>{projectName || ""}</Header>
         <StyledButton onClick={handleOpen}>
-          {currentProject?.brief ? "Открыть бриф" : "Заполнить бриф"}
+          {true ? "Открыть бриф" : "Заполнить бриф"}
         </StyledButton>
       </HeaderFlex>
       <CardBlock>
         <TitleDate level={5} style={{ fontSize: "14px", fontWeight: "400" }}>
           {getRangeDate({ start, end })}
         </TitleDate>
-        <DetailsCard statuses={currentProject?.statuses} />
+        <DetailsCard statuses={statusess} />
       </CardBlock>
       {isModalOpen && (
         <ModalBrief
           onClose={handleClose}
           projectId={params.projectId || ""}
-          brief={currentProject?.brief}
+          brief={"currentProject?.brief"}
         />
       )}
-      <TableProject reviews={reviews} isLoading={isLoading} />
+      <TableProjectChangeable
+        reviews={reviews}
+        isLoading={isLoading}
+        onUpdate={handleGetReviews}
+        projectId={params.projectId || ""}
+      />
       <ArchiveProjectList projectId={params.projectId || ""} />
     </Page>
   );

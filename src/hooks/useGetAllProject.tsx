@@ -8,8 +8,11 @@ export const useGetAllProject = () => {
     undefined
   );
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleGetAllProject = async () => {
     try {
+      setIsLoading(true)
       const response = await getAllProject();
       setAllProject(response.data.projectsArray);
     } catch {
@@ -18,6 +21,8 @@ export const useGetAllProject = () => {
         message: "Ошибка",
         description: "Не удалось загрузить проекты",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -27,5 +32,6 @@ export const useGetAllProject = () => {
 
   return {
     allProject,
+    isLoading
   };
 };

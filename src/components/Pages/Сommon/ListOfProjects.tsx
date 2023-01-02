@@ -29,7 +29,7 @@ const Box = styled.div`
 export const ListOfProject = () => {
   const [inputText, setInputText] = useState("");
 
-  const { allProject } = useGetAllProject();
+  const { allProject, isLoading } = useGetAllProject();
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value.toLowerCase());
@@ -47,9 +47,9 @@ export const ListOfProject = () => {
       <Header>Список проектов</Header>
       <Box>
         <SearchPanel placeholder="Поиск проектов" onChange={handleSearch} />
-        {filteredData?.map((item) => (
-          <FlatCardProject {...item} />
-        ))}
+        {!isLoading &&
+          filteredData?.map((item) => <FlatCardProject {...item} />)}
+        {isLoading && <>isLoading</>}
       </Box>
     </Page>
   );

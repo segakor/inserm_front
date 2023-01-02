@@ -12,7 +12,7 @@ export const Help = () => {
   return (
     <Page>
       <Header>Нужна помощь?</Header>
-      <Title level={5}>Ведутся работы. Чат временно недоступен</Title>
+      <Title level={5}>Чат временно недоступен</Title>
     </Page>
   );
 };

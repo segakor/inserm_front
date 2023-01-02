@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useAuthCheck } from "../hooks/useAuthCheck";
 import { Project } from "../type";
-import { getRangeDate } from "../utils/getRangeDate";
+import { getRangeDate } from "../utils/getDate";
 import { Title } from "./Typography";
 
 const Panel = styled.div`
@@ -23,6 +25,9 @@ const Panel = styled.div`
 const Box = styled.div`
   display: flex;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    display: block;
+  }
 `;
 const Status = styled.div`
   display: flex;
@@ -40,14 +45,23 @@ const StatusRow = styled.div`
 `;
 
 export const FlatCardProject = (project: Project) => {
+  const {
+    tariff: { start, end },
+    statuses,
+    id
+  } = project;
+
+  const navigation = useNavigate();
+  const { role } = useAuthCheck();
+
   return (
     <>
-      <Panel>
+      <Panel onClick={() => navigation(`/${role}/project/${id}`)}>
         <Box style={{ marginBottom: "15px" }}>
           <Title level={5} style={{ fontWeight: "800" }}>
             {project.name}
           </Title>
-          <>{getRangeDate(project.tariff_start, project.tariff_end)}</>
+          <>{getRangeDate({ start, end })}</>
         </Box>
         <Box>
           <Status>
@@ -69,7 +83,7 @@ export const FlatCardProject = (project: Project) => {
                   color: "#1BBD3F",
                 }}
               >
-                {project.statuses?.success || 0}
+                {statuses?.success || 0}
               </Title>
               <>&ensp;|&ensp;</>
             </>
@@ -91,7 +105,7 @@ export const FlatCardProject = (project: Project) => {
                   color: "#8567FF",
                 }}
               >
-                {project.statuses?.left || 0}
+                {statuses?.left || 0}
               </Title>
               <>&ensp;|&ensp;</>
             </>
@@ -113,7 +127,7 @@ export const FlatCardProject = (project: Project) => {
                   color: "#5AA6FF",
                 }}
               >
-                {project.statuses?.moderate || 0}
+                {statuses?.moderate || 0}
               </Title>
               <>&ensp;|&ensp;</>
             </>
@@ -135,7 +149,7 @@ export const FlatCardProject = (project: Project) => {
                   color: "#FA7211",
                 }}
               >
-                {project.statuses?.reject || 0}
+                {statuses?.reject || 0}
               </Title>
               <>&ensp;|&ensp;</>
             </>
@@ -157,7 +171,7 @@ export const FlatCardProject = (project: Project) => {
                   color: "#FF1E1E",
                 }}
               >
-                {project.statuses?.delete || 0}
+                {statuses?.delete || 0}
               </Title>
               <>&ensp;|&ensp;</>
             </>
@@ -173,7 +187,7 @@ export const FlatCardProject = (project: Project) => {
               </Title>
               <>&ensp;-&ensp;</>
               <Title style={{ fontSize: "14px", fontWeight: "800" }}>
-                {project.statuses?.all || 0}
+                {statuses?.all || 0}
               </Title>
               <>&ensp;|&ensp;</>
             </>
@@ -196,7 +210,7 @@ export const FlatCardProject = (project: Project) => {
                   color: "#1BBD3F",
                 }}
               >
-                10
+                {statuses?.success || 0}
               </Title>
             </div>
             <div>
@@ -216,7 +230,7 @@ export const FlatCardProject = (project: Project) => {
                   color: "#8567FF",
                 }}
               >
-                10
+                {statuses?.left || 0}
               </Title>
             </div>
             <div>
@@ -236,7 +250,7 @@ export const FlatCardProject = (project: Project) => {
                   color: "#5AA6FF",
                 }}
               >
-                10
+                {statuses?.moderate || 0}
               </Title>
             </div>
             <div>
@@ -256,7 +270,7 @@ export const FlatCardProject = (project: Project) => {
                   color: "#FA7211",
                 }}
               >
-                10
+                {statuses?.reject || 0}
               </Title>
             </div>
             <div>
@@ -276,7 +290,7 @@ export const FlatCardProject = (project: Project) => {
                   color: "#FF1E1E",
                 }}
               >
-                10
+                {statuses?.delete || 0}
               </Title>
             </div>
             <div>
@@ -289,7 +303,9 @@ export const FlatCardProject = (project: Project) => {
               >
                 Всего
               </Title>
-              <Title style={{ fontSize: "14px", fontWeight: "800" }}>10</Title>
+              <Title style={{ fontSize: "14px", fontWeight: "800" }}>
+                {statuses?.all || 0}
+              </Title>
             </div>
           </StatusRow>
         </Box>

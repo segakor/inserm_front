@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "antd";
 import { Title } from "./Typography";
+import { getRangeDate } from "../utils/getDate";
 
 const Wrapper = styled.div`
   width: auto;
@@ -51,18 +52,28 @@ const StyledButton = styled(Button)`
 `;
 
 type Props = {
-  amount: number;
-  id: number;
-  name: string;
-  price: number;
-  period: number;
+  amount?: number;
+  id?: number;
+  name?: string;
+  price?: number;
+  period?: number;
+  start?: number;
+  end?: number;
 };
 
-export const TariffItem = ({ amount, id, name, price, period }: Props) => {
+export const TariffItem = ({
+  amount,
+  id,
+  name,
+  price,
+  period,
+  start,
+  end,
+}: Props) => {
   const colorCard =
     name === "S" ? "#2CAE97" : name === "M" ? "#ECA843" : " #EF5479";
 
-  const setPeriod = (period: number) => {
+  const setPeriod = (period?: number) => {
     switch (true) {
       case period === 1:
         return "1 месяц";
@@ -74,7 +85,6 @@ export const TariffItem = ({ amount, id, name, price, period }: Props) => {
         return `нет данных`;
     }
   };
-
   return (
     <Wrapper>
       <Row style={{ marginBottom: 40 }}>
@@ -82,7 +92,7 @@ export const TariffItem = ({ amount, id, name, price, period }: Props) => {
           Тариф {name}
         </Title>
         <Title style={{ fontSize: 14, fontWeight: "400" }}>
-          {setPeriod(period)}
+          {period ? setPeriod(period) : getRangeDate({ start, end })}
         </Title>
       </Row>
       <Row style={{ marginBottom: 20 }}>
@@ -117,9 +127,13 @@ export const TariffItem = ({ amount, id, name, price, period }: Props) => {
           Браузер
         </Title>
       </Row>
-      <StyledButton type="primary" block onClick={() => alert(id)}>
-        Выбрать тариф
-      </StyledButton>
+      {period ? (
+        <StyledButton type="primary" block onClick={() => alert(id)}>
+          Выбрать тариф
+        </StyledButton>
+      ) : (
+        <>другая кнопка</>
+      )}
     </Wrapper>
   );
 };

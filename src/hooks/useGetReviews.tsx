@@ -1,17 +1,17 @@
 import { getDetails } from "../request";
 import { openNotificationWithIcon } from "../utils/notification";
 import { useEffect, useState } from "react";
-import { Reviews } from "../type";
+import { ReqGetDetails } from "../type";
 
 export const useGetReviews = (id: string) => {
-  const [reviews, setReviews] = useState<Reviews[] | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState<ReqGetDetails | undefined>(undefined);
 
   const handleGetReviews = async (id: string) => {
     try {
       setIsLoading(true);
       const response = await getDetails(id);
-      setReviews(response.data.reviews);
+      setData(response.data);
     } catch {
       openNotificationWithIcon({
         type: "error",
@@ -27,5 +27,15 @@ export const useGetReviews = (id: string) => {
     handleGetReviews(id);
   }, [id]);
 
-  return { reviews, isLoading };
+  return {
+    isLoading,
+    projectName: data?.name,
+    reviews: data?.reviews.map((item, index) => ({
+      ...item,
+      key: index.toString(),
+    })),
+    tariff: data?.tariff,
+    statusess: data?.statuses,
+    handleGetReviews
+  };
 };
