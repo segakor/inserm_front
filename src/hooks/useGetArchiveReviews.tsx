@@ -27,5 +27,11 @@ export const useGetArchiveReviews = (id: string) => {
     handleGetReviews(id);
   }, [id]);
 
-  return { reviews, isLoading };
+  return {
+    reviews: reviews?.map((item, index) => ({
+      ...item,
+      key: index.toString(),
+    })),
+    isLoading,
+  };
 };

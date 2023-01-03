@@ -5,9 +5,7 @@ export const useSendBrief = () => {
 
   const handeSendBrief = async (projectId: string, brief: string) => {
     try {
-      console.log(projectId, brief)
-      const response = await getBrief(projectId);
-      console.log(response.data);
+      await getBrief(projectId);
     } catch {
       openNotificationWithIcon({
         type: "error",

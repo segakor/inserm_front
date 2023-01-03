@@ -16,7 +16,10 @@ import { useAuthCheck } from "../hooks/useAuthCheck";
 import { role } from '../type';
 import { ListOfProject } from "./Pages/Сommon/ListOfProjects";
 import { ClientBase } from "./Pages/Сommon/ClientBase";
-import { ProjectChangeable } from "./Pages/Сommon/ProjectСhangeable";
+import { ProjectAllStatusses } from "./Pages/Сommon/ProjectAllStatusses";
+import { ProjectModerate } from "./Pages/Сommon/ProjectModerate";
+import { ProjectForPayment } from "./Pages/Сommon/ProjectForPayment";
+import { ProjectPaid } from "./Pages/Сommon/ProjectPaid";
 
 const StyledLayout = styled(Layout)`
   margin-left: 50px;
@@ -32,7 +35,7 @@ type ProtectedRouteType = {
 const ProtectedRoutes = (props: ProtectedRouteType) => {
   const { auth, role } = useAuthCheck()
 
-  console.log(role, props.roleRequired)
+  /* console.log(role, props.roleRequired) */
 
   if (props.roleRequired) {
     return auth ? (
@@ -75,14 +78,14 @@ export const MainRoutes = () => {
           <Route path="/host" element={<ProtectedRoutes roleRequired="HOST" />}>
             <Route path="projects" element={<ListOfProject />} />
             <Route path="clientbase" element={<ClientBase />} />
-            <Route path="project/:projectId" element={<ProjectChangeable />} />
+            <Route path="project/:projectId" element={<ProjectAllStatusses />} />
           </Route>
           <Route path="/supervisor" element={<ProtectedRoutes roleRequired="SUPERVISOR" />}>
             <Route path="projects" element={<ListOfProject />} />
-            <Route path="project/:projectId" element={<ProjectChangeable />} />
-            <Route path="projectcheck" element={<>projectcheck</>} />
-            <Route path="reviewsforpayment" element={<>reviewsforpayment</>} />
-            <Route path="paidreviews" element={<>paidreviews</>} />
+            <Route path="project/:projectId" element={<ProjectAllStatusses />} />
+            <Route path="projectmoderate" element={<ProjectModerate />} />
+            <Route path="projectforpayment" element={<ProjectForPayment />} />
+            <Route path="projectpaid" element={<ProjectPaid />} />
             <Route path="clientbase" element={<ClientBase />} />
             <Route path="clientquestions" element={<>в работе</>} />
           </Route>
@@ -94,10 +97,10 @@ export const MainRoutes = () => {
           </Route>
           <Route path="/admin" element={<ProtectedRoutes roleRequired="ADMIN" />}>
             <Route path="projects" element={<ListOfProject />} />
-            <Route path="project/:projectId" element={<ProjectChangeable />} />
-            <Route path="projectcheck" element={<>projectcheck</>} />
-            <Route path="reviewsforpayment" element={<>reviewsforpayment</>} />
-            <Route path="paidreviews" element={<>paidreviews</>} />
+            <Route path="project/:projectId" element={<ProjectAllStatusses />} />
+            <Route path="projectmoderate" element={<ProjectModerate />} />
+            <Route path="projectforpayment" element={<ProjectForPayment />} />
+            <Route path="projectpaid" element={<ProjectPaid />} />
             <Route path="clientbase" element={<ClientBase />} />
             <Route path="clienttariff" element={<>clienttariff</>} />
             <Route path="foundation" element={<Foundation />} />

@@ -41,7 +41,7 @@ const TitleDate = styled(Title)`
   margin-bottom: 20px !important;
 `;
 
-export const ProjectChangeable = () => {
+export const ProjectAllStatusses = () => {
   const params = useParams();
 
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -10,6 +10,7 @@ import { ArchiveProjectList } from "../../ArchiveProjectList";
 import { useLocalState } from "../../../context/hooks";
 import { getRangeDate } from "../../../utils/getDate";
 import { useGetReviews } from "../../../hooks/useGetReviews";
+import { useGetBrief } from '../../../hooks/useGetBrief';
 
 const Page = styled.div`
   display: flex;
@@ -44,6 +45,7 @@ const TitleDate = styled(Title)`
 
 export const Project = () => {
   const params = useParams();
+  const projectId = params.projectId || ""
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -53,6 +55,7 @@ export const Project = () => {
 
   const handleClose = () => {
     setIsModalOpen(false);
+    handleGetBrief(projectId)
   };
 
   const state = useLocalState();
@@ -60,20 +63,24 @@ export const Project = () => {
   const { clientProject } = state;
 
   const currentProject = clientProject?.find(
-    (item) => item.id === Number(params.projectId)
+    (item) => item.id === Number(projectId)
   );
 
-  const { reviews, isLoading } = useGetReviews(params.projectId || "");
+  const { reviews, isLoading } = useGetReviews(projectId);
+
+  const { brief, handleGetBrief } = useGetBrief(projectId);
 
   const start = currentProject?.tariff?.start;
   const end = currentProject?.tariff?.end;
+
+  console.log(brief)
 
   return (
     <Page>
       <HeaderFlex>
         <Header>{currentProject?.name || ""}</Header>
         <StyledButton onClick={handleOpen}>
-          {currentProject?.brief ? "Открыть бриф" : "Заполнить бриф"}
+          {brief ? "Открыть бриф" : "Заполнить бриф"}
         </StyledButton>
       </HeaderFlex>
       <CardBlock>
@@ -85,12 +92,12 @@ export const Project = () => {
       {isModalOpen && (
         <ModalBrief
           onClose={handleClose}
-          projectId={params.projectId || ""}
-          brief={currentProject?.brief}
+          projectId={projectId}
+          brief={brief}
         />
       )}
       <TableProject reviews={reviews} isLoading={isLoading} />
-      <ArchiveProjectList projectId={params.projectId || ""} />
+      <ArchiveProjectList projectId={projectId} />
     </Page>
   );
 };

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FlatCardProject } from "../../FlatCardProject";
 import { Header } from "../../Typography";
 import { useGetAllProject } from "../../../hooks/useGetAllProject";
-import { Input } from "antd";
+import { Input, Spin } from "antd";
 
 const Page = styled.div`
   display: flex;
@@ -49,7 +49,7 @@ export const ListOfProject = () => {
         <SearchPanel placeholder="Поиск проектов" onChange={handleSearch} />
         {!isLoading &&
           filteredData?.map((item) => <FlatCardProject {...item} />)}
-        {isLoading && <>isLoading</>}
+        {isLoading && <Spin />}
       </Box>
     </Page>
   );

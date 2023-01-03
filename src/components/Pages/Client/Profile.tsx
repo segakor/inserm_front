@@ -33,20 +33,12 @@ export const Profile = () => {
 
   return (
     <Page>
-      {/* <button onClick={() => setToggle(!toggle)}>toggle</button> */}
       <Header>Профиль</Header>
       <Title level={4} style={{ fontWeight: "700" }}>
         {personInfo?.first_name} {personInfo?.last_name}
       </Title>
-      {/*  {toggle ? (
-        <Title level={4} style={{ fontWeight: "700" }}>
-          {personInfo?.first_name} {personInfo?.last_name}
-        </Title>
-      ) : (
-        <Skeleton.Input active={true} style={{ height: 26, marginBottom: 2 }} />
-      )} */}
       <Title level={5} style={{ fontWeight: "400" }}>
-        пока_нет_от_бэка@yandex.ru
+        {personInfo?.email}
       </Title>
       <FlexBox>
         <FormChangeClientInfo /* personInfo={personInfo} */ />

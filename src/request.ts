@@ -12,6 +12,9 @@ import {
   ReqArchiveDetail,
   ReqGetBrief,
   Reviews,
+  ReqGetReviewsWithType,
+  ReqCreateBrief,
+  ResCreateBrief
 } from "./type";
 
 const URL = "https://lul.inserm.ru:5001/api";
@@ -64,13 +67,6 @@ export const getAllProject = async () => {
   return { data, status };
 };
 
-/* export const sendBrief = async (value: ReqGetBrief) => {
-  const { data, status } = await axios.post(URL + `/project/brief`, {
-    ...value,
-  });
-  return { data, status };
-}; */
-
 export const getAllTariff = async () => {
   const { data, status } = await axios.get<ReqGetTariff>(URL + `/tariff`);
   return { data, status };
@@ -104,6 +100,21 @@ export const getBrief = async (id: string) => {
   };
 };
 
+export const createBrief = async (value: ReqCreateBrief) => {
+  const { data, status } = await axios.post<ResCreateBrief>(URL + `/brief/create`, { ...value });
+  return {
+    data,
+    status,
+  };
+}
+export const updateBrief = async (value: ReqCreateBrief) => {
+  const { data, status } = await axios.post<ResCreateBrief>(URL + `/brief/update`, { ...value });
+  return {
+    data,
+    status,
+  };
+}
+
 export const updateReview = async (value: Reviews) => {
   const { data, status } = await axios.post(URL + `/review/update`, {
     ...value,
@@ -114,7 +125,12 @@ export const updateReview = async (value: Reviews) => {
   };
 };
 
-export const createReview = async (value: { text: string; link: string; projectId: number }) => {
+export const createReview = async (value: {
+  text: string;
+  link: string;
+  projectId: number;
+}) => {
+  //TODO:Тип ответа!
   const { data, status } = await axios.post(URL + `/review/create`, {
     ...value,
   });
@@ -122,4 +138,12 @@ export const createReview = async (value: { text: string; link: string; projectI
     data,
     status,
   };
-}
+};
+
+export const getReviewsWithType = async (type: "moderate" | "isPaid" | "noPaid") => {
+  const { data, status } = await axios.get<ReqGetReviewsWithType>(URL + `/review/${type}`);
+  return {
+    data,
+    status,
+  };
+};

@@ -8,22 +8,16 @@ import {
   Checkbox,
   ConfigProvider,
   Empty,
-  Button,
-  Tooltip,
 } from "antd";
 import { StatusComponent } from "./StatusComponent";
-import { StatusSelect } from "./StatusSelect";
-import { useAuthCheck } from "../hooks/useAuthCheck";
 import { useUpdateReview } from "../hooks/useUpdateReview";
 import { Reviews } from "../type";
-import { ModalAddReview } from "./ModalAddReview";
 import { getDate } from "../utils/getDate";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
   isLoading: boolean;
-  onUpdate: (project: string) => void;
-  projectId: string;
+  onUpdate: () => void;
 };
 
 type ReviewsTableItem = Reviews & {
@@ -59,11 +53,11 @@ const EditableCell: React.FC<EditableCellProps> = ({
           name={dataIndex}
           style={{ margin: 0 }}
         /*  rules={[
-     {
-       required: true,
-       message: `Please Input ${title}!`,
-     },
-   ]} */
+   {
+     required: true,
+     message: `Please Input ${title}!`,
+   },
+ ]} */
         >
           {inputNode}
         </Form.Item>
@@ -74,10 +68,9 @@ const EditableCell: React.FC<EditableCellProps> = ({
   );
 };
 
-export const TableProjectChangeable = ({
+export const TableProjectModerate = ({
   reviews,
   isLoading,
-  projectId,
   onUpdate,
 }: Props) => {
   const [form] = Form.useForm();
@@ -106,9 +99,7 @@ export const TableProjectChangeable = ({
       const index = newData.findIndex((item) => key === item.key);
       row.id = newData[index].id;
       console.log("row_save", row, index, newData[index]);
-      handleUpdateReview(row).then(() => {
-        onUpdate(projectId);
-      });
+      handleUpdateReview(row).then(() => onUpdate());
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, {
@@ -137,20 +128,6 @@ export const TableProjectChangeable = ({
     }
   };
 
-  const onSelectStatus = (value: string, key: React.Key) => {
-    // @ts-ignore TODO:доделать!
-    const newData = [...reviews];
-    const index = newData.findIndex((item) => key === item.key);
-    if (index > -1) {
-      const item = newData[index];
-      form.setFieldsValue({ status: value });
-    }
-  };
-
-  const { role } = useAuthCheck();
-
-  const isAdmin = role === "ADMIN" || role === "SUPERVISOR";
-
   const columns = [
     {
       title: "№",
@@ -166,7 +143,6 @@ export const TableProjectChangeable = ({
       title: "Ссылка на отзыв",
       dataIndex: "link",
       width: "15%",
-      editable: isAdmin,
       render: (text: string) => (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <a onClick={() => window.open(text, "_blank")}>{text}</a>
@@ -176,24 +152,15 @@ export const TableProjectChangeable = ({
       title: "Текст отзыва",
       dataIndex: "text",
       width: "20%",
-      editable: isAdmin,
     },
     {
       title: "Статус отзыва",
       dataIndex: "status",
       width: "10%",
-      render: (status: string, record: ReviewsTableItem) => {
-        const editable = isEditing(record);
+      render: (status: string) => {
         return (
           <>
-            {editable && isAdmin ? (
-              <StatusSelect
-                defaultValue={status}
-                onSelect={(e) => onSelectStatus(e, record.key)}
-              />
-            ) : (
-              <StatusComponent status={status} />
-            )}
+            <StatusComponent status={status} />
           </>
         );
       },
@@ -212,7 +179,7 @@ export const TableProjectChangeable = ({
       title: "Кто отдал отзыв",
       dataIndex: "host",
       width: "10%",
-      editable: isAdmin,
+      editable: true,
     },
     {
       title: "Имя в телеграм",
@@ -228,16 +195,16 @@ export const TableProjectChangeable = ({
       render: (_: any, record: ReviewsTableItem) => {
         const editable = isEditing(record);
         return (
-          <Tooltip title="В работу можно отдать только отзывы со статусом 'на модерации'">
+          <>
             <Checkbox
               disabled={
-                record.in_work || !editable || record.status !== 'moderate'
+                (record.in_work && record.status !== "moderate") || !editable
               }
               /* checked={record.isWork} */
               {...(record.in_work && { checked: true })}
               onClick={() => onCheckBoxWork(record.key)}
             />
-          </Tooltip>
+          </>
         );
       },
     },
@@ -288,35 +255,9 @@ export const TableProjectChangeable = ({
     setDataSource(reviews);
   }, [reviews]);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   return (
     <Form form={form} component={false}>
       <ConfigProvider renderEmpty={() => <Empty description="Нет данных" />}>
-        {isAdmin && (
-          <Button
-            onClick={showModal}
-            type="primary"
-            style={{ marginBottom: 16, width: 150 }}
-          >
-            Добавить запись
-          </Button>
-        )}
-        {isModalOpen && (
-          <ModalAddReview
-            onClose={closeModal}
-            projectId={projectId}
-            onUpdate={onUpdate}
-          />
-        )}
         <Table
           components={{
             body: {
@@ -332,9 +273,6 @@ export const TableProjectChangeable = ({
         />
       </ConfigProvider>
       <Form.Item name={"in_work"} style={{ visibility: "hidden" }}>
-        <Input />
-      </Form.Item>
-      <Form.Item name={"status"} style={{ visibility: "hidden" }}>
         <Input />
       </Form.Item>
     </Form>

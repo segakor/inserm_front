@@ -3,7 +3,6 @@ import { Reviews } from "../type";
 import { openNotificationWithIcon } from "../utils/notification";
 
 export const useUpdateReview = () => {
-
   const handleUpdateReview = async (value: Reviews) => {
     try {
       await updateReview(value);
@@ -17,6 +16,6 @@ export const useUpdateReview = () => {
   };
 
   return {
-    handleUpdateReview
+    handleUpdateReview,
   };
 };

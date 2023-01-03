@@ -34,7 +34,7 @@ const CurrentTariffSection = styled.div`
 `;
 
 export const CurrentTariff = () => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
 
   const handleChange = (value: string) => {
     setValue(value);
@@ -50,13 +50,14 @@ export const CurrentTariff = () => {
 
   useEffect(() => {
     if (listOfProject) {
-      setValue(listOfProject[0]?.value)
+      setValue(listOfProject[0]?.value);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clientProject])
+  }, [clientProject]);
 
-  const currentTariff = clientProject?.find(item => item.name === value)?.tariff;
-  console.log('currentTariff', currentTariff)
+  const currentTariff = clientProject?.find(
+    (item) => item.name === value
+  )?.tariff;
 
   return (
     <>
@@ -80,10 +81,14 @@ export const CurrentTariff = () => {
           </Title>
         </Wrapper>
       )}
-      <CurrentTariffSection>
-        <TariffItem  {...currentTariff} />
-      </CurrentTariffSection>
-      <ChangeTariffBlock />
+      {currentTariff && (
+        <>
+          <CurrentTariffSection>
+            <TariffItem {...currentTariff} />
+          </CurrentTariffSection>
+          <ChangeTariffBlock />
+        </>
+      )}
     </>
   );
 };

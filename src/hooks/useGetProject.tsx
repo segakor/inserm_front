@@ -24,7 +24,6 @@ export const useGetProject = () => {
   };
   useEffect(() => {
     if (role === 'CLIENT') {
-      console.log('handleGetClientProject')
       handleGetClientProject();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

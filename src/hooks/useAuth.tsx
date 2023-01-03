@@ -20,7 +20,6 @@ export const useAuth = () => {
       //TODO: сетить начальную страницу в зависимости от роли
       navigate(`/${response.data.role?.toLowerCase()}`);
     } catch (err) {
-      console.log(err);
       openNotificationWithIcon({
         type: "error",
         message: "Ошибка",

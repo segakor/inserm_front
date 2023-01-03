@@ -93,17 +93,17 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     { label: "Список проектов", key: "projects", icon: <ProjectIcon /> },
     {
       label: "Проекты на модерации",
-      key: "projectcheck",
+      key: "projectmoderate",
       icon: <ProjectCheckIcon />,
     },
     {
       label: "Отзывы на оплату",
-      key: "reviewsforpayment",
+      key: "projectforpayment",
       icon: <ReviewsforpaymentIcon />,
     },
     {
       label: "Оплаченные отзывы",
-      key: "paidreviews",
+      key: "projectpaid",
       icon: <PaidreviewsIcon />,
     },
     { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },
@@ -129,17 +129,17 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     { label: "Список проектов", key: "projects", icon: <ProjectIcon /> },
     {
       label: "Проекты на модерации",
-      key: "projectcheck",
+      key: "projectmoderate",
       icon: <ProjectCheckIcon />,
     },
     {
       label: "Отзывы на оплату",
-      key: "reviewsforpayment",
+      key: "projectforpayment",
       icon: <ReviewsforpaymentIcon />,
     },
     {
       label: "Оплаченные отзывы",
-      key: "paidreviews",
+      key: "projectpaid",
       icon: <PaidreviewsIcon />,
     },
     { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },

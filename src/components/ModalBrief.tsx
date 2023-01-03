@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Modal, Form, Input, Button } from "antd";
+import { Modal, Form, Input, Button, Divider } from "antd";
 import { Title } from "./Typography";
-import { useSendBrief } from '../hooks/useSendBrief';
+import { useCreateBrief } from "../hooks/useCreateBrief";
+import { useUpdateBrief } from "../hooks/useUpdateBrief";
+import { Brief } from "../type";
 
 const { TextArea } = Input;
 
@@ -23,7 +25,7 @@ const StyledButton = styled(Button)`
 type Props = {
   onClose: () => void;
   projectId: string;
-  brief: string | undefined;
+  brief: Brief | undefined;
 };
 
 export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
@@ -34,31 +36,45 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
 
   const disabledSave = isErrorValues || isEmptyValues;
 
-  useEffect(() => {
+  /* useEffect(() => {
     return () => {
       console.log("cleaned up");
     };
-  }, []);
+  }, []); */
 
   const handleFormChange = () => {
     const hasErrors = form.getFieldsError().some(({ errors }) => errors.length);
     setIsErrorValues(hasErrors);
   };
 
-  const { handeSendBrief } = useSendBrief();
+  const { handleCreateBrief } = useCreateBrief();
+  const { handleUpdateBrief } = useUpdateBrief();
+
+  const fieldValue = {
+    projectId: projectId,
+    field_1: form.getFieldValue(`field_1`),
+    field_2: form.getFieldValue(`field_2`),
+    field_3: form.getFieldValue(`field_3`),
+    field_4: form.getFieldValue(`field_4`),
+    field_5: form.getFieldValue(`field_5`),
+    field_6: form.getFieldValue(`field_6`),
+    field_7: form.getFieldValue(`field_7`),
+    field_8: form.getFieldValue(`field_8`),
+    field_9: form.getFieldValue(`field_9`),
+    field_10: form.getFieldValue(`field_10`),
+    field_11: form.getFieldValue(`field_11`),
+    field_12: form.getFieldValue(`field_12`),
+  };
 
   const onSumbit = () => {
-    const fieldValue = [];
-    for (let i = 1; i < 12; i++) {
-      fieldValue.push({
-        key: `field_${i}`,
-        value: form.getFieldValue(`field_${i}`),
-      });
-    }
-    console.log(fieldValue);
-
-    handeSendBrief(projectId, JSON.stringify(fieldValue))
+    console.log(fieldValue)
+    handleCreateBrief(fieldValue).then(() => onClose());
   };
+
+  const onSumbitUpdate = () => {
+    console.log(fieldValue)
+    handleUpdateBrief(fieldValue).then(() => onClose())
+  }
 
   const onValuesChange = (changedValues: any, allValues: any) => {
     if (
@@ -77,6 +93,8 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
       setIsEmptyValues(true);
     } else setIsEmptyValues(false);
   };
+
+  const isBrief = brief ? true : false;
 
   return (
     <Modal
@@ -98,6 +116,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
         form={form}
         onFieldsChange={handleFormChange}
         onValuesChange={onValuesChange}
+      /* disabled={isBrief} */
       >
         <Form.Item
           label="Укажите название проекта:"
@@ -108,8 +127,13 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
               message: "Обязательное поле",
             },
           ]}
+        /* initialValue={brief?.field_1} */
         >
-          <StyledTextArea style={{ height: 50, resize: "none" }} />
+          <StyledTextArea
+            style={{ height: 50, resize: "none" }}
+            defaultValue={brief?.field_1}
+            disabled={isBrief}
+          />
         </Form.Item>
         <Form.Item
           label="Ссылка на ваш сайт"
@@ -121,7 +145,11 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
             },
           ]}
         >
-          <StyledTextArea style={{ height: 50, resize: "none" }} />
+          <StyledTextArea
+            style={{ height: 50, resize: "none" }}
+            defaultValue={brief?.field_2}
+            disabled={isBrief}
+          />
         </Form.Item>
         <Form.Item
           label="Пожелания к текстам отзывов"
@@ -133,7 +161,11 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
             },
           ]}
         >
-          <StyledTextArea style={{ height: 50, resize: "none" }} />
+          <StyledTextArea
+            style={{ height: 50, resize: "none" }}
+            defaultValue={brief?.field_3}
+            disabled={isBrief}
+          />
         </Form.Item>
         <Form.Item
           label="По каким направлениям деятельности нужны отзывы (о каких товарах / услугах писать):"
@@ -145,7 +177,11 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
             },
           ]}
         >
-          <StyledTextArea style={{ height: 50, resize: "none" }} />
+          <StyledTextArea
+            style={{ height: 50, resize: "none" }}
+            defaultValue={brief?.field_4}
+            disabled={isBrief}
+          />
         </Form.Item>
         <Form.Item
           label="В каких городах происходит реализация ваших товаров/услуг:"
@@ -157,7 +193,11 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
             },
           ]}
         >
-          <StyledTextArea style={{ height: 50, resize: "none" }} />
+          <StyledTextArea
+            style={{ height: 50, resize: "none" }}
+            defaultValue={brief?.field_5}
+            disabled={isBrief}
+          />
         </Form.Item>
         <Form.Item
           label="Имена сотрудников и их обязанности (чтобы мы могли отметить их хорошую работу):"
@@ -169,7 +209,11 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
             },
           ]}
         >
-          <StyledTextArea style={{ height: 50, resize: "none" }} />
+          <StyledTextArea
+            style={{ height: 50, resize: "none" }}
+            defaultValue={brief?.field_6}
+            disabled={isBrief}
+          />
         </Form.Item>
         <Form.Item
           label="Опишите преимущества вашей компании:"
@@ -181,7 +225,11 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
             },
           ]}
         >
-          <StyledTextArea style={{ height: 50, resize: "none" }} />
+          <StyledTextArea
+            style={{ height: 50, resize: "none" }}
+            defaultValue={brief?.field_7}
+            disabled={isBrief}
+          />
         </Form.Item>
         <Form.Item
           label="Опишите недостатки вашей компании:"
@@ -193,7 +241,11 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
             },
           ]}
         >
-          <StyledTextArea style={{ height: 50, resize: "none" }} />
+          <StyledTextArea
+            style={{ height: 50, resize: "none" }}
+            defaultValue={brief?.field_8}
+            disabled={isBrief}
+          />
         </Form.Item>
         <Form.Item
           label="Ссылки на профили вашей компании, где необходимо размещать отзывы:"
@@ -205,7 +257,11 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
             },
           ]}
         >
-          <StyledTextArea style={{ height: 50, resize: "none" }} />
+          <StyledTextArea
+            style={{ height: 50, resize: "none" }}
+            defaultValue={brief?.field_9}
+            disabled={isBrief}
+          />
         </Form.Item>
         <Form.Item
           label="Когда вы заказывали отзывы в последний раз/когда последний раз публиковались заказные отзывы на вышеперечисленных площадках?"
@@ -217,7 +273,11 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
             },
           ]}
         >
-          <StyledTextArea style={{ height: 50, resize: "none" }} />
+          <StyledTextArea
+            style={{ height: 50, resize: "none" }}
+            defaultValue={brief?.field_10}
+            disabled={isBrief}
+          />
         </Form.Item>
         <Form.Item
           label="Какие моменты следует обязательно отметить в отзывах:"
@@ -229,16 +289,41 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
             },
           ]}
         >
-          <StyledTextArea style={{ height: 50, resize: "none" }} />
+          <StyledTextArea
+            style={{ height: 50, resize: "none" }}
+            defaultValue={brief?.field_11}
+            disabled={isBrief}
+          />
         </Form.Item>
         <StyledButton
           type="primary"
-          block
+          /* block */
           onClick={onSumbit}
-          disabled={disabledSave}
+          disabled={disabledSave || isBrief}
         >
           Сохранить
         </StyledButton>
+        {isBrief && (
+          <>
+            <Divider />
+            <Form.Item
+              label="Если в брифе изменения, вы можете указать их тут:"
+              name="field_12"
+            >
+              <StyledTextArea
+                style={{ height: 50, resize: "none" }}
+                defaultValue={brief?.field_12}
+              />
+            </Form.Item>
+            <StyledButton
+              type="primary"
+              /* block */
+              onClick={onSumbitUpdate}
+            >
+              Добавить комментарий
+            </StyledButton>
+          </>
+        )}
       </Form>
     </Modal>
   );
