@@ -23,8 +23,9 @@ import { ProjectPaid } from "./Pages/Сommon/ProjectPaid";
 
 const StyledLayout = styled(Layout)`
   margin-left: 50px;
+  min-height: 100vh;
   @media (max-width: 768px) {
-    margin-left: 0;
+    margin: 0;
   }
 `;
 

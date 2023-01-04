@@ -5,7 +5,7 @@ import styled from "styled-components";
 const { Header: HeaderAnt } = Layout;
 
 const StyledHeader = styled(HeaderAnt)`
-  border: 1px solid green;
+  /* border: 1px solid green; */
   position: fixed;
   width: 100vw;
   height: 60px;
@@ -27,7 +27,7 @@ type Props = {
 export const Header = ({ children }: Props) => {
 
   return (
-    <StyledHeader>
+    <StyledHeader theme="light">
       {children}
     </StyledHeader>
   );

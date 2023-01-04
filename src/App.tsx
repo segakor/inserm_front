@@ -4,7 +4,8 @@ import { Provider } from "./context/Provider";
 import { SiderComponent } from './components/SiderComponent'
 import { MainRoutes } from './components/MainRoutes';
 import { Layout } from "antd";
-import "antd/dist/antd.css";
+/* import "antd/dist/antd.css";
+import 'antd/dist/reset.css' */
 
 const StyledLayout = styled(Layout)`
 margin-left: 200px;

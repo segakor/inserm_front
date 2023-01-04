@@ -7,9 +7,9 @@ const { Content: ContentAnt } = Layout;
 const StyledContent = styled(ContentAnt)`
   background-color: #daedff;
   min-height: 100vh;
-  border: 1px solid orange;
   padding: 90px 30px 30px 30px;
   display: flex;
+  /* border:2px solid red; */
   @media (min-width: 768px) {
     padding: 20px 30px 30px 30px;
   }

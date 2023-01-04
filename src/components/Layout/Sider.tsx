@@ -12,7 +12,7 @@ const StyledSider = styled(SiderAnt)`
   left: 0;
   top: 0;
   bottom: 0;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   min-width: 250px !important;
   @media (max-width: 768px) {
     display: none;
@@ -24,6 +24,19 @@ type Props = {
 };
 
 export const Sider = ({ children }: Props) => {
-
-  return <StyledSider theme="light">{children}</StyledSider>;
+  return (
+    <StyledSider
+      theme="light"
+      style={{
+        overflow: "auto",
+        height: "100vh",
+        position: "fixed",
+        left: 0,
+        top: 0,
+        bottom: 0,
+      }}
+    >
+      {children}
+    </StyledSider>
+  );
 };
