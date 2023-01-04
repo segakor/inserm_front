@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Modal, Form, Input, Button, Divider } from "antd";
 import { Title } from "./Typography";
@@ -30,6 +30,23 @@ type Props = {
 
 export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
   const [form] = Form.useForm();
+  const field_1 = Form.useWatch("field_1", form);
+  const field_2 = Form.useWatch("field_2", form);
+  const field_3 = Form.useWatch("field_3", form);
+  const field_4 = Form.useWatch("field_4", form);
+  const field_5 = Form.useWatch("field_5", form);
+  const field_6 = Form.useWatch("field_6", form);
+  const field_7 = Form.useWatch("field_7", form);
+  const field_8 = Form.useWatch("field_8", form);
+  const field_9 = Form.useWatch("field_9", form);
+  const field_10 = Form.useWatch("field_10", form);
+  const field_11 = Form.useWatch("field_11", form);
+  const field_12 = Form.useWatch("field_12", form);
+
+  const fieldValue = {
+    projectId: projectId,
+    field_1, field_2, field_3, field_4, field_5, field_6, field_7, field_8, field_9, field_10, field_11, field_12
+  };
 
   const [isErrorValues, setIsErrorValues] = useState(true);
   const [isEmptyValues, setIsEmptyValues] = useState(true);
@@ -50,33 +67,17 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
   const { handleCreateBrief } = useCreateBrief();
   const { handleUpdateBrief } = useUpdateBrief();
 
-  const fieldValue = {
-    projectId: projectId,
-    field_1: form.getFieldValue(`field_1`),
-    field_2: form.getFieldValue(`field_2`),
-    field_3: form.getFieldValue(`field_3`),
-    field_4: form.getFieldValue(`field_4`),
-    field_5: form.getFieldValue(`field_5`),
-    field_6: form.getFieldValue(`field_6`),
-    field_7: form.getFieldValue(`field_7`),
-    field_8: form.getFieldValue(`field_8`),
-    field_9: form.getFieldValue(`field_9`),
-    field_10: form.getFieldValue(`field_10`),
-    field_11: form.getFieldValue(`field_11`),
-    field_12: form.getFieldValue(`field_12`),
-  };
 
   const onSumbit = () => {
-    console.log(fieldValue)
     handleCreateBrief(fieldValue).then(() => onClose());
   };
 
   const onSumbitUpdate = () => {
-    console.log(fieldValue)
     handleUpdateBrief(fieldValue).then(() => onClose())
   }
 
   const onValuesChange = (changedValues: any, allValues: any) => {
+    console.log(changedValues)
     if (
       allValues.field_1 === undefined ||
       allValues.field_2 === undefined ||
@@ -116,7 +117,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
         form={form}
         onFieldsChange={handleFormChange}
         onValuesChange={onValuesChange}
-      /* disabled={isBrief} */
+        initialValues={brief}
       >
         <Form.Item
           label="Укажите название проекта:"
@@ -127,7 +128,6 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
               message: "Обязательное поле",
             },
           ]}
-        /* initialValue={brief?.field_1} */
         >
           <StyledTextArea
             style={{ height: 50, resize: "none" }}

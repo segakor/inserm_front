@@ -7,6 +7,7 @@ import { Project } from "../type";
 import { getRangeDate } from '../utils/getDate';
 import { useNavigate } from "react-router-dom";
 import { ModalBrief } from "./ModalBrief";
+import { useGetBrief } from "../hooks/useGetBrief";
 
 const Flex = styled.div`
   display: flex;
@@ -70,12 +71,15 @@ export const ProjectCard = (project: Project) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const { brief, handleGetBrief } = useGetBrief(id.toString());
+
   const handleOpen = () => {
     setIsModalOpen(true);
   };
 
   const handleClose = () => {
     setIsModalOpen(false);
+    handleGetBrief()
   };
 
   const navigation = useNavigate();
@@ -83,12 +87,12 @@ export const ProjectCard = (project: Project) => {
     <Flex>
       <CardBlock>
         <Header>
-          <Title level={5} style={{ color: "white" }}>
+          <Title level={5} style={{ color: "white", textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>
             {name}
           </Title>
           <Title
             level={5}
-            style={{ fontSize: "14px", color: "white", fontWeight: "400" }}
+            style={{ fontSize: "14px", color: "white", fontWeight: "400", whiteSpace: 'nowrap' }}
           >
             {getRangeDate({ start, end })}
           </Title>
@@ -109,7 +113,7 @@ export const ProjectCard = (project: Project) => {
         </Title>
       </CardBlock>
       <TariffBlock>
-        <StyledButton onClick={handleOpen}>{project?.brief ? "Открыть бриф" : "Заполнить бриф"}</StyledButton>
+        <StyledButton onClick={handleOpen}>{brief ? "Открыть бриф" : "Заполнить бриф"}</StyledButton>
         <TariffCard>
           <Header>
             <Title level={5} style={{ fontWeight: "800" }}>
@@ -136,7 +140,7 @@ export const ProjectCard = (project: Project) => {
         <ModalBrief
           onClose={handleClose}
           projectId={project.id.toString()}
-          brief={project.brief}
+          brief={brief}
         />
       )}
     </Flex>

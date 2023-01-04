@@ -55,7 +55,7 @@ export const Project = () => {
 
   const handleClose = () => {
     setIsModalOpen(false);
-    handleGetBrief(projectId)
+    handleGetBrief()
   };
 
   const state = useLocalState();

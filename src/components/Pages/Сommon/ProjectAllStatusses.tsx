@@ -9,6 +9,7 @@ import { ArchiveProjectList } from "../../ArchiveProjectList";
 import { getRangeDate } from "../../../utils/getDate";
 import { useGetReviews } from "../../../hooks/useGetReviews";
 import { TableProjectChangeable } from "../../TableProjectChangeable";
+import { useGetBrief } from "../../../hooks/useGetBrief";
 
 const Page = styled.div`
   display: flex;
@@ -43,6 +44,7 @@ const TitleDate = styled(Title)`
 
 export const ProjectAllStatusses = () => {
   const params = useParams();
+  const projectId = params.projectId || ""
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -52,6 +54,7 @@ export const ProjectAllStatusses = () => {
 
   const handleClose = () => {
     setIsModalOpen(false);
+    handleGetBrief()
   };
 
   const {
@@ -61,7 +64,9 @@ export const ProjectAllStatusses = () => {
     statusess,
     tariff,
     handleGetReviews,
-  } = useGetReviews(params.projectId || "");
+  } = useGetReviews(projectId);
+
+  const { brief, handleGetBrief } = useGetBrief(projectId);
 
   const start = tariff?.start;
   const end = tariff?.end;
@@ -71,7 +76,7 @@ export const ProjectAllStatusses = () => {
       <HeaderFlex>
         <Header>{projectName || ""}</Header>
         <StyledButton onClick={handleOpen}>
-          {true ? "Открыть бриф" : "Заполнить бриф"}
+          {brief ? "Открыть бриф" : "Заполнить бриф"}
         </StyledButton>
       </HeaderFlex>
       <CardBlock>
@@ -83,17 +88,17 @@ export const ProjectAllStatusses = () => {
       {isModalOpen && (
         <ModalBrief
           onClose={handleClose}
-          projectId={params.projectId || ""}
-          brief={"currentProject?.brief"}
+          projectId={projectId}
+          brief={brief}
         />
       )}
       <TableProjectChangeable
         reviews={reviews}
         isLoading={isLoading}
         onUpdate={handleGetReviews}
-        projectId={params.projectId || ""}
+        projectId={projectId}
       />
-      <ArchiveProjectList projectId={params.projectId || ""} />
+      <ArchiveProjectList projectId={projectId} />
     </Page>
   );
 };
