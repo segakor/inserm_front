@@ -1,6 +1,6 @@
 export type KeysFromConst<T extends {}> = T[keyof T];
 
-export type role =
+export type Role =
   | "CLIENT"
   | "HOST"
   | "SUPERVISOR"
@@ -9,7 +9,7 @@ export type role =
   | null;
 
 export type ResLogin = {
-  role: role;
+  role: Role;
   token: string;
 };
 export type ReqLogin = {
@@ -153,4 +153,29 @@ export type ReqCreateBrief = {
 
 export type ResCreateBrief = {
   result: Brief
+}
+
+export type ReqProjectCreate = {
+  name: string;
+  tariffId: number;
+  period: number;
+  price: number;
+}
+
+export type ReqCreateAdmin = {
+  email: string;
+  password: string;
+  role: Role;
+}
+
+export type ListOfAdmin = {
+  id: number;
+  email: string;
+  role: string;
+  firstName: string;
+  lastName: string;
+}
+
+export type ResAdmin = {
+  result: ListOfAdmin[]
 }

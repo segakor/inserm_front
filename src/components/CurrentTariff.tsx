@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Select, Button } from "antd";
+import { Select, Switch } from "antd";
 import "./AntSelectCustomStyle.css";
 import { TariffItem } from "./TariffItem";
 import { Title } from "./Typography";
 import { useLocalState } from "../context/hooks";
-import { ChangeTariffBlock } from "./ChangeTariffBlock";
+import { TariffSelectionBlock } from "./TariffSelectionBlock";
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,13 +16,6 @@ const Wrapper = styled.div`
     flex-direction: column;
   }
 `;
-const StyledButton = styled(Button)`
-  border-radius: 5px;
-  width: 220px;
-  height: 40px;
-  background: #1579e9;
-  color: #ffffff;
-`;
 const CurrentTariffSection = styled.div`
   width: 460px;
   margin-bottom: 20px;
@@ -32,9 +25,16 @@ const CurrentTariffSection = styled.div`
     flex-direction: column;
   }
 `;
+const SwitchTariff = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+`;
 
 export const CurrentTariff = () => {
   const [value, setValue] = useState("");
+  const [isSwitchTariff, setIsSwitchTariff] = useState(false);
 
   const handleChange = (value: string) => {
     setValue(value);
@@ -76,8 +76,8 @@ export const CurrentTariff = () => {
         </>
       ) : (
         <Wrapper>
-          <Title level={5} style={{ fontWeight: "400" }}>
-            У вас нет проектов, создайте его
+          <Title level={5}>
+            Нет ни одного проекта, создайте его
           </Title>
         </Wrapper>
       )}
@@ -86,7 +86,15 @@ export const CurrentTariff = () => {
           <CurrentTariffSection>
             <TariffItem {...currentTariff} />
           </CurrentTariffSection>
-          <ChangeTariffBlock />
+          <SwitchTariff>
+            <Title level={5} style={{ fontWeight: "400" }}>
+              Сменить тариф
+            </Title>
+            <Switch onChange={() => setIsSwitchTariff(!isSwitchTariff)} />
+          </SwitchTariff>
+          {isSwitchTariff && (
+            <TariffSelectionBlock />
+          )}
         </>
       )}
     </>

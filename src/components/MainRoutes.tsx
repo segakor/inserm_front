@@ -13,13 +13,19 @@ import { Projects } from "./Pages/Client/Projects";
 import { Help } from "./Pages/Client/Help";
 import { Project } from "./Pages/Client/Project";
 import { useAuthCheck } from "../hooks/useAuthCheck";
-import { role } from '../type';
+import { Role } from '../type';
 import { ListOfProject } from "./Pages/Сommon/ListOfProjects";
 import { ClientBase } from "./Pages/Сommon/ClientBase";
 import { ProjectAllStatusses } from "./Pages/Сommon/ProjectAllStatusses";
 import { ProjectModerate } from "./Pages/Сommon/ProjectModerate";
 import { ProjectForPayment } from "./Pages/Сommon/ProjectForPayment";
 import { ProjectPaid } from "./Pages/Сommon/ProjectPaid";
+import { ClientQuestions } from "./Pages/Сommon/ClientQuestions";
+import { CreateProject } from "./Pages/Client/CreateProject";
+import { CreateAdmin } from "./Pages/Admin/CreateNewAdmin";
+import { TariffSetting } from "./Pages/Сommon/TariffSetting";
+import { TariffClient } from "./Pages/Admin/TariffClient";
+import { FoundationClient } from "./Pages/Admin/FoundationClient";
 
 const StyledLayout = styled(Layout)`
   margin-left: 50px;
@@ -30,7 +36,7 @@ const StyledLayout = styled(Layout)`
 `;
 
 type ProtectedRouteType = {
-  roleRequired?: role
+  roleRequired?: Role
 }
 
 const ProtectedRoutes = (props: ProtectedRouteType) => {
@@ -75,6 +81,7 @@ export const MainRoutes = () => {
             <Route path="foundation" element={<Foundation />} />
             <Route path="contacts" element={<Contacts />} />
             <Route path="help" element={<Help />} />
+            <Route path="createproject" element={<CreateProject />} />
           </Route>
           <Route path="/host" element={<ProtectedRoutes roleRequired="HOST" />}>
             <Route path="projects" element={<ListOfProject />} />
@@ -88,13 +95,14 @@ export const MainRoutes = () => {
             <Route path="projectforpayment" element={<ProjectForPayment />} />
             <Route path="projectpaid" element={<ProjectPaid />} />
             <Route path="clientbase" element={<ClientBase />} />
-            <Route path="clientquestions" element={<>в работе</>} />
+            <Route path="clientquestions" element={<ClientQuestions />} />
           </Route>
           <Route path="/support" element={<ProtectedRoutes roleRequired="SUPPORT" />}>
             <Route path="projects" element={<ListOfProject />} />
+            <Route path="project/:projectId" element={<ProjectAllStatusses />} />
             <Route path="clientbase" element={<ClientBase />} />
-            <Route path="settingtariff" element={<>settingtariff</>} />
-            <Route path="clientquestions" element={<>в работе</>} />
+            <Route path="settingtariff" element={<TariffSetting />} />
+            <Route path="clientquestions" element={<ClientQuestions />} />
           </Route>
           <Route path="/admin" element={<ProtectedRoutes roleRequired="ADMIN" />}>
             <Route path="projects" element={<ListOfProject />} />
@@ -103,11 +111,11 @@ export const MainRoutes = () => {
             <Route path="projectforpayment" element={<ProjectForPayment />} />
             <Route path="projectpaid" element={<ProjectPaid />} />
             <Route path="clientbase" element={<ClientBase />} />
-            <Route path="clienttariff" element={<>clienttariff</>} />
-            <Route path="foundation" element={<Foundation />} />
-            <Route path="settingtariff" element={<>settingtariff</>} />
-            <Route path="createadmin" element={<>createadmin</>} />
-            <Route path="clientquestions" element={<>в работе</>} />
+            <Route path="clienttariff" element={<TariffClient />} />
+            <Route path="foundation" element={<FoundationClient />} />
+            <Route path="settingtariff" element={<TariffSetting />} />
+            <Route path="createadmin" element={<CreateAdmin />} />
+            <Route path="clientquestions" element={<ClientQuestions />} />
           </Route>
           {/** Public Routes */}
           <Route path="/dashboard" element={<>dashboard</>} />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
 import { ReactComponent as ProjectIcon } from "../assets/project.svg";
@@ -34,7 +34,14 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
 
   const { role, auth } = useAuthCheck();
 
-  useGetProject();
+  const { handleGetClientProject } = useGetProject();
+
+  useEffect(() => {
+    if (role === 'CLIENT') {
+      handleGetClientProject();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [role]);
 
   const { clientProject } = state;
 

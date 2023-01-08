@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Title, Header } from "../../Typography";
+import { Header, Title } from "../../Typography";
 
 const Page = styled.div`
   display: flex;
@@ -8,10 +8,10 @@ const Page = styled.div`
   width: 100%;
 `;
 
-export const ClientBase = () => {
+export const ClientQuestions = () => {
   return (
     <Page>
-      <Header>База клиентов</Header>
+      <Header>Вопросы клиентов</Header>
       <Title level={5}>В работе</Title>
     </Page>
   );

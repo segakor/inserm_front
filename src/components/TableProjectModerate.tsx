@@ -122,9 +122,11 @@ export const TableProjectModerate = ({
     const index = newData.findIndex((item) => key === item.key);
     if (index > -1) {
       const item = newData[index];
+      const inWorkDate = Math.floor(new Date().valueOf() / 1000);
       //togle
       item.in_work = !item.in_work;
       form.setFieldsValue({ in_work: item.in_work });
+      form.setFieldsValue({ date: item.in_work ? inWorkDate : null });
     }
   };
 
@@ -273,6 +275,9 @@ export const TableProjectModerate = ({
         />
       </ConfigProvider>
       <Form.Item name={"in_work"} style={{ visibility: "hidden" }}>
+        <Input />
+      </Form.Item>
+      <Form.Item name={"date"} style={{ visibility: "hidden" }}>
         <Input />
       </Form.Item>
     </Form>

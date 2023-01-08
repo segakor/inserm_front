@@ -5,13 +5,12 @@ import styled from "styled-components";
 const { Header: HeaderAnt } = Layout;
 
 const StyledHeader = styled(HeaderAnt)`
-  /* border: 1px solid green; */
+  border: 1px solid green;
   position: fixed;
   width: 100vw;
   height: 60px;
-  background: white;
   z-index: 2;
-  padding:20px 20px 20px 20px;
+  padding-inline:25px !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,7 +26,7 @@ type Props = {
 export const Header = ({ children }: Props) => {
 
   return (
-    <StyledHeader theme="light">
+    <StyledHeader theme="light" style={{ 'background': '#fff' }}>
       {children}
     </StyledHeader>
   );

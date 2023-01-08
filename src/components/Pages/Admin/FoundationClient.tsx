@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { Title, Header } from "../../Typography";
+import { Header, Title } from "../../Typography";
 
 const Page = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
 `;
 
-export const ClientBase = () => {
+
+export const FoundationClient = () => {
   return (
     <Page>
-      <Header>База клиентов</Header>
+      <Header>База знаний клиента</Header>
       <Title level={5}>В работе</Title>
     </Page>
   );

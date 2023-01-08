@@ -49,7 +49,7 @@ const DescRestore = styled(Title)`
   margin-bottom: 30px !important;
 `;
 
-export const LoginForm = () => {
+export const FormLogin = () => {
   const [form] = Form.useForm();
   const email = Form.useWatch("username", form);
   const password = Form.useWatch("password", form);
@@ -97,6 +97,7 @@ export const LoginForm = () => {
                 name="username"
                 rules={[
                   {
+                    type: "email",
                     required: true,
                     message: "Пожалуйста, введите адрес электронной почты!",
                   },

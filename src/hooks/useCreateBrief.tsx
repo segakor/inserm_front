@@ -9,7 +9,7 @@ export const useCreateBrief = () => {
       await createBrief(value);
       openNotificationWithIcon({
         type: "success",
-        message: "Успех",
+        message: "",
         description: "Бриф сохранен",
       });
     } catch {

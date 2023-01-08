@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { LoginForm } from "../../LoginForm";
+import { FormLogin } from "../../FormLogin";
 
 const Page = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ const Page = styled.div`
 export const Login = () => {
   return (
     <Page>
-      <LoginForm />
+      <FormLogin />
     </Page>
   );
 };

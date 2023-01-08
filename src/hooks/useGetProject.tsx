@@ -1,14 +1,14 @@
-import { useEffect } from "react";
+/* import { useEffect } from "react"; */
 import { getProject } from "../request";
 import { openNotificationWithIcon } from "../utils/notification";
 import { setClientProject } from "../context/action";
 import { useDispatch } from "../context/hooks";
-import { useAuthCheck } from "./useAuthCheck";
+/* import { useAuthCheck } from "./useAuthCheck"; */
 
 
 export const useGetProject = () => {
   const dispatch = useDispatch();
-  const { role } = useAuthCheck();
+  /* const { role } = useAuthCheck(); */
 
   const handleGetClientProject = async () => {
     try {
@@ -22,12 +22,12 @@ export const useGetProject = () => {
       });
     }
   };
-  useEffect(() => {
+  /* useEffect(() => {
     if (role === 'CLIENT') {
       handleGetClientProject();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [role]);
+  }, [role]); */
 
-  return {};
+  return { handleGetClientProject };
 };

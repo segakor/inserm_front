@@ -14,7 +14,10 @@ import {
   Reviews,
   ReqGetReviewsWithType,
   ReqCreateBrief,
-  ResCreateBrief
+  ResCreateBrief,
+  ReqProjectCreate,
+  ReqCreateAdmin,
+  ResAdmin
 } from "./type";
 
 const URL = "https://lul.inserm.ru:5001/api";
@@ -147,3 +150,27 @@ export const getReviewsWithType = async (type: "moderate" | "isPaid" | "noPaid")
     status,
   };
 };
+
+export const createProject = async (value: ReqProjectCreate) => {
+  const { data, status } = await axios.post<ReqGetReviewsWithType>(URL + `/project/create`, { ...value });
+  return {
+    data,
+    status,
+  };
+}
+
+export const createAdmin = async (value: ReqCreateAdmin) => {
+  const { data, status } = await axios.post(URL + `/user/registration`, { ...value });
+  return {
+    data,
+    status,
+  };
+}
+
+export const getAdmin = async () => {
+  const { data, status } = await axios.get<ResAdmin>(URL + `/user/workers`);
+  return {
+    data,
+    status,
+  };
+}

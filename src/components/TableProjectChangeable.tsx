@@ -16,7 +16,7 @@ import { StatusSelect } from "./StatusSelect";
 import { useAuthCheck } from "../hooks/useAuthCheck";
 import { useUpdateReview } from "../hooks/useUpdateReview";
 import { Reviews } from "../type";
-import { ModalAddReview } from "./ModalAddReview";
+import { ModalCreateReview } from "./ModalCreateReview";
 import { getDate } from "../utils/getDate";
 
 type Props = {
@@ -131,9 +131,11 @@ export const TableProjectChangeable = ({
     const index = newData.findIndex((item) => key === item.key);
     if (index > -1) {
       const item = newData[index];
+      const inWorkDate = Math.floor(new Date().valueOf() / 1000);
       //togle
       item.in_work = !item.in_work;
       form.setFieldsValue({ in_work: item.in_work });
+      form.setFieldsValue({ date: item.in_work ? inWorkDate : null });
     }
   };
 
@@ -311,7 +313,7 @@ export const TableProjectChangeable = ({
           </Button>
         )}
         {isModalOpen && (
-          <ModalAddReview
+          <ModalCreateReview
             onClose={closeModal}
             projectId={projectId}
             onUpdate={onUpdate}
@@ -335,6 +337,9 @@ export const TableProjectChangeable = ({
         <Input />
       </Form.Item>
       <Form.Item name={"status"} style={{ visibility: "hidden" }}>
+        <Input />
+      </Form.Item>
+      <Form.Item name={"date"} style={{ visibility: "hidden" }}>
         <Input />
       </Form.Item>
     </Form>

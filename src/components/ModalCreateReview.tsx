@@ -8,7 +8,7 @@ type Props = {
   onUpdate: (project: string) => void;
 };
 
-export const ModalAddReview = ({ onClose, projectId, onUpdate }: Props) => {
+export const ModalCreateReview = ({ onClose, projectId, onUpdate }: Props) => {
   const [form] = Form.useForm();
   const [isErrorValues, setIsErrorValues] = useState(true);
 

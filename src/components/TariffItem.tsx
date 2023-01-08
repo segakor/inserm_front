@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Button } from "antd";
 import { Title } from "./Typography";
 import { getRangeDate } from "../utils/getDate";
+import { ReqProjectCreate } from "../type";
 
 const Wrapper = styled.div`
   width: auto;
@@ -59,6 +60,10 @@ type Props = {
   period?: number;
   start?: number;
   end?: number;
+  forOne?: number;
+  disabled?: boolean;
+  createdProjectName?: string;
+  onCreateProject?: (e: ReqProjectCreate) => void;
 };
 
 export const TariffItem = ({
@@ -68,7 +73,11 @@ export const TariffItem = ({
   price,
   period,
   start,
+  forOne,
   end,
+  disabled,
+  createdProjectName,
+  onCreateProject,
 }: Props) => {
   const colorCard =
     name === "S" ? "#2CAE97" : name === "M" ? "#ECA843" : " #EF5479";
@@ -83,6 +92,19 @@ export const TariffItem = ({
         return `${period} месяцев`;
       default:
         return `нет данных`;
+    }
+  };
+
+  const handleClick = () => {
+    if (onCreateProject && createdProjectName && id && period && price) {
+      onCreateProject({
+        name: createdProjectName,
+        tariffId: id,
+        period: period,
+        price: price,
+      });
+    } else {
+      alert("else");
     }
   };
   return (
@@ -109,7 +131,7 @@ export const TariffItem = ({
             Стоимость за отзыв
           </Title>
           <Title level={4} style={{ fontWeight: "800" }}>
-            {price} р
+            {forOne} р
           </Title>
         </Card2>
         <Card3>
@@ -117,7 +139,7 @@ export const TariffItem = ({
             Общая стоимость
           </Title>
           <Title level={4} style={{ color: "#1579E9", fontWeight: "800" }}>
-            3 750 р
+            {price} р
           </Title>
         </Card3>
       </Row>
@@ -128,7 +150,12 @@ export const TariffItem = ({
         </Title>
       </Row>
       {period ? (
-        <StyledButton type="primary" block onClick={() => alert(id)}>
+        <StyledButton
+          type="primary"
+          disabled={disabled}
+          block
+          onClick={handleClick}
+        >
           Выбрать тариф
         </StyledButton>
       ) : (

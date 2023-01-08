@@ -124,8 +124,8 @@ export const TableProjectPaid = ({
     if (index > -1) {
       const item = newData[index];
       //togle
-      item.in_work = !item.in_work;
-      form.setFieldsValue({ in_work: item.in_work });
+      item.is_paid = !item.is_paid;
+      form.setFieldsValue({ is_paid: item.is_paid });
     }
   };
 
@@ -186,7 +186,7 @@ export const TableProjectPaid = ({
     },
     {
       title: "Оплачено",
-      dataIndex: "in_work",
+      dataIndex: "is_paid",
       width: "8%",
       align: "center" as const,
       render: (_: any, record: ReviewsTableItem) => {
@@ -195,10 +195,10 @@ export const TableProjectPaid = ({
           <>
             <Checkbox
               disabled={
-                (record.in_work && record.status !== "moderate") || !editable
+                (record.is_paid) || !editable
               }
               /* checked={record.isWork} */
-              {...(record.in_work && { checked: true })}
+              {...(record.is_paid && { checked: true })}
               onClick={() => onCheckBoxPaid(record.key)}
             />
           </>
@@ -258,7 +258,7 @@ export const TableProjectPaid = ({
           loading={isLoading}
         />
       </ConfigProvider>
-      <Form.Item name={"isPaid"} style={{ visibility: "hidden" }}>
+      <Form.Item name={"is_paid"} style={{ visibility: "hidden" }}>
         <Input />
       </Form.Item>
     </Form>

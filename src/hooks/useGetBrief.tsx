@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getBrief } from "../request";
 import { Brief } from "../type";
-import { openNotificationWithIcon } from "../utils/notification";
 
 export const useGetBrief = (projectId: string) => {
   const [brief, setBrief] = useState<Brief | undefined>(undefined);
@@ -17,6 +16,7 @@ export const useGetBrief = (projectId: string) => {
 
   useEffect(() => {
     handleGetBrief();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectId]);
 
   return {
