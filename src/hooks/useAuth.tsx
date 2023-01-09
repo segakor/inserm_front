@@ -32,6 +32,7 @@ export const useAuth = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("loginData");
+    localStorage.removeItem("inserm");
     navigate("/login");
   };
 
