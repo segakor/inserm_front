@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, /* useEffect */ } from "react";
 import { openNotificationWithIcon } from "../utils/notification";
 import { ReqLogin } from "../type";
 import { useNavigate } from "react-router-dom";
 import { login } from "../request";
-import { useAuthCheck } from "./useAuthCheck";
+/* import { useAuthCheck } from "./useAuthCheck"; */
 
 export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const { auth } = useAuthCheck();
+  /* const { auth } = useAuthCheck(); */
 
   const handleLogin = async (value: ReqLogin) => {
     try {
@@ -18,7 +18,7 @@ export const useAuth = () => {
       const response = await login(value);
       localStorage.setItem("loginData", JSON.stringify(response.data));
       //TODO: сетить начальную страницу в зависимости от роли
-      navigate(`/${response.data.role?.toLowerCase()}`);
+      navigate(`/${response.data.role?.toLowerCase()}/projects`);
     } catch (err) {
       openNotificationWithIcon({
         type: "error",
@@ -35,12 +35,12 @@ export const useAuth = () => {
     navigate("/login");
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (!auth) {
       navigate("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth]);
+  }, [auth]); */
 
   return { handleLogin, handleLogout, isLoading };
 };

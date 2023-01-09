@@ -6,14 +6,17 @@ import {
   SET_PERSON_INFO,
   SET_CLIENT_PROJECT,
   SetListOfAdmin,
-  SET_LIST_OF_ADMIN
+  SET_LIST_OF_ADMIN,
+  SetProjectForPayment,
+  SET_PROJECT_FOR_PAYMENT
 } from "./action";
 
 export const initialState: LocalState = {
   personInfo: undefined,
   clientProject: undefined,
   role: undefined,
-  listOfAdmin: undefined
+  listOfAdmin: undefined,
+  projectForPayment: undefined,
 };
 
 function setPersonInfo(
@@ -44,9 +47,19 @@ function setListOfAdmin(
     listOfAdmin: payload,
   };
 }
+function setProjectForPayment(
+  state: LocalState,
+  { payload }: SetProjectForPayment
+): LocalState {
+  return {
+    ...state,
+    projectForPayment: payload,
+  };
+}
 
 export const reducer = createReducer(initialState, {
   [SET_PERSON_INFO]: setPersonInfo,
   [SET_CLIENT_PROJECT]: setClientProject,
-  [SET_LIST_OF_ADMIN]: setListOfAdmin
+  [SET_LIST_OF_ADMIN]: setListOfAdmin,
+  [SET_PROJECT_FOR_PAYMENT]: setProjectForPayment
 });

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "antd";
 import { Title } from "./Typography";
@@ -62,8 +62,7 @@ type Props = {
   end?: number;
   forOne?: number;
   disabled?: boolean;
-  createdProjectName?: string;
-  onCreateProject?: (e: ReqProjectCreate) => void;
+  onSelectTarif?: (e: any) => void;
 };
 
 export const TariffItem = ({
@@ -76,8 +75,7 @@ export const TariffItem = ({
   forOne,
   end,
   disabled,
-  createdProjectName,
-  onCreateProject,
+  onSelectTarif
 }: Props) => {
   const colorCard =
     name === "S" ? "#2CAE97" : name === "M" ? "#ECA843" : " #EF5479";
@@ -96,17 +94,11 @@ export const TariffItem = ({
   };
 
   const handleClick = () => {
-    if (onCreateProject && createdProjectName && id && period && price) {
-      onCreateProject({
-        name: createdProjectName,
-        tariffId: id,
-        period: period,
-        price: price,
-      });
-    } else {
-      alert("else");
+    if (onSelectTarif) {
+      onSelectTarif({ period, price, id })
     }
   };
+
   return (
     <Wrapper>
       <Row style={{ marginBottom: 40 }}>
@@ -159,7 +151,7 @@ export const TariffItem = ({
           Выбрать тариф
         </StyledButton>
       ) : (
-        <>другая кнопка</>
+        <></>
       )}
     </Wrapper>
   );

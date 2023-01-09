@@ -20,9 +20,7 @@ const SectionItem = styled.div`
 `;
 
 type Props = {
-  createdProjectName?: string;
-  onCreateProject?: (e: ReqProjectCreate) => void;
-  disabled?: boolean
+  onSelectTarif?: (e: any) => void
 }
 
 export const TariffSelectionBlock = (props: Props) => {

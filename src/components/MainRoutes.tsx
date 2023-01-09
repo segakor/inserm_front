@@ -26,6 +26,8 @@ import { CreateAdmin } from "./Pages/Admin/CreateNewAdmin";
 import { TariffSetting } from "./Pages/Сommon/TariffSetting";
 import { TariffClient } from "./Pages/Admin/TariffClient";
 import { FoundationClient } from "./Pages/Admin/FoundationClient";
+import { ApplyPayment } from "./Pages/Client/ApplyPayment";
+import { ResultPayment } from "./Pages/Client/ResultPayment";
 
 const StyledLayout = styled(Layout)`
   margin-left: 50px;
@@ -42,7 +44,7 @@ type ProtectedRouteType = {
 const ProtectedRoutes = (props: ProtectedRouteType) => {
   const { auth, role } = useAuthCheck()
 
-  /* console.log(role, props.roleRequired) */
+  /*  console.log(role, props.roleRequired, auth) */
 
   if (props.roleRequired) {
     return auth ? (
@@ -61,9 +63,11 @@ const ProtectedRoutes = (props: ProtectedRouteType) => {
 
 const PublicRoutes = () => {
 
-  const { auth } = useAuthCheck()
+  const { auth, role } = useAuthCheck()
 
-  return auth ? <Navigate to="/dashboard" /> : <Outlet />
+  const page = `/${role?.toLowerCase()}/projects`
+
+  return auth ? <Navigate to={page} /> : <Outlet />
 }
 
 export const MainRoutes = () => {
@@ -82,6 +86,7 @@ export const MainRoutes = () => {
             <Route path="contacts" element={<Contacts />} />
             <Route path="help" element={<Help />} />
             <Route path="createproject" element={<CreateProject />} />
+            <Route path="applypayment" element={<ApplyPayment />} />
           </Route>
           <Route path="/host" element={<ProtectedRoutes roleRequired="HOST" />}>
             <Route path="projects" element={<ListOfProject />} />
@@ -118,7 +123,9 @@ export const MainRoutes = () => {
             <Route path="clientquestions" element={<ClientQuestions />} />
           </Route>
           {/** Public Routes */}
-          <Route path="/dashboard" element={<>dashboard</>} />
+          {/* <Route path="/dashboard" element={<>dashboard</>} /> */}
+          <Route path="/paymentsuccess" element={<ResultPayment />} />
+          <Route path="/paymenterror" element={<ResultPayment />} />
           <Route path="login" element={<PublicRoutes />}>
             <Route path="/login" element={<Login />} />
           </Route>

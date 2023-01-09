@@ -179,3 +179,14 @@ export type ListOfAdmin = {
 export type ResAdmin = {
   result: ListOfAdmin[]
 }
+
+export type ProjectForPayment = {
+  projectName: string;
+  price: number;
+  period: number;
+  tariffId: number;
+}
+
+export type ReqSiteRegistration = ReqProjectCreate & {
+  email: string;
+}

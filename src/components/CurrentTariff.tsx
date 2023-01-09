@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Select, Switch } from "antd";
+import { Select, /* Switch */ } from "antd";
 import "./AntSelectCustomStyle.css";
 import { TariffItem } from "./TariffItem";
 import { Title } from "./Typography";
 import { useLocalState } from "../context/hooks";
-import { TariffSelectionBlock } from "./TariffSelectionBlock";
+/* import { TariffSelectionBlock } from "./TariffSelectionBlock"; */
 
 const Wrapper = styled.div`
   display: flex;
@@ -25,16 +25,16 @@ const CurrentTariffSection = styled.div`
     flex-direction: column;
   }
 `;
-const SwitchTariff = styled.div`
+/* const SwitchTariff = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 24px;
-`;
+`; */
 
 export const CurrentTariff = () => {
   const [value, setValue] = useState("");
-  const [isSwitchTariff, setIsSwitchTariff] = useState(false);
+  /* const [isSwitchTariff, setIsSwitchTariff] = useState(false); */
 
   const handleChange = (value: string) => {
     setValue(value);
@@ -86,7 +86,7 @@ export const CurrentTariff = () => {
           <CurrentTariffSection>
             <TariffItem {...currentTariff} />
           </CurrentTariffSection>
-          <SwitchTariff>
+          {/*  <SwitchTariff>
             <Title level={5} style={{ fontWeight: "400" }}>
               Сменить тариф
             </Title>
@@ -94,7 +94,7 @@ export const CurrentTariff = () => {
           </SwitchTariff>
           {isSwitchTariff && (
             <TariffSelectionBlock />
-          )}
+          )} */}
         </>
       )}
     </>
