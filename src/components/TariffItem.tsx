@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Button } from "antd";
 import { Title } from "./Typography";
 import { getRangeDate } from "../utils/getDate";
-import { ReqProjectCreate } from "../type";
 
 const Wrapper = styled.div`
   width: auto;

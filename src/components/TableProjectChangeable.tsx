@@ -144,7 +144,7 @@ export const TableProjectChangeable = ({
     const newData = [...reviews];
     const index = newData.findIndex((item) => key === item.key);
     if (index > -1) {
-      const item = newData[index];
+      /* const item = newData[index]; */
       form.setFieldsValue({ status: value });
     }
   };

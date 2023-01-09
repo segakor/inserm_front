@@ -88,6 +88,17 @@ export const ApplyPayment = () => {
 
   const navigation = useNavigate();
 
+  localStorage.setItem(
+    "inserm",
+    JSON.stringify({
+      isPlatform: true,
+      price: projectForPayment?.price,
+      period: projectForPayment?.period,
+      name: projectForPayment?.projectName,
+      tariffId: projectForPayment?.tariffId,
+    })
+  );
+
   useEffect(() => {
     if (!projectForPayment) navigation("/client/createproject");
     // eslint-disable-next-line react-hooks/exhaustive-deps

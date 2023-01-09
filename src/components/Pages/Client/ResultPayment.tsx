@@ -35,7 +35,7 @@ export const ResultPayment = () => {
   }
 
   useEffect(() => {
-    if (insermData.name) {
+    if (location.pathname === "/paymentsuccess") {
       if (insermData.isPlatform)
         handleCreateProject({
           name: insermData.name,
@@ -53,7 +53,7 @@ export const ResultPayment = () => {
         });
       }
     } else {
-      navigation("/login");
+      goToMain();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [insermData]);
@@ -69,7 +69,7 @@ export const ResultPayment = () => {
         <Result
           status="success"
           title="Успех"
-          subTitle="Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait."
+          subTitle="Order number: 2017182818828182881"
           extra={[
             <Button type="primary" onClick={goToMain}>
               На главную
@@ -81,7 +81,7 @@ export const ResultPayment = () => {
         <Result
           status="error"
           title="Ошибка"
-          subTitle="Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait."
+          subTitle="Order number: 2017182818828182881"
           extra={[
             <Button type="primary" onClick={goToMain}>
               На главную

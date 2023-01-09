@@ -5,7 +5,6 @@ import { TariffItem } from "./TariffItem";
 import { TariffIndividual } from "./TariffIndividual";
 import { TariffPeriod } from "./TariffPeriod";
 import { useGetTariff } from "../hooks/useGetTariff";
-import { ReqProjectCreate } from "../type";
 
 const SectionItem = styled.div`
   display: grid;
