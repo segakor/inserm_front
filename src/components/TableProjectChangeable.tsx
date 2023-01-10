@@ -59,11 +59,11 @@ const EditableCell: React.FC<EditableCellProps> = ({
           name={dataIndex}
           style={{ margin: 0 }}
         /*  rules={[
-     {
-       required: true,
-       message: `Please Input ${title}!`,
-     },
-   ]} */
+   {
+     required: true,
+     message: `Please Input ${title}!`,
+   },
+ ]} */
         >
           {inputNode}
         </Form.Item>
@@ -159,10 +159,8 @@ export const TableProjectChangeable = ({
       dataIndex: "key",
       width: "2%",
       render: (record: string) => {
-        return (
-          <>{Number(record) + 1}</>
-        )
-      }
+        return <>{Number(record) + 1}</>;
+      },
     },
     {
       title: "Ссылка на отзыв",
@@ -177,8 +175,12 @@ export const TableProjectChangeable = ({
     {
       title: "Текст отзыва",
       dataIndex: "text",
-      width: "20%",
+      width: "200px",
       editable: isAdmin,
+      render: (text: string) => (
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
+        <div style={{ width: "200px" }}>{text}</div>
+      ),
     },
     {
       title: "Статус отзыва",
@@ -190,6 +192,12 @@ export const TableProjectChangeable = ({
           <>
             {editable && isAdmin ? (
               <StatusSelect
+                defaultValue={status}
+                onSelect={(e) => onSelectStatus(e, record.key)}
+              />
+            ) : editable && role === "HOST" && status === "wait" ? (
+              <StatusSelect
+                onlyModerate
                 defaultValue={status}
                 onSelect={(e) => onSelectStatus(e, record.key)}
               />
@@ -214,7 +222,7 @@ export const TableProjectChangeable = ({
       title: "Кто отдал отзыв",
       dataIndex: "host",
       width: "10%",
-      editable: isAdmin,
+      editable: true,
     },
     {
       title: "Имя в телеграм",
@@ -226,14 +234,13 @@ export const TableProjectChangeable = ({
       title: "В работе",
       dataIndex: "in_work",
       width: "8%",
-      align: "center" as const,
       render: (_: any, record: ReviewsTableItem) => {
         const editable = isEditing(record);
         return (
           <Tooltip title="В работу можно отдать только отзывы со статусом 'на модерации'">
             <Checkbox
               disabled={
-                record.in_work || !editable || record.status !== 'moderate'
+                record.in_work || !editable || record.status !== "moderate"
               }
               /* checked={record.isWork} */
               {...(record.in_work && { checked: true })}
@@ -269,6 +276,11 @@ export const TableProjectChangeable = ({
       },
     },
   ];
+
+  /* const mergedColumns =
+    hideAction
+      ? columns.filter((col) => col.dataIndex !== "operation")
+      : columns; */
 
   const mergedColumns = columns.map((col) => {
     if (!col.editable) {

@@ -4,6 +4,11 @@ import { ReactComponent as UpIcon } from "./../assets/up.svg";
 import { ReactComponent as DownIcon } from "./../assets/down.svg";
 import { Title } from "./Typography";
 
+type Props = {
+  title: string;
+  desc: string;
+}
+
 const Panel = styled.div`
   background: #ffffff;
   border-radius: 10px;
@@ -34,7 +39,7 @@ const Icon = styled.div`
   cursor: pointer;
 `;
 
-export const CollapseFoundation = () => {
+export const CollapseFoundation = ({ title, desc }: Props) => {
   const [chevron, setChevron] = useState(false);
 
   const onClickChevron = () => {
@@ -46,7 +51,7 @@ export const CollapseFoundation = () => {
       <Panel onClick={onClickChevron}>
         <PanelHeader>
           <Title level={5} style={{ fontWeight: "700" }}>
-            А что, если у меня более 1 карточки?
+            {title}
           </Title>
           <Icon>
             {chevron ? <UpIcon /> : <DownIcon />}
@@ -55,8 +60,7 @@ export const CollapseFoundation = () => {
         {chevron && (
           <Description>
             <StyledTitle level={5} style={{ fontWeight: "400" }}>
-              Если вы не нашли ответ на свой вопрос, перейдите в блок Нужна
-              помощь и уточните у техподдержки.
+              {desc}
             </StyledTitle>
           </Description>
         )}

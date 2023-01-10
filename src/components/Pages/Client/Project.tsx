@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button } from "antd";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Title, Header } from "../../Typography";
@@ -11,6 +10,7 @@ import { useLocalState } from "../../../context/hooks";
 import { getRangeDate } from "../../../utils/getDate";
 import { useGetReviews } from "../../../hooks/useGetReviews";
 import { useGetBrief } from '../../../hooks/useGetBrief';
+import { ButtonBrief } from "../../ButtonBrief";
 
 const Page = styled.div`
   display: flex;
@@ -23,15 +23,6 @@ const HeaderFlex = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
   }
-`;
-const StyledButton = styled(Button)`
-  border-radius: 10px;
-  width: 180px;
-  height: 50px;
-  background: transparent;
-  margin-bottom: 20px;
-  border: 2px solid #1579e9;
-  color: #1579e9;
 `;
 const CardBlock = styled.div`
   width: 600px;
@@ -79,9 +70,7 @@ export const Project = () => {
     <Page>
       <HeaderFlex>
         <Header>{currentProject?.name || ""}</Header>
-        <StyledButton onClick={handleOpen}>
-          {brief ? "Открыть бриф" : "Заполнить бриф"}
-        </StyledButton>
+        <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
       </HeaderFlex>
       <CardBlock>
         <TitleDate level={5} style={{ fontSize: "14px", fontWeight: "400" }}>

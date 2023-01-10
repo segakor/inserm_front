@@ -20,7 +20,7 @@ const ContactsWrapper = styled.div`
     width: 178px;
   }
 `;
-const ContactsCard = styled.div`
+const ContactsCard = styled.div<{ withoutCursor?: boolean }>`
   width: auto;
   height: 62px;
   background-color: #ffffff;
@@ -28,10 +28,15 @@ const ContactsCard = styled.div`
   display: flex;
   align-items: center;
   padding: 20px 20px 20px 20px;
-  cursor: pointer;
-  :hover {
+  cursor: ${(props) => (props.withoutCursor ? "" : "pointer")};
+  ${(props) => {
+    if (!props.withoutCursor)
+      return `
+        :hover {
     background-color: whitesmoke;
   }
+        `;
+  }}
 `;
 const TelegramIcon = styled(Telegram)`
   width: 20px;
@@ -52,21 +57,30 @@ export const Contacts = () => {
         Вы можете связаться с нами несколькими способами:
       </Title>
       <ContactsWrapper>
-        <ContactsCard>
+        <ContactsCard
+          onClick={() => window.open("https://t.me/helpotziv", "_blank")}
+        >
           <Title level={5} style={{ fontWeight: "400", color: "#40B3E0" }}>
             Telegram
           </Title>
           <TelegramIcon />
         </ContactsCard>
-        <ContactsCard>
+        <ContactsCard
+          onClick={() =>
+            window.open(
+              "https://api.whatsapp.com/send?phone=79913190069",
+              "_blank"
+            )
+          }
+        >
           <Title level={5} style={{ fontWeight: "400", color: "#2CB742" }}>
             Whatsapp
           </Title>
           <WhatsappIcon />
         </ContactsCard>
-        <ContactsCard>
+        <ContactsCard withoutCursor>
           <Title level={5} style={{ fontWeight: "700" }}>
-            email@yandex.ru
+            info@inserm.ru
           </Title>
         </ContactsCard>
       </ContactsWrapper>

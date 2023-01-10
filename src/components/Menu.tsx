@@ -189,6 +189,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
         navigation(`client/project/${e.key}`);
         break;
       case e.key === "exit":
+        setSelectedKeys([])
         handleLogout();
         break;
       default:

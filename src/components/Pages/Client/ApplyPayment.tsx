@@ -41,9 +41,8 @@ export const ApplyPayment = () => {
             <Input
               style={{ width: "300px" }}
               name="email"
-              type="text"
+              type="hidden"
               placeholder="email"
-              required
               value={personInfo?.email}
             />
             <Input
@@ -77,7 +76,7 @@ export const ApplyPayment = () => {
             type={"primary"}
             style={{ marginTop: "20px" }}
           >
-            Оплатить
+            Перейти к оплате
           </Button>
         </form>
       ),

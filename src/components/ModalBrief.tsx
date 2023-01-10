@@ -5,6 +5,7 @@ import { Title } from "./Typography";
 import { useCreateBrief } from "../hooks/useCreateBrief";
 import { useUpdateBrief } from "../hooks/useUpdateBrief";
 import { Brief } from "../type";
+import { useAuthCheck } from "../hooks/useAuthCheck";
 
 const { TextArea } = Input;
 
@@ -95,7 +96,12 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
     } else setIsEmptyValues(false);
   };
 
-  const isBrief = brief ? true : false;
+
+  const { role } = useAuthCheck();
+
+  const isBrief = brief || role !== 'CLIENT' ? true : false;
+
+  const disabledComment = role === 'HOST' || role === 'SUPPORT'
 
   return (
     <Modal
@@ -297,7 +303,6 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
         </Form.Item>
         <StyledButton
           type="primary"
-          /* block */
           onClick={onSumbit}
           disabled={disabledSave || isBrief}
         >
@@ -311,13 +316,14 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
               name="field_12"
             >
               <StyledTextArea
-                style={{ height: 50, resize: "none" }}
+                style={{ height: 100, /* resize: "none" */ }}
                 defaultValue={brief?.field_12}
+                disabled={disabledComment}
               />
             </Form.Item>
             <StyledButton
               type="primary"
-              /* block */
+              disabled={disabledComment}
               onClick={onSumbitUpdate}
             >
               Добавить комментарий

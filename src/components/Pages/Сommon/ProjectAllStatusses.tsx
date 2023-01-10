@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button } from "antd";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Title, Header } from "../../Typography";
@@ -10,6 +9,9 @@ import { getRangeDate } from "../../../utils/getDate";
 import { useGetReviews } from "../../../hooks/useGetReviews";
 import { TableProjectChangeable } from "../../TableProjectChangeable";
 import { useGetBrief } from "../../../hooks/useGetBrief";
+import { useAuthCheck } from "../../../hooks/useAuthCheck";
+import { TableProjectNotChangeable } from "../../TableProjectNotChangeable";
+import { ButtonBrief } from "../../ButtonBrief";
 
 const Page = styled.div`
   display: flex;
@@ -23,15 +25,6 @@ const HeaderFlex = styled.div`
     flex-direction: column;
   }
 `;
-const StyledButton = styled(Button)`
-  border-radius: 10px;
-  width: 180px;
-  height: 50px;
-  background: transparent;
-  margin-bottom: 20px;
-  border: 2px solid #1579e9;
-  color: #1579e9;
-`;
 const CardBlock = styled.div`
   width: 600px;
   @media (max-width: 768px) {
@@ -44,7 +37,7 @@ const TitleDate = styled(Title)`
 
 export const ProjectAllStatusses = () => {
   const params = useParams();
-  const projectId = params.projectId || ""
+  const projectId = params.projectId || "";
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -54,7 +47,7 @@ export const ProjectAllStatusses = () => {
 
   const handleClose = () => {
     setIsModalOpen(false);
-    handleGetBrief()
+    handleGetBrief();
   };
 
   const {
@@ -71,13 +64,13 @@ export const ProjectAllStatusses = () => {
   const start = tariff?.start;
   const end = tariff?.end;
 
+  const { role } = useAuthCheck();
+
   return (
     <Page>
       <HeaderFlex>
         <Header>{projectName || ""}</Header>
-        <StyledButton onClick={handleOpen}>
-          {brief ? "Открыть бриф" : "Заполнить бриф"}
-        </StyledButton>
+        <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
       </HeaderFlex>
       <CardBlock>
         <TitleDate level={5} style={{ fontSize: "14px", fontWeight: "400" }}>
@@ -86,18 +79,18 @@ export const ProjectAllStatusses = () => {
         <DetailsCard statuses={statusess} />
       </CardBlock>
       {isModalOpen && (
-        <ModalBrief
-          onClose={handleClose}
-          projectId={projectId}
-          brief={brief}
-        />
+        <ModalBrief onClose={handleClose} projectId={projectId} brief={brief} />
       )}
-      <TableProjectChangeable
-        reviews={reviews}
-        isLoading={isLoading}
-        onUpdate={handleGetReviews}
-        projectId={projectId}
-      />
+      {role === "ADMIN" || role === "HOST" || role === "SUPERVISOR" ? (
+        <TableProjectChangeable
+          reviews={reviews}
+          isLoading={isLoading}
+          onUpdate={handleGetReviews}
+          projectId={projectId}
+        />
+      ) : (
+        <TableProjectNotChangeable reviews={reviews} isLoading={isLoading} />
+      )}
       <ArchiveProjectList projectId={projectId} />
     </Page>
   );

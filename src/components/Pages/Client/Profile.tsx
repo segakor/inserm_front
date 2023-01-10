@@ -5,7 +5,6 @@ import { FormChangePassword } from "../../FormChangePassword";
 import { FormChangeClientInfo } from "../../FormChangeClientInfo";
 import { usePerson } from "../../../hooks/usePerson";
 import { useLocalState } from "../../../context/hooks";
-/* import { Skeleton } from "antd"; */
 
 const Page = styled.div`
   display: flex;
@@ -26,7 +25,6 @@ const FlexBox = styled.div`
 `;
 
 export const Profile = () => {
-  /*   const [toggle, setToggle] = useState(false); */
   usePerson();
   const state = useLocalState();
   const { personInfo } = state;

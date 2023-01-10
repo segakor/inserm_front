@@ -6,6 +6,7 @@ import { TariffSelectionBlock } from "../../TariffSelectionBlock";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "../../../context/hooks";
 import { setProjectForPayment } from "../../../context/action";
+import { usePerson } from "../../../hooks/usePerson";
 
 const Page = styled.div`
   display: flex;
@@ -19,6 +20,8 @@ const ButtonWrapper = styled.div`
 export const CreateProject = () => {
   const [projectName, setProjectName] = useState("");
   const [current, setCurrent] = useState(0);
+
+  usePerson();
 
   const navigation = useNavigate();
 

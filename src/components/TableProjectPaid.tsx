@@ -150,7 +150,11 @@ export const TableProjectPaid = ({
     {
       title: "Текст отзыва",
       dataIndex: "text",
-      width: "20%",
+      width: "200px",
+      render: (text: string) => (
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
+        <div style={{ width: '200px' }}>{text}</div>
+      ),
     },
     {
       title: "Статус отзыва",
@@ -188,7 +192,6 @@ export const TableProjectPaid = ({
       title: "Оплачено",
       dataIndex: "is_paid",
       width: "8%",
-      align: "center" as const,
       render: (_: any, record: ReviewsTableItem) => {
         const editable = isEditing(record);
         return (

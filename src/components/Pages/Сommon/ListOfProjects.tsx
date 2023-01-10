@@ -4,6 +4,7 @@ import { FlatCardProject } from "../../FlatCardProject";
 import { Header } from "../../Typography";
 import { useGetAllProject } from "../../../hooks/useGetAllProject";
 import { Input, Spin } from "antd";
+import { SearchOutlined } from '@ant-design/icons';
 
 const Page = styled.div`
   display: flex;
@@ -46,7 +47,7 @@ export const ListOfProject = () => {
     <Page>
       <Header>Список проектов</Header>
       <Box>
-        <SearchPanel placeholder="Поиск проектов" onChange={handleSearch} />
+        <SearchPanel suffix={<SearchOutlined />} placeholder="Поиск проектов" onChange={handleSearch} />
         {!isLoading &&
           filteredData?.map((item) => <FlatCardProject {...item} />)}
         {isLoading && <Spin />}

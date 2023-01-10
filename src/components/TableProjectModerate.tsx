@@ -13,6 +13,7 @@ import { StatusComponent } from "./StatusComponent";
 import { useUpdateReview } from "../hooks/useUpdateReview";
 import { Reviews } from "../type";
 import { getDate } from "../utils/getDate";
+import { StatusSelect } from "./StatusSelect";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
@@ -130,6 +131,16 @@ export const TableProjectModerate = ({
     }
   };
 
+  const onSelectStatus = (value: string, key: React.Key) => {
+    // @ts-ignore TODO:доделать!
+    const newData = [...reviews];
+    const index = newData.findIndex((item) => key === item.key);
+    if (index > -1) {
+      /* const item = newData[index]; */
+      form.setFieldsValue({ status: value });
+    }
+  };
+
   const columns = [
     {
       title: "№",
@@ -153,16 +164,28 @@ export const TableProjectModerate = ({
     {
       title: "Текст отзыва",
       dataIndex: "text",
-      width: "20%",
+      width: "200px",
+      render: (text: string) => (
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
+        <div style={{ width: '200px' }}>{text}</div>
+      ),
     },
     {
       title: "Статус отзыва",
       dataIndex: "status",
       width: "10%",
-      render: (status: string) => {
+      render: (status: string, record: ReviewsTableItem) => {
+        const editable = isEditing(record);
         return (
           <>
-            <StatusComponent status={status} />
+            {editable ? (
+              <StatusSelect
+                defaultValue={status}
+                onSelect={(e) => onSelectStatus(e, record.key)}
+              />
+            ) : (
+              <StatusComponent status={status} />
+            )}
           </>
         );
       },
@@ -193,7 +216,6 @@ export const TableProjectModerate = ({
       title: "В работе",
       dataIndex: "in_work",
       width: "8%",
-      align: "center" as const,
       render: (_: any, record: ReviewsTableItem) => {
         const editable = isEditing(record);
         return (
@@ -275,6 +297,9 @@ export const TableProjectModerate = ({
         />
       </ConfigProvider>
       <Form.Item name={"in_work"} style={{ visibility: "hidden" }}>
+        <Input />
+      </Form.Item>
+      <Form.Item name={"status"} style={{ visibility: "hidden" }}>
         <Input />
       </Form.Item>
       <Form.Item name={"date"} style={{ visibility: "hidden" }}>

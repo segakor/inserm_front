@@ -1,8 +1,15 @@
 import React from "react";
 import { Select } from "antd";
 
-export const StatusSelect = ({ defaultValue, onSelect }: { defaultValue: string; onSelect: (e: string) => void }) => {
-
+export const StatusSelect = ({
+  defaultValue,
+  onSelect,
+  onlyModerate,
+}: {
+  defaultValue: string;
+  onSelect: (e: string) => void;
+  onlyModerate?: boolean;
+}) => {
   const items = [
     {
       status: "success",
@@ -24,14 +31,33 @@ export const StatusSelect = ({ defaultValue, onSelect }: { defaultValue: string;
       status: "wait",
       label: "В очереди",
     },
-  ]
+  ];
+
+  const itemOnlyModerate = [
+    {
+      status: "moderate",
+      label: "На модерации",
+
+    },
+    {
+      status: "wait",
+      label: "В очереди",
+    },
+  ];
+
+  const option = !onlyModerate
+    ? items.map((item) => ({ label: item.label, value: item.status }))
+    : itemOnlyModerate.map((item) => ({
+      label: item.label,
+      value: item.status,
+    }));
 
   return (
     <Select
       defaultValue={defaultValue}
       style={{ width: 115 }}
       onChange={onSelect}
-      options={items.map((item) => ({ label: item.label, value: item.status }))}
+      options={option}
     />
   );
 };

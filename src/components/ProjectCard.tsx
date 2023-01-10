@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Title } from "./Typography";
-import { Button } from "antd";
 import { DetailsCard } from "./DetailsCard";
 import { Project } from "../type";
 import { getRangeDate } from '../utils/getDate';
 import { useNavigate } from "react-router-dom";
 import { ModalBrief } from "./ModalBrief";
 import { useGetBrief } from "../hooks/useGetBrief";
+import { ButtonBrief } from "./ButtonBrief";
 
 const Flex = styled.div`
   display: flex;
@@ -53,15 +53,6 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-`;
-const StyledButton = styled(Button)`
-  border-radius: 10px;
-  width: 180px;
-  height: 50px;
-  background: transparent;
-  margin-bottom: 20px;
-  border: 2px solid #1579e9;
-  color: #1579e9;
 `;
 
 
@@ -113,7 +104,7 @@ export const ProjectCard = (project: Project) => {
         </Title>
       </CardBlock>
       <TariffBlock>
-        <StyledButton onClick={handleOpen}>{brief ? "Открыть бриф" : "Заполнить бриф"}</StyledButton>
+        <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
         <TariffCard>
           <Header>
             <Title level={5} style={{ fontWeight: "800" }}>
