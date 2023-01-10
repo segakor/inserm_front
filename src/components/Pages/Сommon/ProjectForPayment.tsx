@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Header } from "../../Typography";
 import { useGetReviewsWithType } from "../../../hooks/useGetReviewsWithType";
-import { TableProjectPaid } from "../../TableProjectPaid";
+import { TableProjectPaid } from "../../Table/TableProjectPaid";
 
 const Page = styled.div`
   display: flex;

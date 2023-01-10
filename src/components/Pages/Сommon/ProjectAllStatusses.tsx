@@ -7,10 +7,10 @@ import { ModalBrief } from "../../ModalBrief";
 import { ArchiveProjectList } from "../../ArchiveProjectList";
 import { getRangeDate } from "../../../utils/getDate";
 import { useGetReviews } from "../../../hooks/useGetReviews";
-import { TableProjectChangeable } from "../../TableProjectChangeable";
+import { TableProjectChangeable } from "../../Table/TableProjectChangeable";
 import { useGetBrief } from "../../../hooks/useGetBrief";
 import { useAuthCheck } from "../../../hooks/useAuthCheck";
-import { TableProjectNotChangeable } from "../../TableProjectNotChangeable";
+import { TableProjectNotChangeable } from "../../Table/TableProjectNotChangeable";
 import { ButtonBrief } from "../../Button/ButtonBrief";
 
 const Page = styled.div`

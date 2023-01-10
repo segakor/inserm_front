@@ -9,11 +9,11 @@ import {
   ConfigProvider,
   Empty,
 } from "antd";
-import { StatusComponent } from "./StatusComponent";
-import { useUpdateReview } from "../hooks/useUpdateReview";
-import { Reviews } from "../type";
-import { getDate } from "../utils/getDate";
-import { StatusSelect } from "./StatusSelect";
+import { StatusComponent } from "../StatusComponent";
+import { useUpdateReview } from "../../hooks/useUpdateReview";
+import { Reviews } from "../../type";
+import { getDate } from "../../utils/getDate";
+import { StatusSelect } from "../StatusSelect";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { FormLogin } from "../../FormLogin";
+import { FormLogin } from "../../Form/FormLogin";
 
 const Page = styled.div`
   display: flex;

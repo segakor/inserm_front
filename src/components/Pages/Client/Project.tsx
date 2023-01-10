@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Title, Header } from "../../Typography";
 import { DetailsCard } from "../../DetailsCard";
 import { ModalBrief } from "../../ModalBrief";
-import { TableProject } from "../../TableProject";
+import { TableProject } from "../../Table/TableProject";
 import { ArchiveProjectList } from "../../ArchiveProjectList";
 import { useLocalState } from "../../../context/hooks";
 import { getRangeDate } from "../../../utils/getDate";

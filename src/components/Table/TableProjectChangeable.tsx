@@ -11,13 +11,13 @@ import {
   Button,
   Tooltip,
 } from "antd";
-import { StatusComponent } from "./StatusComponent";
-import { StatusSelect } from "./StatusSelect";
-import { useAuthCheck } from "../hooks/useAuthCheck";
-import { useUpdateReview } from "../hooks/useUpdateReview";
-import { Reviews } from "../type";
-import { ModalCreateReview } from "./ModalCreateReview";
-import { getDate } from "../utils/getDate";
+import { StatusComponent } from "../StatusComponent";
+import { StatusSelect } from "../StatusSelect";
+import { useAuthCheck } from "../../hooks/useAuthCheck";
+import { useUpdateReview } from "../../hooks/useUpdateReview";
+import { Reviews } from "../../type";
+import { ModalCreateReview } from "../ModalCreateReview";
+import { getDate } from "../../utils/getDate";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;

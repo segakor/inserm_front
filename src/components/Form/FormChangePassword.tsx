@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Title } from "./Typography";
+import { Title } from "../Typography";
 import { Button, Input, Form } from "antd";
-import { useChangePassword } from "../hooks/useChangePassword";
+import { useChangePassword } from "../../hooks/useChangePassword";
 
 const Wrapper = styled.div`
   padding: 20px 20px 20px 20px;

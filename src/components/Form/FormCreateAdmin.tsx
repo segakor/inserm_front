@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Title } from "./Typography";
+import { Title } from "../Typography";
 import { Button, Input, Form, Select } from "antd";
-import { useCreateAdmin } from "../hooks/useCreateAdmin";
-import { useUpdateAdmin } from "../hooks/useUpdateAdmin";
+import { useCreateAdmin } from "../../hooks/useCreateAdmin";
+import { useUpdateAdmin } from "../../hooks/useUpdateAdmin";
 
 const Wrapper = styled.div`
   padding: 20px 20px 20px 20px;

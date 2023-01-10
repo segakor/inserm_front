@@ -102,7 +102,7 @@ export const TariffItem = ({
     <Wrapper>
       <Row style={{ marginBottom: 40 }}>
         <Title level={4} style={{ fontWeight: "800" }}>
-          Тариф {name}
+          Тариф “{name}”
         </Title>
         <Title style={{ fontSize: 14, fontWeight: "400" }}>
           {period ? setPeriod(period) : getRangeDate({ start, end })}

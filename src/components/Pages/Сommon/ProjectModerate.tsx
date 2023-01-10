@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Header } from "../../Typography";
 import { useGetReviewsWithType } from "../../../hooks/useGetReviewsWithType";
-import { TableProjectModerate } from "../../TableProjectModerate";
+import { TableProjectModerate } from "../../Table/TableProjectModerate";
 
 const Page = styled.div`
   display: flex;

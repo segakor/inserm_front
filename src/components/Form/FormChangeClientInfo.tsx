@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Title } from "./Typography";
+import { Title } from "../Typography";
 import { Button, Input, Form } from "antd";
-import { useLocalState } from "../context/hooks";
-import { usePerson } from "../hooks/usePerson";
+import { useLocalState } from "../../context/hooks";
+import { usePerson } from "../../hooks/usePerson";
 
 const Wrapper = styled.div`
   padding: 20px 20px 20px 20px;

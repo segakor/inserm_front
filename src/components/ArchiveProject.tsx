@@ -5,7 +5,7 @@ import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { Statuses } from "../type";
 import { getRangeDate } from "../utils/getDate";
 import { useGetArchiveReviews } from '../hooks/useGetArchiveReviews';
-import { TableProject } from "./TableProject";
+import { TableProject } from "./Table/TableProject";
 
 const Wrapper = styled.div`
   border-radius: 10px;

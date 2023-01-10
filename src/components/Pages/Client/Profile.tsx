@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Title, Header } from "../../Typography";
-import { FormChangePassword } from "../../FormChangePassword";
-import { FormChangeClientInfo } from "../../FormChangeClientInfo";
+import { FormChangePassword } from "../../Form/FormChangePassword";
+import { FormChangeClientInfo } from "../../Form/FormChangeClientInfo";
 import { usePerson } from "../../../hooks/usePerson";
 import { useLocalState } from "../../../context/hooks";
 

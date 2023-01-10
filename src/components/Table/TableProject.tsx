@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Table, Modal, Input, ConfigProvider, Empty } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import useBreakpoint from "use-breakpoint";
-import { StatusComponent } from "./StatusComponent";
-import { Title } from "./Typography";
-import { Reviews } from "../type";
-import { getDate } from "../utils/getDate";
+import { StatusComponent } from "../StatusComponent";
+import { Title } from "../Typography";
+import { Reviews } from "../../type";
+import { getDate } from "../../utils/getDate";
 
 const { TextArea } = Input;
 

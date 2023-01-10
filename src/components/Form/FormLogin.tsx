@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Button, Form, Input } from "antd";
-import { Title } from "./Typography";
-import { useAuth } from '../hooks/useAuth';
+import { Title } from "../Typography";
+import { useAuth } from '../../hooks/useAuth';
 
 const Wrapper = styled.div`
   background-color: #ffffff;
@@ -24,6 +24,7 @@ const StyledInput = styled(Input)`
 const StyledInputPassword = styled(Input.Password)`
   border-radius: 10px;
   height: 50px;
+  margin-top: 10px;
 `;
 const StyledForm = styled(Form)`
   display: flex;

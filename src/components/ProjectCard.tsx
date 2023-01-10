@@ -108,7 +108,7 @@ export const ProjectCard = (project: Project) => {
         <TariffCard>
           <Header>
             <Title level={5} style={{ fontWeight: "800" }}>
-              Тариф {tariffName}
+              Тариф “{tariffName}”
             </Title>
             <TitleDate>{getRangeDate({ start, end })}</TitleDate>
           </Header>

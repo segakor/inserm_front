@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { FormCreateAdmin } from "../../FormCreateAdmin";
+import { FormCreateAdmin } from "../../Form/FormCreateAdmin";
 import { ListOfAdmin } from "../../ListOfAdmin";
 import { Header } from "../../Typography";
 
