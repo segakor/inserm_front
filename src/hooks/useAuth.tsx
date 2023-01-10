@@ -18,7 +18,7 @@ export const useAuth = () => {
       const response = await login(value);
       localStorage.setItem("loginData", JSON.stringify(response.data));
       //TODO: сетить начальную страницу в зависимости от роли
-      navigate(`/${response.data.role?.toLowerCase()}/projects`);
+      navigate(`/${response.data.role}/projects`);
     } catch (err) {
       openNotificationWithIcon({
         type: "error",

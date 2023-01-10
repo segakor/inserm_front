@@ -7,8 +7,8 @@ import { Header } from "../../Typography";
 const Page = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
-
 
 export const CreateAdmin = () => {
   return (

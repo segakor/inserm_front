@@ -7,7 +7,7 @@ import { getRangeDate } from '../utils/getDate';
 import { useNavigate } from "react-router-dom";
 import { ModalBrief } from "./ModalBrief";
 import { useGetBrief } from "../hooks/useGetBrief";
-import { ButtonBrief } from "./ButtonBrief";
+import { ButtonBrief } from "./Button/ButtonBrief";
 
 const Flex = styled.div`
   display: flex;

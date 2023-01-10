@@ -18,7 +18,8 @@ import {
   ReqProjectCreate,
   ReqCreateAdmin,
   ResAdmin,
-  ReqSiteRegistration
+  ReqSiteRegistration,
+  Admin
 } from "./type";
 
 const URL = "https://lul.inserm.ru:5001/api";
@@ -178,6 +179,13 @@ export const getAdmin = async () => {
 
 export const createUserFromSite = async (value: ReqSiteRegistration) => {
   const { data, status } = await axios.post(URL + `/user/siteRegistration`, { ...value });
+  return {
+    data,
+    status,
+  };
+}
+export const updateAdmin = async (value: Admin) => {
+  const { data, status } = await axios.post(URL + `/user/update`, { ...value });
   return {
     data,
     status,

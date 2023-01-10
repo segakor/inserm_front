@@ -10,7 +10,7 @@ import { useLocalState } from "../../../context/hooks";
 import { getRangeDate } from "../../../utils/getDate";
 import { useGetReviews } from "../../../hooks/useGetReviews";
 import { useGetBrief } from '../../../hooks/useGetBrief';
-import { ButtonBrief } from "../../ButtonBrief";
+import { ButtonBrief } from "../../Button/ButtonBrief";
 
 const Page = styled.div`
   display: flex;

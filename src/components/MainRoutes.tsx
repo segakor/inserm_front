@@ -65,7 +65,7 @@ const PublicRoutes = () => {
 
   const { auth, role } = useAuthCheck()
 
-  const page = `/${role?.toLowerCase()}/projects`
+  const page = `/${role}/projects`
 
   return auth ? <Navigate to={page} /> : <Outlet />
 }

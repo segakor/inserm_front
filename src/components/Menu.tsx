@@ -193,7 +193,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
         handleLogout();
         break;
       default:
-        navigation(`${role?.toLowerCase()}/${e.key}`);
+        navigation(`${role}/${e.key}`);
         break;
     }
 

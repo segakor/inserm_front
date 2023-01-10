@@ -11,7 +11,7 @@ import { TableProjectChangeable } from "../../TableProjectChangeable";
 import { useGetBrief } from "../../../hooks/useGetBrief";
 import { useAuthCheck } from "../../../hooks/useAuthCheck";
 import { TableProjectNotChangeable } from "../../TableProjectNotChangeable";
-import { ButtonBrief } from "../../ButtonBrief";
+import { ButtonBrief } from "../../Button/ButtonBrief";
 
 const Page = styled.div`
   display: flex;

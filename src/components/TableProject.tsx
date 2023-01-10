@@ -19,7 +19,7 @@ const columns: ColumnsType<ReviewsTableItem> = [
   {
     title: "№",
     dataIndex: "key",
-    width: 30,
+    width: 40,
     render: (record: string) => {
       return (
         <>{Number(record) + 1}</>
@@ -80,7 +80,7 @@ export const TableProject = ({ reviews, isLoading }: Props) => {
     {
       title: "№",
       dataIndex: "key",
-      width: 30,
+      width: 40,
     },
     {
       title: "Ссылка на отзыв",

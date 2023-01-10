@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Title } from "./Typography";
 import { Button, Input, Form, Select } from "antd";
 import { useCreateAdmin } from "../hooks/useCreateAdmin";
+import { useUpdateAdmin } from "../hooks/useUpdateAdmin";
 
 const Wrapper = styled.div`
   padding: 20px 20px 20px 20px;
@@ -15,6 +16,9 @@ const Wrapper = styled.div`
   margin-bottom: 50px;
   h5 {
     margin-bottom: 20px !important;
+  }
+  @media (max-width: 768px) {
+    width: auto;
   }
 `;
 const StyledInput = styled(Input)`
@@ -40,23 +44,35 @@ const ButtonWrapper = styled.div`
   grid-gap: 20px;
 `;
 
-export const FormCreateAdmin = () => {
+type Props = {
+  editMode?: boolean;
+  id?: number;
+  email?: string;
+  role?: string;
+  firstName?: string;
+  lastName?: string;
+};
+
+export const FormCreateAdmin = (props: Props) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isErrorValues, setIsErrorValues] = useState(true);
 
   const [form] = Form.useForm();
 
   const { handleCreateAdmin } = useCreateAdmin();
+  const { handleUpdateAdmin } = useUpdateAdmin();
 
   const handleEdit = () => {
     setIsEdit(!isEdit);
   };
 
   const onSumbit = async () => {
-    const rows = (await form.validateFields());
-    handleCreateAdmin({ ...rows }).then(() => {
-      onResetSubmitEdit();
-    });
+    const rows = await form.validateFields();
+    !props.editMode
+      ? handleCreateAdmin({ ...rows }).then(() => {
+        onResetSubmitEdit();
+      })
+      : handleUpdateAdmin({ ...rows });
   };
 
   const onResetSubmitEdit = () => {
@@ -69,46 +85,93 @@ export const FormCreateAdmin = () => {
     setIsErrorValues(hasErrors);
   };
 
+  console.log(props)
+
   return (
     <Wrapper>
-      <Form disabled={!isEdit} form={form} onFieldsChange={handleFormChange}>
+      <Form
+        disabled={!props.editMode ? !isEdit : false}
+        form={form}
+        initialValues={props}
+        onFieldsChange={handleFormChange}
+      >
         <Title level={5} style={{ fontWeight: "800" }}>
-          Создание нового профиля
+          {!props.editMode
+            ? "Создание нового профиля"
+            : "Редактирование профиля"}
         </Title>
-        <Form.Item name="role" rules={[
-          {
-            required: true,
-            message: "Обязательное поле",
-          },
-        ]}>
+        <Form.Item
+          name="role"
+          rules={[
+            {
+              required: true,
+              message: "Обязательное поле",
+            },
+          ]}
+        >
           <StyledSelect
-            disabled={!isEdit}
+            disabled={!props.editMode ? !isEdit : false}
             bordered={false}
             placeholder={"Роль"}
+            value={
+              props.role === "HOST"
+                ? "Размещатель"
+                : props.role === "SUPERVISOR"
+                  ? "Руководитель проектов"
+                  : "Техподдержка"
+            }
           >
-            <Select.Option value="host">Размещатель</Select.Option>
-            <Select.Option value="supervisor">
+            <Select.Option value="HOST">Размещатель</Select.Option>
+            <Select.Option value="SUPERVISOR">
               Руководитель проектов
             </Select.Option>
-            <Select.Option value="support">Техподдержка</Select.Option>
+            <Select.Option value="SUPPORT">Техподдержка</Select.Option>
           </StyledSelect>
         </Form.Item>
-        <Form.Item name="firstName">
+        <Form.Item
+          name="firstName"
+          rules={[
+            {
+              required: true,
+              message: "Обязательное поле",
+            },
+          ]}
+        >
           <StyledInput placeholder="Имя" title="Имя" />
         </Form.Item>
-        <Form.Item name="lastName">
+        <Form.Item
+          name="id"
+          hidden
+          rules={[
+            {
+              required: true,
+              message: "Обязательное поле",
+            },
+          ]}
+        >
+          <StyledInput placeholder="id" title="id" />
+        </Form.Item>
+        <Form.Item
+          name="lastName"
+          rules={[
+            {
+              required: true,
+              message: "Обязательное поле",
+            },
+          ]}
+        >
           <StyledInput placeholder="Фамилия" title="Фамилия" />
         </Form.Item>
         <Form.Item
           name="email"
           rules={[
             {
-              type: 'email',
-              message: 'The input is not valid E-mail!',
+              type: "email",
+              message: "The input is not valid E-mail!",
             },
             {
               required: true,
-              message: 'Обазятальное поле',
+              message: "Обазятальное поле",
             },
           ]}
         >
@@ -129,9 +192,14 @@ export const FormCreateAdmin = () => {
           <StyledInput placeholder="Пароль" title="Пароль" />
         </Form.Item>
       </Form>
-      {isEdit && (
+      {isEdit && !props.editMode && (
         <ButtonWrapper>
-          <StyledButton type="primary" block onClick={onSumbit} disabled={isErrorValues}>
+          <StyledButton
+            type="primary"
+            block
+            onClick={onSumbit}
+            disabled={isErrorValues}
+          >
             Сохранить
           </StyledButton>
           <StyledButton type="primary" block onClick={onResetSubmitEdit}>
@@ -139,10 +207,28 @@ export const FormCreateAdmin = () => {
           </StyledButton>
         </ButtonWrapper>
       )}
-      {!isEdit && (
+      {!isEdit && !props.editMode && (
         <StyledButton type="primary" block onClick={handleEdit}>
           Создать админа
         </StyledButton>
+      )}
+      {props.editMode && (
+        <ButtonWrapper>
+          <StyledButton type="primary" block onClick={onSumbit}>
+            Сохранить
+          </StyledButton>
+          <Button
+            type="primary"
+            block
+            style={{
+              background: " #313131",
+              height: "50px",
+              borderRadius: "10px",
+            }}
+          >
+            Удалить
+          </Button>
+        </ButtonWrapper>
       )}
     </Wrapper>
   );

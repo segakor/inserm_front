@@ -168,7 +168,7 @@ export type ReqCreateAdmin = {
   role: Role;
 }
 
-export type ListOfAdmin = {
+export type Admin = {
   id: number;
   email: string;
   role: string;
@@ -177,7 +177,7 @@ export type ListOfAdmin = {
 }
 
 export type ResAdmin = {
-  result: ListOfAdmin[]
+  result: Admin[]
 }
 
 export type ProjectForPayment = {

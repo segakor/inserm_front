@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Title } from "./Typography";
 import { useGetAdmin } from "../hooks/useGetAdmin";
 import { useLocalState } from "../context/hooks";
+import { ModalChangeAdmin } from "./ModalChangeAdmin";
+import { Admin } from "../type";
 
 const HeaderTitle = styled(Title)`
   margin-bottom: 30px !important;
@@ -13,6 +15,7 @@ const AdminCard = styled.div`
   border-radius: 10px;
   background: #ffffff;
   padding: 15px 20px 15px 20px;
+  min-width: 250px;
 `;
 const HeaderCard = styled(Title)`
   margin-bottom: 10px;
@@ -24,12 +27,18 @@ const Item = styled(Title)`
   margin-bottom: 5px;
   color: #8e8e8e !important;
   font-weight: 500 !important;
+  cursor: pointer;
+  border-radius: 10px;
+  :hover {
+    background-color: whitesmoke;
+  }
 `;
 const FlexBox = styled.div`
   display: flex;
   justify-content: space-between;
   height: auto;
   grid-gap: 20px;
+  width: 745px;
   @media (max-width: 768px) {
     flex-direction: column;
     width: auto;
@@ -42,19 +51,34 @@ export const ListOfAdmin = () => {
   const { listOfAdmin } = state;
 
   const host = listOfAdmin?.filter(
-    (item) => item.role.toLowerCase() === "host"
+    (item) => item.role === "HOST"
   );
   const supervisor = listOfAdmin?.filter(
-    (item) => item.role.toLowerCase() === "supervisor"
+    (item) => item.role === "SUPERVISOR"
   );
   const support = listOfAdmin?.filter(
-    (item) => item.role.toLowerCase() === "support"
+    (item) => item.role === "SUPPORT"
   );
 
   useEffect(() => {
     handleGetAdmin();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<undefined | Admin>(
+    undefined
+  );
+
+  const handleOpen = (e: any) => {
+    setSelectedItem(e);
+    setIsModalOpen(true);
+  };
+
+  const handleClose = () => {
+    setSelectedItem(undefined);
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -64,7 +88,7 @@ export const ListOfAdmin = () => {
           <AdminCard>
             <HeaderCard level={5}>Размещатель</HeaderCard>
             {host.map((item, index) => (
-              <Item key={index} level={5}>
+              <Item key={index} level={5} onClick={() => handleOpen(item)}>
                 {item.email}
               </Item>
             ))}
@@ -74,7 +98,7 @@ export const ListOfAdmin = () => {
           <AdminCard>
             <HeaderCard level={5}>Руководитель проектов</HeaderCard>
             {supervisor.map((item, index) => (
-              <Item key={index} level={5}>
+              <Item key={index} level={5} onClick={() => handleOpen(item)}>
                 {item.email}
               </Item>
             ))}
@@ -84,13 +108,23 @@ export const ListOfAdmin = () => {
           <AdminCard>
             <HeaderCard level={5}>Техподдержка</HeaderCard>
             {support.map((item, index) => (
-              <Item key={index} level={5}>
+              <Item key={index} level={5} onClick={() => handleOpen(item)}>
                 {item.email}
               </Item>
             ))}
           </AdminCard>
         )}
       </FlexBox>
+      {isModalOpen && (
+        <ModalChangeAdmin
+          onClose={handleClose}
+          id={selectedItem?.id || 0}
+          email={selectedItem?.email || ""}
+          role={selectedItem?.role || ""}
+          firstName={selectedItem?.firstName || ""}
+          lastName={selectedItem?.lastName || ""}
+        />
+      )}
     </>
   );
 };

@@ -6,7 +6,6 @@ import { useAuth } from '../hooks/useAuth';
 
 const Wrapper = styled.div`
   background-color: #ffffff;
-  border: 1px solid #000000;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   padding: 20px 20px 0px 20px;
