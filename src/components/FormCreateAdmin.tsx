@@ -85,8 +85,6 @@ export const FormCreateAdmin = (props: Props) => {
     setIsErrorValues(hasErrors);
   };
 
-  console.log(props)
-
   return (
     <Wrapper>
       <Form
@@ -142,12 +140,6 @@ export const FormCreateAdmin = (props: Props) => {
         <Form.Item
           name="id"
           hidden
-          rules={[
-            {
-              required: true,
-              message: "Обязательное поле",
-            },
-          ]}
         >
           <StyledInput placeholder="id" title="id" />
         </Form.Item>
