@@ -9,7 +9,6 @@ import {
   SET_LIST_OF_ADMIN,
   SetProjectForPayment,
   SET_PROJECT_FOR_PAYMENT,
-  ClearState,
   CLEAR_STATE
 } from "./action";
 
