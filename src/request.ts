@@ -191,3 +191,10 @@ export const updateAdmin = async (value: Admin) => {
     status,
   };
 }
+export const deleteAdmin = async (value: { email: string }) => {
+  const { data, status } = await axios.post(URL + `/user/delete`, { ...value });
+  return {
+    data,
+    status,
+  };
+}

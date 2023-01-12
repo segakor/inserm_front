@@ -1,15 +1,11 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
-import {
-  Form,
-  Table,
-  Checkbox,
-  ConfigProvider,
-  Empty,
-  Tooltip,
-} from "antd";
+import { Form, Table, Checkbox, ConfigProvider, Empty } from "antd";
 import { StatusComponent } from "../StatusComponent";
 import { Reviews } from "../../type";
 import { getDate } from "../../utils/getDate";
+import { ButtonCopy } from "../Button/ButtonCopy";
+import { cliapbord } from "../../utils/cliapbord";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
@@ -20,10 +16,7 @@ type ReviewsTableItem = Reviews & {
   key: string;
 };
 
-export const TableProjectNotChangeable = ({
-  reviews,
-  isLoading,
-}: Props) => {
+export const TableProjectNotChangeable = ({ reviews, isLoading }: Props) => {
   const [form] = Form.useForm();
   const [dataSource, setDataSource] = useState(reviews);
 
@@ -31,7 +24,7 @@ export const TableProjectNotChangeable = ({
     {
       title: "№",
       dataIndex: "key",
-      width: "2%",
+      width: "4%",
       render: (record: string) => {
         return <>{Number(record) + 1}</>;
       },
@@ -39,25 +32,31 @@ export const TableProjectNotChangeable = ({
     {
       title: "Ссылка на отзыв",
       dataIndex: "link",
-      width: "15%",
+      width: "12%",
       render: (text: string) => (
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        <a onClick={() => window.open(text, "_blank")}>{text}</a>
+        <div style={{ display: "inline" }}>
+          <a onClick={() => window.open(text, "_blank")}>{text}</a>
+          <ButtonCopy onClick={() => cliapbord(text)} />
+        </div>
       ),
     },
     {
       title: "Текст отзыва",
       dataIndex: "text",
-      width: "200px",
+      width: "20%",
       render: (text: string) => (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        <div style={{ width: "200px" }}>{text}</div>
+        <div>
+          <span>{text}</span>
+          <ButtonCopy onClick={() => cliapbord(text)} />
+        </div>
       ),
     },
     {
       title: "Статус отзыва",
       dataIndex: "status",
-      width: "10%",
+      width: "15%",
+      ellipsis: true,
       render: (status: string) => {
         return <StatusComponent status={status} />;
       },
@@ -85,16 +84,9 @@ export const TableProjectNotChangeable = ({
     {
       title: "В работе",
       dataIndex: "in_work",
-      width: "8%",
+      width: "6%",
       render: (_: any, record: ReviewsTableItem) => {
-        return (
-          <Tooltip title="В работу можно отдать только отзывы со статусом 'на модерации'">
-            <Checkbox
-              disabled
-              {...(record.in_work && { checked: true })}
-            />
-          </Tooltip>
-        );
+        return <Checkbox disabled {...(record.in_work && { checked: true })} />;
       },
     },
   ];
@@ -102,7 +94,6 @@ export const TableProjectNotChangeable = ({
   useEffect(() => {
     setDataSource(reviews);
   }, [reviews]);
-
 
   return (
     <Form form={form} component={false}>
@@ -114,6 +105,7 @@ export const TableProjectNotChangeable = ({
           rowClassName="editable-row"
           pagination={false}
           loading={isLoading}
+          tableLayout={"fixed"}
         />
       </ConfigProvider>
     </Form>

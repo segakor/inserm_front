@@ -4,6 +4,7 @@ import { Title } from "../Typography";
 import { Button, Input, Form, Select } from "antd";
 import { useCreateAdmin } from "../../hooks/useCreateAdmin";
 import { useUpdateAdmin } from "../../hooks/useUpdateAdmin";
+import { useDeleteAdmin } from "../../hooks/useDeleteAdmin";
 
 const Wrapper = styled.div`
   padding: 20px 20px 20px 20px;
@@ -51,6 +52,7 @@ type Props = {
   role?: string;
   firstName?: string;
   lastName?: string;
+  onClose?: () => void;
 };
 
 export const FormCreateAdmin = (props: Props) => {
@@ -61,6 +63,14 @@ export const FormCreateAdmin = (props: Props) => {
 
   const { handleCreateAdmin } = useCreateAdmin();
   const { handleUpdateAdmin } = useUpdateAdmin();
+  const { handleDeleteAdmin } = useDeleteAdmin();
+
+  const onDelete = async () => {
+    const rows = await form.validateFields();
+    handleDeleteAdmin({ ...rows })
+    if (props.onClose)
+      props.onClose();
+  }
 
   const handleEdit = () => {
     setIsEdit(!isEdit);
@@ -130,7 +140,7 @@ export const FormCreateAdmin = (props: Props) => {
           name="firstName"
           rules={[
             {
-              required: true,
+              required: !props.editMode ? true : false,
               message: "Обязательное поле",
             },
           ]}
@@ -147,7 +157,7 @@ export const FormCreateAdmin = (props: Props) => {
           name="lastName"
           rules={[
             {
-              required: true,
+              required: !props.editMode ? true : false,
               message: "Обязательное поле",
             },
           ]}
@@ -162,7 +172,7 @@ export const FormCreateAdmin = (props: Props) => {
               message: "The input is not valid E-mail!",
             },
             {
-              required: true,
+              required: !props.editMode ? true : false,
               message: "Обазятальное поле",
             },
           ]}
@@ -176,7 +186,7 @@ export const FormCreateAdmin = (props: Props) => {
           name="password"
           rules={[
             {
-              required: true,
+              required: !props.editMode ? true : false,
               message: "Обязательное поле",
             },
           ]}
@@ -210,6 +220,7 @@ export const FormCreateAdmin = (props: Props) => {
             Сохранить
           </StyledButton>
           <Button
+            onClick={onDelete}
             type="primary"
             block
             style={{

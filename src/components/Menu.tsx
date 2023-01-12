@@ -16,8 +16,9 @@ import { ReactComponent as CreateadminIcon } from "../assets/createadmin.svg";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useGetProject } from "../hooks/useGetProject";
-import { useLocalState } from "../context/hooks";
+import { useDispatch, useLocalState } from "../context/hooks";
 import { useAuthCheck } from "../hooks/useAuthCheck";
+import { clearState } from "../context/action";
 
 type Props = {
   onHeaderClose?: () => void;
@@ -35,6 +36,8 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
   const { role, auth } = useAuthCheck();
 
   const { handleGetClientProject } = useGetProject();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (role === 'CLIENT') {
@@ -191,6 +194,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       case e.key === "exit":
         setSelectedKeys([])
         handleLogout();
+        dispatch(clearState());
         break;
       default:
         navigation(`${role}/${e.key}`);

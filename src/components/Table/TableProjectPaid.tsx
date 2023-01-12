@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import {
   Form,
@@ -13,6 +14,8 @@ import { StatusComponent } from "../StatusComponent";
 import { useUpdateReview } from "../../hooks/useUpdateReview";
 import { Reviews } from "../../type";
 import { getDate } from "../../utils/getDate";
+import { ButtonCopy } from "../Button/ButtonCopy";
+import { cliapbord } from "../../utils/cliapbord";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
@@ -54,10 +57,10 @@ const EditableCell: React.FC<EditableCellProps> = ({
           name={dataIndex}
           style={{ margin: 0 }}
         /*  rules={[
- {
-   required: true,
-   message: `Please Input ${title}!`,
- },
+{
+ required: true,
+ message: `Please Input ${title}!`,
+},
 ]} */
         >
           {inputNode}
@@ -133,7 +136,7 @@ export const TableProjectPaid = ({
     {
       title: "№",
       dataIndex: "key",
-      width: "2%",
+      width: "4%",
       render: (record: string) => {
         return <>{Number(record) + 1}</>;
       },
@@ -141,25 +144,31 @@ export const TableProjectPaid = ({
     {
       title: "Ссылка на отзыв",
       dataIndex: "link",
-      width: "15%",
+      width: "12%",
       render: (text: string) => (
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        <a onClick={() => window.open(text, "_blank")}>{text}</a>
+        <div style={{ display: "inline" }}>
+          <a onClick={() => window.open(text, "_blank")}>{text}</a>
+          <ButtonCopy onClick={() => cliapbord(text)} />
+        </div>
       ),
     },
     {
       title: "Текст отзыва",
       dataIndex: "text",
-      width: "200px",
+      width: "20%",
       render: (text: string) => (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        <div style={{ width: '200px' }}>{text}</div>
+        <div>
+          <span>{text}</span>
+          <ButtonCopy onClick={() => cliapbord(text)} />
+        </div>
       ),
     },
     {
       title: "Статус отзыва",
       dataIndex: "status",
-      width: "10%",
+      width: "15%",
+      ellipsis: true,
       render: (status: string) => {
         return (
           <>
@@ -197,9 +206,7 @@ export const TableProjectPaid = ({
         return (
           <>
             <Checkbox
-              disabled={
-                (record.is_paid) || !editable
-              }
+              disabled={record.is_paid || !editable}
               /* checked={record.isWork} */
               {...(record.is_paid && { checked: true })}
               onClick={() => onCheckBoxPaid(record.key)}
@@ -259,6 +266,7 @@ export const TableProjectPaid = ({
           rowClassName="editable-row"
           pagination={false}
           loading={isLoading}
+          tableLayout={"fixed"}
         />
       </ConfigProvider>
       <Form.Item name={"is_paid"} style={{ visibility: "hidden" }}>

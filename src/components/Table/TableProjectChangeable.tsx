@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import {
   Form,
@@ -18,6 +19,10 @@ import { useUpdateReview } from "../../hooks/useUpdateReview";
 import { Reviews } from "../../type";
 import { ModalCreateReview } from "../ModalCreateReview";
 import { getDate } from "../../utils/getDate";
+import { cliapbord } from "../../utils/cliapbord";
+import { ButtonCopy } from "../Button/ButtonCopy";
+import { useLocalState } from "../../context/hooks";
+import { usePerson } from "../../hooks/usePerson";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
@@ -59,11 +64,11 @@ const EditableCell: React.FC<EditableCellProps> = ({
           name={dataIndex}
           style={{ margin: 0 }}
         /*  rules={[
-   {
-     required: true,
-     message: `Please Input ${title}!`,
-   },
- ]} */
+{
+required: true,
+message: `Please Input ${title}!`,
+},
+]} */
         >
           {inputNode}
         </Form.Item>
@@ -81,21 +86,27 @@ export const TableProjectChangeable = ({
   onUpdate,
 }: Props) => {
   const [form] = Form.useForm();
+  const statusFormField = Form.useWatch("status", form);
+
   const [editingKey, setEditingKey] = useState("");
   const [dataSource, setDataSource] = useState(reviews);
+
+  const state = useLocalState();
+  const { personInfo } = state;
+  usePerson();
 
   const { handleUpdateReview } = useUpdateReview();
 
   const isEditing = (record: ReviewsTableItem) => record.key === editingKey;
 
   const edit = (record: Partial<ReviewsTableItem> & { key: React.Key }) => {
-    /* form.setFieldsValue({ name: "", age: "", address: "", ...record }); */
     form.setFieldsValue({ ...record });
     setEditingKey(record.key);
   };
 
   const cancel = () => {
     setEditingKey("");
+    form.resetFields();
   };
 
   const save = async (key: React.Key) => {
@@ -136,6 +147,9 @@ export const TableProjectChangeable = ({
       item.in_work = !item.in_work;
       form.setFieldsValue({ in_work: item.in_work });
       form.setFieldsValue({ date: item.in_work ? inWorkDate : null });
+      form.setFieldsValue({
+        host: item.in_work ? personInfo?.first_name : null,
+      });
     }
   };
 
@@ -157,35 +171,41 @@ export const TableProjectChangeable = ({
     {
       title: "№",
       dataIndex: "key",
-      width: "2%",
+      width: "4%",
       render: (record: string) => {
-        return <>{Number(record) + 1}</>;
+        return <div>{Number(record) + 1}</div>;
       },
     },
     {
       title: "Ссылка на отзыв",
       dataIndex: "link",
-      width: "15%",
+      width: "12%",
       editable: isAdmin,
       render: (text: string) => (
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        <a onClick={() => window.open(text, "_blank")}>{text}</a>
+        <div style={{ display: "inline" }}>
+          <a onClick={() => window.open(text, "_blank")}>{text}</a>
+          <ButtonCopy onClick={() => cliapbord(text)} />
+        </div>
       ),
     },
     {
       title: "Текст отзыва",
       dataIndex: "text",
-      width: "200px",
+      width: "20%",
       editable: isAdmin,
       render: (text: string) => (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        <div style={{ width: "200px" }}>{text}</div>
+        <div>
+          <span>{text}</span>
+          <ButtonCopy onClick={() => cliapbord(text)} />
+        </div>
       ),
     },
     {
       title: "Статус отзыва",
       dataIndex: "status",
-      width: "10%",
+      width: "15%",
+      ellipsis: true,
       render: (status: string, record: ReviewsTableItem) => {
         const editable = isEditing(record);
         return (
@@ -233,16 +253,16 @@ export const TableProjectChangeable = ({
     {
       title: "В работе",
       dataIndex: "in_work",
-      width: "8%",
+      width: "6%",
       render: (_: any, record: ReviewsTableItem) => {
         const editable = isEditing(record);
         return (
           <Tooltip title="В работу можно отдать только отзывы со статусом 'на модерации'">
             <Checkbox
               disabled={
-                record.in_work || !editable || record.status !== "moderate"
+                record.in_work || !editable || statusFormField !== "moderate"
               }
-              /* checked={record.isWork} */
+              /* checked={record.in_work} */
               {...(record.in_work && { checked: true })}
               onClick={() => onCheckBoxWork(record.key)}
             />
@@ -277,11 +297,6 @@ export const TableProjectChangeable = ({
     },
   ];
 
-  /* const mergedColumns =
-    hideAction
-      ? columns.filter((col) => col.dataIndex !== "operation")
-      : columns; */
-
   const mergedColumns = columns.map((col) => {
     if (!col.editable) {
       return col;
@@ -313,47 +328,52 @@ export const TableProjectChangeable = ({
   };
 
   return (
-    <Form form={form} component={false}>
-      <ConfigProvider renderEmpty={() => <Empty description="Нет данных" />}>
-        {isAdmin && (
-          <Button
-            onClick={showModal}
-            type="primary"
-            style={{ marginBottom: 16, width: 150 }}
-          >
-            Добавить запись
-          </Button>
-        )}
-        {isModalOpen && (
-          <ModalCreateReview
-            onClose={closeModal}
-            projectId={projectId}
-            onUpdate={onUpdate}
+    <>
+      <Form form={form} component={false}>
+        <ConfigProvider renderEmpty={() => <Empty description="Нет данных" />}>
+          {isAdmin && (
+            <Button
+              onClick={showModal}
+              type="primary"
+              style={{ marginBottom: 16, width: 150 }}
+            >
+              Добавить запись
+            </Button>
+          )}
+          {isModalOpen && (
+            <ModalCreateReview
+              onClose={closeModal}
+              projectId={projectId}
+              onUpdate={onUpdate}
+            />
+          )}
+          <Table
+            components={{
+              body: {
+                cell: EditableCell,
+              },
+            }}
+            bordered
+            dataSource={dataSource}
+            columns={mergedColumns}
+            pagination={false}
+            loading={isLoading}
+            tableLayout={"fixed"}
           />
-        )}
-        <Table
-          components={{
-            body: {
-              cell: EditableCell,
-            },
-          }}
-          bordered
-          dataSource={dataSource}
-          columns={mergedColumns}
-          rowClassName="editable-row"
-          pagination={false}
-          loading={isLoading}
-        />
-      </ConfigProvider>
-      <Form.Item name={"in_work"} style={{ visibility: "hidden" }}>
-        <Input />
-      </Form.Item>
-      <Form.Item name={"status"} style={{ visibility: "hidden" }}>
-        <Input />
-      </Form.Item>
-      <Form.Item name={"date"} style={{ visibility: "hidden" }}>
-        <Input />
-      </Form.Item>
-    </Form>
+        </ConfigProvider>
+        <Form.Item name={"in_work"} hidden>
+          <Input />
+        </Form.Item>
+        <Form.Item name={"status"} hidden>
+          <Input />
+        </Form.Item>
+        <Form.Item name={"date"} hidden>
+          <Input />
+        </Form.Item>
+        <Form.Item name={"host"} hidden>
+          <Input />
+        </Form.Item>
+      </Form>
+    </>
   );
 };

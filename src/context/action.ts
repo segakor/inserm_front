@@ -2,6 +2,8 @@ export const SET_PERSON_INFO = "SET_PERSON_INFO";
 export const SET_CLIENT_PROJECT = "SET_CLIENT_PROJECT";
 export const SET_LIST_OF_ADMIN = "SET_LIST_OF_ADMIN";
 export const SET_PROJECT_FOR_PAYMENT = "SET_PROJECT_FOR_PAYMENT";
+export const SET_EMPLOYEE_LOGIN = "SET_EMPLOYEE_LOGIN";
+export const CLEAR_STATE = "CLEAR_STATE";
 
 export const setPersonInfo = (payload: any) => ({
   type: SET_PERSON_INFO,
@@ -24,14 +26,19 @@ export const setProjectForPayment = (payload: {
   type: SET_PROJECT_FOR_PAYMENT,
   payload,
 });
+export const clearState = () => ({
+  type: CLEAR_STATE,
+});
 
 export type SetClientProject = ReturnType<typeof setClientProject>;
 export type SetPersonInfo = ReturnType<typeof setPersonInfo>;
 export type SetListOfAdmin = ReturnType<typeof setListOfAdmin>;
 export type SetProjectForPayment = ReturnType<typeof setProjectForPayment>;
+export type ClearState = ReturnType<typeof clearState>;
 
 export type ReducerAction =
   | SetPersonInfo
   | SetPersonInfo
   | SetListOfAdmin
-  | SetProjectForPayment;
+  | SetProjectForPayment
+  | ClearState;

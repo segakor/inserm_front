@@ -8,7 +8,9 @@ import {
   SetListOfAdmin,
   SET_LIST_OF_ADMIN,
   SetProjectForPayment,
-  SET_PROJECT_FOR_PAYMENT
+  SET_PROJECT_FOR_PAYMENT,
+  ClearState,
+  CLEAR_STATE
 } from "./action";
 
 export const initialState: LocalState = {
@@ -56,10 +58,23 @@ function setProjectForPayment(
     projectForPayment: payload,
   };
 }
+function clearState(
+  state: LocalState
+): LocalState {
+  return {
+    ...state,
+    personInfo: undefined,
+    clientProject: undefined,
+    role: undefined,
+    listOfAdmin: undefined,
+    projectForPayment: undefined,
+  };
+}
 
 export const reducer = createReducer(initialState, {
   [SET_PERSON_INFO]: setPersonInfo,
   [SET_CLIENT_PROJECT]: setClientProject,
   [SET_LIST_OF_ADMIN]: setListOfAdmin,
-  [SET_PROJECT_FOR_PAYMENT]: setProjectForPayment
+  [SET_PROJECT_FOR_PAYMENT]: setProjectForPayment,
+  [CLEAR_STATE]: clearState,
 });
