@@ -21,6 +21,7 @@ export const HeaderComponent = () => {
 
   const { auth } = useAuthCheck();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   const setWindowDimensions = () => {
     setWindowWidth(window.innerWidth)
@@ -32,6 +33,8 @@ export const HeaderComponent = () => {
       window.removeEventListener('resize', setWindowDimensions)
     }
   }, [])
+
+
   return (
     <Header>
       <LogoIcon />
