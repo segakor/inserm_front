@@ -64,8 +64,6 @@ export const Project = () => {
   const start = currentProject?.tariff?.start;
   const end = currentProject?.tariff?.end;
 
-  console.log(brief)
-
   return (
     <Page>
       <HeaderFlex>
