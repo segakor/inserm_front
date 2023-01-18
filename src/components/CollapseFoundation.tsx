@@ -18,9 +18,9 @@ const Panel = styled.div`
   flex-direction: column;
   margin-bottom: 10px;
   cursor:pointer;
-  :hover {
+  /* :hover {
     background-color: whitesmoke;
-  }
+  } */
 `;
 
 const PanelHeader = styled.div`

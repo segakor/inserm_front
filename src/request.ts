@@ -198,3 +198,10 @@ export const deleteAdmin = async (value: { email: string }) => {
     status,
   };
 }
+export const resetPassword = async (value: { email: string }) => {
+  const { data, status } = await axios.post(URL + `/user/resetPassword`, { ...value });
+  return {
+    data,
+    status,
+  };
+}

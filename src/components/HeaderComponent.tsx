@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ReactComponent as LogoIcon } from "../assets/logo.svg";
 import { ReactComponent as MoreIcon } from "../assets/moreBtn.svg";
 import { Header } from "./Layout/Header";
@@ -21,6 +21,17 @@ export const HeaderComponent = () => {
 
   const { auth } = useAuthCheck();
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const setWindowDimensions = () => {
+    setWindowWidth(window.innerWidth)
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', setWindowDimensions);
+    return () => {
+      window.removeEventListener('resize', setWindowDimensions)
+    }
+  }, [])
   return (
     <Header>
       <LogoIcon />

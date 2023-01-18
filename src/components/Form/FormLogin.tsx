@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button, Form, Input } from "antd";
 import { Title } from "../Typography";
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from "../../hooks/useAuth";
+import { useResetPassword } from "../../hooks/useResetPassword";
 
 const Wrapper = styled.div`
   background-color: #ffffff;
@@ -35,7 +36,7 @@ const StyledButton = styled(Button)`
   height: 50px;
 `;
 const SubTitle = styled.div`
-  width: fit-content; 
+  width: fit-content;
   color: #8e8e8e;
   text-decoration-line: underline;
   cursor: pointer;
@@ -57,23 +58,21 @@ export const FormLogin = () => {
 
   const { handleLogin, isLoading } = useAuth();
 
+  const { handleResetPassword } = useResetPassword();
+
   const buttonName = !isRestore ? "Войти" : "Отправить";
 
   const onSubmit = () => {
     if (!isRestore) {
-      handleLogin({ email, password })
+      handleLogin({ email, password });
     } else {
       form.setFieldsValue({ password: "" });
-      alert('handleRestore')
+      handleResetPassword({ email });
     }
   };
 
   const isDisableBtn =
-    email && password && !isRestore
-      ? false
-      : email && isRestore
-        ? false
-        : true;
+    email && password && !isRestore ? false : email && isRestore ? false : true;
 
   return (
     <>
@@ -135,9 +134,7 @@ export const FormLogin = () => {
               >
                 <StyledInput placeholder="Электронная почта" />
               </Form.Item>
-              <SubTitle onClick={() => setIsRestore(false)}>
-                Назад
-              </SubTitle>
+              <SubTitle onClick={() => setIsRestore(false)}>Назад</SubTitle>
             </>
           )}
 

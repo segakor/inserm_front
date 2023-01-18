@@ -11,8 +11,8 @@ export const useDeleteAdmin = () => {
       await deleteAdmin(value);
       await handleGetAdmin();
       openNotificationWithIcon({
-        type: "error",
-        message: "Ошибка",
+        type: "success",
+        message: "",
         description: `${value.email} успешно удален`,
       });
     } catch {
