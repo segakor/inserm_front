@@ -70,10 +70,10 @@ export type Reviews = {
   text: string;
   status: string;
   date: number | string;
-  host: string;
-  in_work: boolean;
-  is_paid: boolean;
-  tg: string;
+  host?: string;
+  in_work?: boolean;
+  is_paid?: boolean;
+  tg?: string;
 };
 
 export type ReqGetDetails = {
@@ -135,20 +135,8 @@ export type ReqGetReviewsWithType = {
   result: Reviews[];
 };
 
-export type ReqCreateBrief = {
+export type ReqCreateBrief = Omit<Brief, 'id'> & {
   projectId: string;
-  field_1: string;
-  field_2: string;
-  field_3: string;
-  field_4: string;
-  field_5: string;
-  field_6: string;
-  field_7: string;
-  field_8: string;
-  field_9: string;
-  field_10: string;
-  field_11: string;
-  field_12?: string;
 }
 
 export type ResCreateBrief = {

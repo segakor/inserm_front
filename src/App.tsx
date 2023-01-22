@@ -1,32 +1,19 @@
 import React from "react";
-import styled from "styled-components";
-import { Provider } from "./context/Provider";
-import { SiderComponent } from './components/SiderComponent'
-import { MainRoutes } from './components/MainRoutes';
-import { Layout } from "antd";
-/* import "antd/dist/antd.css";
-import 'antd/dist/reset.css' */
+import { Provider } from "./mainApp/context/Provider";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { AppDemo } from "./demoApp/AppDemo";
+import { AppMain } from "./mainApp/AppMain";
 
-const StyledLayout = styled(Layout)`
-margin-left: 200px;
-@media (max-width: 768px) {
-    margin-left: 0;
-  }
-`;
-
-const App: React.FC = () => {
-
+export const App = () => {
   return (
     <>
       <Provider>
-        <StyledLayout>
-          <SiderComponent />
-          <MainRoutes />
-        </StyledLayout>
+        <Routes>
+          <Route path="/app/*" element={<AppMain />} />
+          <Route path="/demo/*" element={<AppDemo />} />
+          <Route path="*" element={<Navigate replace to="app" />} />
+        </Routes>
       </Provider>
     </>
   );
 };
-
-export default App;
-
