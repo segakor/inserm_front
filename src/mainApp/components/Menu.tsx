@@ -214,6 +214,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
           items={setItem()}
           mode="inline"
           selectedKeys={selectedKeys}
+          defaultOpenKeys={['projects']}
         />
       ) : null}
     </>
