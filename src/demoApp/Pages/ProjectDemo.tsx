@@ -56,7 +56,7 @@ export const ProjectDemo = () => {
   const start = currentProject?.tariff?.start;
   const end = currentProject?.tariff?.end;
 
-  const brief = demoBrief[Number(projectId)]
+  const brief = demoBrief[Number(projectId)-1]
 
   return (
     <Page>
