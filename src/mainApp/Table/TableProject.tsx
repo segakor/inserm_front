@@ -4,6 +4,7 @@ import type { ColumnsType } from "antd/es/table";
 import { Reviews } from "../../type";
 import { getDate } from "../../utils/getDate";
 import { StatusComponent } from "../components/StatusComponent";
+import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
 
 type ReviewsTableItem = Reviews & {
   key: string;
@@ -23,23 +24,23 @@ const columns: ColumnsType<ReviewsTableItem> = [
     dataIndex: "link",
     // eslint-disable-next-line jsx-a11y/anchor-is-valid
     render: (text) => <a onClick={() => window.open(text, "_blank")}>{text}</a>,
-    width: "20%",
+    width: "18%",
   },
   {
     title: "Текст отзыва",
     dataIndex: "text",
-    width: "40%",
+    width: "45%",
   },
   {
     title: "Статус отзыва",
     dataIndex: "status",
     render: (status: string) => <StatusComponent status={status} />,
-    width: 150,
+    width: 130,
   },
   {
     title: "Дата размещения",
     dataIndex: "date",
-    width: 150,
+    width: 120,
     render: (record: string | number) => {
       return (
         <>{typeof record === "number" ? getDate({ date: record }) : record}</>
@@ -54,9 +55,19 @@ type Props = {
 };
 
 export const TableProject = ({ reviews, isLoading }: Props) => {
+  const { sm, xs } = useBreakpoint();
+
+  const isMobile = /* sm || */ xs;
+  console.log(isMobile, sm, xs)
+  console.log(useBreakpoint())
+
   return (
     <>
-      <ConfigProvider renderEmpty={() => <Empty description="Отзывы в процессе написания, скоро они будут готовы" />}>
+      <ConfigProvider
+        renderEmpty={() => (
+          <Empty description="Отзывы в процессе написания, скоро они будут готовы" />
+        )}
+      >
         <Table
           columns={columns}
           dataSource={reviews}
@@ -65,6 +76,7 @@ export const TableProject = ({ reviews, isLoading }: Props) => {
           pagination={false}
           style={{ marginBottom: 30 }}
           loading={isLoading}
+          {...(isMobile && { scroll: { x: 800, y: 1000 } })}
           tableLayout={"fixed"}
         />
       </ConfigProvider>

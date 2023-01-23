@@ -36,7 +36,7 @@ export const CreateProject = () => {
         price: e.price,
       })
     );
-    navigation("app/client/applypayment");
+    navigation("/app/client/applypayment");
   };
 
   const steps = [

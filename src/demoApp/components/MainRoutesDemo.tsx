@@ -10,6 +10,7 @@ import { ProfileDemo } from "../Pages/ProfileDemo";
 import { TariffDemo } from "../Pages/TariffDemo";
 import { ProjectDemo } from "../Pages/ProjectDemo";
 import { ProjectsDemo } from "../Pages/ProjectsDemo";
+import { HeaderComponentDemo } from "./HeaderComponentDemo";
 
 const StyledLayout = styled(Layout)`
   margin-left: 50px;
@@ -25,6 +26,7 @@ const PublicRoutes = () => {
 export const MainRoutesDemo = () => {
   return (
     <StyledLayout>
+      <HeaderComponentDemo />
       <Content>
         <Routes>
           <Route path="/" element={<PublicRoutes />}>
