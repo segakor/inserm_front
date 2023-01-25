@@ -22,7 +22,7 @@ import {
   Admin
 } from "./type";
 
-const URL = "https://lul.inserm.ru:5001/api";
+const URL = "https://lol.inserm.ru:5001/api";
 
 export const login = async (value: ReqLogin) => {
   const { data, status } = await axios.post<ResLogin>(URL + "/user/login", {
