@@ -63,11 +63,12 @@ export const FormLogin = () => {
   const buttonName = !isRestore ? "Войти" : "Отправить";
 
   const onSubmit = () => {
+    const emailL = email.toLowerCase();
     if (!isRestore) {
-      handleLogin({ email, password });
+      handleLogin({ email: emailL, password });
     } else {
       form.setFieldsValue({ password: "" });
-      handleResetPassword({ email });
+      handleResetPassword({ email: emailL });
     }
   };
 
