@@ -59,7 +59,7 @@ export const FlatCardProject = (project: Project) => {
       <Panel onClick={() => navigation(`/app/${role?.toLowerCase()}/project/${id}`)}>
         <Box style={{ marginBottom: "15px" }}>
           <Title level={5} style={{ fontWeight: "800" }}>
-            {project.name}
+            {`[${project.id}] `}{project.name}
           </Title>
           <>{getRangeDate({ start, end })}</>
         </Box>

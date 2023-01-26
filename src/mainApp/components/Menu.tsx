@@ -13,6 +13,7 @@ import { ReactComponent as ReviewsforpaymentIcon } from "../../assets/reviewsfor
 import { ReactComponent as SettingIcon } from "../../assets/setting.svg";
 import { ReactComponent as PaidreviewsIcon } from "../../assets/paidreviews.svg";
 import { ReactComponent as CreateadminIcon } from "../../assets/createadmin.svg";
+import { ExclamationCircleFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useLocalState } from "../context/hooks";
 import { useAuth } from "../hooks/useAuth";
@@ -40,7 +41,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (role === 'CLIENT') {
+    if (role === "CLIENT") {
       handleGetClientProject();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,6 +52,9 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
   const listOfProject = clientProject?.map((item) => ({
     label: item.name,
     key: item.id,
+    icon: !item.brief && (
+      <ExclamationCircleFilled style={{ color: "#FF0000" }} />
+    ),
   }));
 
   const dividerItem = {
@@ -192,7 +196,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
         navigation(`/app/client/project/${e.key}`);
         break;
       case e.key === "exit":
-        setSelectedKeys([])
+        setSelectedKeys([]);
         handleLogout();
         dispatch(clearState());
         break;
@@ -214,7 +218,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
           items={setItem()}
           mode="inline"
           selectedKeys={selectedKeys}
-          defaultOpenKeys={['projects']}
+          defaultOpenKeys={["projects"]}
         />
       ) : null}
     </>

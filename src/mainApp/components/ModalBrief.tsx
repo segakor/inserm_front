@@ -133,7 +133,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
           ]}
         >
           <StyledTextArea
-            style={{ height: 50, resize: "none" }}
+            style={{ height: 100 }}
             defaultValue={brief?.field_1}
             disabled={isBrief}
           />
@@ -149,7 +149,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
           ]}
         >
           <StyledTextArea
-            style={{ height: 50, resize: "none" }}
+            style={{ height: 100 }}
             defaultValue={brief?.field_2}
             disabled={isBrief}
           />
@@ -165,7 +165,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
           ]}
         >
           <StyledTextArea
-            style={{ height: 50, resize: "none" }}
+            style={{ height: 100 }}
             defaultValue={brief?.field_3}
             disabled={isBrief}
           />
@@ -181,7 +181,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
           ]}
         >
           <StyledTextArea
-            style={{ height: 50, resize: "none" }}
+            style={{ height: 100 }}
             defaultValue={brief?.field_4}
             disabled={isBrief}
           />
@@ -197,7 +197,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
           ]}
         >
           <StyledTextArea
-            style={{ height: 50, resize: "none" }}
+            style={{ height: 100 }}
             defaultValue={brief?.field_5}
             disabled={isBrief}
           />
@@ -213,7 +213,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
           ]}
         >
           <StyledTextArea
-            style={{ height: 50, resize: "none" }}
+            style={{ height: 100 }}
             defaultValue={brief?.field_6}
             disabled={isBrief}
           />
@@ -229,7 +229,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
           ]}
         >
           <StyledTextArea
-            style={{ height: 50, resize: "none" }}
+            style={{ height: 100 }}
             defaultValue={brief?.field_7}
             disabled={isBrief}
           />
@@ -245,7 +245,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
           ]}
         >
           <StyledTextArea
-            style={{ height: 50, resize: "none" }}
+            style={{ height: 100 }}
             defaultValue={brief?.field_8}
             disabled={isBrief}
           />
@@ -261,7 +261,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
           ]}
         >
           <StyledTextArea
-            style={{ height: 50, resize: "none" }}
+            style={{ height: 100 }}
             defaultValue={brief?.field_9}
             disabled={isBrief}
           />
@@ -277,7 +277,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
           ]}
         >
           <StyledTextArea
-            style={{ height: 50, resize: "none" }}
+            style={{ height: 100 }}
             defaultValue={brief?.field_10}
             disabled={isBrief}
           />
@@ -293,7 +293,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
           ]}
         >
           <StyledTextArea
-            style={{ height: 50, resize: "none" }}
+            style={{ height: 100 }}
             defaultValue={brief?.field_11}
             disabled={isBrief}
           />
@@ -313,7 +313,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
               name="field_12"
             >
               <StyledTextArea
-                style={{ height: 100, /* resize: "none" */ }}
+                style={{ height: 100 }}
                 defaultValue={brief?.field_12}
                 disabled={disabledComment}
               />

@@ -58,6 +58,7 @@ export type Project = {
   name: string;
   statuses?: Statuses;
   tariff: TariffProject;
+  brief?: boolean;
 };
 
 export type ReqGetProject = {
@@ -112,7 +113,7 @@ export type ReqArchiveDetail = {
 };
 
 export type ReqGetBrief = {
-  brief: Brief
+  brief: Brief;
 };
 
 export type Brief = {
@@ -129,32 +130,32 @@ export type Brief = {
   field_10: string;
   field_11: string;
   field_12: string;
-}
+};
 
 export type ReqGetReviewsWithType = {
   result: Reviews[];
 };
 
-export type ReqCreateBrief = Omit<Brief, 'id'> & {
+export type ReqCreateBrief = Omit<Brief, "id"> & {
   projectId: string;
-}
+};
 
 export type ResCreateBrief = {
-  result: Brief
-}
+  result: Brief;
+};
 
 export type ReqProjectCreate = {
   name: string;
   tariffId: number;
   period: number;
   price: number;
-}
+};
 
 export type ReqCreateAdmin = {
   email: string;
   password: string;
   role: Role;
-}
+};
 
 export type Admin = {
   id: number;
@@ -162,19 +163,19 @@ export type Admin = {
   role: string;
   firstName: string;
   lastName: string;
-}
+};
 
 export type ResAdmin = {
-  result: Admin[]
-}
+  result: Admin[];
+};
 
 export type ProjectForPayment = {
   projectName: string;
   price: number;
   period: number;
   tariffId: number;
-}
+};
 
 export type ReqSiteRegistration = ReqProjectCreate & {
   email: string;
-}
+};
