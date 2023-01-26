@@ -96,7 +96,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
 
   let location = useLocation();
 
-  const isBrief = brief || role !== 'CLIENT' ? true : false;
+  const isBrief = brief /* || role !== 'CLIENT' */ ? true : false;
 
   const disabledComment = role === 'HOST' || role === 'SUPPORT' || location.pathname.includes('demo')
 
