@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Divider, Steps, Input } from "antd";
+import { Divider, Steps, Input, Spin } from "antd";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ export const ApplyPayment = () => {
     {
       title: "Оплата",
       content: (
-        <form className="ainoxform">
+        <form className="ainoxform" id="ainoxform">
           <div className="amessage">
             <Input
               style={{ width: "300px" }}
@@ -70,14 +70,6 @@ export const ApplyPayment = () => {
               value={projectForPayment?.period}
             />
           </div>
-          <Button
-            htmlType="submit"
-            className="button button--secondary modal__button"
-            type={"primary"}
-            style={{ marginTop: "20px" }}
-          >
-            Перейти к оплате
-          </Button>
         </form>
       ),
     },
@@ -92,6 +84,8 @@ export const ApplyPayment = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectForPayment]);
 
+  const submitEvent = new Event("submit");
+
   useEffect(() => {
     const script = document.createElement("script");
 
@@ -104,21 +98,23 @@ export const ApplyPayment = () => {
     };
   }, []);
 
+  setTimeout(() => {
+    const form = document.querySelector("#ainoxform");
+    form?.dispatchEvent(submitEvent);
+  }, 2000);
+
   return (
     <Page>
       <Header>Оплата</Header>
       <Steps current={current} items={items} />
       <Divider />
-      <div className="steps-content">{steps[current].content}</div>
-      <Divider />
-      {current > 0 && (
-        <Button
-          style={{ width: "100px" }}
-          onClick={() => navigation("/app/client/createproject")}
-        >
-          Назад
-        </Button>
-      )}
+      <Spin
+        size="large"
+        tip="Подключаемся к платежной системе. Через несколько секунд вы будете переадресованы на страницу оплаты"
+      />
+      <div style={{ visibility: "hidden" }} className="steps-content">
+        {steps[current].content}
+      </div>
     </Page>
   );
 };

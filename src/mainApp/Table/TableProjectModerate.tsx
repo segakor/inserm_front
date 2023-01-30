@@ -55,16 +55,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   return (
     <td {...restProps}>
       {editing ? (
-        <Form.Item
-          name={dataIndex}
-          style={{ margin: 0 }}
-        /*  rules={[
- {
-   required: true,
-   message: `Please Input ${title}!`,
- },
-]} */
-        >
+        <Form.Item name={dataIndex} style={{ margin: 0 }}>
           {inputNode}
         </Form.Item>
       ) : (
@@ -222,7 +213,7 @@ export const TableProjectModerate = ({
       editable: true,
     },
     {
-      title: "Имя в телеграм",
+      title: "Ник в телеграм",
       dataIndex: "tg",
       width: "10%",
       editable: true,
@@ -294,7 +285,11 @@ export const TableProjectModerate = ({
 
   return (
     <Form form={form} component={false}>
-      <ConfigProvider renderEmpty={() => <Empty description="Отзывы в процессе написания, скоро они будут готовы" />}>
+      <ConfigProvider
+        renderEmpty={() => (
+          <Empty description="Отзывы в процессе написания, скоро они будут готовы" />
+        )}
+      >
         <Table
           components={{
             body: {

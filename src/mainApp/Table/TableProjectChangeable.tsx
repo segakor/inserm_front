@@ -10,7 +10,6 @@ import {
   ConfigProvider,
   Empty,
   Button,
-  Tooltip,
 } from "antd";
 import { Reviews } from "../../type";
 import { getDate } from "../../utils/getDate";
@@ -60,16 +59,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   return (
     <td {...restProps}>
       {editing ? (
-        <Form.Item
-          name={dataIndex}
-          style={{ margin: 0 }}
-        /*  rules={[
-{
-required: true,
-message: `Please Input ${title}!`,
-},
-]} */
-        >
+        <Form.Item name={dataIndex} style={{ margin: 0 }}>
           {inputNode}
         </Form.Item>
       ) : (
@@ -87,6 +77,7 @@ export const TableProjectChangeable = ({
 }: Props) => {
   const [form] = Form.useForm();
   const statusFormField = Form.useWatch("status", form);
+  const tgFormField = Form.useWatch("tg", form);
 
   const [editingKey, setEditingKey] = useState("");
   const [dataSource, setDataSource] = useState(reviews);
@@ -167,6 +158,20 @@ export const TableProjectChangeable = ({
 
   const isAdmin = role === "ADMIN" || role === "SUPERVISOR";
 
+  const onEdit = (key: React.Key) => {
+    // @ts-ignore TODO:доделать!
+    const newData = [...reviews];
+    const index = newData.findIndex((item) => key === item.key);
+    if (index > -1) {
+      const inWorkDate = Math.floor(new Date().valueOf() / 1000);
+      //togle
+      form.setFieldsValue({ in_work: true });
+      form.setFieldsValue({ date: inWorkDate });
+      form.setFieldsValue({ host: personInfo?.first_name });
+      form.setFieldsValue({ status: "moderate" });
+    }
+  };
+
   const columns = [
     {
       title: "№",
@@ -215,12 +220,6 @@ export const TableProjectChangeable = ({
                 defaultValue={status}
                 onSelect={(e) => onSelectStatus(e, record.key)}
               />
-            ) : editable && role === "HOST" && status === "wait" ? (
-              <StatusSelect
-                onlyModerate
-                defaultValue={status}
-                onSelect={(e) => onSelectStatus(e, record.key)}
-              />
             ) : (
               <StatusComponent status={status} />
             )}
@@ -242,10 +241,9 @@ export const TableProjectChangeable = ({
       title: "Кто отдал отзыв",
       dataIndex: "host",
       width: "10%",
-      editable: true,
     },
     {
-      title: "Имя в телеграм",
+      title: "Ник в телеграм",
       dataIndex: "tg",
       width: "10%",
       editable: true,
@@ -257,16 +255,17 @@ export const TableProjectChangeable = ({
       render: (_: any, record: ReviewsTableItem) => {
         const editable = isEditing(record);
         return (
-          <Tooltip title="В работу можно отдать только отзывы со статусом 'на модерации'">
-            <Checkbox
-              disabled={
-                record.in_work || !editable || statusFormField !== "moderate"
-              }
-              /* checked={record.in_work} */
-              {...(record.in_work && { checked: true })}
-              onClick={() => onCheckBoxWork(record.key)}
-            />
-          </Tooltip>
+          <Checkbox
+            disabled={
+              record.in_work ||
+              !editable ||
+              statusFormField !== "moderate" ||
+              role === "HOST"
+            }
+            /* checked={record.in_work} */
+            {...(record.in_work && { checked: true })}
+            onClick={() => onCheckBoxWork(record.key)}
+          />
         );
       },
     },
@@ -280,6 +279,7 @@ export const TableProjectChangeable = ({
             <Typography.Link
               onClick={() => save(record.key)}
               style={{ marginRight: 8 }}
+              disabled={role === "HOST" && !tgFormField}
             >
               Save
             </Typography.Link>
@@ -287,8 +287,13 @@ export const TableProjectChangeable = ({
           </span>
         ) : (
           <Typography.Link
-            disabled={editingKey !== ""}
-            onClick={() => edit(record)}
+            disabled={
+              editingKey !== "" || (role === "HOST" && record.status !== "wait")
+            }
+            onClick={() => {
+              edit(record);
+              onEdit(record.key);
+            }}
           >
             Edit
           </Typography.Link>
@@ -330,7 +335,11 @@ export const TableProjectChangeable = ({
   return (
     <>
       <Form form={form} component={false}>
-        <ConfigProvider renderEmpty={() => <Empty description="Отзывы в процессе написания, скоро они будут готовы" />}>
+        <ConfigProvider
+          renderEmpty={() => (
+            <Empty description="Отзывы в процессе написания, скоро они будут готовы" />
+          )}
+        >
           {isAdmin && (
             <Button
               onClick={showModal}
@@ -371,6 +380,9 @@ export const TableProjectChangeable = ({
           <Input />
         </Form.Item>
         <Form.Item name={"host"} hidden>
+          <Input />
+        </Form.Item>
+        <Form.Item name={"tg"} hidden>
           <Input />
         </Form.Item>
       </Form>

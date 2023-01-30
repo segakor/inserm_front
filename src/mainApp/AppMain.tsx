@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Layout } from "antd";
 import { SiderComponent } from "./components/SiderComponent";
 import { MainRoutes } from "./components/MainRoutes";
+import { ErrorBoundary } from "../common/ErrorBoundary";
 
 const StyledLayout = styled(Layout)`
   margin-left: 200px;
@@ -13,9 +14,11 @@ const StyledLayout = styled(Layout)`
 
 export const AppMain = () => {
   return (
-    <StyledLayout>
-      <SiderComponent />
-      <MainRoutes />
-    </StyledLayout>
+    <ErrorBoundary>
+      <StyledLayout>
+        <SiderComponent />
+        <MainRoutes />
+      </StyledLayout>
+    </ErrorBoundary>
   );
 };

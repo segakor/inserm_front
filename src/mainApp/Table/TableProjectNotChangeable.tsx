@@ -77,7 +77,7 @@ export const TableProjectNotChangeable = ({ reviews, isLoading }: Props) => {
       width: "10%",
     },
     {
-      title: "Имя в телеграм",
+      title: "Ник в телеграм",
       dataIndex: "tg",
       width: "10%",
     },
