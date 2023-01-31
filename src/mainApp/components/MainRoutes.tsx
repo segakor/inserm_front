@@ -25,8 +25,8 @@ import { TariffSetting } from "../Pages/Сommon/TariffSetting";
 import { TariffClient } from "../Pages/Admin/TariffClient";
 import { FoundationClient } from "../Pages/Admin/FoundationClient";
 import { ApplyPayment } from "../Pages/Client/ApplyPayment";
-import { useAuthCheck } from "../hooks/useAuthCheck";
 import { Role } from "../../type";
+import { tokenService } from "../../utils/tokenService";
 
 const StyledLayout = styled(Layout)`
   margin-left: 50px;
@@ -41,7 +41,8 @@ type ProtectedRouteType = {
 }
 
 const ProtectedRoutes = (props: ProtectedRouteType) => {
-  const { auth, role } = useAuthCheck()
+  const auth = tokenService.getIsAuth()
+  const role = tokenService.getRole()
 
   if (props.roleRequired) {
     return auth ? (
@@ -60,7 +61,8 @@ const ProtectedRoutes = (props: ProtectedRouteType) => {
 
 const PublicRoutes = () => {
 
-  const { auth, role } = useAuthCheck()
+  const auth = tokenService.getIsAuth()
+  const role = tokenService.getRole()
 
   const page = `/app/${role?.toLowerCase()}/projects`
 

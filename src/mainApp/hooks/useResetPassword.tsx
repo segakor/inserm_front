@@ -13,7 +13,7 @@ export const useResetPassword = () => {
     } catch {
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось сбросить пароль",
       });
     }

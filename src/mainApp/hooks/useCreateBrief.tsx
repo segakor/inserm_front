@@ -18,7 +18,7 @@ export const useCreateBrief = () => {
     } catch {
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось сохранить бриф",
       });
     }

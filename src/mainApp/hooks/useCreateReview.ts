@@ -12,7 +12,7 @@ export const useCreateReview = () => {
     } catch {
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось добавить запись",
       });
     }

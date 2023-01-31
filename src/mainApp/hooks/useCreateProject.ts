@@ -21,7 +21,7 @@ export const useCreateProject = () => {
     } catch {
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось создать проект",
       });
     }

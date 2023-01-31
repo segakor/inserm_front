@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Title } from "../../common/Typography";
 import { Project } from "../../type";
 import { getRangeDate } from "../../utils/getDate";
-import { useAuthCheck } from "../hooks/useAuthCheck";
+import { tokenService } from "../../utils/tokenService";
 
 const Panel = styled.div`
   background: #ffffff;
@@ -52,7 +52,7 @@ export const FlatCardProject = (project: Project) => {
   } = project;
 
   const navigation = useNavigate();
-  const { role } = useAuthCheck();
+  const role = tokenService.getRole();
 
   return (
     <>

@@ -2,6 +2,7 @@ import { getAdmin } from "../../request";
 import { setListOfAdmin } from "../context/action";
 import { useDispatch } from "../context/hooks";
 import { openNotificationWithIcon } from "../../utils/notification";
+import { AxiosError } from "axios";
 
 export const useGetAdmin = () => {
 
@@ -11,11 +12,13 @@ export const useGetAdmin = () => {
     try {
       const response = await getAdmin();
       dispatch(setListOfAdmin(response.data.result));
-    } catch {
+    } catch (err) {
+      const typedError = err as AxiosError;
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось загрузить админов",
+        status: typedError.status
       });
     }
   };

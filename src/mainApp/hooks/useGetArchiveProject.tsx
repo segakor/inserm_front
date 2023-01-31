@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { getArchiveProject } from "../../request";
 import { ArchiveProject } from "../../type";
@@ -12,11 +13,13 @@ export const useGetArchiveProject = (id: string) => {
     try {
       const response = await getArchiveProject(id);
       setArchiveProject(response.data.result)
-    } catch {
+    } catch (err) {
+      const typedError = err as AxiosError;
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось загрузить архивные проекты клиента",
+        status: typedError.status
       });
     }
   };

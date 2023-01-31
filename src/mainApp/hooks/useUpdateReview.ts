@@ -9,7 +9,7 @@ export const useUpdateReview = () => {
     } catch {
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось сохранить запись",
       });
     }

@@ -2,6 +2,7 @@ import { getReviewsWithType } from "../../request";
 import { openNotificationWithIcon } from "../../utils/notification";
 import { useEffect, useState } from "react";
 import { ReqGetReviewsWithType } from "../../type";
+import { AxiosError } from "axios";
 
 export const useGetReviewsWithType = (type: "moderate" | "isPaid" | "noPaid") => {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,11 +13,13 @@ export const useGetReviewsWithType = (type: "moderate" | "isPaid" | "noPaid") =>
       setIsLoading(true);
       const response = await getReviewsWithType(type);
       setData(response.data);
-    } catch {
+    } catch (err) {
+      const typedError = err as AxiosError;
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось загрузить отзывы клиента",
+        status: typedError.status
       });
     } finally {
       setIsLoading(false);

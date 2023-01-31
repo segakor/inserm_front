@@ -17,9 +17,9 @@ import { ExclamationCircleFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useLocalState } from "../context/hooks";
 import { useAuth } from "../hooks/useAuth";
-import { useAuthCheck } from "../hooks/useAuthCheck";
 import { useGetProject } from "../hooks/useGetProject";
 import { clearState } from "../context/action";
+import { tokenService } from "../../utils/tokenService";
 
 type Props = {
   onHeaderClose?: () => void;
@@ -34,7 +34,8 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
 
   const { handleLogout } = useAuth();
 
-  const { role, auth } = useAuthCheck();
+  const role = tokenService.getRole();
+  const auth = tokenService.getIsAuth();
 
   const { handleGetClientProject } = useGetProject();
 

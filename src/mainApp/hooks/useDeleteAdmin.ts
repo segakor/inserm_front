@@ -18,7 +18,7 @@ export const useDeleteAdmin = () => {
     } catch {
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось удалить пользователя",
       });
     }

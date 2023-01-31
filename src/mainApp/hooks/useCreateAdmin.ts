@@ -18,7 +18,7 @@ export const useCreateAdmin = () => {
     } catch {
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось создать пользователя",
       });
     }

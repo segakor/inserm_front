@@ -18,7 +18,7 @@ export const useUpdateAdmin = () => {
     } catch {
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось изменить пользователя",
       });
     }

@@ -6,17 +6,20 @@ type Props = {
   type: NotificationType;
   message: string;
   description: string;
+  status?: number;
 };
 
 export const openNotificationWithIcon = ({
   type,
   message,
   description,
+  status
 }: Props) => {
-  notification[type]({
-    duration: 3,
-    placement: "bottom",
-    message: message,
-    description: description,
-  });
+  if (status !== 401)
+    notification[type]({
+      duration: 3,
+      placement: "bottom",
+      message: message,
+      description: description,
+    });
 };
