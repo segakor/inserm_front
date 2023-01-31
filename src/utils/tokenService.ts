@@ -34,11 +34,11 @@ export const updateToken = async () => {
     const response = await refreshToken({ refreshToken: longToken || "" });
     tokenService.setJwtToken(response.data);
     //@ts-ignore
-    /* window.location.reload(false); */
+    window.location.reload(false);
 
   } catch (error) {
     //@ts-ignore
-     /* window.location.reload(false);
-     tokenService.removeJwtToken(); */
+    window.location.reload(false);
+    tokenService.removeJwtToken();
   }
 };
