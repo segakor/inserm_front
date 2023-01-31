@@ -55,11 +55,9 @@ type Props = {
 };
 
 export const TableProject = ({ reviews, isLoading }: Props) => {
-  const { sm, xs } = useBreakpoint();
+  const { xs } = useBreakpoint();
 
-  const isMobile = /* sm || */ xs;
-  console.log(isMobile, sm, xs)
-  console.log(useBreakpoint())
+  const isMobile = xs;
 
   return (
     <>

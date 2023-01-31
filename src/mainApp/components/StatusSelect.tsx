@@ -4,11 +4,9 @@ import { Select } from "antd";
 export const StatusSelect = ({
   defaultValue,
   onSelect,
-  onlyModerate,
 }: {
   defaultValue: string;
   onSelect: (e: string) => void;
-  onlyModerate?: boolean;
 }) => {
   const items = [
     {
@@ -33,24 +31,10 @@ export const StatusSelect = ({
     },
   ];
 
-  const itemOnlyModerate = [
-    {
-      status: "moderate",
-      label: "На модерации",
-
-    },
-    {
-      status: "wait",
-      label: "В очереди",
-    },
-  ];
-
-  const option = !onlyModerate
-    ? items.map((item) => ({ label: item.label, value: item.status }))
-    : itemOnlyModerate.map((item) => ({
-      label: item.label,
-      value: item.status,
-    }));
+  const option = items.map((item) => ({
+    label: item.label,
+    value: item.status,
+  }));
 
   return (
     <Select
