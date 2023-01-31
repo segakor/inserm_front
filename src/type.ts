@@ -11,6 +11,7 @@ export type Role =
 export type ResLogin = {
   role: Role;
   token: string;
+  longToken: string;
 };
 export type ReqLogin = {
   email: string;

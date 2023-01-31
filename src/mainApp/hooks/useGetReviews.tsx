@@ -2,6 +2,7 @@ import { getDetails } from "../../request";
 import { openNotificationWithIcon } from "../../utils/notification";
 import { useEffect, useState } from "react";
 import { ReqGetDetails } from "../../type";
+import { AxiosError } from "axios";
 
 export const useGetReviews = (id: string) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,11 +13,13 @@ export const useGetReviews = (id: string) => {
       setIsLoading(true);
       const response = await getDetails(id);
       setData(response.data);
-    } catch {
+    } catch (err) {
+      const typedError = err as AxiosError;
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось загрузить отзывы клиента",
+        status: typedError.status
       });
     } finally {
       setIsLoading(false);

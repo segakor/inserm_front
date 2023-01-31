@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { getAllProject } from "../../request";
 import { Project } from "../../type";
@@ -15,11 +16,13 @@ export const useGetAllProject = () => {
       setIsLoading(true)
       const response = await getAllProject();
       setAllProject(response.data.projectsArray);
-    } catch {
+    } catch (err) {
+      const typedError = err as AxiosError;
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось загрузить проекты",
+        status: typedError.status
       });
     } finally {
       setIsLoading(false);

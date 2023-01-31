@@ -5,8 +5,8 @@ import { useLocation } from 'react-router-dom';
 import { Title } from "../../common/Typography";
 import { useCreateBrief } from "../hooks/useCreateBrief";
 import { useUpdateBrief } from "../hooks/useUpdateBrief";
-import { useAuthCheck } from "../hooks/useAuthCheck";
 import { Brief } from "../../type";
+import { tokenService } from "../../utils/tokenService";
 
 const { TextArea } = Input;
 
@@ -92,7 +92,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
   };
 
 
-  const { role } = useAuthCheck();
+  const role = tokenService.getRole();
 
   let location = useLocation();
 

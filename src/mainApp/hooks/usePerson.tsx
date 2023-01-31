@@ -4,6 +4,7 @@ import { openNotificationWithIcon } from "../../utils/notification";
 import { setPersonInfo } from "../context/action";
 import { useDispatch, useLocalState } from "../context/hooks";
 import { ReqPersonChange } from "../../type";
+import { AxiosError } from "axios";
 
 export const usePerson = (nowUpdate?: boolean) => {
   const dispatch = useDispatch();
@@ -13,11 +14,13 @@ export const usePerson = (nowUpdate?: boolean) => {
     try {
       const response = await getPerson();
       dispatch(setPersonInfo(response.data));
-    } catch {
+    } catch (err) {
+      const typedError = err as AxiosError;
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось загрузить данные клиента",
+        status: typedError.status
       });
     }
   };
@@ -30,11 +33,13 @@ export const usePerson = (nowUpdate?: boolean) => {
         message: "",
         description: "Данные успешно изменены",
       });
-    } catch {
+    } catch (err) {
+      const typedError = err as AxiosError;
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось обновить данные клиента",
+        status: typedError.status
       });
     }
   };

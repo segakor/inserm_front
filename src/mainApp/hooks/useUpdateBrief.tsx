@@ -9,13 +9,13 @@ export const useUpdateBrief = () => {
       await updateBrief(value);
       openNotificationWithIcon({
         type: "success",
-        message: "Успех",
+        message: "",
         description: "Бриф сохранен",
       });
     } catch {
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось обновить бриф",
       });
     }

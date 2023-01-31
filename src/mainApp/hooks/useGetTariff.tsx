@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { getAllTariff } from "../../request";
 import { ReqGetTariff } from "../../type";
@@ -10,11 +11,13 @@ export const useGetTariff = () => {
     try {
       const response = await getAllTariff();
       setTariffs(response.data)
-    } catch {
+    } catch (err) {
+      const typedError = err as AxiosError;
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось загрузить тарифы",
+        status: typedError.status
       });
     }
   };

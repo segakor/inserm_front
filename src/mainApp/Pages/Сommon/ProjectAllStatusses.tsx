@@ -8,10 +8,10 @@ import { getRangeDate } from "../../../utils/getDate";
 import { useGetReviews } from "../../hooks/useGetReviews";
 import { TableProjectChangeable } from "../../Table/TableProjectChangeable";
 import { useGetBrief } from "../../hooks/useGetBrief";
-import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { TableProjectNotChangeable } from "../../Table/TableProjectNotChangeable";
 import { ButtonBrief } from "../../Button/ButtonBrief";
 import { ModalBrief } from "../../components/ModalBrief";
+import { tokenService } from "../../../utils/tokenService";
 
 const Page = styled.div`
   display: flex;
@@ -64,7 +64,7 @@ export const ProjectAllStatusses = () => {
   const start = tariff?.start;
   const end = tariff?.end;
 
-  const { role } = useAuthCheck();
+  const role = tokenService.getRole();
 
   return (
     <Page>

@@ -18,10 +18,10 @@ import { ButtonCopy } from "../Button/ButtonCopy";
 import { useLocalState } from "../context/hooks";
 import { usePerson } from "../hooks/usePerson";
 import { useUpdateReview } from "../hooks/useUpdateReview";
-import { useAuthCheck } from "../hooks/useAuthCheck";
 import { StatusSelect } from "../components/StatusSelect";
 import { StatusComponent } from "../components/StatusComponent";
 import { ModalCreateReview } from "../components/ModalCreateReview";
+import { tokenService } from "../../utils/tokenService";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
@@ -154,7 +154,7 @@ export const TableProjectChangeable = ({
     }
   };
 
-  const { role } = useAuthCheck();
+  const role = tokenService.getRole();
 
   const isAdmin = role === "ADMIN" || role === "SUPERVISOR";
 

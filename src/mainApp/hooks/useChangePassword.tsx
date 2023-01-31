@@ -17,7 +17,7 @@ export const useChangePassword = () => {
         .catch((err) => {
           openNotificationWithIcon({
             type: "error",
-            message: "Ошибка",
+            message: "",
             description: err.response.data.message,
           });
           reject();

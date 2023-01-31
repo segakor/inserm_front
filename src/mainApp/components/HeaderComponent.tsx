@@ -3,8 +3,8 @@ import { ReactComponent as LogoIcon } from "../../assets/logo.svg";
 import { ReactComponent as MoreIcon } from "../../assets/moreBtn.svg";
 import { MenuComponent } from "./Menu";
 import { Drawer } from "antd";
-import { useAuthCheck } from "../hooks/useAuthCheck";
 import { Header } from "../../common/Layout/Header";
+import { tokenService } from "../../utils/tokenService";
 
 export const HeaderComponent = () => {
   const [open, setOpen] = useState(false);
@@ -19,7 +19,7 @@ export const HeaderComponent = () => {
 
   const drawerSize = document.documentElement.scrollWidth;
 
-  const { auth } = useAuthCheck();
+  const auth = tokenService.getIsAuth();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)

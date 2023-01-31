@@ -14,7 +14,7 @@ export const useCreateFromSite = () => {
     } catch {
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
+        message: "",
         description: "Не удалось создать пользователя",
       });
     }

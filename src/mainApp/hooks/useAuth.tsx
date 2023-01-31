@@ -3,6 +3,7 @@ import { openNotificationWithIcon } from "../../utils/notification";
 import { ReqLogin } from "../../type";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../request";
+import { tokenService } from "../../utils/tokenService";
 
 export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,13 +14,13 @@ export const useAuth = () => {
     try {
       setIsLoading(true);
       const response = await login(value);
-      localStorage.setItem("loginData", JSON.stringify(response.data));
+      tokenService.setJwtToken(response.data)
       navigation(`/app/${response.data.role?.toLowerCase()}/projects`);
-    } catch (err) {
+    } catch {
       openNotificationWithIcon({
         type: "error",
-        message: "Ошибка",
-        description: "Неверный emal или пароль",
+        message: "",
+        description: "Неверный email или пароль",
       });
     } finally {
       setIsLoading(false);
@@ -27,7 +28,7 @@ export const useAuth = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("loginData");
+    tokenService.removeJwtToken();
     navigation("/app/login");
   };
 
