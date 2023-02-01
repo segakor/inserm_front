@@ -134,6 +134,7 @@ export const FormCreateAdmin = (props: Props) => {
               Руководитель проектов
             </Select.Option>
             <Select.Option value="SUPPORT">Техподдержка</Select.Option>
+            <Select.Option value="CLIENT">Клиент</Select.Option>
           </StyledSelect>
         </Form.Item>
         <Form.Item
