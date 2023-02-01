@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Modal, Form, Input, Button, Divider } from "antd";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import { Title } from "../../common/Typography";
 import { useCreateBrief } from "../hooks/useCreateBrief";
 import { useUpdateBrief } from "../hooks/useUpdateBrief";
 import { Brief } from "../../type";
 import { tokenService } from "../../utils/tokenService";
+import { ButtonCopy } from "../Button/ButtonCopy";
+import { cliapbord } from "../../utils/cliapbord";
+import { copyBrief } from "../../utils/copyBrief";
 
 const { TextArea } = Input;
 
@@ -47,7 +50,37 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
 
   const fieldValue = {
     projectId: projectId,
-    field_1, field_2, field_3, field_4, field_5, field_6, field_7, field_8, field_9, field_10, field_11, field_12
+    field_1,
+    field_2,
+    field_3,
+    field_4,
+    field_5,
+    field_6,
+    field_7,
+    field_8,
+    field_9,
+    field_10,
+    field_11,
+    field_12,
+  };
+
+  const onCopyBrief = () => {
+    cliapbord(
+      copyBrief({
+        field_1,
+        field_2,
+        field_3,
+        field_4,
+        field_5,
+        field_6,
+        field_7,
+        field_8,
+        field_9,
+        field_10,
+        field_11,
+        field_12,
+      })
+    );
   };
 
   const [isErrorValues, setIsErrorValues] = useState(true);
@@ -63,17 +96,15 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
   const { handleCreateBrief } = useCreateBrief();
   const { handleUpdateBrief } = useUpdateBrief();
 
-
   const onSumbit = () => {
     handleCreateBrief(fieldValue).then(() => onClose());
   };
 
   const onSumbitUpdate = () => {
-    handleUpdateBrief(fieldValue).then(() => onClose())
-  }
+    handleUpdateBrief(fieldValue).then(() => onClose());
+  };
 
   const onValuesChange = (changedValues: any, allValues: any) => {
-    console.log(changedValues)
     if (
       allValues.field_1 === undefined ||
       allValues.field_2 === undefined ||
@@ -91,14 +122,14 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
     } else setIsEmptyValues(false);
   };
 
-
   const role = tokenService.getRole();
 
   let location = useLocation();
 
   const isBrief = brief /* || role !== 'CLIENT' */ ? true : false;
 
-  const disabledComment = role === 'HOST' || role === 'SUPPORT' || location.pathname.includes('demo')
+  const disabledComment =
+    role === "HOST" || role === "SUPPORT" || location.pathname.includes("demo");
 
   return (
     <Modal
@@ -325,6 +356,7 @@ export const ModalBrief = ({ onClose, projectId, brief }: Props) => {
             >
               Добавить комментарий
             </StyledButton>
+            {role !== "CLIENT" && <ButtonCopy onClick={onCopyBrief} />}
           </>
         )}
       </Form>
