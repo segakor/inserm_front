@@ -158,7 +158,7 @@ export const TableProjectChangeable = ({
 
   const isAdmin = role === "ADMIN" || role === "SUPERVISOR";
 
-  const onEdit = (key: React.Key) => {
+  const sendReviewToWork = (key: React.Key) => {
     // @ts-ignore TODO:доделать!
     const newData = [...reviews];
     const index = newData.findIndex((item) => key === item.key);
@@ -292,7 +292,9 @@ export const TableProjectChangeable = ({
             }
             onClick={() => {
               edit(record);
-              onEdit(record.key);
+              if(role === "HOST"){
+                sendReviewToWork(record.key);
+              }
             }}
           >
             Edit
