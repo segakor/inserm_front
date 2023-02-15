@@ -24,7 +24,6 @@ import { CreateAdmin } from "../Pages/Admin/CreateNewAdmin";
 import { TariffSetting } from "../Pages/Сommon/TariffSetting";
 import { TariffClient } from "../Pages/Admin/TariffClient";
 import { FoundationClient } from "../Pages/Admin/FoundationClient";
-import { ApplyPayment } from "../Pages/Client/ApplyPayment";
 import { Role } from "../../type";
 import { tokenService } from "../../utils/tokenService";
 
@@ -85,7 +84,6 @@ export const MainRoutes = () => {
             <Route path="contacts" element={<Contacts />} />
             <Route path="help" element={<Help />} />
             <Route path="createproject" element={<CreateProject />} />
-            <Route path="applypayment" element={<ApplyPayment />} />
           </Route>
           <Route path="/host" element={<ProtectedRoutes roleRequired="HOST" />}>
             <Route path="projects" element={<ListOfProject />} />
