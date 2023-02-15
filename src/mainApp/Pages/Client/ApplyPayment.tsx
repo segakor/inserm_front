@@ -101,7 +101,7 @@ export const ApplyPayment = () => {
   setTimeout(() => {
     const form = document.querySelector("#ainoxform");
     form?.dispatchEvent(submitEvent);
-  }, 2000);
+  }, 4000);
 
   return (
     <Page>
