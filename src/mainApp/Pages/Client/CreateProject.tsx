@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Divider, Input, Steps } from "antd";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { TariffSelectionBlock } from "../../components/TariffSelectionBlock";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "../../context/hooks";
 import { setProjectForPayment } from "../../context/action";
 import { usePerson } from "../../hooks/usePerson";
+import { ApplyPayment } from "../../components/ApplyPayment";
 
 const Page = styled.div`
   display: flex;
@@ -23,8 +23,6 @@ export const CreateProject = () => {
 
   usePerson();
 
-  const navigation = useNavigate();
-
   const dispatch = useDispatch();
 
   const onSelectedTariff = (e: any) => {
@@ -36,7 +34,7 @@ export const CreateProject = () => {
         price: e.price,
       })
     );
-    navigation("/app/client/applypayment");
+    next();
   };
 
   const steps = [
@@ -56,7 +54,7 @@ export const CreateProject = () => {
     },
     {
       title: "Оплата",
-      content: "",
+      content: <ApplyPayment />,
     },
   ];
 
@@ -69,14 +67,6 @@ export const CreateProject = () => {
   };
 
   const items = steps.map((item) => ({ key: item.title, title: item.title }));
-
-  useEffect(() => {
-    const script = document.createElement("script");
-
-    script.src = "https://code.jquery.com/jquery-2.2.4.min.js";
-
-    document.body.appendChild(script);
-  }, []);
 
   return (
     <Page>
