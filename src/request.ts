@@ -20,6 +20,7 @@ import {
   ResAdmin,
   ReqSiteRegistration,
   Admin,
+  ReqNote,
 } from "./type";
 
 const URL = "https://lol.inserm.ru:5001/api";
@@ -248,6 +249,39 @@ export const refreshToken = async (value: { refreshToken: string }) => {
   const { data, status } = await axiosClient.post<ResLogin>(
     URL + `/user/auth`,
     { ...value }
+  );
+  return {
+    data,
+    status,
+  };
+};
+
+export const unsubdcribe = async (value: { projectId: number }) => {
+  const { data, status } = await axiosClient.post(URL + `/tariff/unsubscribe`, {
+    ...value,
+  });
+  return {
+    data,
+    status,
+  };
+};
+
+export const createNote = async (value: {
+  projectId: string;
+  text: string;
+}) => {
+  const { data, status } = await axiosClient.post(URL + `/project/notes`, {
+    ...value,
+  });
+  return {
+    data,
+    status,
+  };
+};
+
+export const getNotes = async (id: string) => {
+  const { data, status } = await axiosClient.get<ReqNote>(
+    URL + `/project/notes/${id}`
   );
   return {
     data,

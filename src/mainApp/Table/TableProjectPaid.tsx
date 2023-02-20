@@ -264,7 +264,7 @@ export const TableProjectPaid = ({
           tableLayout={"fixed"}
         />
       </ConfigProvider>
-      <Form.Item name={"is_paid"} style={{ visibility: "hidden" }}>
+      <Form.Item name={"is_paid"} hidden>
         <Input />
       </Form.Item>
     </Form>

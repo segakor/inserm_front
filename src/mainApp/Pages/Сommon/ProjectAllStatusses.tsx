@@ -12,6 +12,7 @@ import { TableProjectNotChangeable } from "../../Table/TableProjectNotChangeable
 import { ButtonBrief } from "../../Button/ButtonBrief";
 import { ModalBrief } from "../../components/ModalBrief";
 import { tokenService } from "../../../utils/tokenService";
+import { Notes } from "../../components/Notes";
 
 const Page = styled.div`
   display: flex;
@@ -33,6 +34,14 @@ const CardBlock = styled.div`
 `;
 const TitleDate = styled(Title)`
   margin-bottom: 20px !important;
+`;
+const WrapperCard = styled.div`
+  display: flex;
+  grid-gap:20px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+  margin-bottom: 10px;
 `;
 
 export const ProjectAllStatusses = () => {
@@ -72,12 +81,15 @@ export const ProjectAllStatusses = () => {
         <Header>{projectName || ""}</Header>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
       </HeaderFlex>
-      <CardBlock>
-        <TitleDate level={5} style={{ fontSize: "14px", fontWeight: "400" }}>
-          {getRangeDate({ start, end })}
-        </TitleDate>
-        <DetailsCard statuses={statusess} />
-      </CardBlock>
+      <WrapperCard>
+        <CardBlock>
+          <TitleDate level={5} style={{ fontSize: "14px", fontWeight: "400" }}>
+            {getRangeDate({ start, end })}
+          </TitleDate>
+          <DetailsCard statuses={statusess} />
+        </CardBlock>
+        <Notes projectId={projectId}/>
+      </WrapperCard>
       {isModalOpen && (
         <ModalBrief onClose={handleClose} projectId={projectId} brief={brief} />
       )}
