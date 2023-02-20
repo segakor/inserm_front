@@ -5,7 +5,6 @@ import { useNotes } from "../hooks/useNotes";
 import { getDate } from "../../utils/getDate";
 
 const Wrapper = styled.div`
-  /* border: 1px solid green; */
   background-color: white;
   padding: 16px;
   width: 400px;
@@ -15,7 +14,6 @@ const Wrapper = styled.div`
   border-radius: 10px;
 `;
 const MessageBox = styled.div`
-  /* border: 1px solid red; */
   height: 216px;
   overflow: auto;
   padding: 5px;
@@ -42,21 +40,6 @@ export const Notes = ({ projectId }: { projectId: string }) => {
   const [value, setValue] = useState("");
 
   const { handleCreateNote, handleGetNotes, notes } = useNotes();
-
-  const msg = [
-    {
-      id: 1,
-      text: "sdfsdfdsfsfsdfsdf",
-      user: "обоба",
-      date: 1676799484,
-    },
-    {
-      id: 1,
-      text: "sdfsdfdsfsfsdfsdf",
-      user: "обоба",
-      date: 1676799484,
-    },
-  ];
 
   const onSendNote = async() => {
     await handleCreateNote({ text: value, projectId })

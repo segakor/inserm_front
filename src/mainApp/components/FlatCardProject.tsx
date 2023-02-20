@@ -54,7 +54,7 @@ export const FlatCardProject = (project: Project) => {
   const navigation = useNavigate();
   const role = tokenService.getRole();
 
-  const isCompleted = statuses?.all === statuses?.success;
+  const isCompleted = (statuses?.success || 0) >= (statuses?.all || 0);
 
   return (
     <>
