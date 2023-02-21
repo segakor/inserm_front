@@ -32,8 +32,10 @@ export const ModalAutoPay = ({ onClose, unSubscribe }: Props) => {
     <>
       <Modal onCancel={onClose} open footer={null} width={"400px"}>
         <Title level={5} style={{ fontWeight: "400" }}>
-          Вы уверены, что хотите отключить автопродление? После окончания
-          отчетного периода работа приостановится
+          Вы уверены, что хотите отключить автопродление? Обратите внимание,
+          деньги за новый период не спишутся, пока все отзывы не будут
+          опубликованы. Если отключить автоплатеж, то после завершения
+          публикации отзывов работа приостановится.
         </Title>
         <FooterButton>
           <StyledButton isOk={true} onClick={unSubscribe}>
