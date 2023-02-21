@@ -23,7 +23,7 @@ import {
   ReqNote,
 } from "./type";
 
-const URL = "https://lol.inserm.ru:5001/api";
+const URL = "https://lul.inserm.ru:5001/api";
 
 export const login = async (value: ReqLogin) => {
   const { data, status } = await axiosClient.post<ResLogin>(
