@@ -58,6 +58,7 @@ export type Project = {
   id: number;
   name: string;
   statuses?: Statuses;
+  autopay: boolean;
   tariff: TariffProject;
   brief?: boolean;
 };
@@ -179,4 +180,15 @@ export type ProjectForPayment = {
 
 export type ReqSiteRegistration = ReqProjectCreate & {
   email: string;
+};
+
+export type Note = {
+  id: number;
+  text: string;
+  user: string;
+  date: number;
+};
+
+export type ReqNote = {
+  result: Note[];
 };

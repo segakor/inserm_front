@@ -5,6 +5,8 @@ import "./AntSelectCustomStyle.css";
 import { TariffItem } from "./TariffItem";
 import { Title } from "../../common/Typography";
 import { Project } from "../../type";
+import { ModalAutoPay } from "./ModalAutoPay";
+import { useUnsubscribe } from "../hooks/useUnsubscribe";
 
 const Wrapper = styled.div`
   display: flex;
@@ -30,6 +32,8 @@ type Props = {
 
 export const CurrentTariff = ({ clientProject }: Props) => {
   const [value, setValue] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAutoPay, setIsAutoPay] = useState(false);
 
   const handleChange = (value: string) => {
     setValue(value);
@@ -49,6 +53,36 @@ export const CurrentTariff = ({ clientProject }: Props) => {
   const currentTariff = clientProject?.find(
     (item) => item.name === value
   )?.tariff;
+
+  const currentAutoPay = clientProject?.find(
+    (item) => item.name === value
+  )?.autopay;
+
+  const currentProject = clientProject?.find((item) => item.name === value)?.id;
+
+  const handleChangeAutoPay = (checked: boolean) => {
+    handleOpen();
+  };
+
+  const handleOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    setIsAutoPay(currentAutoPay || false);
+  }, [currentAutoPay]);
+
+  const { handleUnsubscribe } = useUnsubscribe();
+
+  const onUnsubcribe = () => {
+    handleUnsubscribe({ projectId: currentProject || 0 });
+    setIsAutoPay(false);
+    handleClose();
+  };
 
   return (
     <>
@@ -73,9 +107,16 @@ export const CurrentTariff = ({ clientProject }: Props) => {
       {currentTariff && (
         <>
           <CurrentTariffSection>
-            <TariffItem {...currentTariff} />
+            <TariffItem
+              {...currentTariff}
+              onChangeAutoPay={handleChangeAutoPay}
+              autoPay={isAutoPay}
+            />
           </CurrentTariffSection>
         </>
+      )}
+      {isModalOpen && (
+        <ModalAutoPay onClose={handleClose} unSubscribe={onUnsubcribe} />
       )}
     </>
   );

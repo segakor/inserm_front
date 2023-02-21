@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "antd";
+import { Button, Switch } from "antd";
 import { Title } from "../../common/Typography";
 import { getRangeDate } from "../../utils/getDate";
 
@@ -35,7 +35,7 @@ const Card = styled.div`
     }
   }
 `;
-const Card1 = styled(Card) <{ color: string }>`
+const Card1 = styled(Card)<{ color: string }>`
   background: ${(props) => props.color};
   color: #ffffff;
 `;
@@ -50,6 +50,10 @@ const StyledButton = styled(Button)`
   height: 40px;
   border: 2px solid #1579e9;
 `;
+const SwitchWrapper = styled.div`
+  display: flex;
+  grid-gap: 12px;
+`;
 
 type Props = {
   amount?: number;
@@ -62,6 +66,8 @@ type Props = {
   forOne?: number;
   disabled?: boolean;
   onSelectTarif?: (e: any) => void;
+  onChangeAutoPay?: (e: boolean) => void;
+  autoPay?: boolean;
 };
 
 export const TariffItem = ({
@@ -74,7 +80,9 @@ export const TariffItem = ({
   forOne,
   end,
   disabled,
-  onSelectTarif
+  onSelectTarif,
+  onChangeAutoPay,
+  autoPay,
 }: Props) => {
   const colorCard =
     name === "S" ? "#2CAE97" : name === "M" ? "#ECA843" : " #EF5479";
@@ -94,7 +102,7 @@ export const TariffItem = ({
 
   const handleClick = () => {
     if (onSelectTarif) {
-      onSelectTarif({ period, price, id })
+      onSelectTarif({ period, price, id });
     }
   };
 
@@ -150,7 +158,12 @@ export const TariffItem = ({
           Выбрать тариф
         </StyledButton>
       ) : (
-        <></>
+        <SwitchWrapper>
+          <Switch checked={autoPay} onChange={onChangeAutoPay} disabled={!autoPay}/>
+          <Title level={4} style={{ fontWeight: "700", fontSize: 14 }}>
+            {autoPay ? "Выключить автопродление" : "Включить автопродление"}
+          </Title>
+        </SwitchWrapper>
       )}
     </Wrapper>
   );

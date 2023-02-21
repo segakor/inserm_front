@@ -6,8 +6,8 @@ import { Project } from "../../type";
 import { getRangeDate } from "../../utils/getDate";
 import { tokenService } from "../../utils/tokenService";
 
-const Panel = styled.div`
-  background: #ffffff;
+const Panel = styled.div<{ isCompleted: boolean }>`
+  background: ${(props) => (props.isCompleted ? "#8BFFB3" : "#ffffff")};
   border-radius: 10px;
   min-height: 80px;
   padding: 12px 20px 12px 20px;
@@ -48,18 +48,24 @@ export const FlatCardProject = (project: Project) => {
   const {
     tariff: { start, end },
     statuses,
-    id
+    id,
   } = project;
 
   const navigation = useNavigate();
   const role = tokenService.getRole();
 
+  const isCompleted = (statuses?.success || 0) >= (statuses?.all || 0);
+
   return (
     <>
-      <Panel onClick={() => navigation(`/app/${role?.toLowerCase()}/project/${id}`)}>
+      <Panel
+        isCompleted={isCompleted}
+        onClick={() => navigation(`/app/${role?.toLowerCase()}/project/${id}`)}
+      >
         <Box style={{ marginBottom: "15px" }}>
           <Title level={5} style={{ fontWeight: "800" }}>
-            {`[${project.id}] `}{project.name}
+            {`[${project.id}] `}
+            {project.name}
           </Title>
           <>{getRangeDate({ start, end })}</>
         </Box>
@@ -189,7 +195,6 @@ export const FlatCardProject = (project: Project) => {
               <Title style={{ fontSize: "14px", fontWeight: "800" }}>
                 {statuses?.all || 0}
               </Title>
-              <>&ensp;|&ensp;</>
             </>
           </Status>
           <StatusRow>
