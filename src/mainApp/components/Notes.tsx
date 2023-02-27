@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Button, Input } from "antd";
+import { Button, Input, Tooltip } from "antd";
 import { useNotes } from "../hooks/useNotes";
 import { getDate } from "../../utils/getDate";
 import { Title } from "../../common/Typography";
@@ -35,6 +35,20 @@ const Message = styled.div`
   margin-bottom: 5px;
 `;
 
+const { TextArea } = Input;
+
+const TooltipComponent = () => {
+  return (
+    <>
+      <p>Для изменения стиля шрифта оберните текст в следующие теги:</p>
+      <div>{"<b>жирный</b>"}</div>
+      <div>{"<i>курсив</i>"}</div>
+      <div>{"<u>подчеркнутый</u>"}</div>
+      <div>{"<a href='ссылка'>ссылка</a>"}</div>
+    </>
+  );
+};
+
 export const Notes = ({ projectId }: { projectId: string }) => {
   const [value, setValue] = useState("");
 
@@ -60,12 +74,21 @@ export const Notes = ({ projectId }: { projectId: string }) => {
               <Title level={5}>{item.user}</Title>
               <div>{getDate({ date: item.date })}</div>
             </MessageTitle>
-            <div>{item.text}</div>
+            <div
+              style={{ whiteSpace: "pre-wrap" }}
+              dangerouslySetInnerHTML={{ __html: item.text }}
+            />
           </Message>
         ))}
       </MessageBox>
       <Footer>
-        <Input value={value} onChange={(e) => setValue(e.target.value)} />
+        <Tooltip title={TooltipComponent}>
+          <TextArea
+            style={{ height: 0, resize: "none", overflow: "hidden" }}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+        </Tooltip>
         <Button disabled={!value} onClick={onSendNote}>
           добавить
         </Button>
