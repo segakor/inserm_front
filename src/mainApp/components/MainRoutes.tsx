@@ -82,6 +82,7 @@ export const MainRoutes = () => {
             <Route path="profile" element={<Profile />} />
             <Route path="foundation" element={<Foundation />} />
             <Route path="contacts" element={<Contacts />} />
+            {/* <Route path="help" element={<WebSock />} /> */}
             <Route path="help" element={<Help />} />
             <Route path="createproject" element={<CreateProject />} />
           </Route>

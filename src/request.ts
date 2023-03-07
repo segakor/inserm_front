@@ -21,6 +21,7 @@ import {
   ReqSiteRegistration,
   Admin,
   ReqNote,
+  ReqRooms,
 } from "./type";
 
 const URL = "https://lul.inserm.ru:5001/api";
@@ -288,3 +289,23 @@ export const getNotes = async (id: string) => {
     status,
   };
 };
+
+export const getRooms = async () => {
+  const { data, status } = await axiosClient.get<ReqRooms>(
+    URL + `/chat/rooms`
+  );
+  return {
+    data,
+    status,
+  };
+};
+
+export const createRoom = async () =>{
+  const { data, status } = await axiosClient.get<{roomId:number}>(
+    URL + `/chat/create`
+  );
+  return {
+    data,
+    status,
+  };
+}

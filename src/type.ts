@@ -192,3 +192,12 @@ export type Note = {
 export type ReqNote = {
   result: Note[];
 };
+
+export type Room = {
+  id: number;
+  userId: number;
+  email:string;
+};
+export type ReqRooms = {
+  result: Room[];
+};

@@ -4,6 +4,7 @@ import { Button, Input, Tooltip } from "antd";
 import { useNotes } from "../hooks/useNotes";
 import { getDate } from "../../utils/getDate";
 import { Title } from "../../common/Typography";
+import { useScroll } from "../hooks/useScroll";
 
 const Wrapper = styled.div`
   background-color: white;
@@ -37,7 +38,7 @@ const Message = styled.div`
 
 const { TextArea } = Input;
 
-const TooltipComponent = () => {
+const TooltipComponent = () => {  
   return (
     <>
       <p>Для изменения стиля шрифта оберните текст в следующие теги:</p>
@@ -51,6 +52,8 @@ const TooltipComponent = () => {
 
 export const Notes = ({ projectId }: { projectId: string }) => {
   const [value, setValue] = useState("");
+
+  const { element } = useScroll();
 
   const { handleCreateNote, handleGetNotes, notes } = useNotes();
 
@@ -67,7 +70,7 @@ export const Notes = ({ projectId }: { projectId: string }) => {
 
   return (
     <Wrapper>
-      <MessageBox>
+      <MessageBox ref={element}>
         {notes?.map((item, index) => (
           <Message key={index}>
             <MessageTitle>
