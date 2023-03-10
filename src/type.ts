@@ -197,6 +197,7 @@ export type Room = {
   id: number;
   userId: number;
   email:string;
+  name:string;
 };
 export type ReqRooms = {
   result: Room[];

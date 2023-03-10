@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { Title, Header } from "../../../common/Typography";
-import { ChatClient } from "../../components/ChatClient";
+import { Header } from "../../../common/Typography";
+import { ChatClient } from "../../Chat";
+import { Tooltip, Space } from "antd";
+import { QuestionCircleFilled } from "@ant-design/icons";
 
 const Page = styled.div`
   display: flex;
@@ -12,11 +14,20 @@ const Page = styled.div`
 export const Help = () => {
   return (
     <Page>
-      <Header>Нужна помощь?</Header>
-      <Title level={5} style={{ fontWeight: 400 }}>
-        Задайте свой вопрос и мы ответим в течение 40 минут в рабочие часы
-        (пн-пт 9-18). Для более быстрого ответа используйте Telegram
-      </Title>
+      <Header>
+        Техподдержка{" "}
+        <Tooltip
+          title={
+            "Задайте свой вопрос и мы ответим в течение 40 минут в рабочие часы (пн-пт 9-18)"
+          }
+        >
+          <Space>
+            <QuestionCircleFilled
+              style={{ color: "#1579E9", cursor: "pointer" }}
+            />
+          </Space>
+        </Tooltip>
+      </Header>
       <ChatClient />
     </Page>
   );

@@ -93,7 +93,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     { label: "База знаний", key: "foundation", icon: <FoundationIcon /> },
     { label: "Контакты", key: "contacts", icon: <ContactsIcon /> },
     dividerItem2 as any,
-    { label: "Нужна помощь?", key: "help", icon: <HelpIcon /> },
+    { label: "Техподдержка", key: "help", icon: <HelpIcon /> },
     { label: "Выход", key: "exit", icon: <ExitIcon /> },
   ];
 

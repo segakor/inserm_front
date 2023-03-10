@@ -9,7 +9,7 @@ export const Title = styled(TitleAnt)`
 
 //Header
 type Props = {
-  children: string;
+  children: string |  React.ReactNode;
 };
 
 /* type PropsTitle = {
