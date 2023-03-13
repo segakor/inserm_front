@@ -5,6 +5,7 @@ import { Title } from "../../common/Typography";
 import { Project } from "../../type";
 import { getRangeDate } from "../../utils/getDate";
 import { tokenService } from "../../utils/tokenService";
+import { useChangeProjectStatus } from "../hooks/useChangeProjectStatus";
 
 const Panel = styled.div<{ isCompleted: boolean }>`
   background: ${(props) => (props.isCompleted ? "#8BFFB3" : "#ffffff")};
@@ -44,7 +45,13 @@ const StatusRow = styled.div`
   }
 `;
 
-export const FlatCardProject = (project: Project) => {
+type Props = {
+  project: Project;
+  isActive: boolean;
+  onUpdate: () => void;
+};
+
+export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
   const {
     tariff: { start, end },
     statuses,
@@ -53,6 +60,14 @@ export const FlatCardProject = (project: Project) => {
 
   const navigation = useNavigate();
   const role = tokenService.getRole();
+
+  const { handleChangeProjectStatus } = useChangeProjectStatus();
+
+  const onChangeStatus = () => {
+    handleChangeProjectStatus({ id, isActive: !isActive }).then(() => {
+      onUpdate();
+    });
+  };
 
   const isCompleted = (statuses?.success || 0) >= (statuses?.all || 0);
 
@@ -313,6 +328,19 @@ export const FlatCardProject = (project: Project) => {
               </Title>
             </div>
           </StatusRow>
+          <Title
+            style={{
+              fontSize: "14px",
+              color: "#8E8E8E",
+              textDecorationLine: "underline",
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onChangeStatus();
+            }}
+          >
+            {isActive ? "Добавить в архив" : "Убрать из архива"}
+          </Title>
         </Box>
       </Panel>
     </>

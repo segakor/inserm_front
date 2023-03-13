@@ -77,9 +77,10 @@ export const getDetails = async (id: string) => {
   return { data, status };
 };
 
-export const getAllProject = async () => {
+export const getAllProject = async (isActive: boolean) => {
   const { data, status } = await axiosClient.get<ReqGetProject>(
-    URL + `/project/all`
+    URL + `/project/all`,
+    { params: { isActive: isActive } }
   );
   return { data, status };
 };
@@ -291,8 +292,16 @@ export const getNotes = async (id: string) => {
 };
 
 export const getRooms = async () => {
-  const { data, status } = await axiosClient.get<ReqRooms>(
-    URL + `/chat/rooms`
+  const { data, status } = await axiosClient.get<ReqRooms>(URL + `/chat/rooms`);
+  return {
+    data,
+    status,
+  };
+};
+
+export const createRoom = async () => {
+  const { data, status } = await axiosClient.get<{ roomId: number }>(
+    URL + `/chat/create`
   );
   return {
     data,
@@ -300,12 +309,25 @@ export const getRooms = async () => {
   };
 };
 
-export const createRoom = async () =>{
-  const { data, status } = await axiosClient.get<{roomId:number}>(
-    URL + `/chat/create`
-  );
+export const deleteReview = async (value: { id: string }) => {
+  const { data, status } = await axiosClient.post(URL + "/review/delete", {
+    ...value,
+  });
   return {
     data,
     status,
   };
-}
+};
+
+export const changeStatusProject = async (value: {
+  id: number;
+  isActive: boolean;
+}) => {
+  const { data, status } = await axiosClient.post(URL + "/project/status", {
+    ...value,
+  });
+  return {
+    data,
+    status,
+  };
+};

@@ -4,7 +4,7 @@ import { getAllProject } from "../../request";
 import { Project } from "../../type";
 import { openNotificationWithIcon } from "../../utils/notification";
 
-export const useGetAllProject = () => {
+export const useGetAllProject = (isActive: boolean) => {
   const [allProject, setAllProject] = useState<Project[] | undefined>(
     undefined
   );
@@ -13,8 +13,8 @@ export const useGetAllProject = () => {
 
   const handleGetAllProject = async () => {
     try {
-      setIsLoading(true)
-      const response = await getAllProject();
+      setIsLoading(true);
+      const response = await getAllProject(isActive);
       setAllProject(response.data.projectsArray);
     } catch (err) {
       const typedError = err as AxiosError;
@@ -22,7 +22,7 @@ export const useGetAllProject = () => {
         type: "error",
         message: "",
         description: "Не удалось загрузить проекты",
-        status: typedError.status
+        status: typedError.status,
       });
     } finally {
       setIsLoading(false);
@@ -31,10 +31,15 @@ export const useGetAllProject = () => {
   useEffect(() => {
     handleGetAllProject();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isActive]);
+
+  const handleUpdate = () => {
+    handleGetAllProject();
+  };
 
   return {
     allProject,
-    isLoading
+    isLoading,
+    handleUpdate,
   };
 };

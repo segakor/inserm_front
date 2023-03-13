@@ -22,6 +22,7 @@ import { StatusSelect } from "../components/StatusSelect";
 import { StatusComponent } from "../components/StatusComponent";
 import { ModalCreateReview } from "../components/ModalCreateReview";
 import { tokenService } from "../../utils/tokenService";
+import { useDeleteReview } from "../hooks/useDeleteReview";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
@@ -88,6 +89,8 @@ export const TableProjectChangeable = ({
 
   const { handleUpdateReview } = useUpdateReview();
 
+  const { handleDeleteReview } = useDeleteReview();
+
   const isEditing = (record: ReviewsTableItem) => record.key === editingKey;
 
   const edit = (record: Partial<ReviewsTableItem> & { key: React.Key }) => {
@@ -109,6 +112,33 @@ export const TableProjectChangeable = ({
       row.id = newData[index].id;
       console.log("row_save", row, index, newData[index]);
       handleUpdateReview(row).then(() => {
+        onUpdate(projectId);
+      });
+      if (index > -1) {
+        const item = newData[index];
+        newData.splice(index, 1, {
+          ...item,
+          ...row,
+        });
+        setEditingKey("");
+      } else {
+        newData.push(row);
+        setEditingKey("");
+      }
+    } catch (errInfo) {
+      console.log("Validate Failed:", errInfo);
+    }
+  };
+
+  const onDelete = async (key: React.Key) => {
+    try {
+      const row = (await form.validateFields()) as ReviewsTableItem;
+      // @ts-ignore TODO:доделать!
+      const newData = [...reviews];
+      const index = newData.findIndex((item) => key === item.key);
+      row.id = newData[index].id;
+      console.log("row_save", row, index, newData[index]);
+      handleDeleteReview({ id: row.id }).then(() => {
         onUpdate(projectId);
       });
       if (index > -1) {
@@ -283,7 +313,14 @@ export const TableProjectChangeable = ({
             >
               Save
             </Typography.Link>
-            <Typography.Link onClick={cancel}>Cancel</Typography.Link>
+            <Typography.Link onClick={cancel} style={{ marginRight: 8 }}>
+              Cancel
+            </Typography.Link>
+            {isAdmin && (
+              <Typography.Link onClick={() => onDelete(record.key)}>
+                Delete
+              </Typography.Link>
+            )}
           </span>
         ) : (
           <Typography.Link
@@ -292,7 +329,7 @@ export const TableProjectChangeable = ({
             }
             onClick={() => {
               edit(record);
-              if(role === "HOST"){
+              if (role === "HOST") {
                 sendReviewToWork(record.key);
               }
             }}

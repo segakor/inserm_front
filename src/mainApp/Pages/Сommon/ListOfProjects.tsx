@@ -2,8 +2,8 @@ import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { useGetAllProject } from "../../hooks/useGetAllProject";
-import { Input, Spin } from "antd";
-import { SearchOutlined } from '@ant-design/icons';
+import { Input, Radio, RadioChangeEvent, Spin } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 import { FlatCardProject } from "../../components/FlatCardProject";
 
 const Page = styled.div`
@@ -27,10 +27,16 @@ const Box = styled.div`
   }
 `;
 
+const optionsWithDisabled = [
+  { label: "Активные", value: true },
+  { label: "Архивные", value: false },
+];
+
 export const ListOfProject = () => {
   const [inputText, setInputText] = useState("");
+  const [isActive, setIsActive] = useState(true);
 
-  const { allProject, isLoading } = useGetAllProject();
+  const { allProject, isLoading, handleUpdate } = useGetAllProject(isActive);
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value.toLowerCase());
@@ -43,13 +49,36 @@ export const ListOfProject = () => {
     return item;
   });
 
+  const onChange = ({ target: { value } }: RadioChangeEvent) => {
+    setIsActive(value);
+  };
+
   return (
     <Page>
       <Header>Список проектов</Header>
+      <Radio.Group
+        style={{ marginBottom: 16 }}
+        options={optionsWithDisabled}
+        onChange={onChange}
+        value={isActive}
+        optionType="button"
+        buttonStyle="solid"
+      />
       <Box>
-        <SearchPanel suffix={<SearchOutlined />} placeholder="Поиск проектов" onChange={handleSearch} />
+        <SearchPanel
+          suffix={<SearchOutlined />}
+          placeholder="Поиск проектов"
+          onChange={handleSearch}
+        />
         {!isLoading &&
-          filteredData?.map((item) => <FlatCardProject {...item} />)}
+          filteredData?.map((item, index) => (
+            <FlatCardProject
+              key={index}
+              project={item}
+              isActive={isActive}
+              onUpdate={handleUpdate}
+            />
+          ))}
         {isLoading && <Spin />}
       </Box>
     </Page>

@@ -37,7 +37,7 @@ const TitleDate = styled(Title)`
 `;
 const WrapperCard = styled.div`
   display: flex;
-  grid-gap:20px;
+  grid-gap: 20px;
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -88,7 +88,7 @@ export const ProjectAllStatusses = () => {
           </TitleDate>
           <DetailsCard statuses={statusess} />
         </CardBlock>
-        <Notes projectId={projectId}/>
+        <Notes projectId={projectId} />
       </WrapperCard>
       {isModalOpen && (
         <ModalBrief onClose={handleClose} projectId={projectId} brief={brief} />
