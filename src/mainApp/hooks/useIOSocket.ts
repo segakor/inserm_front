@@ -14,7 +14,7 @@ export const useIOSocket = ({ onMessageNew, onMessageGet, roomId }: Props) => {
 
   useEffect(() => {
     if (roomId) {
-      const socketclient = io("https://lol.inserm.ru:5001", {
+      const socketclient = io("https://lul.inserm.ru:5001", {
         path: "/chat",
         query: {
           roomId: roomId,
