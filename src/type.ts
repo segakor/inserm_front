@@ -196,9 +196,14 @@ export type ReqNote = {
 export type Room = {
   id: number;
   userId: number;
-  email:string;
-  name:string;
+  email: string;
+  name: string;
 };
 export type ReqRooms = {
   result: Room[];
+};
+
+export type ReqCreateReviewList = {
+  reviews: { text: string; link: string }[];
+  projectId: string;
 };

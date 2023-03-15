@@ -1,4 +1,5 @@
-import { createReview } from "../../request";
+import { createReview, createReviewList } from "../../request";
+import { ReqCreateReviewList } from "../../type";
 import { openNotificationWithIcon } from "../../utils/notification";
 
 export const useCreateReview = () => {
@@ -18,7 +19,25 @@ export const useCreateReview = () => {
     }
   };
 
+  const handleCreateReviewList = async (value: ReqCreateReviewList) => {
+    try {
+      await createReviewList(value);
+      openNotificationWithIcon({
+        type: "success",
+        message: "",
+        description: "Записи успешно импортировались",
+      });
+    } catch {
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: "Не удалось добавить записи из файла",
+      });
+    }
+  };
+
   return {
     handleCreateReview,
+    handleCreateReviewList,
   };
 };

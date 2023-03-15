@@ -23,6 +23,7 @@ import { StatusComponent } from "../components/StatusComponent";
 import { ModalCreateReview } from "../components/ModalCreateReview";
 import { tokenService } from "../../utils/tokenService";
 import { useDeleteReview } from "../hooks/useDeleteReview";
+import { UploadCVS } from "../components/UploadCVS";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
@@ -380,13 +381,15 @@ export const TableProjectChangeable = ({
           )}
         >
           {isAdmin && (
-            <Button
-              onClick={showModal}
-              type="primary"
-              style={{ marginBottom: 16, width: 150 }}
-            >
-              Добавить запись
-            </Button>
+            <div style={{display:'flex', marginBottom:16, width:300, gridGap:'8px'}}>
+              <Button
+                onClick={showModal}
+                type="primary"
+              >
+                Добавить запись
+              </Button>
+              <UploadCVS onUpdate={onUpdate} projectId={projectId}/>
+            </div>
           )}
           {isModalOpen && (
             <ModalCreateReview

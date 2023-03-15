@@ -22,6 +22,7 @@ import {
   Admin,
   ReqNote,
   ReqRooms,
+  ReqCreateReviewList,
 } from "./type";
 
 const URL = "https://lul.inserm.ru:5001/api";
@@ -324,6 +325,17 @@ export const changeStatusProject = async (value: {
   isActive: boolean;
 }) => {
   const { data, status } = await axiosClient.post(URL + "/project/status", {
+    ...value,
+  });
+  return {
+    data,
+    status,
+  };
+};
+
+export const createReviewList = async (value: ReqCreateReviewList) => {
+  //TODO:Тип ответа!
+  const { data, status } = await axiosClient.post(URL + `/review/import`, {
     ...value,
   });
   return {
