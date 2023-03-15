@@ -23,6 +23,7 @@ export const UploadCVS = ({ onUpdate, projectId }: Props) => {
       header: true,
       skipEmptyLines: true,
       encoding: "UTF-8",
+      delimiter: ';',
       complete: function (results) {
         console.log(results.data);
         const hasError = checkCSV(results.data as { text: string; link: string }[]);
