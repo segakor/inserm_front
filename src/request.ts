@@ -23,6 +23,7 @@ import {
   ReqNote,
   ReqRooms,
   ReqCreateReviewList,
+  ResGetAllClient,
 } from "./type";
 
 const URL = "https://lul.inserm.ru:5001/api";
@@ -338,6 +339,14 @@ export const createReviewList = async (value: ReqCreateReviewList) => {
   const { data, status } = await axiosClient.post(URL + `/review/import`, {
     ...value,
   });
+  return {
+    data,
+    status,
+  };
+};
+
+export const getAllClient = async () => {
+  const { data, status } = await axiosClient.get<ResGetAllClient>(URL + `/person/all`);
   return {
     data,
     status,

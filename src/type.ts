@@ -207,3 +207,27 @@ export type ReqCreateReviewList = {
   reviews: { text: string; link: string }[];
   projectId: string;
 };
+
+export type ClientProject = {
+  id: number;
+  name: string;
+  is_active: boolean;
+  startDate: number;
+  price: number;
+  tariffName: string;
+  endDate: number;
+  autopay: boolean;
+};
+export type Client = {
+  id: number;
+  email: string;
+  name: string;
+  phone: string;
+  tg: string;
+  totalPrice: number;
+  projects: ClientProject[];
+};
+
+export type ResGetAllClient = {
+  result: Client[];
+};

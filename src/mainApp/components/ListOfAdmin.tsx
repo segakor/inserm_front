@@ -15,7 +15,6 @@ const AdminCard = styled.div`
   border-radius: 10px;
   background: #ffffff;
   padding: 15px 20px 15px 20px;
-  min-width: 250px;
 `;
 const HeaderCard = styled(Title)`
   margin-bottom: 10px;
@@ -35,7 +34,6 @@ const Item = styled(Title)`
 `;
 const FlexBox = styled.div`
   display: flex;
-  justify-content: space-between;
   height: auto;
   grid-gap: 20px;
   width: 745px;
