@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Statuses } from "../../type";
 import { Title } from "../../common/Typography";
 
 const DetailsContainer = styled.div`
@@ -28,17 +29,19 @@ const Details = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `;
-export const DetailsProject = () => {
+
+type Props = {
+  delete: number | undefined;
+  left: number | undefined;
+  moderate: number | undefined;
+  reject: number | undefined;
+  wait: number | undefined;
+  success: number | undefined;
+}
+
+export const DetailsCardHostStatistics = (props : Props) => {
   return (
     <DetailsContainer>
-      <Details>
-        <Title
-          style={{ fontSize: "14px", color: "#8E8E8E", fontWeight: "500" }}
-        >
-          Всего
-        </Title>
-        <Title level={2}>15</Title>
-      </Details>
       <Details>
         <Title
           style={{ fontSize: "14px", color: "#8E8E8E", fontWeight: "500" }}
@@ -46,7 +49,7 @@ export const DetailsProject = () => {
           Опубликовано
         </Title>
         <Title level={2} style={{ color: "#1BBD3F" }}>
-          15
+          {props?.success || 0}
         </Title>
       </Details>
       <Details>
@@ -56,7 +59,7 @@ export const DetailsProject = () => {
           Осталось
         </Title>
         <Title level={2} style={{ color: "#8567FF" }}>
-          15
+          {props?.left || 0}
         </Title>
       </Details>
       <Details>
@@ -66,7 +69,7 @@ export const DetailsProject = () => {
           На модерации
         </Title>
         <Title level={2} style={{ color: "#5AA6FF" }}>
-          15
+          {props?.moderate || 0}
         </Title>
       </Details>
       <Details>
@@ -76,7 +79,7 @@ export const DetailsProject = () => {
           Не прошло
         </Title>
         <Title level={2} style={{ color: "#FA7211" }}>
-          15
+          {props?.reject || 0}
         </Title>
       </Details>
       <Details>
@@ -86,7 +89,7 @@ export const DetailsProject = () => {
           Удалено
         </Title>
         <Title level={2} style={{ color: "#FF1E1E" }}>
-          15
+          {props?.delete || 0}
         </Title>
       </Details>
     </DetailsContainer>

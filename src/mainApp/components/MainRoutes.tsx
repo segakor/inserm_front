@@ -26,6 +26,7 @@ import { TariffClient } from "../Pages/Admin/TariffClient";
 import { FoundationClient } from "../Pages/Admin/FoundationClient";
 import { Role } from "../../type";
 import { tokenService } from "../../utils/tokenService";
+import { HostStatistics } from "../Pages/Admin/HostStatistics";
 
 const StyledLayout = styled(Layout)`
   margin-left: 50px;
@@ -82,7 +83,6 @@ export const MainRoutes = () => {
             <Route path="profile" element={<Profile />} />
             <Route path="foundation" element={<Foundation />} />
             <Route path="contacts" element={<Contacts />} />
-            {/* <Route path="help" element={<WebSock />} /> */}
             <Route path="help" element={<Help />} />
             <Route path="createproject" element={<CreateProject />} />
           </Route>
@@ -119,6 +119,7 @@ export const MainRoutes = () => {
             <Route path="settingtariff" element={<TariffSetting />} />
             <Route path="createadmin" element={<CreateAdmin />} />
             <Route path="clientquestions" element={<ClientQuestions />} />
+            <Route path="hoststatistics" element={<HostStatistics />} />
           </Route>
           {/** Public Routes */}
           <Route path="login" element={<PublicRoutes />}>

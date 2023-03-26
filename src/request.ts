@@ -24,6 +24,7 @@ import {
   ReqRooms,
   ReqCreateReviewList,
   ResGetAllClient,
+  ResHostStatistics,
 } from "./type";
 
 const URL = "https://lul.inserm.ru:5001/api";
@@ -346,7 +347,23 @@ export const createReviewList = async (value: ReqCreateReviewList) => {
 };
 
 export const getAllClient = async () => {
-  const { data, status } = await axiosClient.get<ResGetAllClient>(URL + `/person/all`);
+  const { data, status } = await axiosClient.get<ResGetAllClient>(
+    URL + `/person/all`
+  );
+  return {
+    data,
+    status,
+  };
+};
+
+export const getHostStatistics = async (params?: {
+  start: number;
+  end: number;
+}) => {
+  const { data, status } = await axiosClient.get<ResHostStatistics>(
+    URL + `/statistics`,
+    { params: { ...params } }
+  );
   return {
     data,
     status,

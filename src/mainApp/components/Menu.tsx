@@ -13,7 +13,7 @@ import { ReactComponent as ReviewsforpaymentIcon } from "../../assets/reviewsfor
 import { ReactComponent as SettingIcon } from "../../assets/setting.svg";
 import { ReactComponent as PaidreviewsIcon } from "../../assets/paidreviews.svg";
 import { ReactComponent as CreateadminIcon } from "../../assets/createadmin.svg";
-import { ExclamationCircleFilled } from "@ant-design/icons";
+import { ExclamationCircleFilled, SignalFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useLocalState } from "../context/hooks";
 import { useAuth } from "../hooks/useAuth";
@@ -170,6 +170,11 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       label: "Создание админов",
       key: "createadmin",
       icon: <CreateadminIcon />,
+    },
+    {
+      label: "Статистика",
+      key: "hoststatistics",
+      icon: <SignalFilled style={{ color: "#1579E9" }}/>,
     },
     dividerItem as any,
     { label: "Вопросы клиентов", key: "clientquestions", icon: <HelpIcon /> },

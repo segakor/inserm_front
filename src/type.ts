@@ -231,3 +231,13 @@ export type Client = {
 export type ResGetAllClient = {
   result: Client[];
 };
+
+export type Host = { name: string; publicated: number };
+
+export type HostStatistics = Omit<Statuses, "all"> & {
+  hosts: Host[];
+};
+
+export type ResHostStatistics = {
+  result: HostStatistics;
+};
