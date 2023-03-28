@@ -6,7 +6,6 @@ import {
   InputNumber,
   Table,
   Typography,
-  Checkbox,
   ConfigProvider,
   Empty,
   Button,
@@ -24,6 +23,7 @@ import { ModalCreateReview } from "../components/ModalCreateReview";
 import { tokenService } from "../../utils/tokenService";
 import { useDeleteReview } from "../hooks/useDeleteReview";
 import { UploadCVS } from "../components/UploadCVS";
+import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
@@ -78,11 +78,13 @@ export const TableProjectChangeable = ({
   onUpdate,
 }: Props) => {
   const [form] = Form.useForm();
-  const statusFormField = Form.useWatch("status", form);
   const tgFormField = Form.useWatch("tg", form);
 
   const [editingKey, setEditingKey] = useState("");
   const [dataSource, setDataSource] = useState(reviews);
+
+  const { xs } = useBreakpoint();
+  const isMobile = xs;
 
   const state = useLocalState();
   const { personInfo } = state;
@@ -158,30 +160,20 @@ export const TableProjectChangeable = ({
     }
   };
 
-  const onCheckBoxWork = (key: React.Key) => {
-    // @ts-ignore TODO:доделать!
-    const newData = [...reviews];
-    const index = newData.findIndex((item) => key === item.key);
-    if (index > -1) {
-      const item = newData[index];
-      const inWorkDate = Math.floor(new Date().valueOf() / 1000);
-      //togle
-      item.in_work = !item.in_work;
-      form.setFieldsValue({ in_work: item.in_work });
-      form.setFieldsValue({ date: item.in_work ? inWorkDate : null });
-      form.setFieldsValue({
-        host: item.in_work ? personInfo?.first_name : null,
-      });
-    }
-  };
-
   const onSelectStatus = (value: string, key: React.Key) => {
     // @ts-ignore TODO:доделать!
     const newData = [...reviews];
     const index = newData.findIndex((item) => key === item.key);
     if (index > -1) {
-      /* const item = newData[index]; */
+      const inWorkDate = Math.floor(new Date().valueOf() / 1000);
+
       form.setFieldsValue({ status: value });
+      
+      if (value === "moderate") {
+        form.setFieldsValue({ in_work: true });
+        form.setFieldsValue({ date: inWorkDate });
+        form.setFieldsValue({ host: personInfo?.first_name });
+      }
     }
   };
 
@@ -215,7 +207,7 @@ export const TableProjectChangeable = ({
     {
       title: "Ссылка на отзыв",
       dataIndex: "link",
-      width: "12%",
+      width: "20%",
       editable: isAdmin,
       render: (text: string) => (
         <div style={{ display: "inline" }}>
@@ -240,7 +232,7 @@ export const TableProjectChangeable = ({
     {
       title: "Статус отзыва",
       dataIndex: "status",
-      width: "15%",
+      width: "12%",
       ellipsis: true,
       render: (status: string, record: ReviewsTableItem) => {
         const editable = isEditing(record);
@@ -271,35 +263,22 @@ export const TableProjectChangeable = ({
     {
       title: "Кто отдал отзыв",
       dataIndex: "host",
-      width: "10%",
+      width: "12%",
     },
     {
       title: "Ник в телеграм",
       dataIndex: "tg",
-      width: "10%",
+      width: "12%",
       editable: true,
     },
-    {
+    /* {
       title: "В работе",
       dataIndex: "in_work",
       width: "6%",
       render: (_: any, record: ReviewsTableItem) => {
-        const editable = isEditing(record);
-        return (
-          <Checkbox
-            disabled={
-              record.in_work ||
-              !editable ||
-              statusFormField !== "moderate" ||
-              role === "HOST"
-            }
-            /* checked={record.in_work} */
-            {...(record.in_work && { checked: true })}
-            onClick={() => onCheckBoxWork(record.key)}
-          />
-        );
+        return <Checkbox disabled={true} checked={record.in_work} />;
       },
-    },
+    }, */
     {
       title: "",
       dataIndex: "operation",
@@ -381,14 +360,18 @@ export const TableProjectChangeable = ({
           )}
         >
           {isAdmin && (
-            <div style={{display:'flex', marginBottom:16, width:300, gridGap:'8px'}}>
-              <Button
-                onClick={showModal}
-                type="primary"
-              >
+            <div
+              style={{
+                display: "flex",
+                marginBottom: 16,
+                width: 300,
+                gridGap: "8px",
+              }}
+            >
+              <Button onClick={showModal} type="primary">
                 Добавить запись
               </Button>
-              <UploadCVS onUpdate={onUpdate} projectId={projectId}/>
+              <UploadCVS onUpdate={onUpdate} projectId={projectId} />
             </div>
           )}
           {isModalOpen && (
@@ -409,6 +392,7 @@ export const TableProjectChangeable = ({
             columns={mergedColumns}
             pagination={false}
             loading={isLoading}
+            {...(isMobile && { scroll: { x: 800, y: 1000 } })}
             tableLayout={"fixed"}
           />
         </ConfigProvider>

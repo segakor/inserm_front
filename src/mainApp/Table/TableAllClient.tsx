@@ -3,6 +3,7 @@ import { Badge, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Client, ClientProject } from "../../type";
 import { getRangeDate } from "../../utils/getDate";
+import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
 
 type TableItem = Client & {
   key: string;
@@ -14,6 +15,10 @@ type Props = {
 };
 
 export const TableAllClient = ({ allClient, isLoading }: Props) => {
+  const { xs } = useBreakpoint();
+
+  const isMobile = xs;
+
   const TableAllProjects = ({ projects }: { projects: ClientProject[] }) => {
     const projectWithKey = projects.map((item, index) => ({
       ...item,
@@ -113,6 +118,7 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
       pagination={false}
       loading={isLoading}
       tableLayout={"fixed"}
+      {...(isMobile && { scroll: { x: 800, y: 1000 } })}
       locale={{ emptyText: "нет данных" }}
     />
   );

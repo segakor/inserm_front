@@ -6,7 +6,6 @@ import {
   InputNumber,
   Table,
   Typography,
-  Checkbox,
   ConfigProvider,
   Empty,
 } from "antd";
@@ -15,10 +14,9 @@ import { Reviews } from "../../type";
 import { getDate } from "../../utils/getDate";
 import { ButtonCopy } from "../Button/ButtonCopy";
 import { cliapbord } from "../../utils/cliapbord";
-import { useLocalState } from "../context/hooks";
-import { usePerson } from "../hooks/usePerson";
 import { StatusSelect } from "../components/StatusSelect";
 import { StatusComponent } from "../components/StatusComponent";
+import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
@@ -74,9 +72,8 @@ export const TableProjectModerate = ({
   const [editingKey, setEditingKey] = useState("");
   const [dataSource, setDataSource] = useState(reviews);
 
-  const state = useLocalState();
-  const { personInfo } = state;
-  usePerson();
+  const { xs } = useBreakpoint();
+  const isMobile = xs;
 
   const { handleUpdateReview } = useUpdateReview();
 
@@ -116,29 +113,11 @@ export const TableProjectModerate = ({
     }
   };
 
-  const onCheckBoxWork = (key: React.Key) => {
-    // @ts-ignore TODO:доделать!
-    const newData = [...reviews];
-    const index = newData.findIndex((item) => key === item.key);
-    if (index > -1) {
-      const item = newData[index];
-      const inWorkDate = Math.floor(new Date().valueOf() / 1000);
-      //togle
-      item.in_work = !item.in_work;
-      form.setFieldsValue({ in_work: item.in_work });
-      form.setFieldsValue({ date: item.in_work ? inWorkDate : null });
-      form.setFieldsValue({
-        host: item.in_work ? personInfo?.first_name : null,
-      });
-    }
-  };
-
   const onSelectStatus = (value: string, key: React.Key) => {
     // @ts-ignore TODO:доделать!
     const newData = [...reviews];
     const index = newData.findIndex((item) => key === item.key);
     if (index > -1) {
-      /* const item = newData[index]; */
       form.setFieldsValue({ status: value });
     }
   };
@@ -155,7 +134,7 @@ export const TableProjectModerate = ({
     {
       title: "Ссылка на отзыв",
       dataIndex: "link",
-      width: "12%",
+      width: "20%",
       render: (text: string) => (
         <div style={{ display: "inline" }}>
           <a onClick={() => window.open(text, "_blank")}>{text}</a>
@@ -178,7 +157,7 @@ export const TableProjectModerate = ({
     {
       title: "Статус отзыва",
       dataIndex: "status",
-      width: "15%",
+      width: "12%",
       ellipsis: true,
       render: (status: string, record: ReviewsTableItem) => {
         const editable = isEditing(record);
@@ -209,33 +188,23 @@ export const TableProjectModerate = ({
     {
       title: "Кто отдал отзыв",
       dataIndex: "host",
-      width: "10%",
+      width: "12%",
       editable: true,
     },
     {
       title: "Ник в телеграм",
       dataIndex: "tg",
-      width: "10%",
+      width: "12%",
       editable: true,
     },
-    {
+/*     {
       title: "В работе",
       dataIndex: "in_work",
       width: "6%",
       render: (_: any, record: ReviewsTableItem) => {
-        /* const editable = isEditing(record); */
-        return (
-          <>
-            <Checkbox
-              disabled={record.in_work}
-              /* checked={record.isWork} */
-              {...(record.in_work && { checked: true })}
-              onClick={() => onCheckBoxWork(record.key)}
-            />
-          </>
-        );
+        return <Checkbox disabled={true} checked={record.in_work} />;
       },
-    },
+    }, */
     {
       title: "",
       dataIndex: "operation",
@@ -302,16 +271,11 @@ export const TableProjectModerate = ({
           rowClassName="editable-row"
           pagination={false}
           loading={isLoading}
+          {...(isMobile && { scroll: { x: 800, y: 1000 } })}
           tableLayout={"fixed"}
         />
       </ConfigProvider>
-      <Form.Item name={"in_work"} hidden>
-        <Input />
-      </Form.Item>
       <Form.Item name={"status"} hidden>
-        <Input />
-      </Form.Item>
-      <Form.Item name={"date"} hidden>
         <Input />
       </Form.Item>
     </Form>
