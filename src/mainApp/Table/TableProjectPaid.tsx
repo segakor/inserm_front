@@ -75,8 +75,6 @@ export const TableProjectPaid = ({
 
   const { xs } = useBreakpoint();
   const isMobile = xs;
-  console.log(xs)
-
 
   const { handleUpdateReview } = useUpdateReview();
 
