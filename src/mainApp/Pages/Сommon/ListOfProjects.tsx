@@ -2,9 +2,10 @@ import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { useGetAllProject } from "../../hooks/useGetAllProject";
-import { Input, Radio, RadioChangeEvent, Spin } from "antd";
+import { Button, Input, Radio, RadioChangeEvent, Spin } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { FlatCardProject } from "../../components/FlatCardProject";
+import { ModalCreateProjectByAdmin } from "../../components/ModalCreateProjectByAdmin";
 
 const Page = styled.div`
   display: flex;
@@ -17,14 +18,7 @@ const SearchPanel = styled(Input)`
   height: 40px;
   padding: 12px 20px 12px 20px;
   display: flex;
-  margin-bottom: 50px;
-`;
-
-const Box = styled.div`
-  padding-right: 40px;
-  @media (max-width: 768px) {
-    padding: 0;
-  }
+  margin-bottom: 24px;
 `;
 
 const optionsWithDisabled = [
@@ -35,6 +29,7 @@ const optionsWithDisabled = [
 export const ListOfProject = () => {
   const [inputText, setInputText] = useState("");
   const [isActive, setIsActive] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { allProject, isLoading, handleUpdate } = useGetAllProject(isActive);
 
@@ -53,34 +48,49 @@ export const ListOfProject = () => {
     setIsActive(value);
   };
 
+  const handleOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <Page>
       <Header>Список проектов</Header>
-      <Radio.Group
-        style={{ marginBottom: 16 }}
-        options={optionsWithDisabled}
-        onChange={onChange}
-        value={isActive}
-        optionType="button"
-        buttonStyle="solid"
-      />
-      <Box>
-        <SearchPanel
-          suffix={<SearchOutlined />}
-          placeholder="Поиск проектов"
-          onChange={handleSearch}
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <Radio.Group
+          style={{ marginBottom: 16 }}
+          options={optionsWithDisabled}
+          onChange={onChange}
+          value={isActive}
+          optionType="button"
+          buttonStyle="solid"
         />
-        {!isLoading &&
-          filteredData?.map((item, index) => (
-            <FlatCardProject
-              key={index}
-              project={item}
-              isActive={isActive}
-              onUpdate={handleUpdate}
-            />
-          ))}
-        {isLoading && <Spin />}
-      </Box>
+        <Button onClick={handleOpen}>Добавить проект</Button>
+      </div>
+      <SearchPanel
+        suffix={<SearchOutlined />}
+        placeholder="Поиск проектов"
+        onChange={handleSearch}
+      />
+      {!isLoading &&
+        filteredData?.map((item, index) => (
+          <FlatCardProject
+            key={index}
+            project={item}
+            isActive={isActive}
+            onUpdate={handleUpdate}
+          />
+        ))}
+      {isLoading && <Spin />}
+      {isModalOpen && (
+        <ModalCreateProjectByAdmin
+          onClose={handleClose}
+          onUpdate={handleUpdate}
+        />
+      )}
     </Page>
   );
 };

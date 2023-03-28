@@ -369,3 +369,19 @@ export const getHostStatistics = async (params?: {
     status,
   };
 };
+
+export const createProjectByAdmin = async (value: {
+  email: string;
+  name: string;
+  tariffId: number;
+  period: number;
+  price: number;
+}) => {
+  const { data, status } = await axiosClient.post(URL + `/project/buy`, {
+    ...value,
+  });
+  return {
+    data,
+    status,
+  };
+};
