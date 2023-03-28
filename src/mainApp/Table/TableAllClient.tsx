@@ -1,9 +1,12 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Badge, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Client, ClientProject } from "../../type";
 import { getRangeDate } from "../../utils/getDate";
 import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
+import { useNavigate } from "react-router-dom";
+import { tokenService } from "../../utils/tokenService";
 
 type TableItem = Client & {
   key: string;
@@ -19,6 +22,9 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
 
   const isMobile = xs;
 
+  const navigation = useNavigate();
+  const role = tokenService.getRole();
+
   const TableAllProjects = ({ projects }: { projects: ClientProject[] }) => {
     const projectWithKey = projects.map((item, index) => ({
       ...item,
@@ -26,7 +32,17 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
     }));
 
     const columns = [
-      { title: "Название проекта", dataIndex: "name" },
+      {
+        title: "Название проекта",
+        dataIndex: "name",
+        render: (name: string, record: ClientProject) => (
+          <div style={{ display: "inline" }}>
+            <a onClick={() => navigation(`/app/${role}/project/${record.id}`)}>
+              {name}
+            </a>
+          </div>
+        ),
+      },
       {
         title: "Тариф",
         dataIndex: "tariffName",
