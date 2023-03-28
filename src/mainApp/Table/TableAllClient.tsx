@@ -86,9 +86,13 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
     value: item.name,
   }));
 
+  const allSum = allClient
+    ?.map((item) => item.totalPrice)
+    .reduce((a, b) => a + b);
+
   const columns: ColumnsType<TableItem> = [
     {
-      width: "22%",
+      width: "16%",
       title: "Имя",
       dataIndex: "name",
       filters: filtersName,
@@ -96,10 +100,22 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
       filterSearch: true,
       onFilter: (value: any, record) => record.name.startsWith(value),
     },
-    { width: "25%", title: "Почта", dataIndex: "email" },
-    { width: "15%", title: "Телефон", dataIndex: "phone" },
-    { width: "15%", title: "Имя в telegram", dataIndex: "tg" },
-    { title: "Всего потрачено", dataIndex: "totalPrice" },
+    { width: "16%", title: "Почта", dataIndex: "email" },
+    { width: "12%", title: "Телефон", dataIndex: "phone" },
+    { width: "16%", title: "Имя в telegram", dataIndex: "tg" },
+    {
+      title: "Проекты",
+      render: (record: TableItem) => {
+        return (
+          <ul style={{ margin: 0 }}>
+            {record.projects.map((item, index) => (
+              <li key={index}>{item.name}</li>
+            ))}
+          </ul>
+        );
+      },
+    },
+    { width: "15%", title: "Всего потрачено", dataIndex: "totalPrice" },
   ];
 
   return (
@@ -120,6 +136,7 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
       tableLayout={"fixed"}
       {...(isMobile && { scroll: { x: 800, y: 1000 } })}
       locale={{ emptyText: "нет данных" }}
+      footer={() => `Итого ${allSum}`}
     />
   );
 };
