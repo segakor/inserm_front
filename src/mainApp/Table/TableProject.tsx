@@ -24,7 +24,7 @@ const columns: ColumnsType<ReviewsTableItem> = [
     dataIndex: "link",
     // eslint-disable-next-line jsx-a11y/anchor-is-valid
     render: (text) => <a onClick={() => window.open(text, "_blank")}>{text}</a>,
-    width: "18%",
+    width: "20%",
   },
   {
     title: "Текст отзыва",
@@ -34,13 +34,13 @@ const columns: ColumnsType<ReviewsTableItem> = [
   {
     title: "Статус отзыва",
     dataIndex: "status",
+    width: "15%",
     render: (status: string) => <StatusComponent status={status} />,
-    width: 130,
   },
   {
     title: "Дата размещения",
     dataIndex: "date",
-    width: 120,
+    width: "10%",
     render: (record: string | number) => {
       return (
         <>{typeof record === "number" ? getDate({ date: record }) : record}</>

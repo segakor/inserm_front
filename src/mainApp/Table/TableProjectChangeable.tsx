@@ -24,6 +24,12 @@ import { tokenService } from "../../utils/tokenService";
 import { useDeleteReview } from "../hooks/useDeleteReview";
 import { UploadCVS } from "../components/UploadCVS";
 import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
+import {
+  SaveOutlined,
+  DeleteOutlined,
+  CloseOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
@@ -168,7 +174,7 @@ export const TableProjectChangeable = ({
       const inWorkDate = Math.floor(new Date().valueOf() / 1000);
 
       form.setFieldsValue({ status: value });
-      
+
       if (value === "moderate") {
         form.setFieldsValue({ in_work: true });
         form.setFieldsValue({ date: inWorkDate });
@@ -232,7 +238,7 @@ export const TableProjectChangeable = ({
     {
       title: "Статус отзыва",
       dataIndex: "status",
-      width: "12%",
+      width: "15%",
       ellipsis: true,
       render: (status: string, record: ReviewsTableItem) => {
         const editable = isEditing(record);
@@ -271,37 +277,36 @@ export const TableProjectChangeable = ({
       width: "12%",
       editable: true,
     },
-    /* {
-      title: "В работе",
-      dataIndex: "in_work",
-      width: "6%",
-      render: (_: any, record: ReviewsTableItem) => {
-        return <Checkbox disabled={true} checked={record.in_work} />;
-      },
-    }, */
     {
       title: "",
       dataIndex: "operation",
+      width: "12%",
       render: (_: any, record: ReviewsTableItem) => {
         const editable = isEditing(record);
         return editable ? (
-          <span>
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <Typography.Link
               onClick={() => save(record.key)}
-              style={{ marginRight: 8 }}
               disabled={role === "HOST" && !tgFormField}
+              style={{ color: "green" }}
             >
+              <SaveOutlined style={{ marginRight: 4 }} />
               Save
             </Typography.Link>
-            <Typography.Link onClick={cancel} style={{ marginRight: 8 }}>
+            <Typography.Link onClick={cancel}>
+              <CloseOutlined style={{ marginRight: 4 }} />
               Cancel
             </Typography.Link>
             {isAdmin && (
-              <Typography.Link onClick={() => onDelete(record.key)}>
+              <Typography.Link
+                style={{ color: "red" }}
+                onClick={() => onDelete(record.key)}
+              >
+                <DeleteOutlined style={{ marginRight: 4 }} />
                 Delete
               </Typography.Link>
             )}
-          </span>
+          </div>
         ) : (
           <Typography.Link
             disabled={
@@ -314,6 +319,7 @@ export const TableProjectChangeable = ({
               }
             }}
           >
+            <EditOutlined style={{ marginRight: 4 }} />
             Edit
           </Typography.Link>
         );

@@ -17,6 +17,7 @@ import { cliapbord } from "../../utils/cliapbord";
 import { StatusSelect } from "../components/StatusSelect";
 import { StatusComponent } from "../components/StatusComponent";
 import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
+import { SaveOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
@@ -157,7 +158,7 @@ export const TableProjectModerate = ({
     {
       title: "Статус отзыва",
       dataIndex: "status",
-      width: "12%",
+      width: "15%",
       ellipsis: true,
       render: (status: string, record: ReviewsTableItem) => {
         const editable = isEditing(record);
@@ -197,34 +198,32 @@ export const TableProjectModerate = ({
       width: "12%",
       editable: true,
     },
-/*     {
-      title: "В работе",
-      dataIndex: "in_work",
-      width: "6%",
-      render: (_: any, record: ReviewsTableItem) => {
-        return <Checkbox disabled={true} checked={record.in_work} />;
-      },
-    }, */
     {
       title: "",
       dataIndex: "operation",
+      width: "12%",
       render: (_: any, record: ReviewsTableItem) => {
         const editable = isEditing(record);
         return editable ? (
-          <span>
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <Typography.Link
               onClick={() => save(record.key)}
-              style={{ marginRight: 8 }}
+              style={{ color: "green" }}
             >
+              <SaveOutlined style={{ marginRight: 4 }} />
               Save
             </Typography.Link>
-            <Typography.Link onClick={cancel}>Cancel</Typography.Link>
-          </span>
+            <Typography.Link onClick={cancel}>
+              <CloseOutlined style={{ marginRight: 4 }} />
+              Cancel
+            </Typography.Link>
+          </div>
         ) : (
           <Typography.Link
             disabled={editingKey !== ""}
             onClick={() => edit(record)}
           >
+            <EditOutlined style={{ marginRight: 4 }} />
             Edit
           </Typography.Link>
         );

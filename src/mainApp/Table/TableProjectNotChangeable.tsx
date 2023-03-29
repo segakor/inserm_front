@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
-import { Form, Table, Checkbox, ConfigProvider, Empty } from "antd";
+import { Form, Table, ConfigProvider, Empty } from "antd";
 import { Reviews } from "../../type";
 import { getDate } from "../../utils/getDate";
 import { ButtonCopy } from "../Button/ButtonCopy";
@@ -32,7 +32,7 @@ export const TableProjectNotChangeable = ({ reviews, isLoading }: Props) => {
     {
       title: "Ссылка на отзыв",
       dataIndex: "link",
-      width: "12%",
+      width: "20%",
       render: (text: string) => (
         <div style={{ display: "inline" }}>
           <a onClick={() => window.open(text, "_blank")}>{text}</a>
@@ -74,20 +74,12 @@ export const TableProjectNotChangeable = ({ reviews, isLoading }: Props) => {
     {
       title: "Кто отдал отзыв",
       dataIndex: "host",
-      width: "10%",
+      width: "12%",
     },
     {
       title: "Ник в телеграм",
       dataIndex: "tg",
-      width: "10%",
-    },
-    {
-      title: "В работе",
-      dataIndex: "in_work",
-      width: "6%",
-      render: (_: any, record: ReviewsTableItem) => {
-        return <Checkbox disabled {...(record.in_work && { checked: true })} />;
-      },
+      width: "12%",
     },
   ];
 
@@ -97,7 +89,11 @@ export const TableProjectNotChangeable = ({ reviews, isLoading }: Props) => {
 
   return (
     <Form form={form} component={false}>
-      <ConfigProvider renderEmpty={() => <Empty description="Отзывы в процессе написания, скоро они будут готовы" />}>
+      <ConfigProvider
+        renderEmpty={() => (
+          <Empty description="Отзывы в процессе написания, скоро они будут готовы" />
+        )}
+      >
         <Table
           bordered
           dataSource={dataSource}

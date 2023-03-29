@@ -16,6 +16,7 @@ import { ButtonCopy } from "../Button/ButtonCopy";
 import { cliapbord } from "../../utils/cliapbord";
 import { StatusComponent } from "../components/StatusComponent";
 import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
+import { CheckOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
@@ -158,7 +159,7 @@ export const TableProjectPaid = ({
     {
       title: "Статус отзыва",
       dataIndex: "status",
-      width: "20%",
+      width: "15%",
       ellipsis: true,
       render: (status: string) => {
         return (
@@ -195,15 +196,19 @@ export const TableProjectPaid = ({
       render: (_: any, record: ReviewsTableItem) => {
         const editable = isEditing(record);
         return editable ? (
-          <span>
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <Typography.Link
               onClick={() => save(record.key)}
-              style={{ marginRight: 8 }}
+              style={{ color: "green" }}
             >
+              <CheckOutlined style={{ marginRight: 4 }} />
               Paid
             </Typography.Link>
-            <Typography.Link onClick={cancel}>Cancel</Typography.Link>
-          </span>
+            <Typography.Link onClick={cancel}>
+              <CloseOutlined style={{ marginRight: 4 }} />
+              Cancel
+            </Typography.Link>
+          </div>
         ) : (
           <Typography.Link
             disabled={editingKey !== ""}
@@ -212,6 +217,7 @@ export const TableProjectPaid = ({
               sendReviewToPaid(record.key);
             }}
           >
+            <EditOutlined style={{ marginRight: 4 }} />
             Edit
           </Typography.Link>
         );
