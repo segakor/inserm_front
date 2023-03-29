@@ -16,7 +16,6 @@ import { ButtonCopy } from "../Button/ButtonCopy";
 import { cliapbord } from "../../utils/cliapbord";
 import { StatusSelect } from "../components/StatusSelect";
 import { StatusComponent } from "../components/StatusComponent";
-import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
 import { SaveOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
 
 type Props = {
@@ -73,9 +72,6 @@ export const TableProjectModerate = ({
   const [editingKey, setEditingKey] = useState("");
   const [dataSource, setDataSource] = useState(reviews);
 
-  const { xs } = useBreakpoint();
-  const isMobile = xs;
-
   const { handleUpdateReview } = useUpdateReview();
 
   const isEditing = (record: ReviewsTableItem) => record.key === editingKey;
@@ -127,7 +123,7 @@ export const TableProjectModerate = ({
     {
       title: "№",
       dataIndex: "key",
-      width: "4%",
+      width: "6%",
       render: (record: string) => {
         return <>{Number(record) + 1}</>;
       },
@@ -270,8 +266,8 @@ export const TableProjectModerate = ({
           rowClassName="editable-row"
           pagination={false}
           loading={isLoading}
-          {...(isMobile && { scroll: { x: 800, y: 1000 } })}
           tableLayout={"fixed"}
+          scroll={{ x: 1000 }}
         />
       </ConfigProvider>
       <Form.Item name={"status"} hidden>

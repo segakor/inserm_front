@@ -14,6 +14,7 @@ const Wrapper = styled.div`
     width: auto;
   }
   border-radius: 10px;
+  max-height: 280px;
 `;
 const MessageBox = styled.div`
   height: 216px;

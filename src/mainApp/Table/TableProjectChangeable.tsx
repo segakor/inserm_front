@@ -23,7 +23,6 @@ import { ModalCreateReview } from "../components/ModalCreateReview";
 import { tokenService } from "../../utils/tokenService";
 import { useDeleteReview } from "../hooks/useDeleteReview";
 import { UploadCVS } from "../components/UploadCVS";
-import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
 import {
   SaveOutlined,
   DeleteOutlined,
@@ -88,9 +87,6 @@ export const TableProjectChangeable = ({
 
   const [editingKey, setEditingKey] = useState("");
   const [dataSource, setDataSource] = useState(reviews);
-
-  const { xs } = useBreakpoint();
-  const isMobile = xs;
 
   const state = useLocalState();
   const { personInfo } = state;
@@ -205,7 +201,7 @@ export const TableProjectChangeable = ({
     {
       title: "№",
       dataIndex: "key",
-      width: "4%",
+      width: "6%",
       render: (record: string) => {
         return <div>{Number(record) + 1}</div>;
       },
@@ -280,7 +276,7 @@ export const TableProjectChangeable = ({
     {
       title: "",
       dataIndex: "operation",
-      width: "12%",
+      width: "15%",
       render: (_: any, record: ReviewsTableItem) => {
         const editable = isEditing(record);
         return editable ? (
@@ -398,8 +394,8 @@ export const TableProjectChangeable = ({
             columns={mergedColumns}
             pagination={false}
             loading={isLoading}
-            {...(isMobile && { scroll: { x: 800, y: 1000 } })}
             tableLayout={"fixed"}
+            scroll={{ x: 1000 }}
           />
         </ConfigProvider>
         <Form.Item name={"in_work"} hidden>

@@ -4,7 +4,6 @@ import type { ColumnsType } from "antd/es/table";
 import { Reviews } from "../../type";
 import { getDate } from "../../utils/getDate";
 import { StatusComponent } from "../components/StatusComponent";
-import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
 
 type ReviewsTableItem = Reviews & {
   key: string;
@@ -14,7 +13,8 @@ const columns: ColumnsType<ReviewsTableItem> = [
   {
     title: "№",
     dataIndex: "key",
-    width: "4%",
+    width: "6%",
+    align:'center',
     render: (record: string) => {
       return <>{Number(record) + 1}</>;
     },
@@ -35,12 +35,14 @@ const columns: ColumnsType<ReviewsTableItem> = [
     title: "Статус отзыва",
     dataIndex: "status",
     width: "15%",
+    align:'center',
     render: (status: string) => <StatusComponent status={status} />,
   },
   {
     title: "Дата размещения",
     dataIndex: "date",
     width: "10%",
+    align:'center',
     render: (record: string | number) => {
       return (
         <>{typeof record === "number" ? getDate({ date: record }) : record}</>
@@ -55,9 +57,6 @@ type Props = {
 };
 
 export const TableProject = ({ reviews, isLoading }: Props) => {
-  const { xs } = useBreakpoint();
-
-  const isMobile = xs;
 
   return (
     <>
@@ -74,8 +73,8 @@ export const TableProject = ({ reviews, isLoading }: Props) => {
           pagination={false}
           style={{ marginBottom: 30 }}
           loading={isLoading}
-          {...(isMobile && { scroll: { x: 800, y: 1000 } })}
           tableLayout={"fixed"}
+          scroll={{ x: 1000 }}
         />
       </ConfigProvider>
     </>

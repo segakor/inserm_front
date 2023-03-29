@@ -4,7 +4,6 @@ import { Badge, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Client, ClientProject } from "../../type";
 import { getRangeDate } from "../../utils/getDate";
-import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
 import { useNavigate } from "react-router-dom";
 import { tokenService } from "../../utils/tokenService";
 
@@ -18,10 +17,6 @@ type Props = {
 };
 
 export const TableAllClient = ({ allClient, isLoading }: Props) => {
-  const { xs } = useBreakpoint();
-
-  const isMobile = xs;
-
   const navigation = useNavigate();
   const role = tokenService.getRole();
 
@@ -150,7 +145,7 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
       pagination={false}
       loading={isLoading}
       tableLayout={"fixed"}
-      {...(isMobile && { scroll: { x: 800, y: 1000 } })}
+      scroll={{ x: 1000 }}
       locale={{ emptyText: "нет данных" }}
       footer={() => `Итого ${allSum}`}
     />

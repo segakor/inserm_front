@@ -24,7 +24,7 @@ export const TableProjectNotChangeable = ({ reviews, isLoading }: Props) => {
     {
       title: "№",
       dataIndex: "key",
-      width: "4%",
+      width: "6%",
       render: (record: string) => {
         return <>{Number(record) + 1}</>;
       },
@@ -102,6 +102,7 @@ export const TableProjectNotChangeable = ({ reviews, isLoading }: Props) => {
           pagination={false}
           loading={isLoading}
           tableLayout={"fixed"}
+          scroll={{ x: 1000 }}
         />
       </ConfigProvider>
     </Form>

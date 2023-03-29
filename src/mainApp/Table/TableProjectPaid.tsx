@@ -15,7 +15,6 @@ import { getDate } from "../../utils/getDate";
 import { ButtonCopy } from "../Button/ButtonCopy";
 import { cliapbord } from "../../utils/cliapbord";
 import { StatusComponent } from "../components/StatusComponent";
-import useBreakpoint from "antd/lib/grid/hooks/useBreakpoint";
 import { CheckOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
 
 type Props = {
@@ -74,9 +73,6 @@ export const TableProjectPaid = ({
   const [editingKey, setEditingKey] = useState("");
   const [dataSource, setDataSource] = useState(reviews);
 
-  const { xs } = useBreakpoint();
-  const isMobile = xs;
-
   const { handleUpdateReview } = useUpdateReview();
 
   const isEditing = (record: ReviewsTableItem) => record.key === editingKey;
@@ -128,7 +124,7 @@ export const TableProjectPaid = ({
     {
       title: "№",
       dataIndex: "key",
-      width: "4%",
+      width: "6%",
       render: (record: string) => {
         return <>{Number(record) + 1}</>;
       },
@@ -192,7 +188,7 @@ export const TableProjectPaid = ({
     {
       title: "",
       dataIndex: "operation",
-      width: "12%",
+      width: "15%",
       render: (_: any, record: ReviewsTableItem) => {
         const editable = isEditing(record);
         return editable ? (
@@ -253,8 +249,8 @@ export const TableProjectPaid = ({
           rowClassName="editable-row"
           pagination={false}
           loading={isLoading}
-          {...(isMobile && { scroll: { x: 800, y: 1000 } })}
           tableLayout={"fixed"}
+          scroll={{ x: 1000 }}
         />
       </ConfigProvider>
       <Form.Item name={"is_paid"} hidden>
