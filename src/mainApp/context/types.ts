@@ -1,4 +1,4 @@
-import { Person, Project, Admin, ProjectForPayment } from "../../type";
+import { Person, Project, Admin, ProjectForPayment } from "../../types";
 
 export type LocalState = {
   personInfo: Person | undefined;

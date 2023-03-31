@@ -1,4 +1,4 @@
-import { Brief } from "../type"
+import { Brief } from "../types"
 
 type BriefCopy = Omit<Brief, "id">
 

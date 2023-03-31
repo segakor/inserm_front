@@ -5,11 +5,9 @@ import { useLocation } from "react-router-dom";
 import { Title } from "../../common/Typography";
 import { useCreateBrief } from "../hooks/useCreateBrief";
 import { useUpdateBrief } from "../hooks/useUpdateBrief";
-import { Brief } from "../../type";
-import { tokenService } from "../../utils/tokenService";
+import { Brief } from "../../types";
 import { ButtonCopy } from "../Button/ButtonCopy";
-import { cliapbord } from "../../utils/cliapbord";
-import { copyBrief } from "../../utils/copyBrief";
+import { cliapbord, copyBrief, tokenService } from "../../utils";
 
 const { TextArea } = Input;
 

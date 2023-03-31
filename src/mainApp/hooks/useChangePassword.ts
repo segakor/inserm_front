@@ -1,5 +1,5 @@
-import { openNotificationWithIcon } from "../../utils/notification";
-import { ReqChangePassword } from "../../type";
+import { openNotificationWithIcon } from "../../utils";
+import { ReqChangePassword } from "../../types";
 import { changePassword } from "../../request";
 
 export const useChangePassword = () => {

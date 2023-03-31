@@ -1,7 +1,7 @@
 import { getDetails } from "../../request";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { openNotificationWithIcon } from "../../utils";
 import { useEffect, useState } from "react";
-import { ReqGetDetails } from "../../type";
+import { ReqGetDetails } from "../../types";
 import { AxiosError } from "axios";
 
 export const useGetReviews = (id: string) => {

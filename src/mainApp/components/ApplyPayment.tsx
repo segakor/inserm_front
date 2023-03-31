@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Spin } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useLocalState } from "../context/hooks";
-import { goToAinoxPage } from "../../utils/ainoxPayment";
+import { goToAinoxPage } from "../../utils";
 import styled from "styled-components";
 
 const Wrapper = styled.div`

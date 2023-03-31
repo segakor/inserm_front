@@ -1,4 +1,5 @@
-import { axiosClient } from "./axios";
+
+import { axiosClient } from "../axios";
 import {
   ReqLogin,
   ResLogin,
@@ -25,13 +26,13 @@ import {
   ReqCreateReviewList,
   ResGetAllClient,
   ResHostStatistics,
-} from "./type";
+} from "../types";
 
-const URL = "https://lul.inserm.ru:5001/api";
+const URL = import.meta.env.VITE_BASE_URL;
 
 export const login = async (value: ReqLogin) => {
   const { data, status } = await axiosClient.post<ResLogin>(
-    URL + "/user/login",
+    URL + "/api/user/login",
     {
       ...value,
     }
@@ -41,7 +42,7 @@ export const login = async (value: ReqLogin) => {
 
 export const changePassword = async (value: ReqChangePassword) => {
   const { data, status } = await axiosClient.post(
-    URL + "/user/changePassword",
+    URL + "/api/user/changePassword",
     {
       ...value,
     }
@@ -50,12 +51,12 @@ export const changePassword = async (value: ReqChangePassword) => {
 };
 
 export const getPerson = async () => {
-  const { data, status } = await axiosClient.get<Person>(URL + "/person");
+  const { data, status } = await axiosClient.get<Person>(URL + "/api/person");
   return { data, status };
 };
 
 export const changePerson = async (value: ReqPersonChange) => {
-  const { data, status } = await axiosClient.post(URL + "/person/change", {
+  const { data, status } = await axiosClient.post(URL + "/api/person/change", {
     ...value,
   });
   return { data, status };
@@ -63,39 +64,39 @@ export const changePerson = async (value: ReqPersonChange) => {
 
 export const getProject = async () => {
   const { data, status } = await axiosClient.get<ReqGetProject>(
-    URL + "/project"
+    URL + "/api/project"
   );
   return { data, status };
 };
 
 export const getTariff = async () => {
-  const { data, status } = await axiosClient.get(URL + "/project");
+  const { data, status } = await axiosClient.get(URL + "/api/project");
   return { data, status };
 };
 
 export const getDetails = async (id: string) => {
   const { data, status } = await axiosClient.get<ReqGetDetails>(
-    URL + `/project/${id}`
+    URL + `/api/project/${id}`
   );
   return { data, status };
 };
 
 export const getAllProject = async (isActive: boolean) => {
   const { data, status } = await axiosClient.get<ReqGetProject>(
-    URL + `/project/all`,
+    URL + `/api/project/all`,
     { params: { isActive: isActive } }
   );
   return { data, status };
 };
 
 export const getAllTariff = async () => {
-  const { data, status } = await axiosClient.get<ReqGetTariff>(URL + `/tariff`);
+  const { data, status } = await axiosClient.get<ReqGetTariff>(URL + `/api/tariff`);
   return { data, status };
 };
 
 export const getArchiveProject = async (id: string) => {
   const { data, status } = await axiosClient.get<ReqArchiveProject>(
-    URL + `/archive/${id}`
+    URL + `/api/archive/${id}`
   );
   return {
     data,
@@ -105,7 +106,7 @@ export const getArchiveProject = async (id: string) => {
 
 export const getArchiveDetails = async (id: string) => {
   const { data, status } = await axiosClient.get<ReqArchiveDetail>(
-    URL + `/archive/detail/${id}`
+    URL + `/api/archive/detail/${id}`
   );
   return {
     data,
@@ -115,7 +116,7 @@ export const getArchiveDetails = async (id: string) => {
 
 export const getBrief = async (id: string) => {
   const { data, status } = await axiosClient.get<ReqGetBrief>(
-    URL + `/brief/${id}`
+    URL + `/api/brief/${id}`
   );
   return {
     data,
@@ -125,7 +126,7 @@ export const getBrief = async (id: string) => {
 
 export const createBrief = async (value: ReqCreateBrief) => {
   const { data, status } = await axiosClient.post<ResCreateBrief>(
-    URL + `/brief/create`,
+    URL + `/api/brief/create`,
     { ...value }
   );
   return {
@@ -135,7 +136,7 @@ export const createBrief = async (value: ReqCreateBrief) => {
 };
 export const updateBrief = async (value: ReqCreateBrief) => {
   const { data, status } = await axiosClient.post<ResCreateBrief>(
-    URL + `/brief/update`,
+    URL + `/api/brief/update`,
     { ...value }
   );
   return {
@@ -145,7 +146,7 @@ export const updateBrief = async (value: ReqCreateBrief) => {
 };
 
 export const updateReview = async (value: Reviews) => {
-  const { data, status } = await axiosClient.post(URL + `/review/update`, {
+  const { data, status } = await axiosClient.post(URL + `/api/review/update`, {
     ...value,
   });
   return {
@@ -160,7 +161,7 @@ export const createReview = async (value: {
   projectId: number;
 }) => {
   //TODO:Тип ответа!
-  const { data, status } = await axiosClient.post(URL + `/review/create`, {
+  const { data, status } = await axiosClient.post(URL + `/api/review/create`, {
     ...value,
   });
   return {
@@ -173,7 +174,7 @@ export const getReviewsWithType = async (
   type: "moderate" | "isPaid" | "noPaid"
 ) => {
   const { data, status } = await axiosClient.get<ReqGetReviewsWithType>(
-    URL + `/review/${type}`
+    URL + `/api/review/${type}`
   );
   return {
     data,
@@ -183,7 +184,7 @@ export const getReviewsWithType = async (
 
 export const createProject = async (value: ReqProjectCreate) => {
   const { data, status } = await axiosClient.post<ReqGetReviewsWithType>(
-    URL + `/project/create`,
+    URL + `/api/project/create`,
     { ...value }
   );
   return {
@@ -193,7 +194,7 @@ export const createProject = async (value: ReqProjectCreate) => {
 };
 
 export const createAdmin = async (value: ReqCreateAdmin) => {
-  const { data, status } = await axiosClient.post(URL + `/user/registration`, {
+  const { data, status } = await axiosClient.post(URL + `/api/user/registration`, {
     ...value,
   });
   return {
@@ -204,7 +205,7 @@ export const createAdmin = async (value: ReqCreateAdmin) => {
 
 export const getAdmin = async () => {
   const { data, status } = await axiosClient.get<ResAdmin>(
-    URL + `/user/workers`
+    URL + `/api/user/workers`
   );
   return {
     data,
@@ -214,7 +215,7 @@ export const getAdmin = async () => {
 
 export const createUserFromSite = async (value: ReqSiteRegistration) => {
   const { data, status } = await axiosClient.post(
-    URL + `/user/siteRegistration`,
+    URL + `/api/user/siteRegistration`,
     { ...value }
   );
   return {
@@ -223,7 +224,7 @@ export const createUserFromSite = async (value: ReqSiteRegistration) => {
   };
 };
 export const updateAdmin = async (value: Admin) => {
-  const { data, status } = await axiosClient.post(URL + `/user/update`, {
+  const { data, status } = await axiosClient.post(URL + `/api/user/update`, {
     ...value,
   });
   return {
@@ -232,7 +233,7 @@ export const updateAdmin = async (value: Admin) => {
   };
 };
 export const deleteAdmin = async (value: { email: string }) => {
-  const { data, status } = await axiosClient.post(URL + `/user/delete`, {
+  const { data, status } = await axiosClient.post(URL + `/api/user/delete`, {
     ...value,
   });
   return {
@@ -241,7 +242,7 @@ export const deleteAdmin = async (value: { email: string }) => {
   };
 };
 export const resetPassword = async (value: { email: string }) => {
-  const { data, status } = await axiosClient.post(URL + `/user/resetPassword`, {
+  const { data, status } = await axiosClient.post(URL + `/api/user/resetPassword`, {
     ...value,
   });
   return {
@@ -252,7 +253,7 @@ export const resetPassword = async (value: { email: string }) => {
 
 export const refreshToken = async (value: { refreshToken: string }) => {
   const { data, status } = await axiosClient.post<ResLogin>(
-    URL + `/user/auth`,
+    URL + `/api/user/auth`,
     { ...value }
   );
   return {
@@ -262,7 +263,7 @@ export const refreshToken = async (value: { refreshToken: string }) => {
 };
 
 export const unsubdcribe = async (value: { projectId: number }) => {
-  const { data, status } = await axiosClient.post(URL + `/tariff/unsubscribe`, {
+  const { data, status } = await axiosClient.post(URL + `/api/tariff/unsubscribe`, {
     ...value,
   });
   return {
@@ -275,7 +276,7 @@ export const createNote = async (value: {
   projectId: string;
   text: string;
 }) => {
-  const { data, status } = await axiosClient.post(URL + `/project/notes`, {
+  const { data, status } = await axiosClient.post(URL + `/api/project/notes`, {
     ...value,
   });
   return {
@@ -286,7 +287,7 @@ export const createNote = async (value: {
 
 export const getNotes = async (id: string) => {
   const { data, status } = await axiosClient.get<ReqNote>(
-    URL + `/project/notes/${id}`
+    URL + `/api/project/notes/${id}`
   );
   return {
     data,
@@ -295,7 +296,7 @@ export const getNotes = async (id: string) => {
 };
 
 export const getRooms = async () => {
-  const { data, status } = await axiosClient.get<ReqRooms>(URL + `/chat/rooms`);
+  const { data, status } = await axiosClient.get<ReqRooms>(URL + `/api/chat/rooms`);
   return {
     data,
     status,
@@ -304,7 +305,7 @@ export const getRooms = async () => {
 
 export const createRoom = async () => {
   const { data, status } = await axiosClient.get<{ roomId: number }>(
-    URL + `/chat/create`
+    URL + `/api/chat/create`
   );
   return {
     data,
@@ -313,7 +314,7 @@ export const createRoom = async () => {
 };
 
 export const deleteReview = async (value: { id: string }) => {
-  const { data, status } = await axiosClient.post(URL + "/review/delete", {
+  const { data, status } = await axiosClient.post(URL + "/api/review/delete", {
     ...value,
   });
   return {
@@ -326,7 +327,7 @@ export const changeStatusProject = async (value: {
   id: number;
   isActive: boolean;
 }) => {
-  const { data, status } = await axiosClient.post(URL + "/project/status", {
+  const { data, status } = await axiosClient.post(URL + "/api/project/status", {
     ...value,
   });
   return {
@@ -337,7 +338,7 @@ export const changeStatusProject = async (value: {
 
 export const createReviewList = async (value: ReqCreateReviewList) => {
   //TODO:Тип ответа!
-  const { data, status } = await axiosClient.post(URL + `/review/import`, {
+  const { data, status } = await axiosClient.post(URL + `/api/review/import`, {
     ...value,
   });
   return {
@@ -348,7 +349,7 @@ export const createReviewList = async (value: ReqCreateReviewList) => {
 
 export const getAllClient = async () => {
   const { data, status } = await axiosClient.get<ResGetAllClient>(
-    URL + `/person/all`
+    URL + `/api/person/all`
   );
   return {
     data,
@@ -361,7 +362,7 @@ export const getHostStatistics = async (params?: {
   end: number;
 }) => {
   const { data, status } = await axiosClient.get<ResHostStatistics>(
-    URL + `/statistics`,
+    URL + `/api/statistics`,
     { params: { ...params } }
   );
   return {
@@ -377,7 +378,7 @@ export const createProjectByAdmin = async (value: {
   period: number;
   price: number;
 }) => {
-  const { data, status } = await axiosClient.post(URL + `/project/buy`, {
+  const { data, status } = await axiosClient.post(URL + `/api/project/buy`, {
     ...value,
   });
   return {

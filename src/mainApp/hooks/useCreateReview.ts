@@ -1,6 +1,6 @@
 import { createReview, createReviewList } from "../../request";
-import { ReqCreateReviewList } from "../../type";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { ReqCreateReviewList } from "../../types";
+import { openNotificationWithIcon } from "../../utils";
 
 export const useCreateReview = () => {
   const handleCreateReview = async (value: {

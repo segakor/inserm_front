@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { getAllTariff } from "../../request";
-import { ReqGetTariff } from "../../type";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { ReqGetTariff } from "../../types";
+import { openNotificationWithIcon } from "../../utils";
 
 export const useGetTariff = () => {
   const [tariffs, setTariffs] = useState<ReqGetTariff | undefined>(undefined)

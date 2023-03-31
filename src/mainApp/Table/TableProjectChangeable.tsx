@@ -10,9 +10,8 @@ import {
   Empty,
   Button,
 } from "antd";
-import { Reviews } from "../../type";
-import { getDate } from "../../utils/getDate";
-import { cliapbord } from "../../utils/cliapbord";
+import { Reviews } from "../../types";
+import { cliapbord, tokenService, getDate } from "../../utils";
 import { ButtonCopy } from "../Button/ButtonCopy";
 import { useLocalState } from "../context/hooks";
 import { usePerson } from "../hooks/usePerson";
@@ -20,7 +19,6 @@ import { useUpdateReview } from "../hooks/useUpdateReview";
 import { StatusSelect } from "../components/StatusSelect";
 import { StatusComponent } from "../components/StatusComponent";
 import { ModalCreateReview } from "../components/ModalCreateReview";
-import { tokenService } from "../../utils/tokenService";
 import { useDeleteReview } from "../hooks/useDeleteReview";
 import { UploadCVS } from "../components/UploadCVS";
 import {

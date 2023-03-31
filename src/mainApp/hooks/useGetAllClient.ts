@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { getAllClient } from "../../request";
-import { Client } from "../../type";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { Client } from "../../types";
+import { openNotificationWithIcon } from "../../utils";
 
 export const useGetAllClient = () => {
   const [allClient, setAllClient] = useState<Client[] | undefined>(undefined);

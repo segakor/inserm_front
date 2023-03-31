@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createNote, getNotes } from "../../request";
-import { Note } from "../../type";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { Note } from "../../types";
+import { openNotificationWithIcon } from "../../utils";
 
 export const useNotes = () => {
   const [notes, setNotes] = useState<Note[]>();

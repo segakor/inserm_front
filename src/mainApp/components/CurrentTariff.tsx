@@ -4,7 +4,7 @@ import { Select } from "antd";
 import "./AntSelectCustomStyle.css";
 import { TariffItem } from "./TariffItem";
 import { Title } from "../../common/Typography";
-import { Project } from "../../type";
+import { Project } from "../../types";
 import { ModalAutoPay } from "./ModalAutoPay";
 import { useUnsubscribe } from "../hooks/useUnsubscribe";
 

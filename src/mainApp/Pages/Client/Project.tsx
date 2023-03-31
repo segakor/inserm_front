@@ -6,7 +6,7 @@ import { DetailsCard } from "../../components/DetailsCard";
 import { TableProject } from "../../Table/TableProject";
 import { ArchiveProjectList } from "../../components/ArchiveProjectList";
 import { useLocalState } from "../../context/hooks";
-import { getRangeDate } from "../../../utils/getDate";
+import { getRangeDate } from "../../../utils";
 import { useGetReviews } from "../../hooks/useGetReviews";
 import { useGetBrief } from '../../hooks/useGetBrief';
 import { ButtonBrief } from "../../Button/ButtonBrief";

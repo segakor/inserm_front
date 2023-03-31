@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
-import { tokenService } from "../../utils/tokenService";
+import { tokenService } from "../../utils";
 
 type Props = {
   onMessageNew: (data: any) => void;
@@ -8,13 +8,15 @@ type Props = {
   roomId: number | null;
 };
 
+const URL = import.meta.env.VITE_BASE_URL;
+
 export const useIOSocket = ({ onMessageNew, onMessageGet, roomId }: Props) => {
   const socketClientRef = useRef<any>(null);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (roomId) {
-      const socketclient = io("https://lul.inserm.ru:5001", {
+      const socketclient = io(URL, {
         path: "/chat",
         query: {
           roomId: roomId,
@@ -34,7 +36,7 @@ export const useIOSocket = ({ onMessageNew, onMessageGet, roomId }: Props) => {
       socketclient.emit("message:get", (data: any) => {
         console.log("message:get", data);
         onMessageGet(data);
-        setIsLoading(false)
+        setIsLoading(false);
         /* setMessages(data); */
       });
       socketclient.on("disconnect", () => {
@@ -45,11 +47,10 @@ export const useIOSocket = ({ onMessageNew, onMessageGet, roomId }: Props) => {
       });
 
       socketClientRef.current = socketclient;
-      console.log("IO");
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roomId]);
 
-  return { socketClientRef,isLoading };
+  return { socketClientRef, isLoading };
 };

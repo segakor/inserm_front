@@ -1,6 +1,6 @@
 import { updateAdmin } from "../../request";
-import { Admin } from "../../type";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { Admin } from "../../types";
+import { openNotificationWithIcon } from "../../utils";
 import { useGetAdmin } from "./useGetAdmin";
 
 export const useUpdateAdmin = () => {

@@ -1,4 +1,4 @@
-import { Role } from "./../type";
+import { Role } from "../types";
 import { refreshToken } from "../request";
 
 const JWT_TOKEN_KEY_NAME = "loginData";

@@ -1,7 +1,7 @@
 import { getReviewsWithType } from "../../request";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { openNotificationWithIcon } from "../../utils";
 import { useEffect, useState } from "react";
-import { ReqGetReviewsWithType } from "../../type";
+import { ReqGetReviewsWithType } from "../../types";
 import { AxiosError } from "axios";
 
 export const useGetReviewsWithType = (type: "moderate" | "isPaid" | "noPaid") => {

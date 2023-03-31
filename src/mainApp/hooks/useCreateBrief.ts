@@ -1,6 +1,6 @@
 import { createBrief } from "../../request";
-import { ReqCreateBrief } from "../../type";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { ReqCreateBrief } from "../../types";
+import { openNotificationWithIcon } from "../../utils";
 import { useGetProject } from "./useGetProject";
 
 export const useCreateBrief = () => {

@@ -1,6 +1,6 @@
 import { createAdmin } from "../../request";
-import { ReqCreateAdmin } from "../../type";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { ReqCreateAdmin } from "../../types";
+import { openNotificationWithIcon } from "../../utils";
 import { useGetAdmin } from "./useGetAdmin";
 
 export const useCreateAdmin = () => {

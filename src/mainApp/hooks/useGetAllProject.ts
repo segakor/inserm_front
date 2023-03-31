@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { getAllProject } from "../../request";
-import { Project } from "../../type";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { Project } from "../../types";
+import { openNotificationWithIcon } from "../../utils";
 
 export const useGetAllProject = (isActive: boolean) => {
   const [allProject, setAllProject] = useState<Project[] | undefined>(

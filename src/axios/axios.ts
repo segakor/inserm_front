@@ -1,9 +1,9 @@
 import axios from "axios";
-import { updateToken, tokenService } from "./utils/tokenService";
+import { updateToken, tokenService } from "../utils";
 
 export const axiosClient = axios;
 
-axiosClient.interceptors.request.use((config) => {
+axiosClient.interceptors.request.use((config: any) => {
   if (!config) {
     config = {};
   }

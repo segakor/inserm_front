@@ -1,5 +1,5 @@
 import { deleteReview } from "../../request";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { openNotificationWithIcon } from "../../utils";
 
 export const useDeleteReview = () => {
   const handleDeleteReview = async (value: { id: string }) => {

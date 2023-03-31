@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Statuses } from "../../type";
+import { Statuses } from "../../types";
 import { Title } from "../../common/Typography";
 
 const DetailsContainer = styled.div`

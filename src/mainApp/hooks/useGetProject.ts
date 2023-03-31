@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { getProject } from "../../request";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { openNotificationWithIcon } from "../../utils";
 import { setClientProject } from "../context/action";
 import { useDispatch } from "../context/hooks";
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getRooms } from "../../request";
-import { Room } from "../../type";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { Room } from "../../types";
+import { openNotificationWithIcon } from "../../utils";
 
 export const useGetRoomChat = () => {
   const [rooms, setRooms] = useState<Room[]>();

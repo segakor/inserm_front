@@ -7,7 +7,7 @@ import { TableHostStatistics } from "../../Table/TableHostStatistics";
 import { DatePicker } from "antd";
 import "dayjs/locale/zh-cn";
 import locale from "antd/es/date-picker/locale/ru_RU";
-import { toUnixDate } from "../../../utils/getDate";
+import { toUnixDate } from "../../../utils";
 
 const { RangePicker } = DatePicker;
 

@@ -1,6 +1,6 @@
 import { updateReview } from "../../request";
-import { Reviews } from "../../type";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { Reviews } from "../../types";
+import { openNotificationWithIcon } from "../../utils";
 
 export const useUpdateReview = () => {
   const handleUpdateReview = async (value: Reviews) => {

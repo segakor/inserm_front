@@ -4,10 +4,10 @@ import { DetailsCard } from "./DetailsCard";
 import { useNavigate } from "react-router-dom";
 import { ModalBrief } from "./ModalBrief";
 import { ButtonBrief } from "../Button/ButtonBrief";
-import { Project } from "../../type";
+import { Project } from "../../types";
 import { useGetBrief } from "../hooks/useGetBrief";
 import { Title } from "../../common/Typography";
-import { getRangeDate } from "../../utils/getDate";
+import { getRangeDate } from "../../utils";
 
 const Flex = styled.div`
   display: flex;

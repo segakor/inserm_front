@@ -24,7 +24,7 @@ import { CreateAdmin } from "../Pages/Admin/CreateNewAdmin";
 import { TariffSetting } from "../Pages/Сommon/TariffSetting";
 import { TariffClient } from "../Pages/Admin/TariffClient";
 import { FoundationClient } from "../Pages/Admin/FoundationClient";
-import { Role } from "../../type";
+import { Role } from "../../types";
 import { tokenService } from "../../utils/tokenService";
 import { HostStatistics } from "../Pages/Admin/HostStatistics";
 
