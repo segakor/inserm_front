@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getBrief } from "../../request";
-import { Brief } from "../../type";
+import { Brief } from "../../types";
 
 export const useGetBrief = (projectId: string) => {
   const [brief, setBrief] = useState<Brief | undefined>(undefined);

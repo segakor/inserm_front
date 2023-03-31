@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Title } from "../../common/Typography";
 import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
-import { Statuses } from "../../type";
-import { getRangeDate } from "../../utils/getDate";
+import { Statuses } from "../../types";
+import { getRangeDate } from "../../utils";
 import { useGetArchiveReviews } from '../hooks/useGetArchiveReviews';
 import { TableProject } from "../Table/TableProject";
 

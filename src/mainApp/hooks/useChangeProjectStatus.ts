@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { changeStatusProject } from "../../request";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { openNotificationWithIcon } from "../../utils";
 
 export const useChangeProjectStatus = () => {
   const handleChangeProjectStatus = async ({

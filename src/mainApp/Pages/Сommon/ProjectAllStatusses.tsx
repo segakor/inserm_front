@@ -4,14 +4,13 @@ import styled from "styled-components";
 import { Title, Header } from "../../../common/Typography";
 import { DetailsCard } from "../../components/DetailsCard";
 import { ArchiveProjectList } from "../../components/ArchiveProjectList";
-import { getRangeDate } from "../../../utils/getDate";
+import { getRangeDate, tokenService } from "../../../utils";
 import { useGetReviews } from "../../hooks/useGetReviews";
 import { TableProjectChangeable } from "../../Table/TableProjectChangeable";
 import { useGetBrief } from "../../hooks/useGetBrief";
 import { TableProjectNotChangeable } from "../../Table/TableProjectNotChangeable";
 import { ButtonBrief } from "../../Button/ButtonBrief";
 import { ModalBrief } from "../../components/ModalBrief";
-import { tokenService } from "../../../utils/tokenService";
 import { Notes } from "../../components/Notes";
 
 const Page = styled.div`

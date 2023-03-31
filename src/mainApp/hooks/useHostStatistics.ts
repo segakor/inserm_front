@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { getHostStatistics } from "../../request";
-import { HostStatistics } from "../../type";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { HostStatistics } from "../../types";
+import { openNotificationWithIcon } from "../../utils";
 
 export const useHostStatistics = () => {
   const [statistics, setStatistics] = useState<HostStatistics | null>(null);

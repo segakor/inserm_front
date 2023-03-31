@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { openNotificationWithIcon } from "../../utils/notification";
-import { ReqLogin } from "../../type";
+import { openNotificationWithIcon, tokenService } from "../../utils";
+import { ReqLogin } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../request";
-import { tokenService } from "../../utils/tokenService";
 
 export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);

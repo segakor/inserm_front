@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button, Input, Tooltip } from "antd";
 import { useNotes } from "../hooks/useNotes";
-import { getDate } from "../../utils/getDate";
+import { getDate } from "../../utils";
 import { Title } from "../../common/Typography";
 import { useScroll } from "../hooks/useScroll";
 

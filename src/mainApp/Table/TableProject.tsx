@@ -1,8 +1,8 @@
 import React from "react";
 import { Table, ConfigProvider, Empty } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Reviews } from "../../type";
-import { getDate } from "../../utils/getDate";
+import { Reviews } from "../../types";
+import { getDate } from "../../utils";
 import { StatusComponent } from "../components/StatusComponent";
 
 type ReviewsTableItem = Reviews & {

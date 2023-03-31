@@ -2,9 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Title } from "../../common/Typography";
-import { Project } from "../../type";
-import { getRangeDate } from "../../utils/getDate";
-import { tokenService } from "../../utils/tokenService";
+import { Project } from "../../types";
+import { tokenService, getRangeDate } from "../../utils";
 import { useChangeProjectStatus } from "../hooks/useChangeProjectStatus";
 
 const Panel = styled.div<{ isCompleted: boolean }>`

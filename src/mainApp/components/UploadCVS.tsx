@@ -3,7 +3,7 @@ import { Button } from "antd";
 import Papa from "papaparse";
 import { UploadOutlined, FileTextOutlined } from "@ant-design/icons";
 import { useCreateReview } from "../hooks/useCreateReview";
-import { checkCSV } from "../../utils/checkCSV";
+import { checkCSV } from "../../utils";
 
 type Props = {
   onUpdate: (projectId: string) => void;

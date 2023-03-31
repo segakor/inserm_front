@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { getPerson, changePerson } from "../../request";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { openNotificationWithIcon } from "../../utils";
 import { setPersonInfo } from "../context/action";
 import { useDispatch, useLocalState } from "../context/hooks";
-import { ReqPersonChange } from "../../type";
+import { ReqPersonChange } from "../../types";
 import { AxiosError } from "axios";
 
 export const usePerson = (nowUpdate?: boolean) => {

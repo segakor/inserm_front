@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { ButtonBrief } from "../../mainApp/Button/ButtonBrief";
 import { DetailsCard } from "../../mainApp/components/DetailsCard";
 import { Title } from "../../common/Typography";
-import { Project } from "../../type";
-import { getRangeDate } from "../../utils/getDate";
+import { Project } from "../../types";
+import { getRangeDate } from "../../utils";
 import { demoBrief } from '../constants';
 import { ModalBrief } from "../../mainApp/components/ModalBrief";
 

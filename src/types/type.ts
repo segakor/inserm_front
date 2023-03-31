@@ -1,5 +1,3 @@
-export type KeysFromConst<T extends {}> = T[keyof T];
-
 export type Role =
   | "CLIENT"
   | "HOST"

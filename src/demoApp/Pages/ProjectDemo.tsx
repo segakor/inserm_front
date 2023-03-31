@@ -5,7 +5,7 @@ import { ButtonBrief } from "../../mainApp/Button/ButtonBrief";
 import { DetailsCard } from "../../mainApp/components/DetailsCard";
 import { TableProject } from "../../mainApp/Table/TableProject";
 import { Title, Header } from "../../common/Typography";
-import { getRangeDate } from "../../utils/getDate";
+import { getRangeDate } from "../../utils";
 import { demoProject, demoReviews } from "../constants";
 import { demoBrief } from "../constants";
 import { ModalBrief } from "../../mainApp/components/ModalBrief";

@@ -10,10 +10,9 @@ import {
   Empty,
 } from "antd";
 import { useUpdateReview } from "../hooks/useUpdateReview";
-import { Reviews } from "../../type";
-import { getDate } from "../../utils/getDate";
+import { Reviews } from "../../types";
+import { getDate, cliapbord } from "../../utils";
 import { ButtonCopy } from "../Button/ButtonCopy";
-import { cliapbord } from "../../utils/cliapbord";
 import { StatusComponent } from "../components/StatusComponent";
 import { CheckOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
 

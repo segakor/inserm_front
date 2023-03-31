@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { getArchiveProject } from "../../request";
-import { ArchiveProject } from "../../type";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { ArchiveProject } from "../../types";
+import { openNotificationWithIcon } from "../../utils";
 
 
 export const useGetArchiveProject = (id: string) => {

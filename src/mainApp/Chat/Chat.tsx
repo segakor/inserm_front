@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Title } from "../../common/Typography";
-import { getDate } from "../../utils/getDate";
+import { getDate } from "../../utils";
 import { Input as InputComponent, Button, Spin } from "antd";
 import { useScroll } from "../hooks/useScroll";
 import { useIOSocket } from "../hooks/useIOSocket";

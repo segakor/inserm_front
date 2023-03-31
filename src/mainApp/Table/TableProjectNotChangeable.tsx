@@ -1,10 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import { Form, Table, ConfigProvider, Empty } from "antd";
-import { Reviews } from "../../type";
-import { getDate } from "../../utils/getDate";
+import { Reviews } from "../../types";
 import { ButtonCopy } from "../Button/ButtonCopy";
-import { cliapbord } from "../../utils/cliapbord";
+import { cliapbord, getDate } from "../../utils";
 import { StatusComponent } from "../components/StatusComponent";
 
 type Props = {

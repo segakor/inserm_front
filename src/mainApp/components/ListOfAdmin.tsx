@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Title } from "../../common/Typography";
-import { Admin } from "../../type";
+import { Admin } from "../../types";
 import { useLocalState } from "../context/hooks";
 import { useGetAdmin } from "../hooks/useGetAdmin";
 import { ModalChangeAdmin } from "./ModalChangeAdmin";

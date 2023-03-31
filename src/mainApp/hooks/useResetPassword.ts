@@ -1,5 +1,5 @@
 import { resetPassword } from "../../request";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { openNotificationWithIcon } from "../../utils";
 
 export const useResetPassword = () => {
   const handleResetPassword = async (value: { email: string }) => {

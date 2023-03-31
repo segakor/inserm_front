@@ -1,7 +1,7 @@
 import { getArchiveDetails } from "../../request";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { openNotificationWithIcon } from "../../utils";
 import { useEffect, useState } from "react";
-import { Reviews } from "../../type";
+import { Reviews } from "../../types";
 import { AxiosError } from "axios";
 
 export const useGetArchiveReviews = (id: string) => {

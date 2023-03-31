@@ -1,4 +1,5 @@
-import { axiosClient } from "./axios";
+
+import { axiosClient } from "../axios";
 import {
   ReqLogin,
   ResLogin,
@@ -25,9 +26,9 @@ import {
   ReqCreateReviewList,
   ResGetAllClient,
   ResHostStatistics,
-} from "./type";
+} from "../types";
 
-const URL = "https://lul.inserm.ru:5001/api";
+const URL = import.meta.env.VITE_BASE_URL;
 
 export const login = async (value: ReqLogin) => {
   const { data, status } = await axiosClient.post<ResLogin>(

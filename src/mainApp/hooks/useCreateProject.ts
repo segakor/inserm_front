@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { createProject } from "../../request";
-import { ReqProjectCreate } from "../../type";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { ReqProjectCreate } from "../../types";
+import { openNotificationWithIcon } from "../../utils";
 import { useGetProject } from "./useGetProject";
 
 export const useCreateProject = () => {

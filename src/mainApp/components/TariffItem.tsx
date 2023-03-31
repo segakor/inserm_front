@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Button, Switch } from "antd";
 import { Title } from "../../common/Typography";
-import { getRangeDate } from "../../utils/getDate";
+import { getRangeDate } from "../../utils";
 
 const Wrapper = styled.div`
   width: auto;

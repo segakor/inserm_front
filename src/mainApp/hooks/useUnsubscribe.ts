@@ -1,5 +1,5 @@
 import { unsubdcribe } from "../../request";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { openNotificationWithIcon } from "../../utils";
 
 export const useUnsubscribe = () => {
   const handleUnsubscribe = async (value: { projectId: number }) => {

@@ -1,5 +1,5 @@
 import { deleteAdmin } from "../../request";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { openNotificationWithIcon } from "../../utils";
 import { useGetAdmin } from "./useGetAdmin";
 
 export const useDeleteAdmin = () => {

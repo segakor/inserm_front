@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createRoom } from "../../request";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { openNotificationWithIcon } from "../../utils";
 
 export const useCreateRoomChat = () => {
   const [roomId, setRoomId] = useState<number|null>(null);

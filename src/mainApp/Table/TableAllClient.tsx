@@ -2,10 +2,9 @@
 import React from "react";
 import { Badge, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Client, ClientProject } from "../../type";
-import { getRangeDate } from "../../utils/getDate";
+import { Client, ClientProject } from "../../types";
 import { useNavigate } from "react-router-dom";
-import { tokenService } from "../../utils/tokenService";
+import { tokenService, getRangeDate } from "../../utils";
 
 type TableItem = Client & {
   key: string;

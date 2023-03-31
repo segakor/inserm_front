@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createProjectByAdmin } from "../../request";
-import { openNotificationWithIcon } from "../../utils/notification";
+import { openNotificationWithIcon } from "../../utils";
 
 export const useCreateProjectByAdmin = () => {
   const [isLoading, setIsLoading] = useState(false);
