@@ -47,7 +47,6 @@ export const useIOSocket = ({ onMessageNew, onMessageGet, roomId }: Props) => {
       });
 
       socketClientRef.current = socketclient;
-      console.log("IO");
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
