@@ -159,9 +159,13 @@ export const TariffItem = ({
         </StyledButton>
       ) : (
         <SwitchWrapper>
-          <Switch checked={autoPay} onChange={onChangeAutoPay} disabled={!autoPay}/>
+          <Switch
+            checked={autoPay}
+            onChange={onChangeAutoPay}
+            disabled={!autoPay}
+          />
           <Title level={4} style={{ fontWeight: "700", fontSize: 14 }}>
-            {autoPay ? "Выключить автопродление" : "Включить автопродление"}
+            Автопродление
           </Title>
         </SwitchWrapper>
       )}
