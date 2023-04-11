@@ -1,4 +1,3 @@
-
 import { axiosClient } from "../axios";
 import {
   ReqLogin,
@@ -90,7 +89,9 @@ export const getAllProject = async (isActive: boolean) => {
 };
 
 export const getAllTariff = async () => {
-  const { data, status } = await axiosClient.get<ReqGetTariff>(URL + `/api/tariff`);
+  const { data, status } = await axiosClient.get<ReqGetTariff>(
+    URL + `/api/tariff`
+  );
   return { data, status };
 };
 
@@ -194,9 +195,12 @@ export const createProject = async (value: ReqProjectCreate) => {
 };
 
 export const createAdmin = async (value: ReqCreateAdmin) => {
-  const { data, status } = await axiosClient.post(URL + `/api/user/registration`, {
-    ...value,
-  });
+  const { data, status } = await axiosClient.post(
+    URL + `/api/user/registration`,
+    {
+      ...value,
+    }
+  );
   return {
     data,
     status,
@@ -242,9 +246,12 @@ export const deleteAdmin = async (value: { email: string }) => {
   };
 };
 export const resetPassword = async (value: { email: string }) => {
-  const { data, status } = await axiosClient.post(URL + `/api/user/resetPassword`, {
-    ...value,
-  });
+  const { data, status } = await axiosClient.post(
+    URL + `/api/user/resetPassword`,
+    {
+      ...value,
+    }
+  );
   return {
     data,
     status,
@@ -263,9 +270,12 @@ export const refreshToken = async (value: { refreshToken: string }) => {
 };
 
 export const unsubdcribe = async (value: { projectId: number }) => {
-  const { data, status } = await axiosClient.post(URL + `/api/tariff/unsubscribe`, {
-    ...value,
-  });
+  const { data, status } = await axiosClient.post(
+    URL + `/api/tariff/unsubscribe`,
+    {
+      ...value,
+    }
+  );
   return {
     data,
     status,
@@ -296,7 +306,9 @@ export const getNotes = async (id: string) => {
 };
 
 export const getRooms = async () => {
-  const { data, status } = await axiosClient.get<ReqRooms>(URL + `/api/chat/rooms`);
+  const { data, status } = await axiosClient.get<ReqRooms>(
+    URL + `/api/chat/rooms`
+  );
   return {
     data,
     status,
@@ -381,6 +393,22 @@ export const createProjectByAdmin = async (value: {
   const { data, status } = await axiosClient.post(URL + `/api/project/buy`, {
     ...value,
   });
+  return {
+    data,
+    status,
+  };
+};
+
+export const registration = async (value: {
+  email: string;
+  password: string;
+}) => {
+  const { data, status } = await axiosClient.post(
+    URL + `/api/user/clientRegistration`,
+    {
+      ...value,
+    }
+  );
   return {
     data,
     status,

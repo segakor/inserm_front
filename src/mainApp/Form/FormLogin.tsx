@@ -4,17 +4,18 @@ import { Button, Form, Input } from "antd";
 import { Title } from "../../common/Typography";
 import { useAuth } from "../hooks/useAuth";
 import { useResetPassword } from "../hooks/useResetPassword";
+import { useRegistartion } from "../hooks/useRegistration";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Wrapper = styled.div`
   background-color: #ffffff;
   border-radius: 20px;
-  padding: 20px 20px 0px 20px;
+  padding: 20px 20px 20px 20px;
   width: auto;
   height: auto;
   @media (min-width: 768px) {
-    padding: 40px 40px 20px 40px;
+    padding: 40px 40px 0px 40px;
     width: 520px;
-    height: 400px;
   }
 `;
 const StyledInput = styled(Input)`
@@ -35,6 +36,14 @@ const StyledButton = styled(Button)`
   border-radius: 10px;
   height: 50px;
 `;
+const RegisterButton = styled(StyledButton)`
+  color: white;
+  background-color: #313131;
+  :hover {
+    color: white !important;
+  }
+  margin-bottom: 20px;
+`;
 const SubTitle = styled.div`
   width: fit-content;
   color: #8e8e8e;
@@ -49,39 +58,86 @@ const DescRestore = styled(Title)`
   margin-bottom: 30px !important;
 `;
 
+const locale = [
+  {
+    type: "login",
+    formTitle: "Войдите в свой личный кабинет",
+    submitTitle: "Войти",
+  },
+  {
+    type: "restore",
+    formTitle: "Восстановление пароля",
+    submitTitle: "Отправить",
+  },
+  {
+    type: "registration",
+    formTitle: "Ригистрация",
+    submitTitle: "Зарегистрироваться",
+  },
+];
+
 export const FormLogin = () => {
   const [form] = Form.useForm();
   const email = Form.useWatch("username", form);
   const password = Form.useWatch("password", form);
+  const password_repeat = Form.useWatch("password_repeat", form);
 
-  const [isRestore, setIsRestore] = useState(false);
+  const [typeForm, setTypeForm] = useState<
+    "login" | "restore" | "registration"
+  >("login");
 
-  const { handleLogin, isLoading } = useAuth();
+  const [isVerified, setIsVerified] = useState(false);
+
+  const { handleLogin, isLoading: isLoadingLogin } = useAuth();
 
   const { handleResetPassword } = useResetPassword();
 
-  const buttonName = !isRestore ? "Войти" : "Отправить";
+  const { handleRegistartion, isLoading: isLoadingRegistration } =
+    useRegistartion();
+
+  const isLoading = isLoadingRegistration || isLoadingLogin;
 
   const onSubmit = () => {
     const emailL = email.toLowerCase();
-    if (!isRestore) {
+
+    if (typeForm === "login") {
       handleLogin({ email: emailL, password });
-    } else {
+    }
+    if (typeForm === "registration") {
+      handleRegistartion({ email: emailL, password });
+    }
+    if (typeForm === "restore") {
       form.setFieldsValue({ password: "" });
       handleResetPassword({ email: emailL });
     }
   };
 
-  const isDisableBtn =
-    email && password && !isRestore ? false : email && isRestore ? false : true;
+  const isDisableSubmit = () => {
+    if (typeForm === "login") {
+      return !(email && password);
+    }
+    if (typeForm === "registration") {
+      return !(email && password === password_repeat && isVerified);
+    }
+    return !email;
+  };
+
+  const title = locale.find((item) => item.type === typeForm);
+
+  const onChangeCapcha = (value: any) => {
+    value ? setIsVerified(true) : setIsVerified(false);
+  };
+
+  const handleBack = () => {
+    setTypeForm("login");
+    setIsVerified(false);
+  };
 
   return (
     <>
       <Wrapper>
         <HeaderForm level={3} style={{ fontWeight: "800" }}>
-          {!isRestore
-            ? "Войдите в свой личный кабинет"
-            : "Восстановление пароля"}
+          {title?.formTitle}
         </HeaderForm>
         <StyledForm
           name="basic"
@@ -90,21 +146,25 @@ export const FormLogin = () => {
           form={form}
           disabled={isLoading}
         >
-          {!isRestore && (
+          {typeForm === "login" && (
             <>
               <Form.Item
                 name="username"
                 rules={[
                   {
                     type: "email",
+                    message:
+                      "Пожалуйста, введите корректный адрес электронной почты!",
+                  },
+                  {
                     required: true,
-                    message: "Пожалуйста, введите адрес электронной почты!",
+                    message:
+                      "Пожалуйста, введите корректный адрес электронной почты!",
                   },
                 ]}
               >
                 <StyledInput placeholder="Электронная почта" />
               </Form.Item>
-
               <Form.Item
                 name="password"
                 rules={[
@@ -113,13 +173,12 @@ export const FormLogin = () => {
               >
                 <StyledInputPassword placeholder="Пароль" />
               </Form.Item>
-
-              <SubTitle onClick={() => setIsRestore(true)}>
+              <SubTitle onClick={() => setTypeForm("restore")}>
                 Не помню пароль
               </SubTitle>
             </>
           )}
-          {isRestore && (
+          {typeForm === "restore" && (
             <>
               <DescRestore level={5} style={{ fontWeight: "400" }}>
                 Укажите вашу почту для восстановления пароля
@@ -128,29 +187,90 @@ export const FormLogin = () => {
                 name="username"
                 rules={[
                   {
+                    type: "email",
+                    message:
+                      "Пожалуйста, введите корректный адрес электронной почты!",
+                  },
+                  {
                     required: true,
-                    message: "Пожалуйста, введите адрес электронной почты!",
+                    message:
+                      "Пожалуйста, введите корректный адрес электронной почты!",
                   },
                 ]}
               >
                 <StyledInput placeholder="Электронная почта" />
               </Form.Item>
-              <SubTitle onClick={() => setIsRestore(false)}>Назад</SubTitle>
+              <SubTitle onClick={handleBack}>Назад</SubTitle>
             </>
           )}
-
+          {typeForm === "registration" && (
+            <>
+              <Form.Item
+                name="username"
+                rules={[
+                  {
+                    type: "email",
+                    message:
+                      "Пожалуйста, введите корректный адрес электронной почты!",
+                  },
+                  {
+                    required: true,
+                    message:
+                      "Пожалуйста, введите корректный адрес электронной почты!",
+                  },
+                ]}
+              >
+                <StyledInput placeholder="Электронная почта" />
+              </Form.Item>
+              <Form.Item
+                name="password"
+                rules={[
+                  { required: true, message: "Пожалуйста, введите пароль!" },
+                ]}
+              >
+                <StyledInputPassword placeholder="Пароль" />
+              </Form.Item>
+              <Form.Item
+                name="password_repeat"
+                rules={[
+                  { required: true, message: "Пожалуйста, введите пароль!" },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue("password") === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error("Пароли не совпадают!"));
+                    },
+                  }),
+                ]}
+              >
+                <StyledInputPassword placeholder="Повторите пароль" />
+              </Form.Item>
+              <SubTitle onClick={handleBack}>Назад</SubTitle>
+              <ReCAPTCHA
+                style={{ marginBottom: 16 }}
+                sitekey="6Le3qHYlAAAAAEeZz21F3gumg3ohJGIyyjVFadnM"
+                onChange={onChangeCapcha}
+              />
+            </>
+          )}
           <Form.Item>
             <StyledButton
               type="primary"
               htmlType="submit"
               block
               onClick={onSubmit}
-              disabled={isDisableBtn}
+              disabled={isDisableSubmit()}
               loading={isLoading}
             >
-              {buttonName}
+              {title?.submitTitle}
             </StyledButton>
           </Form.Item>
+          {typeForm === "login" && (
+            <RegisterButton block onClick={() => setTypeForm("registration")}>
+              Регистрация
+            </RegisterButton>
+          )}
         </StyledForm>
       </Wrapper>
     </>
