@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import type { MenuProps } from "antd";
+import { Badge, MenuProps } from "antd";
 import { Menu } from "antd";
 import { ReactComponent as ProjectIcon } from "../../assets/project.svg";
 import { ReactComponent as TariffIcon } from "../../assets/tariff.svg";
@@ -21,6 +21,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useGetProject } from "../hooks/useGetProject";
 import { clearState } from "../context/action";
 import { tokenService } from "../../utils/tokenService";
+import { useIOSocketNotify } from "../hooks/useIOSocketNotify";
 
 type Props = {
   onHeaderClose?: () => void;
@@ -41,6 +42,12 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
   const { handleGetClientProject } = useGetProject();
 
   const dispatch = useDispatch();
+
+  useIOSocketNotify();
+
+  const notifyCount = state.listOfNotify
+  ?.map((item: any) => item.unread)
+  ?.reduce((a: any, b: any) => a + b, 0);
 
   useEffect(() => {
     if (role === "CLIENT") {
@@ -94,7 +101,15 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     { label: "База знаний", key: "foundation", icon: <FoundationIcon /> },
     { label: "Контакты", key: "contacts", icon: <ContactsIcon /> },
     dividerItem2 as any,
-    { label: "Техподдержка", key: "help", icon: <HelpIcon /> },
+    {
+      label: (
+        <div style={{ display: "flex", alignItems: "center", gridGap: "5px" }}>
+          Техподдержка <Badge count={notifyCount} />
+        </div>
+      ),
+      key: "help",
+      icon: <HelpIcon />,
+    },
     { label: "Выход", key: "exit", icon: <ExitIcon /> },
   ];
 
@@ -124,7 +139,15 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     },
     { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },
     dividerItem2 as any,
-    { label: "Вопросы клиентов", key: "clientquestions", icon: <HelpIcon /> },
+    {
+      label: (
+        <div style={{ display: "flex", alignItems: "center", gridGap: "5px" }}>
+          Вопросы клиентов <Badge count={notifyCount} />
+        </div>
+      ),
+      key: "clientquestions",
+      icon: <HelpIcon />,
+    },
     { label: "Выход", key: "exit", icon: <ExitIcon /> },
   ];
 
@@ -138,7 +161,15 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       style: { whiteSpace: "normal", lineHeight: "20px" },
     },
     dividerItem2 as any,
-    { label: "Вопросы клиентов", key: "clientquestions", icon: <HelpIcon /> },
+    {
+      label: (
+        <div style={{ display: "flex", alignItems: "center", gridGap: "5px" }}>
+          Вопросы клиентов <Badge count={notifyCount} />
+        </div>
+      ),
+      key: "clientquestions",
+      icon: <HelpIcon />,
+    },
     { label: "Выход", key: "exit", icon: <ExitIcon /> },
   ];
   const itemAdmin: MenuProps["items"] = [
@@ -175,10 +206,18 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     {
       label: "Статистика",
       key: "hoststatistics",
-      icon: <SignalFilled style={{ color: "#1579E9" }}/>,
+      icon: <SignalFilled style={{ color: "#1579E9" }} />,
     },
     dividerItem as any,
-    { label: "Вопросы клиентов", key: "clientquestions", icon: <HelpIcon /> },
+    {
+      label: (
+        <div style={{ display: "flex", alignItems: "center", gridGap: "5px" }}>
+          Вопросы клиентов <Badge count={notifyCount} />
+        </div>
+      ),
+      key: "clientquestions",
+      icon: <HelpIcon />,
+    },
     { label: "Выход", key: "exit", icon: <ExitIcon /> },
   ];
 
@@ -220,14 +259,23 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
   return (
     <>
       {auth ? (
-        <Menu
-          onClick={onClick}
-          items={setItem()}
-          mode="inline"
-          selectedKeys={selectedKeys}
-          defaultOpenKeys={["projects"]}
-        />
+        <>
+          <Menu
+            onClick={onClick}
+            items={setItem()}
+            mode="inline"
+            selectedKeys={selectedKeys}
+            defaultOpenKeys={["projects"]}
+          />
+        </>
       ) : null}
+    {/*   <Menu
+        onClick={onClick}
+        items={setItem()}
+        mode="inline"
+        selectedKeys={selectedKeys}
+        defaultOpenKeys={["projects"]}
+      /> */}
     </>
   );
 };

@@ -5,7 +5,7 @@ type NotificationType = "success" | "info" | "warning" | "error";
 type Props = {
   type: NotificationType;
   message: string;
-  description: string;
+  description?: string;
   status?: number;
 };
 
@@ -13,7 +13,7 @@ export const openNotificationWithIcon = ({
   type,
   message,
   description,
-  status
+  status,
 }: Props) => {
   if (status !== 401)
     notification[type]({

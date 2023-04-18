@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { UserItemChat } from "./UserItemChat";
+import { UserItemHeader } from "./UserItemHeader";
 import { ChatComponent } from "./ChatComponent";
 import { useCreateRoomChat } from "../hooks/useCreateRoomChat";
 
@@ -35,7 +35,7 @@ export const ChatClient = () => {
   return (
     <WrapT>
       <HeaderT>
-        <UserItemChat email={""} userName={"Техподдержка"} isHeader={true} />
+        <UserItemHeader email={""} userName={"Техподдержка"}/>
       </HeaderT>
       <BodyT>
         <ChatComponent roomId={roomId} chatType={"client"} />

@@ -1,19 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { UserOutlined } from "@ant-design/icons";
-import { Avatar } from "antd";
+import { Badge } from "antd";
 import { Title } from "../../common/Typography";
+import { Notify } from "../../types";
 
-const UserChat = styled.div<{ isActive: boolean; isHeader?: boolean }>`
+const UserChat = styled.div<{ isActive: boolean }>`
   padding: 10px 20px 10px 20px;
-  /* width: 500px; */
-  /* width: 280px; */
   display: flex;
-  grid-gap: 12px;
+  justify-content: space-between;
   align-items: center;
-  cursor: ${(props) => (!props.isHeader ? "pointer" : "null")};
-  ${(props) =>
-    !props.isHeader ? "&:hover { background-color: whitesmoke }" : ""}
+  cursor: pointer;
+  :hover {
+    background-color: whitesmoke;
+  }
   background-color: ${(props) => (props.isActive ? "whitesmoke" : "")};
 `;
 const UserName = styled.div`
@@ -26,7 +25,7 @@ type Props = {
   roomId?: number;
   onClickItem?: (e: number) => void;
   isActive?: boolean;
-  isHeader?: boolean;
+  foo: Notify[];
 };
 
 export const UserItemChat = ({
@@ -35,22 +34,20 @@ export const UserItemChat = ({
   roomId = 0,
   onClickItem,
   isActive = false,
-  isHeader = false,
+  foo,
 }: Props) => {
   const handleClick = () => {
     if (onClickItem) onClickItem(roomId);
   };
+
+  const countNotify = foo.find((item) => item.roomId === roomId);
   return (
-    <UserChat onClick={handleClick} isActive={isActive} isHeader={isHeader}>
-      <Avatar
-        size={40}
-        style={{ backgroundColor: "#313131" }}
-        icon={<UserOutlined />}
-      />
+    <UserChat onClick={handleClick} isActive={isActive}>
       <UserName>
         <Title level={5}>{userName}</Title>
         <div style={{ color: "#8E8E8E" }}>{email}</div>
       </UserName>
+      <Badge count={countNotify?.unread} />
     </UserChat>
   );
 };
