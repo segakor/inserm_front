@@ -53,9 +53,7 @@ export const ChatSupport = () => {
   const headerItemChat = rooms?.find((item) => item.id === selectedRoom);
 
   const state = useLocalState();
-  const foo = state.listOfNotify;
-
-  console.log(foo, "foo");
+  const listOfNotify = state.listOfNotify;
 
   return (
     <WrapT>
@@ -80,7 +78,7 @@ export const ChatSupport = () => {
               userName={item.name}
               onClickItem={handleClickRoom}
               isActive={selectedRoom === item.id ? true : false}
-              foo={foo}
+              listOfNotify={listOfNotify}
             />
           ))}
         </RoomsT>
