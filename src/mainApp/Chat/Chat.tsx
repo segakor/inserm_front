@@ -112,7 +112,7 @@ export const Chat = ({ chatType, roomId }: Props) => {
   return (
     <Wrapper>
       <MessageBox ref={element}>
-        {isConnect && <Spin size="large" />}
+        {!isConnect && <Spin size="large" />}
         {messages.map((item: any) => (
           <div key={item.id}>
             {checkTypeMsg(item.isClient) ? (

@@ -12,50 +12,45 @@ export const useIOSocketNotify = () => {
 
   const dispatch = useDispatch();
 
-  const auth = tokenService.getIsAuth()
-
   useEffect(() => {
-    if(auth) {
-    io(URL, {
-      path: "",
-      extraHeaders: {
-        Authorization: `Bearer ${tokenService.getJwtToken()}`,
-      },
-    });
+      io(URL, {
+        path: "",
+        extraHeaders: {
+          Authorization: `Bearer ${tokenService.getJwtToken()}`,
+        },
+      });
 
-    const socketNotify = io(`${URL}/notification`);
+      const socketNotify = io(`${URL}/notification`);
 
-
-    socketNotify.on("connect", () => {
-      console.log("Connect socketNotify");
-    });
-
-    socketNotify.emit("notification:get", (data: Notify[]) => {
-      console.log("notification:get", data);
-      dispatch(setListOfNotify(data));
-    });
-
-    socketNotify.on("notification:new", (data) => {
-      console.log("notification:new", data);
+      socketNotify.on("connect", () => {
+        console.log("Connect socketNotify");
+      });
 
       socketNotify.emit("notification:get", (data: Notify[]) => {
         console.log("notification:get", data);
         dispatch(setListOfNotify(data));
       });
-    });
 
-    socketNotifyRef.current = socketNotify;
+      socketNotify.on("notification:new", (data) => {
+        console.log("notification:new", data);
 
-    dispatch(setNotifyRef(socketNotifyRef));
+        socketNotify.emit("notification:get", (data: Notify[]) => {
+          console.log("notification:get", data);
+          dispatch(setListOfNotify(data));
+        });
+      });
 
-    return () => {
-      socketNotifyRef.current.disconnect();
-      dispatch(setNotifyRef(null));
-    };
-  }
+      socketNotifyRef.current = socketNotify;
+
+      dispatch(setNotifyRef(socketNotifyRef));
+
+      return () => {
+        socketNotifyRef.current.disconnect();
+        dispatch(setNotifyRef(null));
+      };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth]);
+  }, []);
 
   return { socketNotifyRef };
 };
