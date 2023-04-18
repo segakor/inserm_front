@@ -9,7 +9,13 @@ import {
   SET_LIST_OF_ADMIN,
   SetProjectForPayment,
   SET_PROJECT_FOR_PAYMENT,
-  CLEAR_STATE
+  CLEAR_STATE,
+  SetNotifyRef,
+  SET_NOTIFY_REF,
+  SET_LIST_OF_NOTIFY,
+  SetListOfNotify,
+  RemoveItemListOfNotify,
+  REMOVE_ITEM_LIST_OF_NOTIFY,
 } from "./action";
 
 export const initialState: LocalState = {
@@ -18,6 +24,8 @@ export const initialState: LocalState = {
   role: undefined,
   listOfAdmin: undefined,
   projectForPayment: undefined,
+  socketNotify: null,
+  listOfNotify: [],
 };
 
 function setPersonInfo(
@@ -57,9 +65,7 @@ function setProjectForPayment(
     projectForPayment: payload,
   };
 }
-function clearState(
-  state: LocalState
-): LocalState {
+function clearState(state: LocalState): LocalState {
   return {
     ...state,
     personInfo: undefined,
@@ -70,10 +76,40 @@ function clearState(
   };
 }
 
+function setNotifyRef(state: LocalState, { payload }: SetNotifyRef): LocalState {
+  return {
+    ...state,
+    socketNotify: payload,
+  };
+}
+
+function setListOfNotify(
+  state: LocalState,
+  { payload }: SetListOfNotify
+): LocalState {
+  return {
+    ...state,
+    listOfNotify: payload,
+  };
+}
+
+function removeItemListOfNotify(
+  state: LocalState,
+  { payload }: RemoveItemListOfNotify
+): LocalState {
+  return {
+    ...state,
+    listOfNotify: state.listOfNotify.filter((item) => item.roomId !== payload),
+  };
+}
+
 export const reducer = createReducer(initialState, {
   [SET_PERSON_INFO]: setPersonInfo,
   [SET_CLIENT_PROJECT]: setClientProject,
   [SET_LIST_OF_ADMIN]: setListOfAdmin,
   [SET_PROJECT_FOR_PAYMENT]: setProjectForPayment,
   [CLEAR_STATE]: clearState,
+  [SET_NOTIFY_REF]: setNotifyRef,
+  [SET_LIST_OF_NOTIFY]: setListOfNotify,
+  [REMOVE_ITEM_LIST_OF_NOTIFY]: removeItemListOfNotify,
 });

@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { Title } from "../../common/Typography";
 import { useGetRoomChat } from "../hooks/useGetRoomChat";
 import { UserItemChat } from "./UserItemChat";
+import { UserItemHeader } from "./UserItemHeader";
 import { ChatComponent } from "./ChatComponent";
+import { useLocalState } from "../context/hooks";
 
 const WrapT = styled.div`
   background-color: white;
@@ -35,7 +37,7 @@ const RoomsT = styled.div`
   border-right: 2px solid #f0f0f0;
   display: flex;
   flex-direction: column;
-  overflow: auto ;
+  overflow: auto;
   overflow-x: hidden;
   width: 450px;
 `;
@@ -50,6 +52,11 @@ export const ChatSupport = () => {
 
   const headerItemChat = rooms?.find((item) => item.id === selectedRoom);
 
+  const state = useLocalState();
+  const foo = state.listOfNotify;
+
+  console.log(foo, "foo");
+
   return (
     <WrapT>
       <HeaderT>
@@ -57,10 +64,9 @@ export const ChatSupport = () => {
           Список чатов
         </Title>
         {headerItemChat && (
-          <UserItemChat
+          <UserItemHeader
             email={headerItemChat.email}
             userName={headerItemChat.name}
-            isHeader={true}
           />
         )}
       </HeaderT>
@@ -74,10 +80,11 @@ export const ChatSupport = () => {
               userName={item.name}
               onClickItem={handleClickRoom}
               isActive={selectedRoom === item.id ? true : false}
+              foo={foo}
             />
           ))}
         </RoomsT>
-        <ChatComponent roomId={selectedRoom} chatType={'support'}/>
+        <ChatComponent roomId={selectedRoom} chatType={"support"} />
       </BodyT>
     </WrapT>
   );

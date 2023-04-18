@@ -4,7 +4,9 @@ import { Title } from "../../common/Typography";
 import { getDate } from "../../utils";
 import { Input as InputComponent, Button, Spin } from "antd";
 import { useScroll } from "../hooks/useScroll";
-import { useIOSocket } from "../hooks/useIOSocket";
+import { useIOSocketChat } from "../hooks/useIOSocketChat";
+import { useDispatch, useLocalState } from "../context/hooks";
+import { removeItemListOfNotify } from "../context/action";
 
 const Wrapper = styled.div`
   display: flex;
@@ -74,15 +76,22 @@ export const Chat = ({ chatType, roomId }: Props) => {
     setMessages((prev: any) => [...prev, data]);
   };
 
-  const { socketClientRef, isLoading } = useIOSocket({
+  const { socketChatRef, isConnect } = useIOSocketChat({
     onMessageNew: handleMessageNew,
     onMessageGet: handleMessageGet,
     roomId: roomId,
   });
 
+  const state = useLocalState();
+  const { socketNotify } = state;
+
+  const dispatch = useDispatch();
+
   const sendMessage = async () => {
-    socketClientRef.current.emit("message:send", value);
+    socketChatRef.current.emit("message:send", value);
+    socketNotify.current.emit("notification:send", roomId);
     setValue("");
+    dispatch(removeItemListOfNotify(roomId));
   };
 
   const checkTypeMsg = (isClient: boolean) => {
@@ -103,7 +112,7 @@ export const Chat = ({ chatType, roomId }: Props) => {
   return (
     <Wrapper>
       <MessageBox ref={element}>
-        {isLoading && <Spin size="large" />}
+        {isConnect && <Spin size="large" />}
         {messages.map((item: any) => (
           <div key={item.id}>
             {checkTypeMsg(item.isClient) ? (

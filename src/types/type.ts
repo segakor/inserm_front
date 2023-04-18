@@ -239,3 +239,8 @@ export type HostStatistics = Omit<Statuses, "all"> & {
 export type ResHostStatistics = {
   result: HostStatistics;
 };
+
+export type Notify = {
+  roomId: number;
+  unread: number;
+};
