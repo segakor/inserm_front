@@ -27,6 +27,11 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
 
     const columns = [
       {
+        title: "id",
+        width: "6%",
+        render: (record: ClientProject) => <>{`[${record.id}]`}</>,
+      },
+      {
         title: "Название проекта",
         dataIndex: "name",
         render: (name: string, record: ClientProject) => (
@@ -119,7 +124,9 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
         return (
           <ul style={{ margin: 0 }}>
             {record.projects.map((item, index) => (
-              <li key={index}>{item.name}</li>
+              <li key={index}>
+                {`[${item.id}]`} {item.name}
+              </li>
             ))}
           </ul>
         );
