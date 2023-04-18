@@ -25,7 +25,7 @@ type Props = {
   roomId?: number;
   onClickItem?: (e: number) => void;
   isActive?: boolean;
-  foo: Notify[];
+  listOfNotify: Notify[];
 };
 
 export const UserItemChat = ({
@@ -34,13 +34,13 @@ export const UserItemChat = ({
   roomId = 0,
   onClickItem,
   isActive = false,
-  foo,
+  listOfNotify,
 }: Props) => {
   const handleClick = () => {
     if (onClickItem) onClickItem(roomId);
   };
 
-  const countNotify = foo.find((item) => item.roomId === roomId);
+  const countNotify = listOfNotify.find((item) => item.roomId === roomId);
   return (
     <UserChat onClick={handleClick} isActive={isActive}>
       <UserName>
