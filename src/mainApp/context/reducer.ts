@@ -73,6 +73,8 @@ function clearState(state: LocalState): LocalState {
     role: undefined,
     listOfAdmin: undefined,
     projectForPayment: undefined,
+    socketNotify:null,
+    listOfNotify:[]
   };
 }
 

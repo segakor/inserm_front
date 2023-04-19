@@ -27,6 +27,11 @@ type Props = {
   onHeaderClose?: () => void;
 };
 
+export const SocketNotify = () => {
+  useIOSocketNotify();
+  return <></>;
+};
+
 export const MenuComponent = ({ onHeaderClose }: Props) => {
   const [selectedKeys, setSelectedKeys] = useState([""]);
 
@@ -43,12 +48,6 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
 
   const dispatch = useDispatch();
 
-  useIOSocketNotify();
-
-  const notifyCount = state.listOfNotify
-  ?.map((item: any) => item.unread)
-  ?.reduce((a: any, b: any) => a + b, 0);
-
   useEffect(() => {
     if (role === "CLIENT") {
       handleGetClientProject();
@@ -56,7 +55,11 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [role]);
 
-  const { clientProject } = state;
+  const { clientProject, listOfNotify } = state;
+
+  const notifyCount = listOfNotify
+    ?.map((item: any) => item.unread)
+    ?.reduce((a: any, b: any) => a + b, 0);
 
   const listOfProject = clientProject?.map((item) => ({
     label: item.name,
@@ -260,6 +263,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     <>
       {auth ? (
         <>
+          <SocketNotify />
           <Menu
             onClick={onClick}
             items={setItem()}
@@ -269,13 +273,6 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
           />
         </>
       ) : null}
-    {/*   <Menu
-        onClick={onClick}
-        items={setItem()}
-        mode="inline"
-        selectedKeys={selectedKeys}
-        defaultOpenKeys={["projects"]}
-      /> */}
     </>
   );
 };
