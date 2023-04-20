@@ -22,6 +22,7 @@ import { useGetProject } from "../hooks/useGetProject";
 import { clearState } from "../context/action";
 import { tokenService } from "../../utils/tokenService";
 import { useIOSocketNotify } from "../hooks/useIOSocketNotify";
+import { notificationTitle } from "../../utils/notificationTitle";
 
 type Props = {
   onHeaderClose?: () => void;
@@ -60,6 +61,8 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
   const notifyCount = listOfNotify
     ?.map((item: any) => item.unread)
     ?.reduce((a: any, b: any) => a + b, 0);
+
+  notificationTitle(notifyCount);
 
   const listOfProject = clientProject?.map((item) => ({
     label: item.name,
