@@ -47,7 +47,6 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
       },
       {
         title: "Название проекта",
-        dataIndex: "name",
         render: (record: ClientProject) => (
           <div style={{ display: "inline" }}>
             <a onClick={() => navigation(`/app/${role}/project/${record.id}`)}>
