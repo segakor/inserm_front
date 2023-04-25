@@ -1,10 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import styled from "styled-components";
 import { Badge, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Client, ClientProject } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { tokenService, getRangeDate } from "../../utils";
+import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
+import { getAmountAutoPay } from "../../utils/amountAutoPay";
 
 type TableItem = Client & {
   key: string;
@@ -14,6 +17,17 @@ type Props = {
   allClient: TableItem[] | undefined;
   isLoading: boolean;
 };
+
+const Project = styled.div`
+  display: flex;
+  align-items: center;
+  grid-gap: 4px;
+`;
+
+const FooterInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export const TableAllClient = ({ allClient, isLoading }: Props) => {
   const navigation = useNavigate();
@@ -34,10 +48,17 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
       {
         title: "Название проекта",
         dataIndex: "name",
-        render: (name: string, record: ClientProject) => (
+        render: (record: ClientProject) => (
           <div style={{ display: "inline" }}>
             <a onClick={() => navigation(`/app/${role}/project/${record.id}`)}>
-              {name}
+              <Project>
+                {record.autopay ? (
+                  <CheckCircleFilled style={{ color: "#1BBD3F" }} />
+                ) : (
+                  <CloseCircleFilled style={{ color: "#FF1E1E" }} />
+                )}
+                <>{record.name}</>
+              </Project>
             </a>
           </div>
         ),
@@ -105,9 +126,28 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
     ?.map((item) => item.totalPrice)
     .reduce((a, b) => a + b);
 
+  const amountAutoPay = getAmountAutoPay(allClient || []);
+
+  const footerInfo = (
+    <FooterInfo>
+      <div>
+        {`Потрачено клиентами: `}
+        <b>{`${allSum}`}</b>
+      </div>
+      <div>
+        {`Активных подписок: `}
+        <b>{`${amountAutoPay.active}`}</b>
+      </div>
+      <div>
+        {`Неактивных подписок: `}
+        <b>{`${amountAutoPay.notActive}`}</b>
+      </div>
+    </FooterInfo>
+  );
+
   const columns: ColumnsType<TableItem> = [
     {
-      width: "16%",
+      width: "18%",
       title: "Имя",
       dataIndex: "name",
       filters: filtersName,
@@ -115,20 +155,37 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
       filterSearch: true,
       onFilter: (value: any, record) => record.name.startsWith(value),
     },
-    { width: "16%", title: "Почта", dataIndex: "email" },
-    { width: "12%", title: "Телефон", dataIndex: "phone" },
-    { width: "16%", title: "Имя в telegram", dataIndex: "tg" },
+    {
+      width: "18%",
+      title: "Почта",
+      render: (record: TableItem) => {
+        return (
+          <>
+            [{record.id}] {record.email}
+          </>
+        );
+      },
+    },
+    { width: "10%", title: "Телефон", dataIndex: "phone" },
+    { width: "10%", title: "Telegram", dataIndex: "tg" },
     {
       title: "Проекты",
       render: (record: TableItem) => {
         return (
-          <ul style={{ margin: 0 }}>
+          <>
             {record.projects.map((item, index) => (
-              <li key={index}>
-                {`[${item.id}]`} {item.name}
-              </li>
+              <Project key={index}>
+                {item.autopay ? (
+                  <CheckCircleFilled style={{ color: "#1BBD3F" }} />
+                ) : (
+                  <CloseCircleFilled style={{ color: "#FF1E1E" }} />
+                )}
+                <>
+                  {`[${item.id}]`} {item.name}
+                </>
+              </Project>
             ))}
-          </ul>
+          </>
         );
       },
     },
@@ -153,7 +210,7 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
       tableLayout={"fixed"}
       scroll={{ x: 1000 }}
       locale={{ emptyText: "нет данных" }}
-      footer={() => `Итого ${allSum}`}
+      footer={() => footerInfo}
     />
   );
 };
