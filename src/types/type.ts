@@ -196,6 +196,8 @@ export type Room = {
   userId: number;
   email: string;
   name: string;
+  projects: { name: string; id: number }[];
+  unread: number;
 };
 export type ReqRooms = {
   result: Room[];
