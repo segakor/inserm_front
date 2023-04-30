@@ -37,12 +37,11 @@ export const RoomItemHeader = ({ room }: Props) => {
   const navigation = useNavigate();
 
   const items: MenuProps["items"] = room?.projects.map((item, index) => ({
-    key: index.toString(),
+    key: item.id,
     label: <div>{item.name}</div>,
-    id: <div>{item.id}</div>,
   }));
   const handleDropdownItemClick = (e: any) => {
-    navigation(`/app/admin/project/${e.id}`);
+    navigation(`/app/admin/project/${e.key}`);
   };
   return (
     <Wrapper>
