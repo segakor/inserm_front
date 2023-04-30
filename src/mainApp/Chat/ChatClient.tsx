@@ -1,10 +1,9 @@
-import React from "react";
 import styled from "styled-components";
-import { UserItemHeader } from "./UserItemHeader";
 import { ChatComponent } from "./ChatComponent";
 import { useCreateRoomChat } from "../hooks/useCreateRoomChat";
+import { Title } from "../../common/Typography";
 
-const WrapT = styled.div`
+const Wrapper = styled.div`
   background-color: white;
   width: 700px;
   border-radius: 10px;
@@ -12,7 +11,7 @@ const WrapT = styled.div`
     width: auto;
   }
 `;
-const HeaderT = styled.div`
+const Header = styled.div`
   height: 65px;
   background: #1579e9;
   border-radius: 10px 10px 0px 0px;
@@ -22,8 +21,9 @@ const HeaderT = styled.div`
   }
   display: flex;
   align-items: center;
+  padding: 10px 20px 10px 20px;
 `;
-const BodyT = styled.div`
+const Body = styled.div`
   display: flex;
   flex-direction: row;
   height: calc(100vh - 200px);
@@ -33,13 +33,13 @@ export const ChatClient = () => {
   const { roomId } = useCreateRoomChat();
 
   return (
-    <WrapT>
-      <HeaderT>
-        <UserItemHeader email={""} userName={"Техподдержка"}/>
-      </HeaderT>
-      <BodyT>
+    <Wrapper>
+      <Header>
+        <Title level={5}>Техподдержка</Title>
+      </Header>
+      <Body>
         <ChatComponent roomId={roomId} chatType={"client"} />
-      </BodyT>
-    </WrapT>
+      </Body>
+    </Wrapper>
   );
 };

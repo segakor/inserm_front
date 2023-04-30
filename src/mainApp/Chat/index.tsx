@@ -1,4 +1,4 @@
 import { ChatClient } from "./ChatClient";
-import { ChatSupport } from "./ChatSupport";
+import { ChatSupport } from "./SupportChat/ChatSupport";
 
 export { ChatClient, ChatSupport };

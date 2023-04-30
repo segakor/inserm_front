@@ -4,7 +4,7 @@ import { Room } from "../../types";
 import { openNotificationWithIcon } from "../../utils";
 
 export const useGetRoomChat = () => {
-  const [rooms, setRooms] = useState<Room[]>();
+  const [rooms, setRooms] = useState<Room[]>([]);
 
   const handleGetRooms = async () => {
     try {
@@ -24,6 +24,6 @@ export const useGetRoomChat = () => {
   }, []);
 
   return {
-    rooms,
+    rooms: rooms?.map((item) => ({ ...item, unread: 0 })),
   };
 };
