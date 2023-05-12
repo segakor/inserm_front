@@ -246,3 +246,14 @@ export type Notify = {
   roomId: number;
   unread: number;
 };
+
+export type WarmClient = {
+  email: string;
+  projectName: string;
+  price: number;
+  date: number;
+};
+
+export type ResGetWarmClient = {
+  result: WarmClient[];
+};
