@@ -25,6 +25,7 @@ import {
   ReqCreateReviewList,
   ResGetAllClient,
   ResHostStatistics,
+  ResGetWarmClient,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -408,6 +409,20 @@ export const registration = async (value: {
     {
       ...value,
     }
+  );
+  return {
+    data,
+    status,
+  };
+};
+
+export const getWarmClient = async (params?: {
+  start: number;
+  end: number;
+}) => {
+  const { data, status } = await axiosClient.get<ResGetWarmClient>(
+    URL + `/api/admin/warmClient`,
+    { params: { ...params } }
   );
   return {
     data,
