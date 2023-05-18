@@ -18,7 +18,7 @@ export const ApplyPayment = () => {
 
   const formIds = ["96267607a9857ae", "b93d944a83a9ac1", "f334a093ff4dbfa"];
 
-  const formIdsValue = projectForPayment?.tariffId
+  const formIdValue = projectForPayment?.tariffId
     ? formIds[projectForPayment?.tariffId - 1]
     : formIds[0];
 
@@ -33,7 +33,7 @@ export const ApplyPayment = () => {
     goToAinoxPage({
       email: personInfo?.email || "",
       projectName: projectForPayment?.projectName || "",
-      formIdsValue: formIdsValue,
+      formId: formIdValue,
       price: projectForPayment?.price || 0,
       period: projectForPayment?.period || 0,
     });

@@ -60,7 +60,7 @@ export const CurrentTariff = ({ clientProject }: Props) => {
 
   const currentProject = clientProject?.find((item) => item.name === value)?.id;
 
-  const handleChangeAutoPay = (checked: boolean) => {
+  const handleChangeAutoPay = () => {
     handleOpen();
   };
 

@@ -257,3 +257,21 @@ export type WarmClient = {
 export type ResGetWarmClient = {
   result: WarmClient[];
 };
+
+export enum AreaType {
+  YA_MAP = "ya_map",
+  GOOGLE = "google",
+  TWO_GIS = "two_gis",
+  AVITO = "avito",
+  FLAMP = "flamp",
+  YELL = "yell",
+  ZOON = "zoon",
+  YA_BRA = "ya_bra",
+}
+
+export type PiecePrice = {
+  countRange: number[];
+  price: number;
+  color: string;
+  title: string;
+};
