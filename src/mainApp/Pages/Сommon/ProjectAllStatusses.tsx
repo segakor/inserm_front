@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Title, Header } from "../../../common/Typography";
@@ -43,7 +43,7 @@ const WrapperCard = styled.div`
   margin-bottom: 10px;
 `;
 
-export const ProjectAllStatusses = () => {
+const ProjectAllStatusses = () => {
   const params = useParams();
   const projectId = params.projectId || "";
 
@@ -90,7 +90,7 @@ export const ProjectAllStatusses = () => {
         <Notes projectId={projectId} />
       </WrapperCard>
       {isModalOpen && (
-        <ModalBrief onClose={handleClose} projectId={projectId} brief={brief} />
+        <ModalBrief onClose={handleClose} projectId={projectId} brief={brief} typeBrief={'project'}/>
       )}
       {role === "ADMIN" || role === "HOST" || role === "SUPERVISOR" ? (
         <TableProjectChangeable
@@ -106,3 +106,5 @@ export const ProjectAllStatusses = () => {
     </Page>
   );
 };
+
+export default ProjectAllStatusses;

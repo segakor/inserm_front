@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Layout } from "antd";
 import { SiderComponentDemo } from "./components/SiderComponentDemo";
@@ -11,7 +10,7 @@ const StyledLayout = styled(Layout)`
   }
 `;
 
-export const AppDemo = () => {
+const AppDemo = () => {
   return (
     <StyledLayout>
       <SiderComponentDemo />
@@ -19,3 +18,5 @@ export const AppDemo = () => {
     </StyledLayout>
   );
 };
+
+export default AppDemo

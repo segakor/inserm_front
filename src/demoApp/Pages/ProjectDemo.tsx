@@ -75,6 +75,7 @@ export const ProjectDemo = () => {
           onClose={handleClose}
           projectId={projectId}
           brief={brief}
+          typeBrief={'project'}
         />
       )}
       <TableProject reviews={reviews} isLoading={false} />

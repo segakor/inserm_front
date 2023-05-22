@@ -13,14 +13,15 @@ export const StyledTitle = styled(Title)`
   font-size: 18px !important;
 `;
 
-export const AreaWrapper = styled.div`
+export const AreaWrapper = styled.div<{ isDisabled?: boolean }>`
   border-radius: 10px;
-  background: #ffffff;
+  background: ${(props) => (props.isDisabled ? "#d1e4f5" : "#ffffff")};
   display: flex;
   padding: 5px 5px 5px 20px;
   height: 38px;
   align-items: center;
   justify-content: space-between;
+  cursor:${(props) => (props.isDisabled ? "not-allowed" : "pointer")};
 `;
 export const AreaName = styled.div`
   margin-right: 50px;
@@ -37,7 +38,6 @@ export const CheckBox = styled.div`
   align-content: center;
   justify-content: center;
   padding-top: 3px;
-  cursor: pointer;
 `;
 
 export const ListOfAreaCheckBoxWrapper = styled.div`

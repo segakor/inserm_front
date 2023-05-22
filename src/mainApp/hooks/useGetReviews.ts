@@ -33,7 +33,7 @@ export const useGetReviews = (id: string) => {
   return {
     isLoading,
     projectName: data?.name,
-    reviews: data?.reviews.map((item, index) => ({
+    reviews: data?.reviews?.map((item, index) => ({
       ...item,
       key: index.toString(),
     })),

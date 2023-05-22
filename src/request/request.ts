@@ -26,6 +26,8 @@ import {
   ResGetAllClient,
   ResHostStatistics,
   ResGetWarmClient,
+  ReqCreateCampaign,
+  ResGetCampaign,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -66,11 +68,6 @@ export const getProject = async () => {
   const { data, status } = await axiosClient.get<ReqGetProject>(
     URL + "/api/project"
   );
-  return { data, status };
-};
-
-export const getTariff = async () => {
-  const { data, status } = await axiosClient.get(URL + "/api/project");
   return { data, status };
 };
 
@@ -116,9 +113,10 @@ export const getArchiveDetails = async (id: string) => {
   };
 };
 
-export const getBrief = async (id: string) => {
+export const getBrief = async (id: string, mode?: "prjoect" | "campaign") => {
   const { data, status } = await axiosClient.get<ReqGetBrief>(
-    URL + `/api/brief/${id}`
+    URL + `/api/brief/${id}`,
+    { params: { mode: mode } }
   );
   return {
     data,
@@ -428,4 +426,24 @@ export const getWarmClient = async (params?: {
     data,
     status,
   };
+};
+
+export const createCampaign = async (value: ReqCreateCampaign) => {
+  const { data, status } = await axiosClient.post(
+    URL + `/api/campaign/create`,
+    {
+      ...value,
+    }
+  );
+  return {
+    data,
+    status,
+  };
+};
+
+export const getCampaign = async () => {
+  const { data, status } = await axiosClient.get<ResGetCampaign>(
+    URL + "/api/campaign"
+  );
+  return { data, status };
 };

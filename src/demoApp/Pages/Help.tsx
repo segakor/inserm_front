@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { Header } from "../../../common/Typography";
-import { ChatClient } from "../../Chat";
 import { Tooltip, Space } from "antd";
 import { QuestionCircleFilled } from "@ant-design/icons";
+import { Header } from "../../common/Typography";
 
 const Page = styled.div`
   display: flex;
@@ -10,7 +9,7 @@ const Page = styled.div`
   width: 100%;
 `;
 
-const Help = () => {
+export const Help = () => {
   return (
     <Page>
       <Header>
@@ -27,9 +26,6 @@ const Help = () => {
           </Space>
         </Tooltip>
       </Header>
-      <ChatClient />
     </Page>
   );
 };
-
-export default Help;

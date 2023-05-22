@@ -59,6 +59,7 @@ export type Project = {
   autopay: boolean;
   tariff: TariffProject;
   brief?: boolean;
+  type?: string;
 };
 
 export type ReqGetProject = {
@@ -274,4 +275,35 @@ export type PiecePrice = {
   price: number;
   color: string;
   title: string;
+};
+
+export type CampaignCardForm = {
+  link: string;
+  type: AreaType;
+  price: number;
+  amount: number;
+};
+
+export type ReqCreateCampaign = {
+  name: string;
+  email: string;
+  cards: CampaignCardForm[];
+  brief?: {
+    type: "camaign" | "project";
+    id: number;
+  };
+};
+
+export type Campaign = {
+  id: number;
+  name: string;
+  brief: boolean;
+  period: number;
+  statuses: Statuses;
+  type?: string;
+  isPaid: boolean;
+};
+
+export type ResGetCampaign = {
+  result: Campaign[];
 };

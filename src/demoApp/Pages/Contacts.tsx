@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { ReactComponent as Telegram } from "../../../assets/telegram.svg";
-import { ReactComponent as Whatsapp } from "../../../assets/whatsapp.svg";
-import { Title, Header } from "../../../common/Typography";
+import { ReactComponent as Telegram } from "../../assets/telegram.svg";
+import { ReactComponent as Whatsapp } from "../../assets/whatsapp.svg";
+import { Header, Title } from "../../common/Typography";
 
 const Page = styled.div`
   display: flex;
@@ -48,7 +48,7 @@ const WhatsappIcon = styled(Whatsapp)`
   margin-left: 10px;
 `;
 
-const Contacts = () => {
+export const Contacts = () => {
   return (
     <Page>
       <Header>Контакты</Header>
@@ -86,5 +86,3 @@ const Contacts = () => {
     </Page>
   );
 };
-
-export default Contacts

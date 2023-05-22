@@ -6,21 +6,23 @@ type Props = {
     label: string;
     value: string;
   };
-  handleClickArea: (e: any) => void;
   selectedArea: string[];
+  isLoading: boolean;
+  handleClickArea: (e: any) => void;
 };
 export const AreaCheckBox = ({
   areaName,
   selectedArea,
+  isLoading,
   handleClickArea,
 }: Props) => {
   const handleClick = () => {
-    handleClickArea(areaName.value);
+    !isLoading ? handleClickArea(areaName.value):''
   };
   return (
-    <AreaWrapper>
+    <AreaWrapper isDisabled={isLoading}  onClick={handleClick}>
       <AreaName>{areaName.label}</AreaName>
-      <CheckBox onClick={handleClick}>
+      <CheckBox>
         <div>
           {selectedArea.find((item) => item === areaName.value) ? (
             <CheckAreaIcon />

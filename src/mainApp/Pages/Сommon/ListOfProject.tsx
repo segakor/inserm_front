@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { useGetAllProject } from "../../hooks/useGetAllProject";
@@ -26,7 +26,7 @@ const optionsWithDisabled = [
   { label: "Архивные", value: false },
 ];
 
-export const ListOfProject = () => {
+const ListOfProject = () => {
   const [inputText, setInputText] = useState("");
   const [isActive, setIsActive] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -94,3 +94,5 @@ export const ListOfProject = () => {
     </Page>
   );
 };
+
+export default ListOfProject;

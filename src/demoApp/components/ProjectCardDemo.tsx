@@ -131,6 +131,7 @@ export const ProjectCardDemo = (project: Project) => {
           onClose={handleClose}
           projectId={project.id.toString()}
           brief={brief}
+          typeBrief={'project'}
         />
       )}
     </Flex>

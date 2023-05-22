@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { Header, Title } from "../../../common/Typography";
-import { CollapseFoundation } from "../../components/CollapseFoundation";
-import { textFoundation } from "../../../constants";
+import { Header, Title } from "../../common/Typography";
+import { textFoundation } from "../../constants";
+import { CollapseFoundation } from "../../mainApp/components/CollapseFoundation";
 
 const Page = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ const Box = styled.div`
   }
 `;
 
-const Foundation = () => {
+export const Foundation = () => {
   return (
     <Page>
       <Header>База знаний</Header>
@@ -35,5 +35,3 @@ const Foundation = () => {
     </Page>
   );
 };
-
-export default Foundation;

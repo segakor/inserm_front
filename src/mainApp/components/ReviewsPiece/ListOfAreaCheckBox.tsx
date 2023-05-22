@@ -1,12 +1,12 @@
 import { Divider } from "antd";
 import { AreaCheckBox } from "./AreaCheckBox";
 import { ListOfAreaCheckBoxWrapper, StyledTitle } from "./styles";
-import {areas} from '../../../constants';
-
+import { areas } from "../../../constants";
 
 type Props = {
   handleClickArea: (e: any) => void;
   selectedArea: string[];
+  isLoading: boolean;
 };
 
 export const ListOfAreaCheckBox = (props: Props) => {

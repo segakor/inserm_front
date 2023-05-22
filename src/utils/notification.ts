@@ -1,4 +1,5 @@
 import { notification } from "antd";
+import { NotificationPlacement } from "antd/es/notification/interface";
 
 type NotificationType = "success" | "info" | "warning" | "error";
 
@@ -7,6 +8,7 @@ type Props = {
   message: string;
   description?: string;
   status?: number;
+  placement?: NotificationPlacement;
 };
 
 export const openNotificationWithIcon = ({
@@ -14,11 +16,12 @@ export const openNotificationWithIcon = ({
   message,
   description,
   status,
+  placement = "bottom",
 }: Props) => {
   if (status !== 401)
     notification[type]({
       duration: 3,
-      placement: "bottom",
+      placement: placement,
       message: message,
       description: description,
     });

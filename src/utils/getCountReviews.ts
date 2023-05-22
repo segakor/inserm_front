@@ -1,7 +1,8 @@
 export const getCountReviews = (formValue: any) => {
   let count = 0;
-  let price = 600;
+  let priceForOne = 600;
   let maxCount = 0;
+  let cards = [];
 
   function getMaxOfArray(numArray: number[]) {
     return Math.max.apply(null, numArray);
@@ -9,7 +10,7 @@ export const getCountReviews = (formValue: any) => {
 
   for (let key in formValue) {
     if (Array.isArray(formValue[key])) {
-      /* console.log(formValue[key]) */
+      cards.push(formValue[key]);
       maxCount = getMaxOfArray(formValue[key].map((item: any) => item?.amount));
 
       count += formValue[key]
@@ -18,26 +19,24 @@ export const getCountReviews = (formValue: any) => {
     }
   }
   if (count > 24) {
-    price = 550;
-    /* return; */
+    priceForOne = 550;
   }
   if (count > 49) {
-    price = 519;
-    /* return; */
+    priceForOne = 519;
   }
   if (count > 199) {
-    price = 499;
-    /* return; */
+    priceForOne = 499;
   }
   if (count >= 200) {
-    price = 479;
-    /*  return; */
+    priceForOne = 479;
   }
 
   return {
     count,
-    price,
+    priceForOne: 10,
+    priceTotal: /* priceForOne * count */10,
     month: Math.ceil(maxCount / 2 / 4),
+    cards: cards.flat(Infinity),
   };
 };
 

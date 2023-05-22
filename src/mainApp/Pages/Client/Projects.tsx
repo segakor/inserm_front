@@ -1,9 +1,9 @@
-import React from "react";
 import styled from "styled-components";
 import { useLocalState } from "../../context/hooks";
 import { ButtonCreateNewProject } from "../../Button/ButtonCreateNewProject";
 import { Header } from "../../../common/Typography";
-import { ProjectCard } from "../../components/ProjectCard";
+import { ProjectCard } from "../../components/Projects/ProjectCard";
+import { CampaignCard } from "../../components/Projects/CampaignCard";
 
 const Page = styled.div`
   display: flex;
@@ -18,10 +18,10 @@ const HeaderFlex = styled.div`
   }
 `;
 
-export const Projects = () => {
+const Projects = () => {
   const state = useLocalState();
 
-  const { clientProject } = state;
+  const { clientProject, clientCampaign } = state;
 
   return (
     <Page>
@@ -29,9 +29,14 @@ export const Projects = () => {
         <Header>Мои проекты</Header>
         <ButtonCreateNewProject />
       </HeaderFlex>
-      {clientProject?.map((item) => (
-        <ProjectCard {...item} key={item.id} />
+      {clientCampaign?.map((item, index) => (
+        <CampaignCard {...item} key={index} />
+      ))}
+      {clientProject?.map((item, index) => (
+        <ProjectCard {...item} key={index} />
       ))}
     </Page>
   );
 };
+
+export default Projects

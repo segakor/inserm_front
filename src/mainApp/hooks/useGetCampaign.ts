@@ -1,20 +1,20 @@
 import { AxiosError } from "axios";
-import { getProject } from "../../request";
+import { getCampaign } from "../../request";
 import { openNotificationWithIcon } from "../../utils";
-import { setClientProject } from "../context/action";
+import { setClientCampaign } from "../context/action";
 import { useDispatch } from "../context/hooks";
 
-export const useGetProject = () => {
+export const useGetCampaign = () => {
   const dispatch = useDispatch();
 
-  const handleGetClientProject = async () => {
+  const handleGetCampaign = async () => {
     try {
-      const response = await getProject();
-      const projectsArray = response.data.projectsArray.map((item) => ({
+      const response = await getCampaign();
+      const campaignArray = response.data.result.map((item) => ({
         ...item,
-        type: "project",
+        type: "campaign",
       }));
-      dispatch(setClientProject(projectsArray));
+      dispatch(setClientCampaign(campaignArray));
     } catch (err) {
       const typedError = err as AxiosError;
       openNotificationWithIcon({
@@ -26,5 +26,5 @@ export const useGetProject = () => {
     }
   };
 
-  return { handleGetClientProject };
+  return { handleGetCampaign };
 };

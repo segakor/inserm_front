@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
-import { ReviewsMonth } from "../../components/ReviewsMonth/ReviewsMonth";
+import { ReviewsPiece } from "../../components/ReviewsPiece";
+import { ReviewsMonth } from "../../components/ReviewsMonth";
 import { Radio, RadioChangeEvent } from "antd";
-import { ReviewsPiece } from "../../components/ReviewsPiece/ReviewsPiece";
 import { usePerson } from "../../hooks/usePerson";
 
 const Page = styled.div`
@@ -17,7 +17,7 @@ const optionsWithDisabled = [
   { label: "Оплата помесячно", value: "month" },
 ];
 
-export const CreateProject = () => {
+const CreateProject = () => {
   const [activeTab, setActiveTab] = useState<"piece" | "month">("piece");
 
   const onChange = ({ target: { value } }: RadioChangeEvent) => {
@@ -42,3 +42,5 @@ export const CreateProject = () => {
     </Page>
   );
 };
+
+export default CreateProject;

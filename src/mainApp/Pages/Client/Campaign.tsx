@@ -34,9 +34,9 @@ const TitleDate = styled(Title)`
   margin-bottom: 20px !important;
 `;
 
-const Project = () => {
+const Campaign = () => {
   const params = useParams();
-  const projectId = params.projectId || "";
+  const projectId = params.campaignId || "";
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -51,43 +51,44 @@ const Project = () => {
 
   const state = useLocalState();
 
-  const { clientProject } = state;
+  const { clientCampaign } = state;
 
-  const currentProject = clientProject?.find(
+  const currentCampaign = clientCampaign?.find(
     (item) => item.id === Number(projectId)
   );
 
-  const { reviews, isLoading } = useGetReviews(projectId);
+  /* const { reviews, isLoading } = useGetReviews(projectId); */
 
-  const { brief, handleGetBrief } = useGetBrief(projectId);
+  const { brief, handleGetBrief } = useGetBrief(projectId, "campaign");
 
-  const start = currentProject?.tariff?.start;
-  const end = currentProject?.tariff?.end;
+  console.log(typeof brief);
+
+  const period = currentCampaign?.period;
 
   return (
     <Page>
       <HeaderFlex>
-        <Header>{currentProject?.name || ""}</Header>
+        <Header>{currentCampaign?.name || ""}</Header>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
       </HeaderFlex>
       <CardBlock>
         <TitleDate level={5} style={{ fontSize: "14px", fontWeight: "400" }}>
-          {getRangeDate({ start, end })}
+          ~ {period} мес.
         </TitleDate>
-        <DetailsCard statuses={currentProject?.statuses} />
+        <DetailsCard statuses={currentCampaign?.statuses} />
       </CardBlock>
       {isModalOpen && (
         <ModalBrief
           onClose={handleClose}
           projectId={projectId}
           brief={brief}
-          typeBrief={"project"}
+          typeBrief={"campaign"}
         />
       )}
-      <TableProject reviews={reviews} isLoading={isLoading} />
-      <ArchiveProjectList projectId={projectId} />
+      {/*       <TableProject reviews={reviews} isLoading={isLoading} />
+      <ArchiveProjectList projectId={projectId} /> */}
     </Page>
   );
 };
 
-export default Project;
+export default Campaign;

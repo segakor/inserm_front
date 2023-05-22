@@ -4,10 +4,10 @@ import { StyledTitle } from "./styles";
 
 type Props = {
   selectedArea: string[];
-  price: number;
+  priceForOne: number;
   form: FormInstance;
 };
-export const ListOfAreaItem = ({ selectedArea, price, form }: Props) => {
+export const ListOfAreaItem = ({ selectedArea, priceForOne, form }: Props) => {
   return (
     <>
       <StyledTitle level={5}>
@@ -15,7 +15,7 @@ export const ListOfAreaItem = ({ selectedArea, price, form }: Props) => {
         каждой карточки
       </StyledTitle>
       {selectedArea.map((item, index) => (
-        <AreaItem areaValue={item} key={index} price={price} form={form} />
+        <AreaItem areaValue={item} key={index} priceForOne={priceForOne} form={form} />
       ))}
     </>
   );

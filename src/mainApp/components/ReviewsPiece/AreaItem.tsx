@@ -11,16 +11,16 @@ import { areas } from "../../../constants";
 
 type Props = {
   areaValue: string;
-  price: number;
+  priceForOne: number;
   form: FormInstance;
 };
 
-export const AreaItem = ({ areaValue, price, form }: Props) => {
+export const AreaItem = ({ areaValue, priceForOne, form }: Props) => {
   const amount = 1;
 
   const items = [
     {
-      price: price,
+      price: priceForOne,
       type: areaValue,
       link: "",
       amount: amount,
@@ -31,11 +31,11 @@ export const AreaItem = ({ areaValue, price, form }: Props) => {
     const formItems = form.getFieldsValue();
     for (let key in formItems) {
       if (key === areaValue) {
-        const newArr = formItems[key].map((item: any) => (item.price = price));
+        const newArr = formItems[key].map((item: any) => (item.price = priceForOne));
         form.setFieldsValue({ newArr });
       }
     }
-  }, [price]);
+  }, [priceForOne]);
 
   return (
     <>
@@ -57,16 +57,6 @@ export const AreaItem = ({ areaValue, price, form }: Props) => {
                       type: "url",
                       message: "Невалидная ссылка",
                     },
-                    {
-                      message: 'this is custom',
-                      validator: (_, value) => {
-                        if (/^[a-zA-Z0-9]+$/.test(value)) {
-                          return Promise.resolve();
-                        } else {
-                          return Promise.reject();
-                        }
-                       }
-                     }
                   ]}
                   style={{ width: "100%" }}
                 >
@@ -89,7 +79,7 @@ export const AreaItem = ({ areaValue, price, form }: Props) => {
                   {...field}
                   name={[field.name, "price"]}
                   key={index + 4}
-                  initialValue={price}
+                  initialValue={priceForOne}
                   hidden={true}
                 >
                   <Input type="number" placeholder="Цена" />
