@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
-import { DetailsCardHostStatistics } from "../../components/DetailsCardHostStatistics";
+import { DetailsCardHostStatistics } from "../../components/Card";
 import { useHostStatistics } from "../../hooks/useHostStatistics";
 import { TableHostStatistics } from "../../Table/TableHostStatistics";
 import { DatePicker } from "../../components/DatePicker";

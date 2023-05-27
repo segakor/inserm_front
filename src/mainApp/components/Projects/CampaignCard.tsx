@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { DetailsCard } from "../DetailsCard";
+import { DetailsCard } from "../Card";
 import { useNavigate } from "react-router-dom";
 import { ModalBrief } from "../ModalBrief";
 import { ButtonBrief } from "../../Button/ButtonBrief";
@@ -13,7 +13,7 @@ export const CampaignCard = (project: Campaign) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { brief, handleGetBrief } = useGetBrief(id.toString());
+  const { brief, handleGetBrief } = useGetBrief(id.toString(), 'campaign');
 
   const handleOpen = () => {
     setIsModalOpen(true);
@@ -81,7 +81,7 @@ export const CampaignCard = (project: Campaign) => {
       {isModalOpen && (
         <ModalBrief
           onClose={handleClose}
-          projectId={project.id.toString()}
+          id={project.id.toString()}
           brief={brief}
           typeBrief={'campaign'}
         />

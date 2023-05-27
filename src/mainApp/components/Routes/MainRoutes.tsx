@@ -6,6 +6,7 @@ import { Content } from "../../../common/Layout/Content";
 import { HeaderComponent } from "../HeaderComponent";
 import { Role } from "../../../types";
 import { tokenService } from "../../../utils/tokenService";
+import CampaignDetails from "../../Pages/Сommon/CampaignDetails";
 
 const StyledLayout = styled(Layout)`
   margin-left: 50px;
@@ -65,8 +66,8 @@ export const MainRoutes = () => {
   const ProjectModerate = lazy(
     () => import("../../Pages/Сommon/ProjectModerate")
   );
-  const ProjectAllStatusses = lazy(
-    () => import("../../Pages/Сommon/ProjectAllStatusses")
+  const ProjectDetails = lazy(
+    () => import("../../Pages/Сommon/ProjectDetails")
   );
   const ProjectForPayment = lazy(
     () => import("../../Pages/Сommon/ProjectForPayment")
@@ -190,7 +191,15 @@ export const MainRoutes = () => {
               path="project/:projectId"
               element={
                 <Suspense fallback={<Spin />}>
-                  <ProjectAllStatusses />
+                  <ProjectDetails />
+                </Suspense>
+              }
+            />
+            <Route
+              path="campaign/:campaignId"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <CampaignDetails />
                 </Suspense>
               }
             />
@@ -211,7 +220,15 @@ export const MainRoutes = () => {
               path="project/:projectId"
               element={
                 <Suspense fallback={<Spin />}>
-                  <ProjectAllStatusses />
+                  <ProjectDetails />
+                </Suspense>
+              }
+            />
+            <Route
+              path="campaign/:campaignId"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <CampaignDetails />
                 </Suspense>
               }
             />
@@ -272,7 +289,15 @@ export const MainRoutes = () => {
               path="project/:projectId"
               element={
                 <Suspense fallback={<Spin />}>
-                  <ProjectAllStatusses />
+                  <ProjectDetails />
+                </Suspense>
+              }
+            />
+            <Route
+              path="campaign/:campaignId"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <CampaignDetails />
                 </Suspense>
               }
             />
@@ -317,7 +342,15 @@ export const MainRoutes = () => {
               path="project/:projectId"
               element={
                 <Suspense fallback={<Spin />}>
-                  <ProjectAllStatusses />
+                  <ProjectDetails />
+                </Suspense>
+              }
+            />
+            <Route
+              path="campaign/:campaignId"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <CampaignDetails />
                 </Suspense>
               }
             />

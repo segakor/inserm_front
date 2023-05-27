@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
-import { ReviewsPiece } from "../../components/ReviewsPiece";
-import { ReviewsMonth } from "../../components/ReviewsMonth";
+import { ReviewsPiece } from "../../components/CreateCampaign";
+import { ReviewsMonth } from "../../components/CreateProject";
 import { Radio, RadioChangeEvent } from "antd";
 import { usePerson } from "../../hooks/usePerson";
 

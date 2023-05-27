@@ -1,87 +1,39 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { Title } from "../../common/Typography";
-import { Project } from "../../types";
-import { tokenService, getRangeDate } from "../../utils";
-import { useChangeProjectStatus } from "../hooks/useChangeProjectStatus";
-
-const Panel = styled.div<{ isCompleted: boolean }>`
-  background: ${(props) => (props.isCompleted ? "#8BFFB3" : "#ffffff")};
-  border-radius: 10px;
-  min-height: 80px;
-  padding: 12px 20px 12px 20px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-  cursor: pointer;
-  @media (max-width: 768px) {
-    margin-bottom: 10px;
-  }
-  :hover {
-    background-color: whitesmoke;
-  }
-`;
-const Box = styled.div`
-  display: flex;
-  justify-content: space-between;
-  @media (max-width: 768px) {
-    display: block;
-  }
-`;
-const Status = styled.div`
-  display: flex;
-  align-items: center;
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-const StatusRow = styled.div`
-  display: none;
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-  }
-`;
+import { Title } from "../../../common/Typography";
+import { Campaign } from "../../../types";
+import { tokenService } from "../../../utils";
+import { Box, Panel, Status, StatusRow } from "./styles";
 
 type Props = {
-  project: Project;
-  isActive: boolean;
-  onUpdate: () => void;
+  campaign: Campaign;
 };
 
-export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
+export const FlatCardCampaign= ({ campaign }: Props) => {
   const {
-    tariff: { start, end },
+    period,
     statuses,
+    name,
     id,
-  } = project;
+  } = campaign;
 
   const navigation = useNavigate();
   const role = tokenService.getRole();
 
-  const { handleChangeProjectStatus } = useChangeProjectStatus();
-
-  const onChangeStatus = () => {
-    handleChangeProjectStatus({ id, isActive: !isActive }).then(() => {
-      onUpdate();
-    });
-  };
-
-  const isCompleted = (statuses?.success || 0) >= (statuses?.all || 0);
+  /* const isCompleted = (statuses?.success || 0) >= (statuses?.all || 0); */
 
   return (
     <>
       <Panel
-        isCompleted={isCompleted}
-        onClick={() => navigation(`/app/${role?.toLowerCase()}/project/${id}`)}
+        isCompleted={false}
+        onClick={() => navigation(`/app/${role?.toLowerCase()}/campaign/${id}`)}
       >
         <Box style={{ marginBottom: "15px" }}>
           <Title level={5} style={{ fontWeight: "800" }}>
-            {`[${project.id}] `}
-            {project.name}
+            {`[${id}] `}
+            {name}
           </Title>
-          <>{getRangeDate({ start, end })}</>
+          <>~ {period} мес.</>
         </Box>
         <Box>
           <Status>
@@ -327,19 +279,6 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
               </Title>
             </div>
           </StatusRow>
-          <Title
-            style={{
-              fontSize: "14px",
-              color: "#8E8E8E",
-              textDecorationLine: "underline",
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              onChangeStatus();
-            }}
-          >
-            {isActive ? "Добавить в архив" : "Убрать из архива"}
-          </Title>
         </Box>
       </Panel>
     </>

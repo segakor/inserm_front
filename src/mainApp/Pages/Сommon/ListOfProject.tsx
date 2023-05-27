@@ -1,11 +1,13 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { useGetAllProject } from "../../hooks/useGetAllProject";
 import { Button, Input, Radio, RadioChangeEvent, Spin } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import { FlatCardProject } from "../../components/FlatCardProject";
+import { FlatCardProject, FlatCardCampaign } from "../../components/Card";
 import { ModalCreateProjectByAdmin } from "../../components/ModalCreateProjectByAdmin";
+import { useGetCampaign } from "../../hooks/useGetCampaign";
+import { useGetAllCampaign } from "../../hooks/useGetAllCampaign";
 
 const Page = styled.div`
   display: flex;
@@ -26,12 +28,22 @@ const optionsWithDisabled = [
   { label: "Архивные", value: false },
 ];
 
+const optionTypeProject = [
+  { label: "Проекты", value: "project" },
+  { label: "Проекты штучные", value: "campaign" },
+];
+
 const ListOfProject = () => {
   const [inputText, setInputText] = useState("");
+  const [typeProject, setTypeProject] = useState<"project" | "campaign">(
+    "project"
+  );
   const [isActive, setIsActive] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { allProject, isLoading, handleUpdate } = useGetAllProject(isActive);
+
+  const { allCampaign, isLoading: isLoadingCampaing } = useGetAllCampaign();
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value.toLowerCase());
@@ -44,8 +56,19 @@ const ListOfProject = () => {
     return item;
   });
 
+  const filteredData2 = allCampaign?.filter((item) => {
+    if (inputText) {
+      return item.name.toLowerCase().includes(inputText);
+    }
+    return item;
+  });
+
   const onChange = ({ target: { value } }: RadioChangeEvent) => {
     setIsActive(value);
+  };
+
+  const onChangeTypeProject = ({ target: { value } }: RadioChangeEvent) => {
+    setTypeProject(value);
   };
 
   const handleOpen = () => {
@@ -59,31 +82,49 @@ const ListOfProject = () => {
   return (
     <Page>
       <Header>Список проектов</Header>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <Radio.Group
-          style={{ marginBottom: 16 }}
-          options={optionsWithDisabled}
-          onChange={onChange}
-          value={isActive}
-          optionType="button"
-          buttonStyle="solid"
-        />
-        <Button onClick={handleOpen}>Добавить проект</Button>
-      </div>
+      <Radio.Group
+        style={{ marginBottom: 16 }}
+        options={optionTypeProject}
+        onChange={onChangeTypeProject}
+        value={typeProject}
+        optionType="button"
+        buttonStyle="solid"
+      />
       <SearchPanel
         suffix={<SearchOutlined />}
         placeholder="Поиск проектов"
         onChange={handleSearch}
       />
-      {!isLoading &&
-        filteredData?.map((item, index) => (
-          <FlatCardProject
-            key={index}
-            project={item}
-            isActive={isActive}
-            onUpdate={handleUpdate}
-          />
-        ))}
+      {typeProject === "project" && (
+        <>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Radio.Group
+              style={{ marginBottom: 16 }}
+              options={optionsWithDisabled}
+              onChange={onChange}
+              value={isActive}
+              optionType="button"
+              buttonStyle="solid"
+            />
+            <Button onClick={handleOpen}>Добавить проект</Button>
+          </div>
+          {filteredData?.map((item, index) => (
+            <FlatCardProject
+              key={index}
+              project={item}
+              isActive={isActive}
+              onUpdate={handleUpdate}
+            />
+          ))}
+        </>
+      )}
+      {typeProject === "campaign" && (
+        <>
+          {filteredData2?.map((item, index) => (
+            <FlatCardCampaign key={index} campaign={item}/>
+          ))}
+        </>
+      )}
       {isLoading && <Spin />}
       {isModalOpen && (
         <ModalCreateProjectByAdmin

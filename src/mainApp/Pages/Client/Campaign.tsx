@@ -2,15 +2,12 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Title, Header } from "../../../common/Typography";
-import { DetailsCard } from "../../components/DetailsCard";
-import { TableProject } from "../../Table/TableProject";
-import { ArchiveProjectList } from "../../components/ArchiveProjectList";
-import { useLocalState } from "../../context/hooks";
-import { getRangeDate } from "../../../utils";
-import { useGetReviews } from "../../hooks/useGetReviews";
+import { DetailsCard } from "../../components/Card";
 import { useGetBrief } from "../../hooks/useGetBrief";
 import { ButtonBrief } from "../../Button/ButtonBrief";
 import { ModalBrief } from "../../components/ModalBrief";
+import { useGetReviewsCampaign } from "../../hooks/useGetReviewsCampaign";
+import { CampaignArea } from "../../components/CampaignArea";
 
 const Page = styled.div`
   display: flex;
@@ -36,7 +33,7 @@ const TitleDate = styled(Title)`
 
 const Campaign = () => {
   const params = useParams();
-  const projectId = params.campaignId || "";
+  const campaignId = params.campaignId || "";
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -49,42 +46,31 @@ const Campaign = () => {
     handleGetBrief();
   };
 
-  const state = useLocalState();
+  const { data, isLoading } = useGetReviewsCampaign(campaignId);
 
-  const { clientCampaign } = state;
-
-  const currentCampaign = clientCampaign?.find(
-    (item) => item.id === Number(projectId)
-  );
-
-  /* const { reviews, isLoading } = useGetReviews(projectId); */
-
-  const { brief, handleGetBrief } = useGetBrief(projectId, "campaign");
-
-  console.log(typeof brief);
-
-  const period = currentCampaign?.period;
+  const { brief, handleGetBrief } = useGetBrief(campaignId, "campaign");
 
   return (
     <Page>
       <HeaderFlex>
-        <Header>{currentCampaign?.name || ""}</Header>
+        <Header>{data?.name || ""}</Header>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
       </HeaderFlex>
       <CardBlock>
         <TitleDate level={5} style={{ fontSize: "14px", fontWeight: "400" }}>
-          ~ {period} мес.
+          ~ {data?.period} мес.
         </TitleDate>
-        <DetailsCard statuses={currentCampaign?.statuses} />
+        <DetailsCard statuses={data?.statuses} />
       </CardBlock>
       {isModalOpen && (
         <ModalBrief
           onClose={handleClose}
-          projectId={projectId}
+          id={campaignId}
           brief={brief}
           typeBrief={"campaign"}
         />
       )}
+      <CampaignArea cards={data?.cards || []}/>
       {/*       <TableProject reviews={reviews} isLoading={isLoading} />
       <ArchiveProjectList projectId={projectId} /> */}
     </Page>

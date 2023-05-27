@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { DetailsCard } from "../DetailsCard";
+import { DetailsCard } from "../Card";
 import { useNavigate } from "react-router-dom";
 import { ModalBrief } from "../ModalBrief";
 import { ButtonBrief } from "../../Button/ButtonBrief";
@@ -103,7 +103,7 @@ export const ProjectCard = (project: Project) => {
       {isModalOpen && (
         <ModalBrief
           onClose={handleClose}
-          projectId={project.id.toString()}
+          id={project.id.toString()}
           brief={brief}
           typeBrief={'project'}
         />

@@ -27,12 +27,12 @@ const StyledButton = styled(Button)`
 
 type Props = {
   onClose: () => void;
-  projectId: string;
+  id: string;
   brief: Brief | undefined;
   typeBrief: "campaign" | "project";
 };
 
-export const ModalBrief = ({ onClose, projectId, brief, typeBrief }: Props) => {
+export const ModalBrief = ({ onClose, id, brief, typeBrief }: Props) => {
   const { handleCreateBrief } = useCreateBrief();
   const { handleUpdateBrief } = useUpdateBrief();
 
@@ -44,9 +44,9 @@ export const ModalBrief = ({ onClose, projectId, brief, typeBrief }: Props) => {
   };
 
   if (typeBrief === "project") {
-    fieldValue.projectId = projectId;
+    fieldValue.projectId = id;
   } else {
-    fieldValue.campaignId = projectId;
+    fieldValue.campaignId = id;
   }
 
   const onCopyBrief = () => {

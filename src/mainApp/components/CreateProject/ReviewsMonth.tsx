@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Button, Divider, Input, Steps } from "antd";
 import styled from "styled-components";
-import { TariffSelectionBlock } from "../../components/TariffSelectionBlock";
+import { TariffSelectionBlock } from "../TariffSelectionBlock";
 import { useDispatch } from "../../context/hooks";
 import { setProjectForPayment } from "../../context/action";
-import { ApplyPayment } from "../../components/ApplyPayment";
+import { ApplyPayment } from "../ApplyPayment";
 
 const ButtonWrapper = styled.div`
   display: flex;

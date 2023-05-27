@@ -78,7 +78,7 @@ export type Reviews = {
   tg?: string;
 };
 
-export type ReqGetDetails = {
+export type ReqGetProjectDetails = {
   reviews: Reviews[];
   name: string;
   statuses: Statuses;
@@ -306,4 +306,21 @@ export type Campaign = {
 
 export type ResGetCampaign = {
   result: Campaign[];
+};
+
+export type CampaignCard = {
+  id: number;
+  link: string;
+  type: string;
+  isFinished: boolean;
+  reviews: Reviews[];
+};
+
+export type ReqGetCampaignDetails = {
+  id: number;
+  name: string;
+  date: number;
+  period: number;
+  statuses: Statuses;
+  cards: CampaignCard[];
 };
