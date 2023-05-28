@@ -11,6 +11,7 @@ import { ButtonBrief } from "../../Button/ButtonBrief";
 import { ModalBrief } from "../../components/ModalBrief";
 import { Notes } from "../../components/Notes";
 import { useGetReviewsCampaign } from "../../hooks/useGetReviewsCampaign";
+import { CampaignReviews } from "../../components/CampaignReviews";
 
 const Page = styled.div`
   display: flex;
@@ -85,16 +86,7 @@ const CampaignDetails = () => {
       {isModalOpen && (
         <ModalBrief onClose={handleClose} id={campaignId} brief={brief} typeBrief={'campaign'}/>
       )}
-      {/* {role === "ADMIN" || role === "HOST" || role === "SUPERVISOR" ? (
-        <TableProjectChangeable
-          reviews={reviews}
-          isLoading={isLoading}
-          onUpdate={handleGetReviews}
-          projectId={campaignId}
-        />
-      ) : (
-        <TableProjectNotChangeable reviews={reviews} isLoading={isLoading} />
-      )} */}
+      <CampaignReviews group={data?.groppedByType || []} role={role} id={data?.id.toString() || ""} onUpdate={handleGetReviews}/>
     </Page>
   );
 };

@@ -63,9 +63,6 @@ export const Notes = ({ type, id }: Props) => {
 
   const { handleCreateNote, handleGetNotes, notes } = useNotes();
 
-
-  console.log('Notes', type)
-
   const onSendNote = async () => {
     await handleCreateNote({ text: value, id}, type);
     setValue("");

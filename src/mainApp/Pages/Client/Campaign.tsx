@@ -7,7 +7,8 @@ import { useGetBrief } from "../../hooks/useGetBrief";
 import { ButtonBrief } from "../../Button/ButtonBrief";
 import { ModalBrief } from "../../components/ModalBrief";
 import { useGetReviewsCampaign } from "../../hooks/useGetReviewsCampaign";
-import { CampaignArea } from "../../components/CampaignArea";
+import { CampaignReviews } from "../../components/CampaignReviews";
+import { Spin } from "antd";
 
 const Page = styled.div`
   display: flex;
@@ -70,9 +71,15 @@ const Campaign = () => {
           typeBrief={"campaign"}
         />
       )}
-      <CampaignArea cards={data?.cards || []}/>
-      {/*       <TableProject reviews={reviews} isLoading={isLoading} />
-      <ArchiveProjectList projectId={projectId} /> */}
+      {isLoading ? (
+        <Spin />
+      ) : (
+        <CampaignReviews
+          group={data?.groppedByType || []}
+          role={"CLIENT"}
+          id={data?.id.toString() || ""}
+        />
+      )}
     </Page>
   );
 };

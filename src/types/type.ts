@@ -316,11 +316,17 @@ export type CampaignCard = {
   reviews: Reviews[];
 };
 
+export type GrouppedCampaign = {
+  type: AreaType;
+  statuses: Statuses;
+  cards: CampaignCard[];
+};
+
 export type ReqGetCampaignDetails = {
   id: number;
   name: string;
   date: number;
   period: number;
   statuses: Statuses;
-  cards: CampaignCard[];
+  groppedByType: GrouppedCampaign[];
 };

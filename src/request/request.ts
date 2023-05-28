@@ -159,7 +159,8 @@ export const updateReview = async (value: Reviews) => {
 export const createReview = async (value: {
   text: string;
   link: string;
-  projectId: number;
+  projectId?: number;
+  cardId?: number;
 }) => {
   //TODO:Тип ответа!
   const { data, status } = await axiosClient.post(URL + `/api/review/create`, {
@@ -289,9 +290,9 @@ export const createNote = async (
   },
   type: string
 ) => {
-  const path = type === 'project' ? 'project' : 'campaign';
+  const path = type === "project" ? "project" : "campaign";
 
-  console.log(path)
+  console.log(path);
 
   const { data, status } = await axiosClient.post(URL + `/api/${path}/notes`, {
     ...value,
@@ -303,9 +304,9 @@ export const createNote = async (
 };
 
 export const getNotes = async (id: string, type: string) => {
-  const path = type === 'project' ? 'project' : 'campaign';
+  const path = type === "project" ? "project" : "campaign";
 
-  console.log(path)
+  console.log(path);
   const { data, status } = await axiosClient.get<ReqNote>(
     URL + `/api/${path}/notes/${id}`
   );

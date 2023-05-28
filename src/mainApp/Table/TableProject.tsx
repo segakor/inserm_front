@@ -14,7 +14,7 @@ const columns: ColumnsType<ReviewsTableItem> = [
     title: "№",
     dataIndex: "key",
     width: "6%",
-    align:'center',
+    align: "center",
     render: (record: string) => {
       return <>{Number(record) + 1}</>;
     },
@@ -22,6 +22,7 @@ const columns: ColumnsType<ReviewsTableItem> = [
   {
     title: "Ссылка на отзыв",
     dataIndex: "link",
+    key: "link",
     // eslint-disable-next-line jsx-a11y/anchor-is-valid
     render: (text) => <a onClick={() => window.open(text, "_blank")}>{text}</a>,
     width: "20%",
@@ -35,14 +36,14 @@ const columns: ColumnsType<ReviewsTableItem> = [
     title: "Статус отзыва",
     dataIndex: "status",
     width: "15%",
-    align:'center',
+    align: "center",
     render: (status: string) => <StatusComponent status={status} />,
   },
   {
     title: "Дата размещения",
     dataIndex: "date",
     width: "10%",
-    align:'center',
+    align: "center",
     render: (record: string | number) => {
       return (
         <>{typeof record === "number" ? getDate({ date: record }) : record}</>
@@ -54,9 +55,13 @@ const columns: ColumnsType<ReviewsTableItem> = [
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
   isLoading: boolean;
+  withoutLink?: boolean;
 };
 
-export const TableProject = ({ reviews, isLoading }: Props) => {
+export const TableProject = ({ reviews, isLoading, withoutLink }: Props) => {
+  const columnsT = !withoutLink
+    ? columns
+    : columns.filter((item) => item.key !== "link");
 
   return (
     <>
@@ -66,7 +71,7 @@ export const TableProject = ({ reviews, isLoading }: Props) => {
         )}
       >
         <Table
-          columns={columns}
+          columns={columnsT}
           dataSource={reviews}
           size="small"
           bordered

@@ -53,7 +53,6 @@ export const ProjectName = ({ form }: Props) => {
             <Switch
               checkedChildren="Да"
               unCheckedChildren="Нет"
-              onChange={(e) => console.log(e)}
             />
           </Form.Item>
         </>
