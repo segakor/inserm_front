@@ -246,10 +246,10 @@ export const TableProjectPaid = ({
           dataSource={dataSource}
           columns={mergedColumns}
           rowClassName="editable-row"
-          pagination={false}
           loading={isLoading}
           tableLayout={"fixed"}
           scroll={{ x: 1000 }}
+          pagination = {{defaultPageSize: 50}}
         />
       </ConfigProvider>
       <Form.Item name={"is_paid"} hidden>

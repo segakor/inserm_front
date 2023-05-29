@@ -112,3 +112,5 @@ export const textFoundation = [
     desc: "Да, Вы можете внести правки в тексты, написав в техподдержку.",
   },
 ];
+
+export const noop = () => {};

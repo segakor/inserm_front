@@ -60,6 +60,7 @@ export type Project = {
   tariff: TariffProject;
   brief?: boolean;
   type?: string;
+  isPaid?: string; //TODO: fake
 };
 
 export type ReqGetProject = {

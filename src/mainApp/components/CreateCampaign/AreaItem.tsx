@@ -31,7 +31,9 @@ export const AreaItem = ({ areaValue, priceForOne, form }: Props) => {
     const formItems = form.getFieldsValue();
     for (let key in formItems) {
       if (key === areaValue) {
-        const newArr = formItems[key].map((item: any) => (item.price = priceForOne));
+        const newArr = formItems[key].map(
+          (item: any) => (item.price = priceForOne)
+        );
         form.setFieldsValue({ newArr });
       }
     }
@@ -51,13 +53,7 @@ export const AreaItem = ({ areaValue, priceForOne, form }: Props) => {
                   {...field}
                   name={[field.name, "link"]}
                   key={index + 1}
-                  rules={[
-                    { required: true, message: "Обязательное поле" },
-                    {
-                      type: "url",
-                      message: "Невалидная ссылка",
-                    },
-                  ]}
+                  rules={[{ required: true, message: "Обязательное поле" }]}
                   style={{ width: "100%" }}
                 >
                   <Input placeholder="Ссылка на карточку" />
