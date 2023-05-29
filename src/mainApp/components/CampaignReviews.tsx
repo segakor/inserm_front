@@ -34,6 +34,14 @@ const Card = styled.div`
   margin-bottom: 20px;
   cursor: pointer;
 `;
+const Link = styled.div`
+  ::selection {
+    background: #ffb7b7;
+  }
+  ::-moz-selection {
+    background: #ffb7b7;
+  }
+`;
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
@@ -87,7 +95,7 @@ const CardComponent = ({
             <Cercle>
               <div>{keyItem}</div>
             </Cercle>
-            <div>{card.link}</div>
+            <Link>{card.link}</Link>
           </Box>
           <Box>
             <div>
