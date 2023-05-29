@@ -8,6 +8,7 @@ import { DownCircleFilled, UpCircleFilled } from "@ant-design/icons";
 import { TableProject } from "../Table/TableProject";
 import { TableProjectNotChangeable } from "../Table/TableProjectNotChangeable";
 import { TableCampaignChangeable } from "../Table/TableCampaignChangeable";
+import { getNumWord } from "../../utils/getCountReviews";
 
 type Props = {
   group: GrouppedCampaign[];
@@ -89,7 +90,9 @@ const CardComponent = ({
             <div>{card.link}</div>
           </Box>
           <Box>
-            <div>30 отзывов</div>
+            <div>
+              {card.amount} {getNumWord(card.amount, "review")}
+            </div>
             <div>
               {chevron ? (
                 <UpCircleFilled style={{ fontSize: "24px" }} />
@@ -125,7 +128,7 @@ const CardComponent = ({
 };
 
 export const CampaignReviews = ({ group, role, id, onUpdate }: Props) => {
-  const noop = function () {};
+  const noop = () => {};
   return (
     <>
       {group.map((item, index) => (

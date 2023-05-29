@@ -33,8 +33,8 @@ export const getCountReviews = (formValue: any) => {
 
   return {
     count,
-    priceForOne: 10,
-    priceTotal: /* priceForOne * count */10,
+    priceForOne,
+    priceTotal: priceForOne * count,
     month: Math.ceil(maxCount / 2 / 4),
     cards: cards.flat(Infinity),
   };

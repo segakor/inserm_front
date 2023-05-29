@@ -314,6 +314,7 @@ export type CampaignCard = {
   type: string;
   isFinished: boolean;
   reviews: Reviews[];
+  amount: number;
 };
 
 export type GrouppedCampaign = {
