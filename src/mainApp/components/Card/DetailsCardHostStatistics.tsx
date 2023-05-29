@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Statuses } from "../../types";
-import { Title } from "../../common/Typography";
+import { Title } from "../../../common/Typography";
 
 const DetailsContainer = styled.div`
   width: 100%;
@@ -31,20 +30,17 @@ const Details = styled.div`
 `;
 
 type Props = {
-  statuses?: Statuses;
+  delete: number | undefined;
+  left: number | undefined;
+  moderate: number | undefined;
+  reject: number | undefined;
+  wait: number | undefined;
+  success: number | undefined;
 }
 
-export const DetailsCard = ({ statuses }: Props) => {
+export const DetailsCardHostStatistics = (props : Props) => {
   return (
     <DetailsContainer>
-      <Details>
-        <Title
-          style={{ fontSize: "14px", color: "#8E8E8E", fontWeight: "500" }}
-        >
-          Всего
-        </Title>
-        <Title level={2}>{statuses?.all || 0}</Title>
-      </Details>
       <Details>
         <Title
           style={{ fontSize: "14px", color: "#8E8E8E", fontWeight: "500" }}
@@ -52,7 +48,7 @@ export const DetailsCard = ({ statuses }: Props) => {
           Опубликовано
         </Title>
         <Title level={2} style={{ color: "#1BBD3F" }}>
-          {statuses?.success || 0}
+          {props?.success || 0}
         </Title>
       </Details>
       <Details>
@@ -62,7 +58,7 @@ export const DetailsCard = ({ statuses }: Props) => {
           Осталось
         </Title>
         <Title level={2} style={{ color: "#8567FF" }}>
-          {statuses?.left || 0}
+          {props?.left || 0}
         </Title>
       </Details>
       <Details>
@@ -72,7 +68,7 @@ export const DetailsCard = ({ statuses }: Props) => {
           На модерации
         </Title>
         <Title level={2} style={{ color: "#5AA6FF" }}>
-          {statuses?.moderate || 0}
+          {props?.moderate || 0}
         </Title>
       </Details>
       <Details>
@@ -82,7 +78,7 @@ export const DetailsCard = ({ statuses }: Props) => {
           Не прошло
         </Title>
         <Title level={2} style={{ color: "#FA7211" }}>
-          {statuses?.reject || 0}
+          {props?.reject || 0}
         </Title>
       </Details>
       <Details>
@@ -92,7 +88,7 @@ export const DetailsCard = ({ statuses }: Props) => {
           Удалено
         </Title>
         <Title level={2} style={{ color: "#FF1E1E" }}>
-          {statuses?.delete || 0}
+          {props?.delete || 0}
         </Title>
       </Details>
     </DetailsContainer>

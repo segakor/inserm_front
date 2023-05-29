@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Header, Title } from "../../../common/Typography";
 
@@ -7,8 +6,7 @@ const Page = styled.div`
   flex-direction: column;
 `;
 
-
-export const FoundationClient = () => {
+const FoundationClient = () => {
   return (
     <Page>
       <Header>База знаний клиента</Header>
@@ -16,3 +14,5 @@ export const FoundationClient = () => {
     </Page>
   );
 };
+
+export default FoundationClient;

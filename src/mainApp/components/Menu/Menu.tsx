@@ -1,28 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Badge, MenuProps } from "antd";
 import { Menu } from "antd";
-import { ReactComponent as ProjectIcon } from "../../assets/project.svg";
-import { ReactComponent as TariffIcon } from "../../assets/tariff.svg";
-import { ReactComponent as ProfileIcon } from "../../assets/profile.svg";
-import { ReactComponent as FoundationIcon } from "../../assets/foundation.svg";
-import { ReactComponent as ContactsIcon } from "../../assets/contacts.svg";
-import { ReactComponent as HelpIcon } from "../../assets/help.svg";
-import { ReactComponent as ExitIcon } from "../../assets/exit.svg";
-import { ReactComponent as ProjectCheckIcon } from "../../assets/projectcheck.svg";
-import { ReactComponent as ReviewsforpaymentIcon } from "../../assets/reviewsforpayment.svg";
-import { ReactComponent as SettingIcon } from "../../assets/setting.svg";
-import { ReactComponent as PaidreviewsIcon } from "../../assets/paidreviews.svg";
-import { ReactComponent as CreateadminIcon } from "../../assets/createadmin.svg";
 
 import { ExclamationCircleFilled, SignalFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useLocalState } from "../context/hooks";
-import { useAuth } from "../hooks/useAuth";
-import { useGetProject } from "../hooks/useGetProject";
-import { clearState } from "../context/action";
-import { tokenService } from "../../utils/tokenService";
-import { useIOSocketNotify } from "../hooks/useIOSocketNotify";
-import { notificationTitle } from "../../utils/notificationTitle";
+import { useDispatch, useLocalState } from "../../context/hooks";
+import { useAuth } from "../../hooks/useAuth";
+import { useGetProject } from "../../hooks/useGetProject";
+import { clearState } from "../../context/action";
+import { tokenService } from "../../../utils/tokenService";
+import { useIOSocketNotify } from "../../hooks/useIOSocketNotify";
+import { notificationTitle } from "../../../utils/notificationTitle";
+import { useGetCampaign } from "../../hooks/useGetCampaign";
+import {
+  ContactsIcon,
+  CreateadminIcon,
+  ExitIcon,
+  FoundationIcon,
+  HelpIcon,
+  PaidreviewsIcon,
+  ProfileIcon,
+  ProjectCheckIcon,
+  ProjectIcon,
+  ReviewsforpaymentIcon,
+  SettingIcon,
+  TariffIcon,
+} from "./MenuIcon";
 
 type Props = {
   onHeaderClose?: () => void;
@@ -46,17 +49,19 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
   const auth = tokenService.getIsAuth();
 
   const { handleGetClientProject } = useGetProject();
+  const { handleGetCampaign } = useGetCampaign();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (role === "CLIENT") {
       handleGetClientProject();
+      handleGetCampaign();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [role]);
 
-  const { clientProject, listOfNotify } = state;
+  const { clientProject, clientCampaign, listOfNotify } = state;
 
   const notifyCount = listOfNotify
     ?.map((item: any) => item.unread)
@@ -64,13 +69,25 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
 
   notificationTitle(notifyCount);
 
-  const listOfProject = clientProject?.map((item) => ({
-    label: item.name,
-    key: item.id,
-    icon: !item.brief && (
+  const allProject = [clientCampaign, clientProject].flat();
+
+  const projectItem = allProject?.map((item, index) => ({
+    label: item?.name,
+    key: index,
+    id: item?.id,
+    type: item?.type,
+    icon: !item?.brief && (
       <ExclamationCircleFilled style={{ color: "#FF0000" }} />
     ),
   }));
+
+  const navigateProjectItem = (keyItem: number) => {
+    const item = projectItem.find((item) => item.key === keyItem);
+    return {
+      projectId: item?.id,
+      type: item?.type,
+    };
+  };
 
   const dividerItem = {
     type: "divider",
@@ -99,7 +116,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
         navigation(`/app/client/projects`);
         setSelectedKeys([""]);
       },
-      children: listOfProject || [],
+      children: projectItem || [],
     },
     { label: "Управление тарифами", key: "tariff", icon: <TariffIcon /> },
     dividerItem as any,
@@ -241,11 +258,11 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
 
   const onClick: MenuProps["onClick"] = (e) => {
     setSelectedKeys(e.keyPath);
-
     switch (true) {
       //список проектов
       case e.keyPath.length === 2:
-        navigation(`/app/client/project/${e.key}`);
+        const { projectId, type } = navigateProjectItem(Number(e.key));
+        navigation(`/app/client/${type}/${projectId}`);
         break;
       case e.key === "exit":
         setSelectedKeys([]);
@@ -272,7 +289,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
             items={setItem()}
             mode="inline"
             selectedKeys={selectedKeys}
-            defaultOpenKeys={["projects"]}
+            /* defaultOpenKeys={["projects"]} */
           />
         </>
       ) : null}

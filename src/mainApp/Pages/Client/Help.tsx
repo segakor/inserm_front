@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { ChatClient } from "../../Chat";
@@ -11,7 +10,7 @@ const Page = styled.div`
   width: 100%;
 `;
 
-export const Help = () => {
+const Help = () => {
   return (
     <Page>
       <Header>
@@ -32,3 +31,5 @@ export const Help = () => {
     </Page>
   );
 };
+
+export default Help;

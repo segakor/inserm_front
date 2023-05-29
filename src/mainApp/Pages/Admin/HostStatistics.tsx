@@ -1,7 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
-import { DetailsCardHostStatistics } from "../../components/DetailsCardHostStatistics";
+import { DetailsCardHostStatistics } from "../../components/Card";
 import { useHostStatistics } from "../../hooks/useHostStatistics";
 import { TableHostStatistics } from "../../Table/TableHostStatistics";
 import { DatePicker } from "../../components/DatePicker";
@@ -11,7 +10,7 @@ const Page = styled.div`
   flex-direction: column;
 `;
 
-export const HostStatistics = () => {
+const HostStatistics = () => {
   const { isLoading, statistics, handleGetHostStatistics } =
     useHostStatistics();
 
@@ -24,3 +23,5 @@ export const HostStatistics = () => {
     </Page>
   );
 };
+
+export default HostStatistics;

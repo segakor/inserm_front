@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ButtonBrief } from "../../mainApp/Button/ButtonBrief";
-import { DetailsCard } from "../../mainApp/components/DetailsCard";
+import { DetailsCard } from "../../mainApp/components/Card/DetailsCard";
 import { Title } from "../../common/Typography";
 import { Project } from "../../types";
 import { getRangeDate } from "../../utils";
@@ -62,7 +62,7 @@ export const ProjectCardDemo = (project: Project) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const brief = demoBrief[id]
+  const brief = demoBrief[id - 1]
 
   const handleOpen = () => {
     setIsModalOpen(true);
@@ -129,8 +129,9 @@ export const ProjectCardDemo = (project: Project) => {
       {isModalOpen && (
         <ModalBrief
           onClose={handleClose}
-          projectId={project.id.toString()}
+          id={project.id.toString()}
           brief={brief}
+          typeBrief={'project'}
         />
       )}
     </Flex>

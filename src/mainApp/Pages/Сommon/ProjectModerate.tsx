@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { useGetReviewsWithType } from "../../hooks/useGetReviewsWithType";
@@ -10,7 +9,7 @@ const Page = styled.div`
   width: 100%;
 `;
 
-export const ProjectModerate = () => {
+const ProjectModerate = () => {
   const { reviews, handleGetReviews, isLoading } =
     useGetReviewsWithType("moderate");
 
@@ -25,3 +24,5 @@ export const ProjectModerate = () => {
     </Page>
   );
 };
+
+export default ProjectModerate;

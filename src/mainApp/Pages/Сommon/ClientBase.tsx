@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { useGetAllClient } from "../../hooks/useGetAllClient";
@@ -19,7 +19,7 @@ const optionsWithDisabled = [
   { label: "Неоплаченные заявки", value: "warmClient" },
 ];
 
-export const ClientBase = () => {
+const ClientBase = () => {
   const [activeTab, setActiveTab] = useState<"allClient" | "warmClient">(
     "allClient"
   );
@@ -57,3 +57,5 @@ export const ClientBase = () => {
     </Page>
   );
 };
+
+export default ClientBase;

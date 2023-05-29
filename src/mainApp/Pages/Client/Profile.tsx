@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Title, Header } from "../../../common/Typography";
 import { FormChangePassword } from "../../Form/FormChangePassword";
@@ -24,7 +23,7 @@ const FlexBox = styled.div`
   }
 `;
 
-export const Profile = () => {
+const Profile = () => {
   usePerson();
   const state = useLocalState();
   const { personInfo } = state;
@@ -45,3 +44,5 @@ export const Profile = () => {
     </Page>
   );
 };
+
+export default Profile;

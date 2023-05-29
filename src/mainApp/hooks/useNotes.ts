@@ -6,12 +6,15 @@ import { openNotificationWithIcon } from "../../utils";
 export const useNotes = () => {
   const [notes, setNotes] = useState<Note[]>();
 
-  const handleCreateNote = async (value: {
-    projectId: string;
-    text: string;
-  }) => {
+  const handleCreateNote = async (
+    value: {
+      id: string;
+      text: string;
+    },
+    type: string
+  ) => {
     try {
-      await createNote(value);
+      await createNote(value, type);
     } catch {
       openNotificationWithIcon({
         type: "error",
@@ -21,9 +24,9 @@ export const useNotes = () => {
     }
   };
 
-  const handleGetNotes = async (projectId: string) => {
+  const handleGetNotes = async (id: string, type: string) => {
     try {
-      const response = await getNotes(projectId);
+      const response = await getNotes(id, type);
       setNotes(response.data.result);
     } catch {
       openNotificationWithIcon({
@@ -34,10 +37,9 @@ export const useNotes = () => {
     }
   };
 
-
   return {
     handleCreateNote,
     handleGetNotes,
-    notes
+    notes,
   };
 };

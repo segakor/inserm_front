@@ -138,7 +138,7 @@ export const TariffItem = ({
             Общая стоимость
           </Title>
           <Title level={4} style={{ color: "#1579E9", fontWeight: "800" }}>
-            {price} р
+            {price?.toLocaleString()} р
           </Title>
         </Card3>
       </Row>

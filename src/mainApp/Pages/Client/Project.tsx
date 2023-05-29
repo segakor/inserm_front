@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Title, Header } from "../../../common/Typography";
-import { DetailsCard } from "../../components/DetailsCard";
+import { DetailsCard } from "../../components/Card";
 import { TableProject } from "../../Table/TableProject";
 import { ArchiveProjectList } from "../../components/ArchiveProjectList";
-import { useLocalState } from "../../context/hooks";
 import { getRangeDate } from "../../../utils";
-import { useGetReviews } from "../../hooks/useGetReviews";
-import { useGetBrief } from '../../hooks/useGetBrief';
+import { useGetReviewsProject } from "../../hooks/useGetReviewsProject";
+import { useGetBrief } from "../../hooks/useGetBrief";
 import { ButtonBrief } from "../../Button/ButtonBrief";
 import { ModalBrief } from "../../components/ModalBrief";
 
@@ -34,9 +33,9 @@ const TitleDate = styled(Title)`
   margin-bottom: 20px !important;
 `;
 
-export const Project = () => {
+const Project = () => {
   const params = useParams();
-  const projectId = params.projectId || ""
+  const projectId = params.projectId || "";
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -46,41 +45,34 @@ export const Project = () => {
 
   const handleClose = () => {
     setIsModalOpen(false);
-    handleGetBrief()
+    handleGetBrief();
   };
 
-  const state = useLocalState();
-
-  const { clientProject } = state;
-
-  const currentProject = clientProject?.find(
-    (item) => item.id === Number(projectId)
-  );
-
-  const { reviews, isLoading } = useGetReviews(projectId);
+  const { reviews, isLoading, projectName, tariff, statusess } = useGetReviewsProject(projectId);
 
   const { brief, handleGetBrief } = useGetBrief(projectId);
 
-  const start = currentProject?.tariff?.start;
-  const end = currentProject?.tariff?.end;
+  const start = tariff?.start;
+  const end = tariff?.end;
 
   return (
     <Page>
       <HeaderFlex>
-        <Header>{currentProject?.name || ""}</Header>
+        <Header>{projectName}</Header>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
       </HeaderFlex>
       <CardBlock>
         <TitleDate level={5} style={{ fontSize: "14px", fontWeight: "400" }}>
           {getRangeDate({ start, end })}
         </TitleDate>
-        <DetailsCard statuses={currentProject?.statuses} />
+        <DetailsCard statuses={statusess} />
       </CardBlock>
       {isModalOpen && (
         <ModalBrief
           onClose={handleClose}
-          projectId={projectId}
+          id={projectId}
           brief={brief}
+          typeBrief={"project"}
         />
       )}
       <TableProject reviews={reviews} isLoading={isLoading} />
@@ -88,3 +80,5 @@ export const Project = () => {
     </Page>
   );
 };
+
+export default Project;

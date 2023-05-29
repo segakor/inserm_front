@@ -16,11 +16,14 @@ import {
   SetListOfNotify,
   RemoveItemListOfNotify,
   REMOVE_ITEM_LIST_OF_NOTIFY,
+  SET_CLIENT_CAMPAIGN,
+  SetClientCampaign,
 } from "./action";
 
 export const initialState: LocalState = {
   personInfo: undefined,
   clientProject: undefined,
+  clientCampaign: undefined,
   role: undefined,
   listOfAdmin: undefined,
   projectForPayment: undefined,
@@ -47,6 +50,16 @@ function setClientProject(
     clientProject: payload,
   };
 }
+function setClientCampaign(
+  state: LocalState,
+  { payload }: SetClientCampaign
+): LocalState {
+  return {
+    ...state,
+    clientCampaign: payload,
+  };
+}
+
 function setListOfAdmin(
   state: LocalState,
   { payload }: SetListOfAdmin
@@ -70,15 +83,19 @@ function clearState(state: LocalState): LocalState {
     ...state,
     personInfo: undefined,
     clientProject: undefined,
+    clientCampaign: undefined,
     role: undefined,
     listOfAdmin: undefined,
     projectForPayment: undefined,
-    socketNotify:null,
-    listOfNotify:[]
+    socketNotify: null,
+    listOfNotify: [],
   };
 }
 
-function setNotifyRef(state: LocalState, { payload }: SetNotifyRef): LocalState {
+function setNotifyRef(
+  state: LocalState,
+  { payload }: SetNotifyRef
+): LocalState {
   return {
     ...state,
     socketNotify: payload,
@@ -108,6 +125,7 @@ function removeItemListOfNotify(
 export const reducer = createReducer(initialState, {
   [SET_PERSON_INFO]: setPersonInfo,
   [SET_CLIENT_PROJECT]: setClientProject,
+  [SET_CLIENT_CAMPAIGN]: setClientCampaign,
   [SET_LIST_OF_ADMIN]: setListOfAdmin,
   [SET_PROJECT_FOR_PAYMENT]: setProjectForPayment,
   [CLEAR_STATE]: clearState,

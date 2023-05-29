@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { FormCreateAdmin } from "../../Form/FormCreateAdmin";
 import { Header } from "../../../common/Typography";
@@ -10,7 +9,7 @@ const Page = styled.div`
   width: 100%;
 `;
 
-export const CreateAdmin = () => {
+const CreateAdmin = () => {
   return (
     <Page>
       <Header>Создание админов</Header>
@@ -19,3 +18,5 @@ export const CreateAdmin = () => {
     </Page>
   );
 };
+
+export default CreateAdmin;

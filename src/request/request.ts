@@ -6,7 +6,7 @@ import {
   Person,
   ReqPersonChange,
   ReqGetProject,
-  ReqGetDetails,
+  ReqGetProjectDetails,
   ReqGetTariff,
   ReqArchiveProject,
   ReqArchiveDetail,
@@ -26,6 +26,9 @@ import {
   ResGetAllClient,
   ResHostStatistics,
   ResGetWarmClient,
+  ReqCreateCampaign,
+  ResGetCampaign,
+  ReqGetCampaignDetails,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -69,13 +72,8 @@ export const getProject = async () => {
   return { data, status };
 };
 
-export const getTariff = async () => {
-  const { data, status } = await axiosClient.get(URL + "/api/project");
-  return { data, status };
-};
-
-export const getDetails = async (id: string) => {
-  const { data, status } = await axiosClient.get<ReqGetDetails>(
+export const getProjectDetails = async (id: string) => {
+  const { data, status } = await axiosClient.get<ReqGetProjectDetails>(
     URL + `/api/project/${id}`
   );
   return { data, status };
@@ -116,9 +114,10 @@ export const getArchiveDetails = async (id: string) => {
   };
 };
 
-export const getBrief = async (id: string) => {
+export const getBrief = async (id: string, mode?: "prjoect" | "campaign") => {
   const { data, status } = await axiosClient.get<ReqGetBrief>(
-    URL + `/api/brief/${id}`
+    URL + `/api/brief/${id}`,
+    { params: { mode: mode } }
   );
   return {
     data,
@@ -160,7 +159,8 @@ export const updateReview = async (value: Reviews) => {
 export const createReview = async (value: {
   text: string;
   link: string;
-  projectId: number;
+  projectId?: number;
+  cardId?: number;
 }) => {
   //TODO:Тип ответа!
   const { data, status } = await axiosClient.post(URL + `/api/review/create`, {
@@ -283,11 +283,18 @@ export const unsubdcribe = async (value: { projectId: number }) => {
   };
 };
 
-export const createNote = async (value: {
-  projectId: string;
-  text: string;
-}) => {
-  const { data, status } = await axiosClient.post(URL + `/api/project/notes`, {
+export const createNote = async (
+  value: {
+    id: string;
+    text: string;
+  },
+  type: string
+) => {
+  const path = type === "project" ? "project" : "campaign";
+
+  console.log(path);
+
+  const { data, status } = await axiosClient.post(URL + `/api/${path}/notes`, {
     ...value,
   });
   return {
@@ -296,9 +303,12 @@ export const createNote = async (value: {
   };
 };
 
-export const getNotes = async (id: string) => {
+export const getNotes = async (id: string, type: string) => {
+  const path = type === "project" ? "project" : "campaign";
+
+  console.log(path);
   const { data, status } = await axiosClient.get<ReqNote>(
-    URL + `/api/project/notes/${id}`
+    URL + `/api/${path}/notes/${id}`
   );
   return {
     data,
@@ -428,4 +438,31 @@ export const getWarmClient = async (params?: {
     data,
     status,
   };
+};
+
+export const createCampaign = async (value: ReqCreateCampaign) => {
+  const { data, status } = await axiosClient.post(
+    URL + `/api/campaign/create`,
+    {
+      ...value,
+    }
+  );
+  return {
+    data,
+    status,
+  };
+};
+
+export const getCampaign = async () => {
+  const { data, status } = await axiosClient.get<ResGetCampaign>(
+    URL + "/api/campaign"
+  );
+  return { data, status };
+};
+
+export const getCampaignDetails = async (id: string) => {
+  const { data, status } = await axiosClient.get<ReqGetCampaignDetails>(
+    URL + `/api/campaign/${id}`
+  );
+  return { data, status };
 };

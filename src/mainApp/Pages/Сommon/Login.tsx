@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { FormLogin } from "../../Form/FormLogin";
 
@@ -9,10 +8,12 @@ const Page = styled.div`
 `;
 
 
-export const Login = () => {
+const Login = () => {
   return (
     <Page>
       <FormLogin />
     </Page>
   );
 };
+
+export default Login;
