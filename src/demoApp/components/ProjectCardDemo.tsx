@@ -129,7 +129,7 @@ export const ProjectCardDemo = (project: Project) => {
       {isModalOpen && (
         <ModalBrief
           onClose={handleClose}
-          projectId={project.id.toString()}
+          id={project.id.toString()}
           brief={brief}
           typeBrief={'project'}
         />

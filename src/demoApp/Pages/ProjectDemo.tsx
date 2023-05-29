@@ -75,7 +75,7 @@ export const ProjectDemo = () => {
       {isModalOpen && (
         <ModalBrief
           onClose={handleClose}
-          projectId={projectId}
+          id={projectId}
           brief={brief}
           typeBrief={'project'}
         />
