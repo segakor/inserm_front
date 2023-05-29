@@ -1,5 +1,5 @@
 import { Title } from "../../common/Typography";
-import { areas } from "../../constants";
+import { areas, noop } from "../../constants";
 import { CampaignCard, GrouppedCampaign, Role } from "../../types";
 import { StatusesFlat } from "./Card/StatusesFlat";
 import styled from "styled-components";
@@ -136,7 +136,6 @@ const CardComponent = ({
 };
 
 export const CampaignReviews = ({ group, role, id, onUpdate }: Props) => {
-  const noop = () => {};
   return (
     <>
       {group.map((item, index) => (

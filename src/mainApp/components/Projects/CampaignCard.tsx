@@ -6,14 +6,23 @@ import { ButtonBrief } from "../../Button/ButtonBrief";
 import { Campaign } from "../../../types";
 import { useGetBrief } from "../../hooks/useGetBrief";
 import { Title } from "../../../common/Typography";
-import { CardBlock, Header, TariffBlock, TariffCard, TitleDate, Wrapper } from "./styles";
+import {
+  CardBlock,
+  Header,
+  TariffBlock,
+  TariffCard,
+  TitleDate,
+  Wrapper,
+} from "./styles";
+import { Tooltip } from "antd";
+import { noop } from "../../../constants";
 
 export const CampaignCard = (project: Campaign) => {
   const { name, statuses, id, period } = project;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { brief, handleGetBrief } = useGetBrief(id.toString(), 'campaign');
+  const { brief, handleGetBrief } = useGetBrief(id.toString(), "campaign");
 
   const handleOpen = () => {
     setIsModalOpen(true);
@@ -60,11 +69,17 @@ export const CampaignCard = (project: Campaign) => {
             color: "#FFFFFF",
             fontSize: "14px",
             textDecorationLine: "underline",
-            cursor: "pointer",
+            cursor: project.isPaid ? "pointer" : "not-allowed",
           }}
-          onClick={() => navigation(`/app/client/campaign/${id}`)}
+          onClick={
+            project.isPaid
+              ? () => navigation(`/app/client/campaign/${id}`)
+              : noop
+          }
         >
-          Смотреть отчет
+          <Tooltip title={!project.isPaid ? "Ожидается оплата" : ""}>
+            Смотреть отчет
+          </Tooltip>
         </Title>
       </CardBlock>
       <TariffBlock>
@@ -83,7 +98,7 @@ export const CampaignCard = (project: Campaign) => {
           onClose={handleClose}
           id={project.id.toString()}
           brief={brief}
-          typeBrief={'campaign'}
+          typeBrief={"campaign"}
         />
       )}
     </Wrapper>

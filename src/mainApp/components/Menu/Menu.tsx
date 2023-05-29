@@ -79,6 +79,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     icon: !item?.brief && (
       <ExclamationCircleFilled style={{ color: "#FF0000" }} />
     ),
+    disabled: !item?.isPaid && item?.type === "campaign" ? true : false,
   }));
 
   const navigateProjectItem = (keyItem: number) => {
