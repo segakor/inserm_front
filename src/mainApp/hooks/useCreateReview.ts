@@ -6,7 +6,8 @@ export const useCreateReview = () => {
   const handleCreateReview = async (value: {
     text: string;
     link: string;
-    projectId: number;
+    projectId?: number;
+    cardId?: number;
   }) => {
     try {
       await createReview(value);

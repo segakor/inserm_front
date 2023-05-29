@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { ButtonBrief } from "../../mainApp/Button/ButtonBrief";
-import { DetailsCard } from "../../mainApp/components/DetailsCard";
+import { DetailsCard } from "../../mainApp/components/Card/DetailsCard";
 import { TableProject } from "../../mainApp/Table/TableProject";
 import { Title, Header } from "../../common/Typography";
 import { getRangeDate } from "../../utils";
@@ -58,6 +58,8 @@ export const ProjectDemo = () => {
 
   const brief = demoBrief[Number(projectId)-1]
 
+  console.log(brief)
+
   return (
     <Page>
       <HeaderFlex>
@@ -73,8 +75,9 @@ export const ProjectDemo = () => {
       {isModalOpen && (
         <ModalBrief
           onClose={handleClose}
-          projectId={projectId}
+          id={projectId}
           brief={brief}
+          typeBrief={'project'}
         />
       )}
       <TableProject reviews={reviews} isLoading={false} />

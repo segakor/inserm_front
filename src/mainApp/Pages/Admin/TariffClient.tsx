@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Header, Title } from "../../../common/Typography";
 
@@ -7,8 +6,7 @@ const Page = styled.div`
   flex-direction: column;
 `;
 
-
-export const TariffClient = () => {
+const TariffClient = () => {
   return (
     <Page>
       <Header>Тарифы клиентов</Header>
@@ -16,3 +14,5 @@ export const TariffClient = () => {
     </Page>
   );
 };
+
+export default TariffClient;

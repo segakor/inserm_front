@@ -39,7 +39,7 @@ const Message = styled.div`
 
 const { TextArea } = Input;
 
-const TooltipComponent = () => {  
+const TooltipComponent = () => {
   return (
     <>
       <p>Для изменения стиля шрифта оберните текст в следующие теги:</p>
@@ -51,7 +51,12 @@ const TooltipComponent = () => {
   );
 };
 
-export const Notes = ({ projectId }: { projectId: string }) => {
+type Props = {
+  type: "campaign" | "project";
+  id: string;
+};
+
+export const Notes = ({ type, id }: Props) => {
   const [value, setValue] = useState("");
 
   const { element } = useScroll();
@@ -59,13 +64,13 @@ export const Notes = ({ projectId }: { projectId: string }) => {
   const { handleCreateNote, handleGetNotes, notes } = useNotes();
 
   const onSendNote = async () => {
-    await handleCreateNote({ text: value, projectId });
+    await handleCreateNote({ text: value, id}, type);
     setValue("");
-    await handleGetNotes(projectId);
+    await handleGetNotes(id, type);
   };
 
   useEffect(() => {
-    handleGetNotes(projectId);
+    handleGetNotes(id, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

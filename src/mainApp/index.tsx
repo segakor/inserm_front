@@ -1,8 +1,7 @@
-import React from "react";
 import styled from "styled-components";
 import { Layout } from "antd";
 import { SiderComponent } from "./components/SiderComponent";
-import { MainRoutes } from "./components/MainRoutes";
+import { MainRoutes } from "./components/Routes/MainRoutes";
 import { ErrorBoundary } from "../common/ErrorBoundary";
 
 const StyledLayout = styled(Layout)`
@@ -12,7 +11,7 @@ const StyledLayout = styled(Layout)`
   }
 `;
 
-export const AppMain = () => {
+const AppMain = () => {
   return (
     <ErrorBoundary>
       <StyledLayout>
@@ -22,3 +21,5 @@ export const AppMain = () => {
     </ErrorBoundary>
   );
 };
+
+export default AppMain

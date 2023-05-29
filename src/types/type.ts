@@ -59,6 +59,7 @@ export type Project = {
   autopay: boolean;
   tariff: TariffProject;
   brief?: boolean;
+  type?: string;
 };
 
 export type ReqGetProject = {
@@ -77,7 +78,7 @@ export type Reviews = {
   tg?: string;
 };
 
-export type ReqGetDetails = {
+export type ReqGetProjectDetails = {
   reviews: Reviews[];
   name: string;
   statuses: Statuses;
@@ -256,4 +257,77 @@ export type WarmClient = {
 
 export type ResGetWarmClient = {
   result: WarmClient[];
+};
+
+export enum AreaType {
+  YA_MAP = "ya_map",
+  GOOGLE = "google",
+  TWO_GIS = "two_gis",
+  AVITO = "avito",
+  FLAMP = "flamp",
+  YELL = "yell",
+  ZOON = "zoon",
+  YA_BRA = "ya_bra",
+}
+
+export type PiecePrice = {
+  countRange: number[];
+  price: number;
+  color: string;
+  title: string;
+};
+
+export type CampaignCardForm = {
+  link: string;
+  type: AreaType;
+  price: number;
+  amount: number;
+};
+
+export type ReqCreateCampaign = {
+  name: string;
+  email: string;
+  cards: CampaignCardForm[];
+  brief?: {
+    type: "camaign" | "project";
+    id: number;
+  };
+};
+
+export type Campaign = {
+  id: number;
+  name: string;
+  brief: boolean;
+  period: number;
+  statuses: Statuses;
+  type?: string;
+  isPaid: boolean;
+};
+
+export type ResGetCampaign = {
+  result: Campaign[];
+};
+
+export type CampaignCard = {
+  id: number;
+  link: string;
+  type: string;
+  isFinished: boolean;
+  reviews: Reviews[];
+  amount: number;
+};
+
+export type GrouppedCampaign = {
+  type: AreaType;
+  statuses: Statuses;
+  cards: CampaignCard[];
+};
+
+export type ReqGetCampaignDetails = {
+  id: number;
+  name: string;
+  date: number;
+  period: number;
+  statuses: Statuses;
+  groppedByType: GrouppedCampaign[];
 };

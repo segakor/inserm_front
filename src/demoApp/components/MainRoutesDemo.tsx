@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { Layout } from "antd";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { Content } from "../../common/Layout/Content";
-import { Contacts } from "../../mainApp/Pages/Client/Contacts";
-import { Foundation } from "../../mainApp/Pages/Client/Foundation";
-import { Help } from "../../mainApp/Pages/Client/Help";
+import { Contacts } from "../Pages/Contacts";
+import { Foundation } from "../Pages/Foundation";
+import { Help } from "../Pages/Help";
 import { ProfileDemo } from "../Pages/ProfileDemo";
 import { TariffDemo } from "../Pages/TariffDemo";
 import { ProjectDemo } from "../Pages/ProjectDemo";
@@ -24,6 +24,7 @@ const PublicRoutes = () => {
 };
 
 export const MainRoutesDemo = () => {
+
   return (
     <StyledLayout>
       <HeaderComponentDemo />

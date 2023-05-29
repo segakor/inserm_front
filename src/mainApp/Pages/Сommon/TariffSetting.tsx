@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Header, Title } from "../../../common/Typography";
 
@@ -8,7 +7,7 @@ const Page = styled.div`
 `;
 
 
-export const TariffSetting = () => {
+const TariffSetting = () => {
   return (
     <Page>
       <Header>Замена и создание нового тарифа</Header>
@@ -16,3 +15,5 @@ export const TariffSetting = () => {
     </Page>
   );
 };
+
+export default TariffSetting;

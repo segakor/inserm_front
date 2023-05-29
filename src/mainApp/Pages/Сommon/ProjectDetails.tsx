@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Title, Header } from "../../../common/Typography";
-import { DetailsCard } from "../../components/DetailsCard";
+import { DetailsCard } from "../../components/Card";
 import { ArchiveProjectList } from "../../components/ArchiveProjectList";
 import { getRangeDate, tokenService } from "../../../utils";
-import { useGetReviews } from "../../hooks/useGetReviews";
+import { useGetReviewsProject } from "../../hooks/useGetReviewsProject";
 import { TableProjectChangeable } from "../../Table/TableProjectChangeable";
 import { useGetBrief } from "../../hooks/useGetBrief";
 import { TableProjectNotChangeable } from "../../Table/TableProjectNotChangeable";
@@ -43,7 +43,7 @@ const WrapperCard = styled.div`
   margin-bottom: 10px;
 `;
 
-export const ProjectAllStatusses = () => {
+const ProjectDetails = () => {
   const params = useParams();
   const projectId = params.projectId || "";
 
@@ -65,7 +65,7 @@ export const ProjectAllStatusses = () => {
     statusess,
     tariff,
     handleGetReviews,
-  } = useGetReviews(projectId);
+  } = useGetReviewsProject(projectId);
 
   const { brief, handleGetBrief } = useGetBrief(projectId);
 
@@ -87,10 +87,10 @@ export const ProjectAllStatusses = () => {
           </TitleDate>
           <DetailsCard statuses={statusess} />
         </CardBlock>
-        <Notes projectId={projectId} />
+        <Notes id={projectId} type={'project'}/>
       </WrapperCard>
       {isModalOpen && (
-        <ModalBrief onClose={handleClose} projectId={projectId} brief={brief} />
+        <ModalBrief onClose={handleClose} id={projectId} brief={brief} typeBrief={'project'}/>
       )}
       {role === "ADMIN" || role === "HOST" || role === "SUPERVISOR" ? (
         <TableProjectChangeable
@@ -106,3 +106,5 @@ export const ProjectAllStatusses = () => {
     </Page>
   );
 };
+
+export default ProjectDetails;

@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { ReactComponent as Telegram } from "../../../assets/telegram.svg";
 import { ReactComponent as Whatsapp } from "../../../assets/whatsapp.svg";
@@ -49,7 +48,7 @@ const WhatsappIcon = styled(Whatsapp)`
   margin-left: 10px;
 `;
 
-export const Contacts = () => {
+const Contacts = () => {
   return (
     <Page>
       <Header>Контакты</Header>
@@ -87,3 +86,5 @@ export const Contacts = () => {
     </Page>
   );
 };
+
+export default Contacts

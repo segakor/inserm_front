@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { CurrentTariff } from "../../components/CurrentTariff";
@@ -18,7 +17,7 @@ const HeaderFlex = styled.div`
   }
 `;
 
-export const Tariff = () => {
+const Tariff = () => {
   const state = useLocalState();
   const { clientProject } = state;
 
@@ -32,3 +31,5 @@ export const Tariff = () => {
     </Page>
   );
 };
+
+export default Tariff;
