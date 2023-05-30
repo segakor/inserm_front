@@ -71,7 +71,7 @@ const locale = [
   },
   {
     type: "registration",
-    formTitle: "Ригистрация",
+    formTitle: "Регистрация",
     submitTitle: "Зарегистрироваться",
   },
 ];
