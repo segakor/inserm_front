@@ -77,7 +77,7 @@ export const CampaignCard = (project: Campaign) => {
               : noop
           }
         >
-          <Tooltip title={!project.isPaid ? "Ожидается оплата" : ""}>
+          <Tooltip title={!project.isPaid ? "Ожидание оплаты может занять несколько минут" : ""}>
             Смотреть отчет
           </Tooltip>
         </Title>
