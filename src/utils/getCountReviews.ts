@@ -1,6 +1,6 @@
 export const getCountReviews = (formValue: any) => {
   let count = 0;
-  let priceForOne = 600;
+  let priceForOne = 650;
   let maxCount = 0;
   let cards = [];
 
@@ -19,12 +19,12 @@ export const getCountReviews = (formValue: any) => {
     }
   }
   if (count > 24) {
-    priceForOne = 550;
+    priceForOne = 590;
   }
   if (count > 49) {
-    priceForOne = 519;
+    priceForOne = 550;
   }
-  if (count > 199) {
+  if (count > 99) {
     priceForOne = 499;
   }
   if (count >= 200) {
