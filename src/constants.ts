@@ -12,16 +12,16 @@ export const areas = [
 ];
 
 export const piecePrice: PiecePrice[] = [
-  { countRange: [1, 24], price: 600, color: "#2CAE97", title: "1-24 отзыва" },
+  { countRange: [1, 24], price: 650, color: "#2CAE97", title: "1-24 отзыва" },
   {
     countRange: [25, 49],
-    price: 550,
+    price: 590,
     color: "#ECA843",
     title: "25-49 отзывов",
   },
   {
     countRange: [50, 99],
-    price: 519,
+    price: 550,
     color: "#EF5479",
     title: "50-99 отзывов",
   },
