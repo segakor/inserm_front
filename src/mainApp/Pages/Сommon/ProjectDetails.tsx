@@ -12,6 +12,8 @@ import { TableProjectNotChangeable } from "../../Table/TableProjectNotChangeable
 import { ButtonBrief } from "../../Button/ButtonBrief";
 import { ModalBrief } from "../../components/ModalBrief";
 import { Notes } from "../../components/Notes";
+import { FooterDetails } from "../../components/FooterDetails";
+import { Divider } from "antd";
 
 const Page = styled.div`
   display: flex;
@@ -87,10 +89,15 @@ const ProjectDetails = () => {
           </TitleDate>
           <DetailsCard statuses={statusess} />
         </CardBlock>
-        <Notes id={projectId} type={'project'}/>
+        <Notes id={projectId} type={"project"} />
       </WrapperCard>
       {isModalOpen && (
-        <ModalBrief onClose={handleClose} id={projectId} brief={brief} typeBrief={'project'}/>
+        <ModalBrief
+          onClose={handleClose}
+          id={projectId}
+          brief={brief}
+          typeBrief={"project"}
+        />
       )}
       {role === "ADMIN" || role === "HOST" || role === "SUPERVISOR" ? (
         <TableProjectChangeable
@@ -103,6 +110,8 @@ const ProjectDetails = () => {
         <TableProjectNotChangeable reviews={reviews} isLoading={isLoading} />
       )}
       <ArchiveProjectList projectId={projectId} />
+      <Divider/>
+      <FooterDetails type={"project"} currentPageId={projectId} />
     </Page>
   );
 };

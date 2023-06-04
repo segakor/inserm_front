@@ -1,7 +1,15 @@
 import styled from "styled-components";
 
-export const Panel = styled.div<{ isCompleted: boolean }>`
-  background: ${(props) => (props.isCompleted ? "#8BFFB3" : "#ffffff")};
+export const Panel = styled.div<{
+  isCompleted: boolean;
+  isReadyToWork?: boolean;
+}>`
+  background: ${(props) =>
+    props.isCompleted
+      ? "#8BFFB3"
+      : props?.isReadyToWork
+      ? "#f7e4dc"
+      : "#ffffff"};
   border-radius: 10px;
   min-height: 80px;
   padding: 12px 20px 12px 20px;

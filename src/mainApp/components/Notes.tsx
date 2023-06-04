@@ -72,7 +72,7 @@ export const Notes = ({ type, id }: Props) => {
   useEffect(() => {
     handleGetNotes(id, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
 
   return (
     <Wrapper>

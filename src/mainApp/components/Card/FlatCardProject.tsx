@@ -18,6 +18,7 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
     tariff: { start, end },
     statuses,
     id,
+    brief,
   } = project;
 
   const navigation = useNavigate();
@@ -32,10 +33,12 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
   };
 
   const isCompleted = (statuses?.success || 0) >= (statuses?.all || 0);
+  const isReadyToWork = statuses?.moderate === 0 && brief as boolean;
 
   return (
     <>
       <Panel
+        isReadyToWork={isReadyToWork}
         isCompleted={isCompleted}
         onClick={() => navigation(`/app/${role?.toLowerCase()}/project/${id}`)}
       >

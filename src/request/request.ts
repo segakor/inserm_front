@@ -292,8 +292,6 @@ export const createNote = async (
 ) => {
   const path = type === "project" ? "project" : "campaign";
 
-  console.log(path);
-
   const { data, status } = await axiosClient.post(URL + `/api/${path}/notes`, {
     ...value,
   });
@@ -306,7 +304,6 @@ export const createNote = async (
 export const getNotes = async (id: string, type: string) => {
   const path = type === "project" ? "project" : "campaign";
 
-  console.log(path);
   const { data, status } = await axiosClient.get<ReqNote>(
     URL + `/api/${path}/notes/${id}`
   );

@@ -18,11 +18,15 @@ const SectionItem = styled.div`
 `;
 
 type Props = {
-  onSelectTarif?: (e: any) => void
-}
+  onSelectTarif?: (tariff: {
+    period: number;
+    price: number;
+    id: number;
+  }) => void;
+};
 
 export const TariffSelectionBlock = (props: Props) => {
-  const tariffPeriod = 1
+  const tariffPeriod = 1;
 
   const { tariffs } = useGetTariff();
 

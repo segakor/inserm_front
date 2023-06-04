@@ -65,7 +65,11 @@ type Props = {
   end?: number;
   forOne?: number;
   disabled?: boolean;
-  onSelectTarif?: (e: any) => void;
+  onSelectTarif?: (tariff: {
+    period: number;
+    price: number;
+    id: number;
+  }) => void;
   onChangeAutoPay?: (e: boolean) => void;
   autoPay?: boolean;
 };
@@ -102,7 +106,7 @@ export const TariffItem = ({
 
   const handleClick = () => {
     if (onSelectTarif) {
-      onSelectTarif({ period, price, id });
+      onSelectTarif({ period: period || 0, price: price || 0, id: id || 0 });
     }
   };
 

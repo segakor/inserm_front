@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { useGetAllProject } from "../../hooks/useGetAllProject";
@@ -8,6 +8,8 @@ import { FlatCardProject, FlatCardCampaign } from "../../components/Card";
 import { ModalCreateProjectByAdmin } from "../../components/ModalCreateProjectByAdmin";
 import { useGetCampaign } from "../../hooks/useGetCampaign";
 import { useGetAllCampaign } from "../../hooks/useGetAllCampaign";
+import { useDispatch } from "../../context/hooks";
+import { setPages } from "../../context/action";
 
 const Page = styled.div`
   display: flex;
@@ -43,7 +45,7 @@ const ListOfProject = () => {
 
   const { allProject, isLoading, handleUpdate } = useGetAllProject(isActive);
 
-  const { allCampaign, isLoading: isLoadingCampaing } = useGetAllCampaign();
+  const { allCampaign } = useGetAllCampaign();
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value.toLowerCase());
@@ -121,7 +123,7 @@ const ListOfProject = () => {
       {typeProject === "campaign" && (
         <>
           {filteredData2?.map((item, index) => (
-            <FlatCardCampaign key={index} campaign={item}/>
+            <FlatCardCampaign key={index} campaign={item} />
           ))}
         </>
       )}
