@@ -1,87 +1,51 @@
-import React, { useState } from "react";
-import { Button, Divider, Input, Steps } from "antd";
-import styled from "styled-components";
+import React from "react";
+import { Divider, Form, Input } from "antd";
 import { TariffSelectionBlock } from "../TariffSelectionBlock";
-import { useDispatch } from "../../context/hooks";
-import { setProjectForPayment } from "../../context/action";
-import { ApplyPayment } from "../ApplyPayment";
-
-const ButtonWrapper = styled.div`
-  display: flex;
-`;
+import { StyledTitle } from "../CreateCampaign/styles";
+import { goToAinoxPage } from "../../../utils";
+import { useLocalState } from "../../context/hooks";
+import { formIds } from "../../../constants";
 
 export const ReviewsMonth = () => {
-  const [projectName, setProjectName] = useState("");
-  const [current, setCurrent] = useState(0);
+  const [form] = Form.useForm();
 
-  const dispatch = useDispatch();
+  const formValue = Form.useWatch([], form);
 
-  const onSelectedTariff = (e: any) => {
-    dispatch(
-      setProjectForPayment({
-        projectName: projectName,
-        period: e.period,
-        tariffId: e.id,
-        price: e.price,
-      })
-    );
-    next();
+  const state = useLocalState();
+  const { personInfo } = state;
+
+  const onSelectedTariff = (tariff: {
+    period: number;
+    price: number;
+    id: number;
+  }) => {
+    const formIdValue = formIds[tariff.id - 1];
+
+    goToAinoxPage({
+      email: personInfo?.email || "",
+      projectName: formValue?.projectName || "",
+      formId: formIdValue,
+      price: tariff.price || 0,
+      period: tariff.period || 0,
+    });
   };
-
-  const steps = [
-    {
-      title: "Введите название проекта",
-      content: (
-        <Input
-          placeholder="Название проекта"
-          style={{ width: "300px", height: "40px" }}
-          onChange={(e) => setProjectName(e.target.value)}
-        />
-      ),
-    },
-    {
-      title: "Выберете тариф",
-      content: <TariffSelectionBlock onSelectTarif={onSelectedTariff} />,
-    },
-    {
-      title: "Оплата",
-      content: <ApplyPayment />,
-    },
-  ];
-
-  const next = () => {
-    setCurrent((prev) => prev + 1);
-  };
-
-  const prev = () => {
-    setCurrent((prev) => prev - 1);
-  };
-
-  const items = steps.map((item) => ({ key: item.title, title: item.title }));
 
   return (
-    <>
-      <Steps current={current} items={items} />
+    <Form form={form}>
+      <StyledTitle level={5}>1. Введите название проекта</StyledTitle>
+      <Form.Item
+        name="projectName"
+        rules={[{ required: true, message: "Обязательное поле" }]}
+      >
+        <Input placeholder="Название проекта" style={{ width: "300px" }} />
+      </Form.Item>
       <Divider />
-      <div className="steps-content">{steps[current].content}</div>
-      <Divider />
-      <ButtonWrapper>
-        {current === 0 && (
-          <Button
-            type="primary"
-            onClick={() => next()}
-            disabled={!projectName ? true : false}
-            style={{ width: "100px" }}
-          >
-            Далее
-          </Button>
-        )}
-        {current > 0 && (
-          <Button style={{ width: "100px" }} onClick={() => prev()}>
-            Назад
-          </Button>
-        )}
-      </ButtonWrapper>
-    </>
+      {formValue?.projectName && (
+        <>
+          <StyledTitle level={5}>2. Выберите тариф</StyledTitle>
+          <TariffSelectionBlock onSelectTarif={onSelectedTariff} />
+        </>
+      )}
+    </Form>
   );
 };

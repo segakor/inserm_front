@@ -171,13 +171,6 @@ export type ResAdmin = {
   result: Admin[];
 };
 
-export type ProjectForPayment = {
-  projectName: string;
-  price: number;
-  period: number;
-  tariffId: number;
-};
-
 export type ReqSiteRegistration = ReqProjectCreate & {
   email: string;
 };

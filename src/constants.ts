@@ -85,7 +85,6 @@ export const briefField = {
   ],
 };
 
-
 export const textFoundation = [
   {
     title: "А что, если у меня более 1 карточки на разных площадках?",
@@ -114,3 +113,9 @@ export const textFoundation = [
 ];
 
 export const noop = () => {};
+
+export const formIds = [
+  "96267607a9857ae",
+  "b93d944a83a9ac1",
+  "f334a093ff4dbfa",
+]; //NOTE: для тарифов с подпиской

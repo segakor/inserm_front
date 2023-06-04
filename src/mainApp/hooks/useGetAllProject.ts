@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { getAllProject } from "../../request";
 import { Project } from "../../types";
 import { openNotificationWithIcon } from "../../utils";
+import { useDispatch } from "../context/hooks";
+import { setPages } from "../context/action";
 
 export const useGetAllProject = (isActive: boolean) => {
   const [allProject, setAllProject] = useState<Project[] | undefined>(
@@ -11,11 +13,14 @@ export const useGetAllProject = (isActive: boolean) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleGetAllProject = async () => {
     try {
       setIsLoading(true);
       const response = await getAllProject(isActive);
       setAllProject(response.data.projectsArray);
+      dispatch(setPages(response.data.projectsArray.map((item) => item.id)));
     } catch (err) {
       const typedError = err as AxiosError;
       openNotificationWithIcon({

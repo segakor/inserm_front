@@ -25,11 +25,7 @@ type Props = {
   isActive?: boolean;
 };
 
-export const RoomItem = ({
-  room,
-  onClickRoom,
-  isActive = false,
-}: Props) => {
+export const RoomItem = ({ room, onClickRoom, isActive = false }: Props) => {
   const handleClick = () => {
     onClickRoom(room);
   };
@@ -37,7 +33,7 @@ export const RoomItem = ({
   return (
     <Wrapper onClick={handleClick} isActive={isActive}>
       <UserName>
-        <Title level={5}>{room.name}</Title>
+        <Title level={5}>{room.name || "No Name"}</Title>
         <div style={{ color: "#8E8E8E" }}>{room.email}</div>
       </UserName>
       <Badge count={room.unread} />

@@ -11,15 +11,19 @@ type Props = {
 };
 
 export const FlatCardCampaign = ({ campaign }: Props) => {
-  const { period, statuses, name, id } = campaign;
+  const { period, statuses, name, id, brief } = campaign;
 
   const navigation = useNavigate();
   const role = tokenService.getRole();
 
+  const isCompleted = (statuses?.success || 0) >= (statuses?.all || 0);
+  const isReadyToWork = statuses?.moderate === 0 && (brief as boolean);
+
   return (
     <>
       <Panel
-        isCompleted={false}
+        isReadyToWork={isReadyToWork}
+        isCompleted={isCompleted}
         onClick={() => navigation(`/app/${role?.toLowerCase()}/campaign/${id}`)}
       >
         <Box style={{ marginBottom: "15px" }}>

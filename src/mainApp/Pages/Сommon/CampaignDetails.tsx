@@ -12,6 +12,8 @@ import { ModalBrief } from "../../components/ModalBrief";
 import { Notes } from "../../components/Notes";
 import { useGetReviewsCampaign } from "../../hooks/useGetReviewsCampaign";
 import { CampaignReviews } from "../../components/CampaignReviews";
+import { FooterDetails } from "../../components/FooterDetails";
+import { Divider } from "antd";
 
 const Page = styled.div`
   display: flex;
@@ -58,13 +60,9 @@ const CampaignDetails = () => {
     handleGetBrief();
   };
 
-  const {
-    handleGetReviews,
-    data
-  } = useGetReviewsCampaign(campaignId);
+  const { handleGetReviews, data } = useGetReviewsCampaign(campaignId);
 
-  const { brief, handleGetBrief } = useGetBrief(campaignId, 'campaign');
-
+  const { brief, handleGetBrief } = useGetBrief(campaignId, "campaign");
 
   const role = tokenService.getRole();
 
@@ -81,12 +79,24 @@ const CampaignDetails = () => {
           </TitleDate>
           <DetailsCard statuses={data?.statuses} />
         </CardBlock>
-        <Notes id={campaignId} type={'campaign'}/>
+        <Notes id={campaignId} type={"campaign"} />
       </WrapperCard>
       {isModalOpen && (
-        <ModalBrief onClose={handleClose} id={campaignId} brief={brief} typeBrief={'campaign'}/>
+        <ModalBrief
+          onClose={handleClose}
+          id={campaignId}
+          brief={brief}
+          typeBrief={"campaign"}
+        />
       )}
-      <CampaignReviews group={data?.groppedByType || []} role={role} id={data?.id.toString() || ""} onUpdate={handleGetReviews}/>
+      <CampaignReviews
+        group={data?.groppedByType || []}
+        role={role}
+        id={data?.id.toString() || ""}
+        onUpdate={handleGetReviews}
+      />
+      <Divider />
+      <FooterDetails type={"project"} currentPageId={campaignId} />
     </Page>
   );
 };
