@@ -96,7 +96,7 @@ const CampaignDetails = () => {
         onUpdate={handleGetReviews}
       />
       <Divider />
-      <FooterDetails type={"project"} currentPageId={campaignId} />
+      <FooterDetails type={"campaign"} currentPageId={campaignId} />
     </Page>
   );
 };
