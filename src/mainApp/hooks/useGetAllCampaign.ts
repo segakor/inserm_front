@@ -23,7 +23,12 @@ export const useGetAllCampaign = () => {
         type: "campaign",
       }));
       setAllCampaign(campaignArray);
-      dispatch(setPages(response.data.result.map((item) => item.id)));
+      dispatch(
+        setPages({
+          pages: response.data.result.map((item) => item.id),
+          type: "campaign",
+        })
+      );
     } catch (err) {
       const typedError = err as AxiosError;
       openNotificationWithIcon({

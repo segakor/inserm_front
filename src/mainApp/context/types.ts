@@ -1,10 +1,4 @@
-import {
-  Person,
-  Project,
-  Admin,
-  Notify,
-  Campaign,
-} from "../../types";
+import { Person, Project, Admin, Notify, Campaign } from "../../types";
 
 export type LocalState = {
   personInfo: Person | undefined;
@@ -14,5 +8,6 @@ export type LocalState = {
   listOfAdmin: Admin[] | undefined;
   socketNotify: any | null;
   listOfNotify: Notify[];
-  pages:[];
+  pagesProject: number[];
+  pagesCampaign: number[];
 };

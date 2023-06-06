@@ -7,7 +7,7 @@ export const CLEAR_STATE = "CLEAR_STATE";
 export const SET_NOTIFY_REF = "SET_NOTIFY_REF";
 export const SET_LIST_OF_NOTIFY = "SET_LIST_OF_NOTIFY";
 export const REMOVE_ITEM_LIST_OF_NOTIFY = "REMOVE_ITEM_LIST_OF_NOTIFY";
-export const SET_PAGES = "SET_PAGES"
+export const SET_PAGES = "SET_PAGES";
 
 export const setPersonInfo = (payload: any) => ({
   type: SET_PERSON_INFO,
@@ -41,7 +41,7 @@ export const removeItemListOfNotify = (payload: number | null) => ({
   type: REMOVE_ITEM_LIST_OF_NOTIFY,
   payload,
 });
-export const setPages = (payload: any) => ({
+export const setPages = (payload: { pages: number[]; type: string }) => ({
   type: SET_PAGES,
   payload,
 });
