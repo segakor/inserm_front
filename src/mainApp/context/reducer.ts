@@ -28,7 +28,8 @@ export const initialState: LocalState = {
   listOfAdmin: undefined,
   socketNotify: null,
   listOfNotify: [],
-  pages: [],
+  pagesProject: [],
+  pagesCampaign: [],
 };
 
 function setPersonInfo(
@@ -79,7 +80,8 @@ function clearState(state: LocalState): LocalState {
     listOfAdmin: undefined,
     socketNotify: null,
     listOfNotify: [],
-    pages: [],
+    pagesProject: [],
+    pagesCampaign: [],
   };
 }
 
@@ -113,13 +115,16 @@ function removeItemListOfNotify(
   };
 }
 
-function setPages(
-  state: LocalState,
-  { payload }: SetPages
-): LocalState {
+function setPages(state: LocalState, { payload }: SetPages): LocalState {
+  if (payload.type === "campaign") {
+    return {
+      ...state,
+      pagesCampaign: payload.pages,
+    };
+  }
   return {
     ...state,
-    pages: payload,
+    pagesProject: payload.pages,
   };
 }
 

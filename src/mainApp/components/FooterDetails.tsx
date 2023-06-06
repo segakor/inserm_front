@@ -22,11 +22,17 @@ export const FooterDetails = ({ type, currentPageId }: Props) => {
 
   const state = useLocalState();
 
-  const { pages } = state;
+  const { pagesProject, pagesCampaign } = state;
 
-  const nextIndexId = pages.findIndex((item) => item === Number(currentPageId)) + 1;
+  const nextIndexId =
+    type === "campaign"
+      ? pagesCampaign.findIndex((item) => item === Number(currentPageId)) + 1
+      : pagesProject.findIndex((item) => item === Number(currentPageId)) + 1;
 
-  const nextId = pages[nextIndexId];
+  const nextId =
+    type === "campaign"
+      ? pagesCampaign[nextIndexId]
+      : pagesProject[nextIndexId];
 
   const nextPage = () => {
     navigation(`/app/${role?.toLowerCase()}/${type}/${nextId}`);
@@ -37,7 +43,7 @@ export const FooterDetails = ({ type, currentPageId }: Props) => {
       <Button
         type="primary"
         icon={<DoubleRightOutlined />}
-        disabled={!pages.length || !nextId}
+        disabled={!nextId}
         onClick={nextPage}
       />
     </Wrapper>

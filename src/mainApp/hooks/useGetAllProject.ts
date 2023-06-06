@@ -20,7 +20,12 @@ export const useGetAllProject = (isActive: boolean) => {
       setIsLoading(true);
       const response = await getAllProject(isActive);
       setAllProject(response.data.projectsArray);
-      dispatch(setPages(response.data.projectsArray.map((item) => item.id)));
+      dispatch(
+        setPages({
+          pages: response.data.projectsArray.map((item) => item.id),
+          type: "project",
+        })
+      );
     } catch (err) {
       const typedError = err as AxiosError;
       openNotificationWithIcon({
