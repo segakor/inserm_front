@@ -28,7 +28,9 @@ import {
   ResGetWarmClient,
   ReqCreateCampaign,
   ResGetCampaign,
-  ReqGetCampaignDetails,
+  ResGetCampaignDetails,
+  ResGetListOfBrief,
+  ReqCopyBrief,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -343,11 +345,14 @@ export const deleteReview = async (value: { id: string }) => {
   };
 };
 
-export const changeStatusProject = async (value: {
-  id: number;
-  isActive: boolean;
-}) => {
-  const { data, status } = await axiosClient.post(URL + "/api/project/status", {
+export const changeStatusProject = async (
+  value: {
+    id: number;
+    isActive: boolean;
+  },
+  type: "project" | "campaign"
+) => {
+  const { data, status } = await axiosClient.post(URL + `/api/${type}/status`, {
     ...value,
   });
   return {
@@ -450,16 +455,38 @@ export const createCampaign = async (value: ReqCreateCampaign) => {
   };
 };
 
-export const getCampaign = async () => {
+export const getCampaign = async (isActive: boolean) => {
   const { data, status } = await axiosClient.get<ResGetCampaign>(
-    URL + "/api/campaign"
+    URL + "/api/campaign",
+    { params: { isActive: isActive } }
   );
   return { data, status };
 };
 
 export const getCampaignDetails = async (id: string) => {
-  const { data, status } = await axiosClient.get<ReqGetCampaignDetails>(
+  const { data, status } = await axiosClient.get<ResGetCampaignDetails>(
     URL + `/api/campaign/${id}`
   );
   return { data, status };
+};
+
+export const getListOfBrief = async () => {
+  const { data, status } = await axiosClient.get<ResGetListOfBrief>(
+    URL + `/api/brief/user/list`
+  );
+  return { data, status };
+};
+
+export const copyBrief = async (value: ReqCopyBrief) => {
+  console.log(value);
+  const { data, status } = await axiosClient.post(
+    URL + `/api/project/saveBrief`,
+    {
+      ...value,
+    }
+  );
+  return {
+    data,
+    status,
+  };
 };

@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import { changeStatusProject } from "../../request";
 import { openNotificationWithIcon } from "../../utils";
 
-export const useChangeProjectStatus = () => {
+export const useChangeProjectStatus = (type: "project" | "campaign") => {
   const handleChangeProjectStatus = async ({
     id,
     isActive,
@@ -11,7 +11,7 @@ export const useChangeProjectStatus = () => {
     isActive: boolean;
   }) => {
     try {
-      await changeStatusProject({ id, isActive });
+      await changeStatusProject({ id, isActive }, type);
     } catch (err) {
       const typedError = err as AxiosError;
       openNotificationWithIcon({

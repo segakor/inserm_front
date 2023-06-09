@@ -1,10 +1,12 @@
-import React from "react";
-import { Divider, Form, Input } from "antd";
+import { Divider, Form, Input, Select, Switch, Tooltip } from "antd";
 import { TariffSelectionBlock } from "../TariffSelectionBlock";
 import { StyledTitle } from "../CreateCampaign/styles";
 import { goToAinoxPage } from "../../../utils";
 import { useLocalState } from "../../context/hooks";
 import { formIds } from "../../../constants";
+import { useGetListOfBrief } from "../../hooks/useGetListOfBrief";
+import { QuestionCircleOutlined } from "@ant-design/icons";
+import { useCopyBrief } from "../../hooks/useCopyBrief";
 
 export const ReviewsMonth = () => {
   const [form] = Form.useForm();
@@ -14,21 +16,54 @@ export const ReviewsMonth = () => {
   const state = useLocalState();
   const { personInfo } = state;
 
-  const onSelectedTariff = (tariff: {
+  const { handleCopyBrief } = useCopyBrief();
+
+  const onSelectedTariff = async (tariff: {
     period: number;
     price: number;
     id: number;
   }) => {
-    const formIdValue = formIds[tariff.id - 1];
+    try {
+      await form.validateFields();
 
-    goToAinoxPage({
-      email: personInfo?.email || "",
-      projectName: formValue?.projectName || "",
-      formId: formIdValue,
-      price: tariff.price || 0,
-      period: tariff.period || 0,
-    });
+      if (formValue?.switchBrief) {
+        const value = JSON.parse(formValue?.importBrief || "{}");
+
+        await handleCopyBrief({
+          id: value?.id,
+          name: value?.name,
+          type: value?.type,
+          field: formValue?.fieldLinks,
+        });
+      }
+
+      const formIdValue = formIds[tariff.id - 1];
+
+      goToAinoxPage({
+        email: personInfo?.email || "",
+        projectName: formValue?.projectName || "",
+        formId: formIdValue,
+        price: tariff.price || 0,
+        period: tariff.period || 0,
+      });
+    } catch (error) {}
   };
+
+  const { listOfBrief } = useGetListOfBrief();
+
+  const options = listOfBrief?.map((item) => ({
+    label: item?.name,
+    value: JSON.stringify({
+      id: item?.id,
+      type: item?.type,
+      name: item?.name,
+    }),
+  }));
+
+  const isCopyBriefFromCampaign =
+    JSON.parse(formValue?.importBrief || "{}")?.type === "campaign";
+
+  const disabledSwitch = !listOfBrief?.length;
 
   return (
     <Form form={form}>
@@ -39,13 +74,54 @@ export const ReviewsMonth = () => {
       >
         <Input placeholder="Название проекта" style={{ width: "300px" }} />
       </Form.Item>
-      <Divider />
       {formValue?.projectName && (
         <>
-          <StyledTitle level={5}>2. Выберите тариф</StyledTitle>
-          <TariffSelectionBlock onSelectTarif={onSelectedTariff} />
+          <StyledTitle level={5}>
+            Импортировать бриф из предыдущего проекта?
+          </StyledTitle>
+          <Form.Item name="switchBrief" valuePropName="checked">
+            <Switch
+              checkedChildren="Да"
+              unCheckedChildren="Нет"
+              disabled={disabledSwitch}
+            />
+          </Form.Item>
         </>
       )}
+      {formValue?.switchBrief && (
+        <>
+          <StyledTitle level={5}>Выберите бриф проекта для импорта</StyledTitle>
+          <Form.Item
+            name="importBrief"
+            rules={[{ required: true, message: "Обязательное поле" }]}
+          >
+            <Select options={options} style={{ width: "300px" }} />
+          </Form.Item>
+        </>
+      )}
+      {isCopyBriefFromCampaign && (
+        <>
+          <Form.Item
+            name="fieldLinks"
+            style={{ width: "300px" }}
+            rules={[{ required: true, message: "Обязательное поле" }]}
+          >
+            <div style={{ display: "flex", alignItems: "center", gridGap: 8 }}>
+              <Input placeholder="Ссылка на ваш сайт" />
+              <Tooltip
+                title={
+                  "Вы выбрали бриф из поштучного проекта, необходимо заполнить ссылку на ваш сайт"
+                }
+              >
+                <QuestionCircleOutlined />
+              </Tooltip>
+            </div>
+          </Form.Item>
+        </>
+      )}
+      <Divider />
+      <StyledTitle level={5}>2. Выберите тариф</StyledTitle>
+      <TariffSelectionBlock onSelectTarif={onSelectedTariff} />
     </Form>
   );
 };
