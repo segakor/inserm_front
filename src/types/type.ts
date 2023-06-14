@@ -317,11 +317,28 @@ export type GrouppedCampaign = {
   cards: CampaignCard[];
 };
 
-export type ReqGetCampaignDetails = {
+export type ResGetCampaignDetails = {
   id: number;
   name: string;
   date: number;
   period: number;
   statuses: Statuses;
   groppedByType: GrouppedCampaign[];
+};
+
+export type BriefList = {
+  type: "project" | "campaign";
+  id: number;
+  name: string;
+};
+
+export type ResGetListOfBrief = {
+  result: BriefList[];
+};
+
+export type ReqCopyBrief = {
+  id: number;
+  name: string;
+  type: "campaign" | "project";
+  field: string;
 };

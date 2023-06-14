@@ -5,12 +5,15 @@ import { Campaign } from "../../../types";
 import { tokenService } from "../../../utils";
 import { Box, Panel } from "./styles";
 import { StatusesFlat } from "./StatusesFlat";
+import { useChangeProjectStatus } from "../../hooks/useChangeProjectStatus";
 
 type Props = {
   campaign: Campaign;
+  isActive: boolean;
+  onUpdate: () => void;
 };
 
-export const FlatCardCampaign = ({ campaign }: Props) => {
+export const FlatCardCampaign = ({ campaign, isActive, onUpdate }: Props) => {
   const { period, statuses, name, id, brief } = campaign;
 
   const navigation = useNavigate();
@@ -18,6 +21,14 @@ export const FlatCardCampaign = ({ campaign }: Props) => {
 
   const isCompleted = (statuses?.success || 0) >= (statuses?.all || 0);
   const isReadyToWork = statuses?.moderate === 0 && (brief as boolean);
+
+  const { handleChangeProjectStatus } = useChangeProjectStatus('campaign');
+
+  const onChangeStatus = () => {
+    handleChangeProjectStatus({ id, isActive: !isActive }).then(() => {
+      onUpdate();
+    });
+  };
 
   return (
     <>
@@ -35,6 +46,19 @@ export const FlatCardCampaign = ({ campaign }: Props) => {
         </Box>
         <Box>
           <StatusesFlat statuses={statuses} />
+          <Title
+            style={{
+              fontSize: "14px",
+              color: "#8E8E8E",
+              textDecorationLine: "underline",
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onChangeStatus();
+            }}
+          >
+            {isActive ? "Добавить в архив" : "Убрать из архива"}
+          </Title>
         </Box>
       </Panel>
     </>
