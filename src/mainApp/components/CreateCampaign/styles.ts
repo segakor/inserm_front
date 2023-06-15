@@ -93,6 +93,9 @@ export const PriceBox = styled.div`
   display: flex;
   flex-direction: column;
   grid-gap: 20px;
+  @media (max-width: 768px) {
+    width: auto;
+  }
 `;
 
 export const PriceCard = styled.div<{ color: string }>`
@@ -105,6 +108,9 @@ export const PriceCard = styled.div<{ color: string }>`
   grid-gap: 19px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 768px) {
+    width: auto;
+  }
 `;
 
 export const PriceWrapper = styled.div`
@@ -113,6 +119,9 @@ export const PriceWrapper = styled.div`
   width: auto;
   flex-wrap: wrap;
   margin-bottom: 40px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const FooterWrapper = styled.div`

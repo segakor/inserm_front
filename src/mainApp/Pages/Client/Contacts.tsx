@@ -77,9 +77,9 @@ const Contacts = () => {
           </Title>
           <WhatsappIcon />
         </ContactsCard>
-        <ContactsCard withoutCursor>
+        <ContactsCard>
           <Title level={5} style={{ fontWeight: "700" }}>
-            info@inserm.ru
+            <a href="mailto:info@inserm.ru">info@inserm.ru</a>
           </Title>
         </ContactsCard>
       </ContactsWrapper>
@@ -87,4 +87,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts
+export default Contacts;
