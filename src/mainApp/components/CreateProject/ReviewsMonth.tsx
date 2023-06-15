@@ -1,7 +1,7 @@
 import { Divider, Form, Input, Select, Switch, Tooltip } from "antd";
 import { TariffSelectionBlock } from "../TariffSelectionBlock";
 import { StyledTitle } from "../CreateCampaign/styles";
-import { goToAinoxPage } from "../../../utils";
+import { goToAinoxPage, openNotificationWithIcon } from "../../../utils";
 import { useLocalState } from "../../context/hooks";
 import { formIds } from "../../../constants";
 import { useGetListOfBrief } from "../../hooks/useGetListOfBrief";
@@ -46,7 +46,14 @@ export const ReviewsMonth = () => {
         price: tariff.price || 0,
         period: tariff.period || 0,
       });
-    } catch (error) {}
+    } catch (error) {
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: `Заполните все поля`,
+        placement: "topRight",
+      });
+    }
   };
 
   const { listOfBrief } = useGetListOfBrief();

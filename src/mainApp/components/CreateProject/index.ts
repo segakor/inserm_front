@@ -1,2 +1,3 @@
 import { ReviewsMonth } from "./ReviewsMonth";
-export { ReviewsMonth };
+import { CreateProjectPlatform } from "./CreateProjectPlatform";
+export { ReviewsMonth, CreateProjectPlatform };

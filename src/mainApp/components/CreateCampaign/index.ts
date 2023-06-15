@@ -1,2 +1,3 @@
 import { ReviewsPiece } from "./ReviewsPiece";
-export { ReviewsPiece };
+import { CreateCampaignPlatform } from "./CreateCampaignPlatform";
+export { ReviewsPiece, CreateCampaignPlatform };
