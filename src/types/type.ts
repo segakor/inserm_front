@@ -221,6 +221,7 @@ export type Client = {
   tg: string;
   totalPrice: number;
   projects: ClientProject[];
+  campaigns: Omit<ClientProject[], "autopay">;
 };
 
 export type ResGetAllClient = {
@@ -263,13 +264,6 @@ export enum AreaType {
   ZOON = "zoon",
   YA_BRA = "ya_bra",
 }
-
-export type PiecePrice = {
-  countRange: number[];
-  price: number;
-  color: string;
-  title: string;
-};
 
 export type CampaignCardForm = {
   link: string;
@@ -341,4 +335,14 @@ export type ReqCopyBrief = {
   name: string;
   type: "campaign" | "project";
   field: string;
+};
+
+export type CampaignTariff = {
+  id: number;
+  countRange: number[];
+  price: number;
+};
+
+export type ResCampaignTariff = {
+  result: CampaignTariff[];
 };

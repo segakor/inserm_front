@@ -33,8 +33,8 @@ type Props = {
 };
 
 export const ModalBrief = ({ onClose, id, brief, typeBrief }: Props) => {
-  const { handleCreateBrief } = useCreateBrief();
-  const { handleUpdateBrief } = useUpdateBrief();
+  const { handleCreateBrief, isLoading: isLoadingCreate } = useCreateBrief();
+  const { handleUpdateBrief, isLoading: isLoadingUpdate } = useUpdateBrief();
 
   const [form] = Form.useForm();
   const formValue = Form.useWatch([], form);
@@ -118,16 +118,14 @@ export const ModalBrief = ({ onClose, id, brief, typeBrief }: Props) => {
               },
             ]}
           >
-            <StyledTextArea
-              style={{ height: 100 }}
-              disabled={isBrief}
-            />
+            <StyledTextArea style={{ height: 100 }} disabled={isBrief} />
           </Form.Item>
         ))}
         <StyledButton
           type="primary"
           disabled={isBrief}
           htmlType="submit"
+          loading={isLoadingCreate}
         >
           Сохранить
         </StyledButton>
@@ -156,6 +154,7 @@ export const ModalBrief = ({ onClose, id, brief, typeBrief }: Props) => {
               type="primary"
               disabled={disabledComment}
               onClick={onSumbitUpdate}
+              loading={isLoadingUpdate}
             >
               Добавить комментарий
             </StyledButton>

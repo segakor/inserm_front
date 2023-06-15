@@ -1,12 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
 import styled from "styled-components";
 import { Badge, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Client, ClientProject } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { tokenService, getRangeDate } from "../../utils";
-import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
+import {
+  CheckCircleFilled,
+  CloseCircleFilled,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons";
 import { getAmountAutoPay } from "../../utils/amountAutoPay";
 
 type TableItem = Client & {
@@ -33,7 +36,15 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
   const navigation = useNavigate();
   const role = tokenService.getRole();
 
-  const TableAllProjects = ({ projects }: { projects: ClientProject[] }) => {
+  const TableAllProjects = ({
+    projects,
+    showHeader,
+    type,
+  }: {
+    projects: ClientProject[];
+    showHeader: boolean;
+    type: "project" | "campaign";
+  }) => {
     const projectWithKey = projects.map((item, index) => ({
       ...item,
       key: index.toString(),
@@ -49,12 +60,19 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
         title: "Название проекта",
         render: (record: ClientProject) => (
           <div style={{ display: "inline" }}>
-            <a onClick={() => navigation(`/app/${role}/project/${record.id}`)}>
+            <a onClick={() => navigation(`/app/${role}/${type}/${record.id}`)}>
               <Project>
-                {record.autopay ? (
-                  <CheckCircleFilled style={{ color: "#1BBD3F" }} />
-                ) : (
-                  <CloseCircleFilled style={{ color: "#FF1E1E" }} />
+                {type === "project" && (
+                  <>
+                    {record.autopay ? (
+                      <CheckCircleFilled style={{ color: "#1BBD3F" }} />
+                    ) : (
+                      <CloseCircleFilled style={{ color: "#FF1E1E" }} />
+                    )}
+                  </>
+                )}
+                {type === "campaign" && (
+                  <ExclamationCircleOutlined style={{ color: "blue" }} />
                 )}
                 <>{record.name}</>
               </Project>
@@ -112,6 +130,7 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
         dataSource={projectWithKey}
         pagination={false}
         tableLayout={"fixed"}
+        showHeader={showHeader}
       />
     );
   };
@@ -184,6 +203,14 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
                 </>
               </Project>
             ))}
+            {record.campaigns?.map((item, index) => (
+              <Project key={index}>
+                <>
+                  <ExclamationCircleOutlined style={{ color: "blue" }} />
+                  {`[${item.id}]`} {item.name}
+                </>
+              </Project>
+            ))}
           </>
         );
       },
@@ -197,7 +224,16 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
       expandable={{
         expandedRowRender: (record) => (
           <div style={{ border: "2px dashed#32a1ce" }}>
-            <TableAllProjects projects={record.projects} />
+            <TableAllProjects
+              projects={record.projects}
+              showHeader={true}
+              type={"project"}
+            />
+            <TableAllProjects
+              projects={record.campaigns}
+              showHeader={false}
+              type={"campaign"}
+            />
           </div>
         ),
         rowExpandable: (record) => !!record.projects.length,

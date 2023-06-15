@@ -1,6 +1,10 @@
-export const getCountReviews = (formValue: any) => {
+import { CampaignTariff } from "../types";
+
+export const getCountReviews = (
+  formValue: any,
+  campaignTariff: CampaignTariff[] | undefined
+) => {
   let count = 0;
-  let priceForOne = 650;
   let maxCount = 0;
   let cards = [];
 
@@ -18,18 +22,14 @@ export const getCountReviews = (formValue: any) => {
         .reduce((a: any, b: any) => a + b);
     }
   }
-  if (count > 24) {
-    priceForOne = 590;
-  }
-  if (count > 49) {
-    priceForOne = 550;
-  }
-  if (count > 99) {
-    priceForOne = 499;
-  }
-  if (count >= 200) {
-    priceForOne = 479;
-  }
+
+  const currentPrice = campaignTariff?.find((item) =>
+    item.countRange.length === 2
+      ? item.countRange[1] >= count
+      : item.countRange[0]
+  );
+
+  const priceForOne = currentPrice?.price || 0
 
   return {
     count,

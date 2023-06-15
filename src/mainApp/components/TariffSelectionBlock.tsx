@@ -1,9 +1,9 @@
-import React from "react";
 import styled from "styled-components";
 import "./AntSelectCustomStyle.css";
 import { TariffItem } from "./TariffItem";
 import { TariffIndividual } from "./TariffIndividual";
 import { useGetTariff } from "../hooks/useGetTariff";
+import { Spin } from "antd";
 
 const SectionItem = styled.div`
   display: grid;
@@ -28,9 +28,13 @@ type Props = {
 export const TariffSelectionBlock = (props: Props) => {
   const tariffPeriod = 1;
 
-  const { tariffs } = useGetTariff();
+  const { tariffs, isLoading } = useGetTariff();
 
   const selectedTariffs = tariffs?.tariffs[tariffPeriod];
+
+  if (isLoading) {
+    return <Spin />;
+  }
 
   return (
     <>

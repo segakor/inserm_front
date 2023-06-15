@@ -24,6 +24,7 @@ const Card = styled.div`
   flex-direction: column;
   grid-gap: 14px;
   @media (max-width: 768px) {
+    padding: 8px 18px 8px 18px;
     grid-gap: 10px;
     width: 100px;
     height: 85px;
