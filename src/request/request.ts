@@ -31,6 +31,7 @@ import {
   ResGetCampaignDetails,
   ResGetListOfBrief,
   ReqCopyBrief,
+  ResCampaignTariff,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -489,4 +490,11 @@ export const copyBrief = async (value: ReqCopyBrief) => {
     data,
     status,
   };
+};
+
+export const getCampaignTariff = async () => {
+  const { data, status } = await axiosClient.get<ResCampaignTariff>(
+    URL + `/api/campaignTariff`
+  );
+  return { data, status };
 };

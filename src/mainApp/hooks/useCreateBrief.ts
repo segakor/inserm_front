@@ -1,13 +1,16 @@
+import { useState } from "react";
 import { createBrief } from "../../request";
 import { ReqCreateBrief } from "../../types";
 import { openNotificationWithIcon } from "../../utils";
 import { useGetProject } from "./useGetProject";
 
 export const useCreateBrief = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { handleGetClientProject } = useGetProject();
 
   const handleCreateBrief = async (value: ReqCreateBrief) => {
     try {
+      setIsLoading(true);
       await createBrief(value);
       await handleGetClientProject();
       openNotificationWithIcon({
@@ -21,10 +24,13 @@ export const useCreateBrief = () => {
         message: "",
         description: "Не удалось сохранить бриф",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return {
     handleCreateBrief,
+    isLoading
   };
 };

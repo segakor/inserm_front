@@ -1,4 +1,4 @@
-import { AreaType, PiecePrice } from "./types";
+import { AreaType } from "./types";
 
 export const areas = [
   { value: AreaType.YA_MAP, label: "Яндекс карты" },
@@ -11,30 +11,15 @@ export const areas = [
   { value: AreaType.YA_BRA, label: "Яндекс Браузер" },
 ];
 
-export const piecePrice: PiecePrice[] = [
-  { countRange: [1, 24], price: 650, color: "#2CAE97", title: "1-24 отзыва" },
-  {
-    countRange: [25, 49],
-    price: 590,
-    color: "#ECA843",
-    title: "25-49 отзывов",
-  },
-  {
-    countRange: [50, 99],
-    price: 550,
-    color: "#EF5479",
-    title: "50-99 отзывов",
-  },
-  {
-    countRange: [100, 199],
-    price: 499,
-    color: "#7E6DE7",
-    title: "100-199 отзывов",
-  },
-  { countRange: [200], price: 479, color: "#12BDF3", title: "от 200 отзывов" },
+export const colorCardCampaign = [
+  { id: 1, color: "#2CAE97", title: "1-24 отзыва" },
+  { id: 2, color: "#ECA843", title: "25-49 отзывов" },
+  { id: 3, color: "#EF5479", title: "50-99 отзывов" },
+  { id: 4, color: "#7E6DE7", title: "100-199 отзывов" },
+  { id: 5, color: "#12BDF3", title: "от 200 отзывов" },
 ];
 
-export const colorCard = [
+export const colorCardProject = [
   { tariffName: "S", color: "#2CAE97" },
   { tariffName: "M", color: "#ECA843" },
   { tariffName: "L", color: "#EF5479" },

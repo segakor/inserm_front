@@ -1,18 +1,21 @@
 import { AxiosError } from "axios";
-import { useEffect, useState } from "react";
-import { getAllTariff } from "../../request";
-import { ReqGetTariff } from "../../types";
+import { getCampaignTariff } from "../../request";
 import { openNotificationWithIcon } from "../../utils";
+import { useState, useEffect } from "react";
+import { CampaignTariff } from "../../types";
 
-export const useGetTariff = () => {
-  const [tariffs, setTariffs] = useState<ReqGetTariff | undefined>(undefined);
+export const useGetCampaignTariff = () => {
+  const [campaignTariff, setCampaignTariff] = useState<
+    CampaignTariff[] | undefined
+  >();
+
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleGetTariff = async () => {
+  const handleGetCampaignTariff = async () => {
     try {
       setIsLoading(true);
-      const response = await getAllTariff();
-      setTariffs(response.data);
+      const response = await getCampaignTariff();
+      setCampaignTariff(response.data.result);
     } catch (err) {
       const typedError = err as AxiosError;
       openNotificationWithIcon({
@@ -25,9 +28,10 @@ export const useGetTariff = () => {
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
-    handleGetTariff();
+    handleGetCampaignTariff();
   }, []);
 
-  return { tariffs, isLoading };
+  return { campaignTariff, isLoading };
 };

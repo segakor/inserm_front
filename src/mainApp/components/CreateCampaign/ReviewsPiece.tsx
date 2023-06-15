@@ -10,6 +10,7 @@ import { getCountReviews } from "../../../utils/getCountReviews";
 import { useCreateCampaign } from "../../hooks/useCreateCampaign";
 import { ProjectName } from "./ProjectName";
 import { openNotificationWithIcon } from "../../../utils";
+import { useGetCampaignTariff } from "../../hooks/useGetCampaignTariff";
 
 export const ReviewsPiece = () => {
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
@@ -26,8 +27,10 @@ export const ReviewsPiece = () => {
 
   const formValue = Form.useWatch([], form);
 
+  const { campaignTariff, isLoading: isLoadingTariff } = useGetCampaignTariff();
+
   const { count, priceForOne, priceTotal, month, cards } =
-    getCountReviews(formValue);
+    getCountReviews(formValue,campaignTariff);
 
   const { handleCreateCampaign, isLoading } = useCreateCampaign();
 
@@ -38,7 +41,9 @@ export const ReviewsPiece = () => {
       email: personInfo?.email || "",
       name: formValue?.projectName || "",
       cards,
-      brief: formValue?.importBrief ? JSON.parse(formValue?.importBrief) : undefined,
+      brief: formValue?.importBrief
+        ? JSON.parse(formValue?.importBrief)
+        : undefined,
     };
 
     handleCreateCampaign(value, priceTotal);
@@ -61,9 +66,12 @@ export const ReviewsPiece = () => {
         form={form}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        disabled={isLoading}
+        disabled={isLoading || isLoadingTariff}
       >
-        <Price />
+        <Price
+          tariff={campaignTariff || []}
+          isLoadingTariff={isLoadingTariff}
+        />
         <ProjectName form={form} />
         {formValue?.projectName && (
           <ListOfAreaCheckBox
