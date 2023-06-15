@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Form } from "antd";
-import { useLocalState } from "../../context/hooks";
+import { Divider, Form, Input } from "antd";
 import { StyledTitle, Wrapper } from "./styles";
 import { ListOfAreaCheckBox } from "./ListOfAreaCheckBox";
 import { ListOfAreaItem } from "./ListOfAreaItem";
@@ -8,15 +7,11 @@ import { Price } from "./Price";
 import { Footer } from "./Footer";
 import { getCountReviews } from "../../../utils/getCountReviews";
 import { useCreateCampaign } from "../../hooks/useCreateCampaign";
-import { ProjectName } from "./ProjectName";
 import { openNotificationWithIcon } from "../../../utils";
 import { useGetCampaignTariff } from "../../hooks/useGetCampaignTariff";
 
-export const ReviewsPiece = () => {
+export const CreateCampaignPlatform = () => {
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
-
-  const state = useLocalState();
-  const { personInfo } = state;
 
   const handleClickArea = (area: string) => {
     selectedArea.find((item) => item === area)
@@ -40,7 +35,7 @@ export const ReviewsPiece = () => {
     console.log("Success:", values);
 
     let value = {
-      email: personInfo?.email || "",
+      email: formValue?.email || "",
       name: formValue?.projectName || "",
       cards,
       brief: formValue?.importBrief
@@ -57,7 +52,6 @@ export const ReviewsPiece = () => {
       type: "error",
       message: "",
       description: `Заполните все поля`,
-      placement: "topRight",
     });
   };
 
@@ -74,7 +68,28 @@ export const ReviewsPiece = () => {
           tariff={campaignTariff || []}
           isLoadingTariff={isLoadingTariff}
         />
-        <ProjectName form={form} />
+        <StyledTitle level={5}>1. Введите название проекта</StyledTitle>
+        <Form.Item
+          name="projectName"
+          rules={[{ required: true, message: "Обязательное поле" }]}
+        >
+          <Input placeholder="Название проекта" style={{ width: "300px" }} />
+        </Form.Item>
+        <StyledTitle level={5}>2. Введите ваш email</StyledTitle>
+        <Form.Item
+          name="email"
+          rules={[
+            { required: true, message: "Обязательное поле" },
+            {
+              type: "email",
+              message:
+                "Пожалуйста, введите корректный адрес электронной почты!",
+            },
+          ]}
+        >
+          <Input placeholder="email" style={{ width: "300px" }} />
+        </Form.Item>
+        <Divider />
         {formValue?.projectName && (
           <>
             <StyledTitle level={5}>
@@ -89,17 +104,11 @@ export const ReviewsPiece = () => {
           </>
         )}
         {!!selectedArea.length && formValue?.projectName && (
-          <>
-            <StyledTitle level={5}>
-              4. Укажите ссылки на карточки вашей компании и количество отзывов
-              для каждой карточки
-            </StyledTitle>
-            <ListOfAreaItem
-              selectedArea={selectedArea}
-              priceForOne={priceForOne}
-              form={form}
-            />
-          </>
+          <ListOfAreaItem
+            selectedArea={selectedArea}
+            priceForOne={priceForOne}
+            form={form}
+          />
         )}
         {count > 0 && (
           <Footer

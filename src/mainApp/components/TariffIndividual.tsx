@@ -54,9 +54,23 @@ export const TariffIndividual = () => {
         </Title>
       </Row>
       <IconRow style={{ marginBottom: 100 }}>
-        <TelegramIcon />
-        <WhatsappIcon />
-        <EmailIcon />
+        <TelegramIcon
+          style={{ cursor: "pointer" }}
+          onClick={() => window.open("https://t.me/helpotziv", "_blank")}
+        />
+        <WhatsappIcon
+          style={{ cursor: "pointer" }}
+          onClick={() =>
+            window.open(
+              "https://api.whatsapp.com/send?phone=79913190069",
+              "_blank"
+            )
+          }
+        />
+        <EmailIcon
+          style={{ cursor: "pointer" }}
+          onClick={() => (window.location.href = "mailto:info@inserm.ru")}
+        />
       </IconRow>
       <StyledButton type="primary" block disabled>
         Создать тариф

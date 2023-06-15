@@ -78,6 +78,8 @@ export const MainRoutes = () => {
   const ClientQuestions = lazy(
     () => import("../../Pages/Сommon/ClientQuestions")
   );
+  //payment
+  const Payment = lazy(() => import("../../Pages/Сommon/Payment"));
 
   //admin lazy
   const TariffClient = lazy(() => import("../../Pages/Admin/TariffClient"));
@@ -442,6 +444,16 @@ export const MainRoutes = () => {
               element={
                 <Suspense fallback={<Spin />}>
                   <Login />
+                </Suspense>
+              }
+            />
+          </Route>
+          <Route path="payment" element={<PublicRoutes />}>
+            <Route
+              path="/payment"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <Payment />
                 </Suspense>
               }
             />
