@@ -29,10 +29,10 @@ const Card = styled.div`
     width: 100px;
     height: 85px;
     h1 {
-      font-size: 10px !important;
+      font-size: 8px !important;
     }
     h4 {
-      font-size: 14px !important;
+      font-size: 12px !important;
     }
   }
 `;
