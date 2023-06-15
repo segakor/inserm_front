@@ -9,6 +9,7 @@ import { TableProject } from "../Table/TableProject";
 import { TableProjectNotChangeable } from "../Table/TableProjectNotChangeable";
 import { TableCampaignChangeable } from "../Table/TableCampaignChangeable";
 import { getNumWord } from "../../utils/getCountReviews";
+/* import Link from "antd/es/typography/Link"; */
 
 type Props = {
   group: GrouppedCampaign[];
@@ -25,31 +26,22 @@ const WrapperStatuses = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
 `;
-
 const Card = styled.div`
   padding: 12px 20px;
   background: #1579e9;
   border-radius: 10px;
   color: white;
   margin-bottom: 20px;
-  cursor: pointer;
-`;
-const Link = styled.div`
-  ::selection {
-    background: #ffb7b7;
-  }
-  ::-moz-selection {
-    background: #ffb7b7;
-  }
 `;
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  align-content: center;
 `;
 const Cercle = styled.div`
-  width: 25px;
-  height: 25px;
+  min-width: 25px;
+  min-height: 25px;
   background: #ffffff;
   border-radius: 50%;
   color: black;
@@ -58,11 +50,31 @@ const Cercle = styled.div`
   align-content: center;
   justify-content: center;
 `;
-const Box = styled.div`
-  display: felx;
+const Link = styled.a`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: white;
+`;
+const Toggle = styled.div`
+  display: flex;
   grid-gap: 16px;
   align-items: center;
   align-content: center;
+  cursor: pointer;
+`;
+const Count = styled.div`
+  min-width: 70px;
+`;
+const Box = styled.div`
+  display: flex;
+  grid-gap: 16px;
+  align-items: center;
+  align-content: center;
+  width: 85%;
+  @media (max-width: 768px) {
+    width: 60%;
+  }
 `;
 
 const CardComponent = ({
@@ -89,18 +101,18 @@ const CardComponent = ({
 
   return (
     <>
-      <Card onClick={onClickChevron}>
+      <Card>
         <Header>
           <Box>
-            <Cercle>
-              <div>{keyItem}</div>
-            </Cercle>
-            <Link>{card.link}</Link>
+            <Cercle>{keyItem}</Cercle>
+            <Link href={card.link} target="_blank">
+              {card.link}
+            </Link>
           </Box>
-          <Box>
-            <div>
+          <Toggle onClick={onClickChevron}>
+            <Count>
               {card.amount} {getNumWord(card.amount, "review")}
-            </div>
+            </Count>
             <div>
               {chevron ? (
                 <UpCircleFilled style={{ fontSize: "24px" }} />
@@ -108,7 +120,7 @@ const CardComponent = ({
                 <DownCircleFilled style={{ fontSize: "24px" }} />
               )}
             </div>
-          </Box>
+          </Toggle>
         </Header>
       </Card>
       {chevron && (

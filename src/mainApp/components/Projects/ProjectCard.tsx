@@ -7,7 +7,7 @@ import { Project } from "../../../types";
 import { useGetBrief } from "../../hooks/useGetBrief";
 import { Title } from "../../../common/Typography";
 import { getRangeDate } from "../../../utils";
-import { colorCard } from "../../../constants";
+import { colorCardProject } from "../../../constants";
 import { CardBlock, Header, TariffBlock, TariffCard, TitleDate, Wrapper } from "./styles";
 
 export const ProjectCard = (project: Project) => {
@@ -31,7 +31,7 @@ export const ProjectCard = (project: Project) => {
     handleGetBrief();
   };
 
-  const color = colorCard.find((item) => item.tariffName === tariffName)?.color;
+  const color = colorCardProject.find((item) => item.tariffName === tariffName)?.color;
 
   const navigation = useNavigate();
   return (
