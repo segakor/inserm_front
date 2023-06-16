@@ -124,6 +124,10 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
       { title: "Потрачено", dataIndex: "price" },
     ];
 
+    if (!projects.length) {
+      return null;
+    }
+
     return (
       <Table
         columns={columns}
@@ -236,7 +240,8 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
             />
           </div>
         ),
-        rowExpandable: (record) => !!record.projects.length,
+        rowExpandable: (record) =>
+          !!record.projects.length || !!record.campaigns.length,
       }}
       dataSource={allClient}
       bordered
@@ -245,7 +250,7 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
       tableLayout={"fixed"}
       scroll={{ x: 1000 }}
       locale={{ emptyText: "нет данных" }}
-      footer={() => footerInfo}
+      footer={() => (isLoading ? "" : footerInfo)}
     />
   );
 };
