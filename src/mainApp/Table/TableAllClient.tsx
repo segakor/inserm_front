@@ -235,7 +235,7 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
             />
             <TableAllProjects
               projects={record.campaigns}
-              showHeader={false}
+              showHeader={!record.projects.length ? true : false}
               type={"campaign"}
             />
           </div>
