@@ -209,18 +209,6 @@ export const TableCampaignChangeable = ({
         return <div>{Number(record) + 1}</div>;
       },
     },
-    /* {
-      title: "Ссылка на отзыв",
-      dataIndex: "link",
-      width: "20%",
-      editable: isAdmin,
-      render: (text: string) => (
-        <div style={{ display: "inline" }}>
-          <a onClick={() => window.open(text, "_blank")}>{text}</a>
-          <ButtonCopy onClick={() => cliapbord(text)} />
-        </div>
-      ),
-    }, */
     {
       title: "Текст отзыва",
       dataIndex: "text",
@@ -230,7 +218,7 @@ export const TableCampaignChangeable = ({
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <div>
           <span>{text}</span>
-          <ButtonCopy onClick={() => cliapbord(text)} />
+          <ButtonCopy onClick={() => cliapbord(text)} style={{marginLeft:10}}/>
         </div>
       ),
     },

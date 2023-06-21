@@ -36,12 +36,29 @@ type Props = {
 export const RoomItemHeader = ({ room }: Props) => {
   const navigation = useNavigate();
 
-  const items: MenuProps["items"] = room?.projects.map((item, index) => ({
-    key: item.id,
+  const projects = room?.projects?.map((item) => ({
+    ...item,
+    type: "project",
+  }));
+
+  const campaigns = room?.campaigns?.map((item) => ({
+    ...item,
+    type: "campaign",
+  }));
+
+  const allProjects = [...(projects || []), ...(campaigns || [])].map(
+    (item, index) => ({ ...item, key: index })
+  );
+
+  const items: MenuProps["items"] = allProjects?.map((item) => ({
+    key: item.key,
     label: <div>{item.name}</div>,
   }));
+
+  console.log(items);
   const handleDropdownItemClick = (e: any) => {
-    navigation(`/app/admin/project/${e.key}`);
+    const target = allProjects.find((item) => item.key == e.key);
+    navigation(`/app/admin/${target?.type}/${target?.id}`);
   };
   return (
     <Wrapper>

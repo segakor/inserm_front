@@ -5,8 +5,9 @@ import "./AntSelectCustomStyle.css";
 import { TariffItem } from "./TariffItem";
 import { Title } from "../../common/Typography";
 import { Project } from "../../types";
-import { ModalAutoPay } from "./ModalAutoPay";
+import { ModalСonfirmation } from "./ModalСonfirmation";
 import { useUnsubscribe } from "../hooks/useUnsubscribe";
+import { confirmationText } from "../../constants";
 
 const Wrapper = styled.div`
   display: flex;
@@ -116,7 +117,11 @@ export const CurrentTariff = ({ clientProject }: Props) => {
         </>
       )}
       {isModalOpen && (
-        <ModalAutoPay onClose={handleClose} unSubscribe={onUnsubcribe} />
+        <ModalСonfirmation
+          onClose={handleClose}
+          onConfirm={onUnsubcribe}
+          confirmationText={confirmationText.autoPay}
+        />
       )}
     </>
   );

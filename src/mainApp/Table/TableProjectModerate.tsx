@@ -134,7 +134,7 @@ export const TableProjectModerate = ({
       render: (text: string) => (
         <div style={{ display: "inline" }}>
           <a onClick={() => window.open(text, "_blank")}>{text}</a>
-          <ButtonCopy onClick={() => cliapbord(text)} />
+          <ButtonCopy onClick={() => cliapbord(text)} style={{marginLeft:10}}/>
         </div>
       ),
     },
@@ -146,7 +146,7 @@ export const TableProjectModerate = ({
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <div>
           <span>{text}</span>
-          <ButtonCopy onClick={() => cliapbord(text)} />
+          <ButtonCopy onClick={() => cliapbord(text)} style={{marginLeft:10}}/>
         </div>
       ),
     },

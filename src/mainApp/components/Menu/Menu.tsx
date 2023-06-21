@@ -162,6 +162,11 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       icon: <PaidreviewsIcon />,
     },
     { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },
+    {
+      label: "Статистика",
+      key: "hoststatistics",
+      icon: <SignalFilled style={{ color: "#1579E9" }} />,
+    },
     dividerItem2 as any,
     {
       label: (

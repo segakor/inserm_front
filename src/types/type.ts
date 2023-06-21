@@ -192,6 +192,7 @@ export type Room = {
   email: string;
   name: string;
   projects: { name: string; id: number }[];
+  campaigns: { name: string; id: number }[];
   unread: number;
 };
 export type ReqRooms = {

@@ -9,7 +9,8 @@ import { TableProject } from "../Table/TableProject";
 import { TableProjectNotChangeable } from "../Table/TableProjectNotChangeable";
 import { TableCampaignChangeable } from "../Table/TableCampaignChangeable";
 import { getNumWord } from "../../utils/getCountReviews";
-/* import Link from "antd/es/typography/Link"; */
+import { ButtonCopy } from "../Button/ButtonCopy";
+import { cliapbord } from "../../utils";
 
 type Props = {
   group: GrouppedCampaign[];
@@ -99,12 +100,17 @@ const CardComponent = ({
     key: index.toString(),
   }));
 
+  const onCopyLink = () => {
+    cliapbord(card.link);
+  };
+
   return (
     <>
       <Card>
         <Header>
           <Box>
             <Cercle>{keyItem}</Cercle>
+            {role !== "CLIENT" && <ButtonCopy onClick={onCopyLink} />}
             <Link href={card.link} target="_blank">
               {card.link}
             </Link>
