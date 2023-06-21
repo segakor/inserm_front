@@ -5,6 +5,7 @@ import {
   AreaItemName,
   DeleteIcon,
   AreaItemWrapper,
+  HeaderItem,
 } from "./styles";
 import { Divider, Form, Input, InputNumber, FormInstance } from "antd";
 import { areas } from "../../../constants";
@@ -41,9 +42,12 @@ export const AreaItem = ({ areaValue, priceForOne, form }: Props) => {
 
   return (
     <>
-      <AreaItemName level={5}>
-        {areas.find((item) => item.value === areaValue)?.label}
-      </AreaItemName>
+      <HeaderItem>
+        <AreaItemName level={5}>
+          {areas.find((item) => item.value === areaValue)?.label}
+        </AreaItemName>
+        <AreaItemName level={5}>Кол-во отзывов, штук</AreaItemName>
+      </HeaderItem>
       <Form.List name={areaValue} initialValue={items}>
         {(fields, { add, remove }) => (
           <AreaItemWrapper>

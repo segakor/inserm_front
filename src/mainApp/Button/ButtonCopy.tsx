@@ -4,11 +4,12 @@ import { CopyOutlined } from "@ant-design/icons";
 
 type Props = {
   onClick: () => void;
+  style?: React.CSSProperties;
 };
 
-export const ButtonCopy = ({ onClick }: Props) => {
+export const ButtonCopy = ({ onClick, style }: Props) => {
   return (
-    <Button size="small" onClick={onClick} style={{ marginLeft: 10 }}>
+    <Button size="small" onClick={onClick} style={style}>
       <CopyOutlined />
     </Button>
   );

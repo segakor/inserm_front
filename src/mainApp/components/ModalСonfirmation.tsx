@@ -5,7 +5,8 @@ import styled from "styled-components";
 
 type Props = {
   onClose: () => void;
-  unSubscribe: () => void;
+  onConfirm: () => void;
+  confirmationText: string;
 };
 
 const StyledButton = styled(Button)<{ isOk: boolean }>`
@@ -27,18 +28,19 @@ const FooterButton = styled.div`
   grid-gap: 15px;
 `;
 
-export const ModalAutoPay = ({ onClose, unSubscribe }: Props) => {
+export const ModalСonfirmation = ({
+  onClose,
+  onConfirm,
+  confirmationText,
+}: Props) => {
   return (
     <>
       <Modal onCancel={onClose} open footer={null} width={"400px"}>
         <Title level={5} style={{ fontWeight: "400" }}>
-          Вы уверены, что хотите отключить автопродление? Обратите внимание,
-          деньги за новый период не спишутся, пока все отзывы не будут
-          опубликованы. Если отключить автоплатеж, то после завершения
-          публикации отзывов работа приостановится.
+          {confirmationText}
         </Title>
         <FooterButton>
-          <StyledButton isOk={true} onClick={unSubscribe}>
+          <StyledButton isOk={true} onClick={onConfirm}>
             Ок
           </StyledButton>
           <StyledButton isOk={false} onClick={onClose}>

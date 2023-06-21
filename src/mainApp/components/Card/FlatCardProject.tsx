@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Title } from "../../../common/Typography";
 import { Project } from "../../../types";
@@ -6,6 +6,8 @@ import { tokenService, getRangeDate } from "../../../utils";
 import { useChangeProjectStatus } from "../../hooks/useChangeProjectStatus";
 import { Box, Panel } from "./styles";
 import { StatusesFlat } from "./StatusesFlat";
+import { ModalСonfirmation } from "../ModalСonfirmation";
+import { confirmationText } from "../../../constants";
 
 type Props = {
   project: Project;
@@ -24,16 +26,30 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
   const navigation = useNavigate();
   const role = tokenService.getRole();
 
-  const { handleChangeProjectStatus } = useChangeProjectStatus('project');
+  const { handleChangeProjectStatus } = useChangeProjectStatus("project");
 
   const onChangeStatus = () => {
     handleChangeProjectStatus({ id, isActive: !isActive }).then(() => {
       onUpdate();
+      handleClose();
     });
   };
 
   const isCompleted = (statuses?.success || 0) >= (statuses?.all || 0);
-  const isReadyToWork = statuses?.moderate === 0 && brief as boolean;
+  const isReadyToWork = statuses?.moderate === 0 && (brief as boolean);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpen = () => {
+    if (isActive) {
+      setIsModalOpen(true);
+    } else {
+      onChangeStatus();
+    }
+  };
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -59,13 +75,20 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
             }}
             onClick={(e) => {
               e.stopPropagation();
-              onChangeStatus();
+              handleOpen();
             }}
           >
             {isActive ? "Добавить в архив" : "Убрать из архива"}
           </Title>
         </Box>
       </Panel>
+      {isModalOpen && (
+        <ModalСonfirmation
+          onClose={handleClose}
+          onConfirm={onChangeStatus}
+          confirmationText={confirmationText.archiveProject}
+        />
+      )}
     </>
   );
 };

@@ -21,7 +21,7 @@ export const AreaWrapper = styled.div<{ isDisabled?: boolean }>`
   height: 38px;
   align-items: center;
   justify-content: space-between;
-  cursor:${(props) => (props.isDisabled ? "not-allowed" : "pointer")};
+  cursor: ${(props) => (props.isDisabled ? "not-allowed" : "pointer")};
 `;
 export const AreaName = styled.div`
   margin-right: 50px;
@@ -58,8 +58,13 @@ export const AreaItemWrapper = styled.div`
 `;
 
 export const AreaItemName = styled(Title)`
-  margin-bottom: 10px !important;
   font-weight: 500 !important;
+`;
+
+export const HeaderItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 `;
 
 export const AddItemButton = styled(Button)`

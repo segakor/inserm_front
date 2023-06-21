@@ -158,7 +158,7 @@ export const ModalBrief = ({ onClose, id, brief, typeBrief }: Props) => {
             >
               Добавить комментарий
             </StyledButton>
-            {role !== "CLIENT" && <ButtonCopy onClick={onCopyBrief} />}
+            {role !== "CLIENT" && <ButtonCopy onClick={onCopyBrief} style={{marginLeft:10}}/>}
           </>
         )}
       </Form>

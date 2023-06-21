@@ -78,13 +78,13 @@ export const MainRoutes = () => {
   const ClientQuestions = lazy(
     () => import("../../Pages/Сommon/ClientQuestions")
   );
-  //payment
+  const HostStatistics = lazy(() => import("../../Pages/Admin/HostStatistics"));
+  //payment lazy
   const Payment = lazy(() => import("../../Pages/Сommon/Payment"));
 
   //admin lazy
   const TariffClient = lazy(() => import("../../Pages/Admin/TariffClient"));
   const CreateAdmin = lazy(() => import("../../Pages/Admin/CreateAdmin"));
-  const HostStatistics = lazy(() => import("../../Pages/Admin/HostStatistics"));
   const FoundationClient = lazy(
     () => import("../../Pages/Admin/FoundationClient")
   );
@@ -271,6 +271,14 @@ export const MainRoutes = () => {
               element={
                 <Suspense fallback={<Spin />}>
                   <ClientQuestions />
+                </Suspense>
+              }
+            />
+             <Route
+              path="hoststatistics"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <HostStatistics />
                 </Suspense>
               }
             />
