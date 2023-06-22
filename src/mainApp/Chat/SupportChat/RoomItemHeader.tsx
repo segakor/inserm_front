@@ -55,7 +55,6 @@ export const RoomItemHeader = ({ room }: Props) => {
     label: <div>{item.name}</div>,
   }));
 
-  console.log(items);
   const handleDropdownItemClick = (e: any) => {
     const target = allProjects.find((item) => item.key == e.key);
     navigation(`/app/admin/${target?.type}/${target?.id}`);
@@ -72,7 +71,7 @@ export const RoomItemHeader = ({ room }: Props) => {
           <Title level={5}>{room?.name}</Title>
           <div style={{ color: "#8E8E8E" }}>{room?.email}</div>
         </div>
-        {!!room?.projects.length && (
+        {!!allProjects.length && (
           <Dropdown menu={{ items, onClick: handleDropdownItemClick }}>
             <a onClick={(e) => e.preventDefault()}>
               <Space>
