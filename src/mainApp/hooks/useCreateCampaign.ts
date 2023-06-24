@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createCampaign } from "../../request";
 import { ReqCreateCampaign } from "../../types";
-import { goToAinoxPagePiece, openNotificationWithIcon } from "../../utils";
+import { goToAinoxPageCampaign, openNotificationWithIcon } from "../../utils";
 
 export const useCreateCampaign = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,11 +18,10 @@ export const useCreateCampaign = () => {
         message: "",
         description: "Проект успешно создан",
       });
-      goToAinoxPagePiece({
+      goToAinoxPageCampaign({
         email: value.email,
         projectName: value.name,
         price: price,
-        formId: "5eeffdfc498f606",
       });
     } catch (err) {
       openNotificationWithIcon({
