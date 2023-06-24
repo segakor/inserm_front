@@ -1,9 +1,8 @@
 import { Divider, Form, Input, Select, Switch, Tooltip } from "antd";
 import { TariffSelectionBlock } from "../TariffSelectionBlock";
 import { StyledTitle } from "../CreateCampaign/styles";
-import { goToAinoxPage, openNotificationWithIcon } from "../../../utils";
+import { goToAinoxPageProject, openNotificationWithIcon } from "../../../utils";
 import { useLocalState } from "../../context/hooks";
-import { formIds } from "../../../constants";
 import { useGetListOfBrief } from "../../hooks/useGetListOfBrief";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { useCopyBrief } from "../../hooks/useCopyBrief";
@@ -37,14 +36,12 @@ export const ReviewsMonth = () => {
         });
       }
 
-      const formIdValue = formIds[tariff.id - 1];
-
-      goToAinoxPage({
+      goToAinoxPageProject({
         email: personInfo?.email || "",
         projectName: formValue?.projectName || "",
-        formId: formIdValue,
         price: tariff.price || 0,
         period: tariff.period || 0,
+        tariffId: tariff.id,
       });
     } catch (error) {
       openNotificationWithIcon({

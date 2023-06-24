@@ -99,12 +99,6 @@ export const textFoundation = [
 
 export const noop = () => {};
 
-export const formIds = [
-  "96267607a9857ae",
-  "b93d944a83a9ac1",
-  "f334a093ff4dbfa",
-]; //NOTE: для тарифов с подпиской
-
 export const optionsWithDisabled = [
   { label: "Активные", value: true },
   { label: "Архивные", value: false },
