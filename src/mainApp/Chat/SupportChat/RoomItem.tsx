@@ -33,7 +33,7 @@ export const RoomItem = ({ room, onClickRoom, isActive = false }: Props) => {
   return (
     <Wrapper onClick={handleClick} isActive={isActive}>
       <UserName>
-        <Title level={5}>{room.name || "No Name"}</Title>
+        <Title level={5}>{room.name || "-"}</Title>
         <div style={{ color: "#8E8E8E" }}>{room.email}</div>
       </UserName>
       <Badge count={room.unread} />
