@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { AxiosError } from "axios";
 import { changeStatusProject } from "../../request";
 import { openNotificationWithIcon } from "../../utils";
 
 export const useChangeProjectStatus = (type: "project" | "campaign") => {
+  const [isLoading, setIsLoading] = useState(false);
   const handleChangeProjectStatus = async ({
     id,
     isActive,
@@ -11,6 +13,7 @@ export const useChangeProjectStatus = (type: "project" | "campaign") => {
     isActive: boolean;
   }) => {
     try {
+      setIsLoading(true);
       await changeStatusProject({ id, isActive }, type);
     } catch (err) {
       const typedError = err as AxiosError;
@@ -20,10 +23,13 @@ export const useChangeProjectStatus = (type: "project" | "campaign") => {
         description: "Не удалось изменить статус",
         status: typedError.status,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return {
     handleChangeProjectStatus,
+    isLoading,
   };
 };

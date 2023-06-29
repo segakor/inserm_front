@@ -26,7 +26,8 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
   const navigation = useNavigate();
   const role = tokenService.getRole();
 
-  const { handleChangeProjectStatus } = useChangeProjectStatus("project");
+  const { handleChangeProjectStatus, isLoading } =
+    useChangeProjectStatus("project");
 
   const onChangeStatus = () => {
     handleChangeProjectStatus({ id, isActive: !isActive }).then(() => {
@@ -87,6 +88,7 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
           onClose={handleClose}
           onConfirm={onChangeStatus}
           confirmationText={confirmationText.archiveProject}
+          isLoading={isLoading}
         />
       )}
     </>

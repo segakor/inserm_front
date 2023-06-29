@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Title } from "../../../common/Typography";
 import { Campaign } from "../../../types";
-import { tokenService } from "../../../utils";
+import { getDate, tokenService } from "../../../utils";
 import { Box, Panel } from "./styles";
 import { StatusesFlat } from "./StatusesFlat";
 import { useChangeProjectStatus } from "../../hooks/useChangeProjectStatus";
@@ -22,7 +22,7 @@ export const FlatCardCampaign = ({ campaign, isActive, onUpdate }: Props) => {
   const isCompleted = (statuses?.success || 0) >= (statuses?.all || 0);
   const isReadyToWork = statuses?.moderate === 0 && (brief as boolean);
 
-  const { handleChangeProjectStatus } = useChangeProjectStatus('campaign');
+  const { handleChangeProjectStatus } = useChangeProjectStatus("campaign");
 
   const onChangeStatus = () => {
     handleChangeProjectStatus({ id, isActive: !isActive }).then(() => {
@@ -42,7 +42,9 @@ export const FlatCardCampaign = ({ campaign, isActive, onUpdate }: Props) => {
             {`[${id}] `}
             {name}
           </Title>
-          <>~ {period} мес.</>
+          <div>
+            {getDate({ date: campaign.date })} ~ {period} мес.
+          </div>
         </Box>
         <Box>
           <StatusesFlat statuses={statuses} />

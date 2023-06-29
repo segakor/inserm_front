@@ -7,6 +7,7 @@ type Props = {
   onClose: () => void;
   onConfirm: () => void;
   confirmationText: string;
+  isLoading?: boolean;
 };
 
 const StyledButton = styled(Button)<{ isOk: boolean }>`
@@ -32,6 +33,7 @@ export const ModalСonfirmation = ({
   onClose,
   onConfirm,
   confirmationText,
+  isLoading
 }: Props) => {
   return (
     <>
@@ -40,7 +42,7 @@ export const ModalСonfirmation = ({
           {confirmationText}
         </Title>
         <FooterButton>
-          <StyledButton isOk={true} onClick={onConfirm}>
+          <StyledButton isOk={true} onClick={onConfirm} loading={isLoading}>
             Ок
           </StyledButton>
           <StyledButton isOk={false} onClick={onClose}>
