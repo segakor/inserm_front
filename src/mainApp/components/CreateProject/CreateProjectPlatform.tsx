@@ -2,6 +2,7 @@ import { Divider, Form, Input } from "antd";
 import { TariffSelectionBlock } from "../TariffSelectionBlock";
 import { StyledTitle } from "../CreateCampaign/styles";
 import { goToAinoxPageProject, openNotificationWithIcon } from "../../../utils";
+import { savePrice } from "../../../request";
 
 export const CreateProjectPlatform = () => {
   const [form] = Form.useForm();
@@ -15,6 +16,12 @@ export const CreateProjectPlatform = () => {
   }) => {
     try {
       await form.validateFields();
+
+      await savePrice({
+        email: formValue?.email || "",
+        name: formValue?.projectName || "",
+        price: tariff.price,
+      });
 
       goToAinoxPageProject({
         email: formValue?.email || "",

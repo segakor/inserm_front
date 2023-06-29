@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createCampaign } from "../../request";
+import { createCampaign, savePrice } from "../../request";
 import { ReqCreateCampaign } from "../../types";
 import { goToAinoxPageCampaign, openNotificationWithIcon } from "../../utils";
 
@@ -13,10 +13,10 @@ export const useCreateCampaign = () => {
     try {
       setIsLoading(true);
       await createCampaign(value);
-      openNotificationWithIcon({
-        type: "success",
-        message: "",
-        description: "Проект успешно создан",
+      await savePrice({
+        email: value.email,
+        name: value.name,
+        price: price,
       });
       goToAinoxPageCampaign({
         email: value.email,

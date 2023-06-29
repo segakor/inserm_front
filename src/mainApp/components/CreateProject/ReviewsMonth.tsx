@@ -6,6 +6,7 @@ import { useLocalState } from "../../context/hooks";
 import { useGetListOfBrief } from "../../hooks/useGetListOfBrief";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { useCopyBrief } from "../../hooks/useCopyBrief";
+import { savePrice } from "../../../request";
 
 export const ReviewsMonth = () => {
   const [form] = Form.useForm();
@@ -35,6 +36,12 @@ export const ReviewsMonth = () => {
           field: formValue?.fieldLinks,
         });
       }
+
+      await savePrice({
+        email: personInfo?.email || "",
+        name: formValue?.projectName || "",
+        price: tariff.price,
+      });
 
       goToAinoxPageProject({
         email: personInfo?.email || "",
