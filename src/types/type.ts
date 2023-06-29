@@ -291,6 +291,7 @@ export type Campaign = {
   statuses: Statuses;
   type?: string;
   isPaid: boolean;
+  date: number;
 };
 
 export type ResGetCampaign = {
