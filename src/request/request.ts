@@ -498,3 +498,17 @@ export const getCampaignTariff = async () => {
   );
   return { data, status };
 };
+
+export const savePrice = async (value: {
+  email: string;
+  name: string;
+  price: number;
+}) => {
+  const { data, status } = await axiosClient.post(URL + `/api/project/savePrice`, {
+    ...value,
+  });
+  return {
+    data,
+    status,
+  };
+};
