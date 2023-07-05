@@ -4,7 +4,6 @@ export const areas = [
   { value: AreaType.YA_MAP, label: "Яндекс карты" },
   { value: AreaType.GOOGLE, label: "Google Карты" },
   { value: AreaType.TWO_GIS, label: "2ГИС" },
-  { value: AreaType.AVITO, label: "Aвито" },
   { value: AreaType.FLAMP, label: "Flamp" },
   { value: AreaType.YELL, label: "Yell" },
   { value: AreaType.ZOON, label: "Zoon" },
