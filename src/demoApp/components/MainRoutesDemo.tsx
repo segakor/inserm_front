@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Layout } from "antd";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
@@ -11,6 +10,7 @@ import { TariffDemo } from "../Pages/TariffDemo";
 import { ProjectDemo } from "../Pages/ProjectDemo";
 import { ProjectsDemo } from "../Pages/ProjectsDemo";
 import { HeaderComponentDemo } from "./HeaderComponentDemo";
+import { CampaignDemo } from "../Pages/CampaignDemo";
 
 const StyledLayout = styled(Layout)`
   margin-left: 50px;
@@ -24,7 +24,6 @@ const PublicRoutes = () => {
 };
 
 export const MainRoutesDemo = () => {
-
   return (
     <StyledLayout>
       <HeaderComponentDemo />
@@ -34,6 +33,7 @@ export const MainRoutesDemo = () => {
             <Route path="*" element={<Navigate replace to="projects" />} />
             <Route path="projects" element={<ProjectsDemo />} />
             <Route path="project/:projectId" element={<ProjectDemo />} />
+            <Route path="campaign/:campaignId" element={<CampaignDemo />} />
             <Route path="tariff" element={<TariffDemo />} />
             <Route path="profile" element={<ProfileDemo />} />
             <Route path="foundation" element={<Foundation />} />
