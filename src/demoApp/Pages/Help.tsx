@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Tooltip, Space } from "antd";
 import { QuestionCircleFilled } from "@ant-design/icons";
-import { Header } from "../../common/Typography";
+import { Header, Title } from "../../common/Typography";
 
 const Page = styled.div`
   display: flex;
@@ -26,6 +26,7 @@ export const Help = () => {
           </Space>
         </Tooltip>
       </Header>
+      <Title level={5}>Временно недоступно</Title>
     </Page>
   );
 };

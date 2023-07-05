@@ -72,6 +72,7 @@ export const AreaItem = ({ areaValue, priceForOne, form }: Props) => {
                   <InputNumber
                     min={1}
                     placeholder="Колличество"
+                    maxLength={4}
                     style={{ width: "100%" }}
                   />
                 </Form.Item>

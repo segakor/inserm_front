@@ -38,17 +38,7 @@ export const ReviewsPiece = () => {
 
   const onFinish = (values: any) => {
     console.log("Success:", values);
-
-    if (count < 2) {
-      openNotificationWithIcon({
-        type: "error",
-        message: "",
-        description: `Покупка возможна от 2-х штук`,
-        placement: "topRight",
-      });
-      return;
-    }
-
+    
     let value = {
       email: personInfo?.email || "",
       name: formValue?.projectName || "",

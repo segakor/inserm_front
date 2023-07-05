@@ -1,4 +1,4 @@
-import { Form } from "antd";
+import { Form, Tooltip } from "antd";
 import { Title } from "../../../common/Typography";
 import { getNumWord } from "../../../utils/getCountReviews";
 import {
@@ -53,11 +53,17 @@ export const Footer = ({ count, priceForOne, month, isLoading }: Props) => {
             {count} {getNumWord(count, "review")}
           </Title>
         </FooterCardTotalPrice>
-        <FooterButton htmlType="submit" loading={isLoading}>
-          <Title level={5} style={{ color: "white" }}>
-            Оплатить
-          </Title>
-        </FooterButton>
+        <Tooltip title={count < 2 ? "Минимальный заказ - 2 отзыва" : ""} placement="bottom" color={'red'}>
+          <FooterButton
+            htmlType="submit"
+            loading={isLoading}
+            disabled={count < 2}
+          >
+            <Title level={5} style={{ color: "white" }}>
+              Оплатить
+            </Title>
+          </FooterButton>
+        </Tooltip>
       </FooterWrapper>
     </Form.Item>
   );

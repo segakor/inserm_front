@@ -1,9 +1,9 @@
-import React from "react";
 import styled from "styled-components";
 import { Header } from "../../common/Typography";
 import { ButtonCreateNewProjectDemo } from "../components/Button/ButtonCreateNewProjectDemo";
 import { ProjectCardDemo } from "../components/ProjectCardDemo";
-import { demoProject } from "../constants";
+import { demoProject, demoCampaign } from "../constants";
+import { CampaignCardDemo } from "../components/CampaignCardDemo";
 
 const Page = styled.div`
   display: flex;
@@ -27,6 +27,9 @@ export const ProjectsDemo = () => {
       </HeaderFlex>
       {demoProject?.map((item) => (
         <ProjectCardDemo {...item} key={item.id} />
+      ))}
+      {demoCampaign?.map((item, index) => (
+        <CampaignCardDemo {...item} key={index} />
       ))}
     </Page>
   );

@@ -27,7 +27,6 @@ import {
   TariffIcon,
 } from "./MenuIcon";
 import styled from "styled-components";
-import { Title } from "../../../common/Typography";
 
 type Props = {
   onHeaderClose?: () => void;
