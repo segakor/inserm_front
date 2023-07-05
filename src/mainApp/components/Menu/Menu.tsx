@@ -256,7 +256,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
         style={{
           paddingLeft: 20,
           paddingRight: 20,
-          margin: "50px 0 50px 0",
+          margin: "50px 0 30px 0",
         }}
       >
         <>
@@ -279,13 +279,15 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
             mode="inline"
             selectedKeys={selectedKeys}
           />
-          {LinkTg}
-          <Menu
-            onClick={onClick}
-            mode="inline"
-            selectedKeys={selectedKeys}
-            items={filteredItemsBottom}
-          />
+          <div>
+            {LinkTg}
+            <Menu
+              onClick={onClick}
+              mode="inline"
+              selectedKeys={selectedKeys}
+              items={filteredItemsBottom}
+            />
+          </div>
         </StyledMenuContainer>
       ) : null}
     </>
