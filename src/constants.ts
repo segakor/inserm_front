@@ -12,7 +12,7 @@ export const areas = [
 ];
 
 export const colorCardCampaign = [
-  { id: 1, color: "#2CAE97", title: "1-24 отзыва" },
+  { id: 1, color: "#2CAE97", title: "2-24 отзыва" },
   { id: 2, color: "#ECA843", title: "25-49 отзывов" },
   { id: 3, color: "#EF5479", title: "50-99 отзывов" },
   { id: 4, color: "#7E6DE7", title: "100-199 отзывов" },

@@ -26,6 +26,8 @@ import {
   SettingIcon,
   TariffIcon,
 } from "./MenuIcon";
+import styled from "styled-components";
+import { Title } from "../../../common/Typography";
 
 type Props = {
   onHeaderClose?: () => void;
@@ -35,6 +37,13 @@ export const SocketNotify = () => {
   useIOSocketNotify();
   return <></>;
 };
+
+const StyledMenuContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100% - 120px);
+`;
 
 export const MenuComponent = ({ onHeaderClose }: Props) => {
   const [selectedKeys, setSelectedKeys] = useState([""]);
@@ -90,23 +99,26 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     };
   };
 
-  const dividerItem = {
-    type: "divider",
-    className: "dividerItem-1",
-    style: {
-      border: "1px solid #F0F0F0",
-      margin: "1px 24px",
+  const itemsBottom: MenuProps["items"] = [
+    {
+      type: "divider",
     },
-  };
+    {
+      label: (
+        <div style={{ display: "flex", alignItems: "center", gridGap: "5px" }}>
+          Техподдержка <Badge count={notifyCount} />
+        </div>
+      ),
+      key: role === "CLIENT" ? "help" : "clientquestions",
+      icon: <HelpIcon />,
+    },
+    { label: "Выход", key: "exit", icon: <ExitIcon /> },
+  ];
 
-  const dividerItem2 = {
-    type: "divider",
-    className: "dividerItem-2",
-    style: {
-      border: "1px solid #F0F0F0",
-      margin: "70px 24px",
-    },
-  };
+  const filteredItemsBottom =
+    role !== "HOST"
+      ? itemsBottom
+      : itemsBottom.filter((item) => item?.key !== "clientquestions");
 
   const itemClient: MenuProps["items"] = [
     {
@@ -120,28 +132,14 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       children: projectItem || [],
     },
     { label: "Управление тарифами", key: "tariff", icon: <TariffIcon /> },
-    dividerItem as any,
     { label: "Профиль", key: "profile", icon: <ProfileIcon /> },
     { label: "База знаний", key: "foundation", icon: <FoundationIcon /> },
     { label: "Контакты", key: "contacts", icon: <ContactsIcon /> },
-    dividerItem2 as any,
-    {
-      label: (
-        <div style={{ display: "flex", alignItems: "center", gridGap: "5px" }}>
-          Техподдержка <Badge count={notifyCount} />
-        </div>
-      ),
-      key: "help",
-      icon: <HelpIcon />,
-    },
-    { label: "Выход", key: "exit", icon: <ExitIcon /> },
   ];
 
   const itemHost: MenuProps["items"] = [
     { label: "Список проектов", key: "projects", icon: <ProjectIcon /> },
     { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },
-    dividerItem2 as any,
-    { label: "Выход", key: "exit", icon: <ExitIcon /> },
   ];
 
   const itemSupervisor: MenuProps["items"] = [
@@ -167,17 +165,6 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       key: "hoststatistics",
       icon: <SignalFilled style={{ color: "#1579E9" }} />,
     },
-    dividerItem2 as any,
-    {
-      label: (
-        <div style={{ display: "flex", alignItems: "center", gridGap: "5px" }}>
-          Вопросы клиентов <Badge count={notifyCount} />
-        </div>
-      ),
-      key: "clientquestions",
-      icon: <HelpIcon />,
-    },
-    { label: "Выход", key: "exit", icon: <ExitIcon /> },
   ];
 
   const itemSupport: MenuProps["items"] = [
@@ -189,17 +176,6 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       icon: <SettingIcon />,
       style: { whiteSpace: "normal", lineHeight: "20px" },
     },
-    dividerItem2 as any,
-    {
-      label: (
-        <div style={{ display: "flex", alignItems: "center", gridGap: "5px" }}>
-          Вопросы клиентов <Badge count={notifyCount} />
-        </div>
-      ),
-      key: "clientquestions",
-      icon: <HelpIcon />,
-    },
-    { label: "Выход", key: "exit", icon: <ExitIcon /> },
   ];
   const itemAdmin: MenuProps["items"] = [
     { label: "Список проектов", key: "projects", icon: <ProjectIcon /> },
@@ -237,17 +213,6 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       key: "hoststatistics",
       icon: <SignalFilled style={{ color: "#1579E9" }} />,
     },
-    dividerItem as any,
-    {
-      label: (
-        <div style={{ display: "flex", alignItems: "center", gridGap: "5px" }}>
-          Вопросы клиентов <Badge count={notifyCount} />
-        </div>
-      ),
-      key: "clientquestions",
-      icon: <HelpIcon />,
-    },
-    { label: "Выход", key: "exit", icon: <ExitIcon /> },
   ];
 
   const setItem = () => {
@@ -285,19 +250,43 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     }
   };
 
+  const LinkTg =
+    role === "CLIENT" ? (
+      <div
+        style={{
+          paddingLeft: 20,
+          paddingRight: 20,
+          margin: "50px 0 50px 0",
+        }}
+      >
+        <>
+          Подпишитесь на телеграм канал{" "}
+          <a target="_blank" href="https://t.me/inserm">
+            INSERM | Сервис по заказу отзывов
+          </a>
+        </>
+      </div>
+    ) : null;
+
   return (
     <>
       {auth ? (
-        <>
+        <StyledMenuContainer>
           <SocketNotify />
           <Menu
             onClick={onClick}
             items={setItem()}
             mode="inline"
             selectedKeys={selectedKeys}
-            /* defaultOpenKeys={["projects"]} */
           />
-        </>
+          {LinkTg}
+          <Menu
+            onClick={onClick}
+            mode="inline"
+            selectedKeys={selectedKeys}
+            items={filteredItemsBottom}
+          />
+        </StyledMenuContainer>
       ) : null}
     </>
   );
