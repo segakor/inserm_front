@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import {
   AddItemButton,
   AreaItemInputWrapper,
-  AreaItemName,
+  Label,
   DeleteIcon,
   AreaItemWrapper,
   HeaderItem,
@@ -43,10 +43,10 @@ export const AreaItem = ({ areaValue, priceForOne, form }: Props) => {
   return (
     <>
       <HeaderItem>
-        <AreaItemName level={5}>
+        <Label level={5}>
           {areas.find((item) => item.value === areaValue)?.label}
-        </AreaItemName>
-        <AreaItemName level={5}>Кол-во отзывов, штук</AreaItemName>
+        </Label>
+        <Label level={5}>Кол-во отзывов, штук</Label>
       </HeaderItem>
       <Form.List name={areaValue} initialValue={items}>
         {(fields, { add, remove }) => (

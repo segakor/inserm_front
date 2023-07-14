@@ -348,3 +348,30 @@ export type CampaignTariff = {
 export type ResCampaignTariff = {
   result: CampaignTariff[];
 };
+
+export type ReqCreateCashlessTransfer = {
+  campaignId: number;
+  company: string;
+  inn: string;
+  ogrn: string;
+  email: string;
+  phone: string;
+  address: string;
+};
+
+export type InvoiceTemplate = {
+  content: any;
+  styles: any;
+};
+
+export type CashlessTransfer = ReqCreateCashlessTransfer & {
+  id: number;
+  price: number;
+  amount: number;
+  date: number;
+  isApproved: boolean;
+};
+
+export type ResGetCashlessTransfer = {
+  result: CashlessTransfer[];
+};

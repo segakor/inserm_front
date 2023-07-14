@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Divider, Form, Input } from "antd";
 import { StyledTitle, Wrapper } from "./styles";
 import { ListOfAreaCheckBox } from "./ListOfAreaCheckBox";
@@ -9,9 +9,12 @@ import { getCountReviews } from "../../../utils/getCountReviews";
 import { useCreateCampaign } from "../../hooks/useCreateCampaign";
 import { openNotificationWithIcon } from "../../../utils";
 import { useGetCampaignTariff } from "../../hooks/useGetCampaignTariff";
+import { PaymentType } from "./PaymentType";
+import { CashlessBlock } from "./CashlessBlock";
 
 export const CreateCampaignPlatform = () => {
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
+  const [isErrorForm, setIsErrorForm] = useState(false);
 
   const handleClickArea = (area: string) => {
     selectedArea.find((item) => item === area)
@@ -29,7 +32,8 @@ export const CreateCampaignPlatform = () => {
     campaignTariff
   );
 
-  const { handleCreateCampaign, isLoading } = useCreateCampaign();
+  const { handleCreateCampaign, isLoading, invoiceTemplate } =
+    useCreateCampaign();
 
   const onFinish = (values: any) => {
     console.log("Success:", values);
@@ -43,7 +47,19 @@ export const CreateCampaignPlatform = () => {
         : undefined,
     };
 
-    handleCreateCampaign(value, priceTotal);
+    let cashlessData =
+      formValue.paymentType === "cashless"
+        ? {
+            company: formValue?.company,
+            inn: formValue?.inn,
+            ogrn: formValue?.ogrn,
+            email: formValue?.email,
+            phone: formValue?.phone,
+            address: formValue?.address,
+          }
+        : null;
+
+    handleCreateCampaign(value, priceTotal, cashlessData);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -55,6 +71,11 @@ export const CreateCampaignPlatform = () => {
     });
   };
 
+  const handleFormChange = () => {
+    const hasErrors = form.getFieldsError().some(({ errors }) => errors.length);
+    setIsErrorForm(hasErrors);
+  };
+
   return (
     <Wrapper>
       <Form
@@ -63,6 +84,9 @@ export const CreateCampaignPlatform = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         disabled={isLoading || isLoadingTariff}
+        layout="vertical"
+        initialValues={{ paymentType: "card" }}
+        onFieldsChange={handleFormChange}
       >
         <Price
           tariff={campaignTariff || []}
@@ -111,12 +135,20 @@ export const CreateCampaignPlatform = () => {
           />
         )}
         {count > 0 && (
-          <Footer
-            count={count}
-            priceForOne={priceForOne}
-            month={month}
-            isLoading={isLoading}
-          />
+          <>
+            <StyledTitle level={5}>5. Выберите способ оплаты</StyledTitle>
+            <PaymentType />
+            {formValue.paymentType === "cashless" && <CashlessBlock />}
+            <Footer
+              count={count}
+              priceForOne={priceForOne}
+              month={month}
+              isLoading={isLoading}
+              invoiceTemplate={invoiceTemplate}
+              isCashless={formValue.paymentType === "cashless"}
+              isErrorForm={isErrorForm}
+            />
+          </>
         )}
       </Form>
     </Wrapper>

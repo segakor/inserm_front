@@ -9,7 +9,14 @@ type Props = {
 
 export const ButtonCopy = ({ onClick, style }: Props) => {
   return (
-    <Button size="small" onClick={onClick} style={style}>
+    <Button
+      size="small"
+      onClick={(e) => {
+        onClick();
+        e.stopPropagation();
+      }}
+      style={style}
+    >
       <CopyOutlined />
     </Button>
   );

@@ -32,6 +32,9 @@ import {
   ResGetListOfBrief,
   ReqCopyBrief,
   ResCampaignTariff,
+  ReqCreateCashlessTransfer,
+  InvoiceTemplate,
+  ResGetCashlessTransfer,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -444,7 +447,7 @@ export const getWarmClient = async (params?: {
 };
 
 export const createCampaign = async (value: ReqCreateCampaign) => {
-  const { data, status } = await axiosClient.post(
+  const { data, status } = await axiosClient.post<{ result: { id: number } }>(
     URL + `/api/campaign/create`,
     {
       ...value,
@@ -504,9 +507,57 @@ export const savePrice = async (value: {
   name: string;
   price: number;
 }) => {
-  const { data, status } = await axiosClient.post(URL + `/api/project/savePrice`, {
-    ...value,
-  });
+  const { data, status } = await axiosClient.post(
+    URL + `/api/project/savePrice`,
+    {
+      ...value,
+    }
+  );
+  return {
+    data,
+    status,
+  };
+};
+
+export const createCashlessTransfer = async (
+  value: ReqCreateCashlessTransfer
+) => {
+  const { data, status } = await axiosClient.post<{ result: { id: number } }>(
+    URL + `/api/transfer`,
+    {
+      ...value,
+    }
+  );
+  return {
+    data,
+    status,
+  };
+};
+
+export const getInvoiceTemplate = async (id: number) => {
+  const { data, status } = await axiosClient.get<InvoiceTemplate>(
+    URL + `/api/transfer/template/${id}`
+  );
+  return { data, status };
+};
+
+export const getCashlessTransfer = async () => {
+  const { data, status } = await axiosClient.get<ResGetCashlessTransfer>(
+    URL + `/api/transfer`
+  );
+  return { data, status };
+};
+
+export const changeTransferStatus = async (value: {
+  transferId: number;
+  isApproved: boolean;
+}) => {
+  const { data, status } = await axiosClient.post(
+    URL + `/api/transfer/update`,
+    {
+      ...value,
+    }
+  );
   return {
     data,
     status,

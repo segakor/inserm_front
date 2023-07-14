@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form } from "antd";
 import { useLocalState } from "../../context/hooks";
 import { StyledTitle, Wrapper } from "./styles";
@@ -11,9 +11,12 @@ import { useCreateCampaign } from "../../hooks/useCreateCampaign";
 import { ProjectName } from "./ProjectName";
 import { openNotificationWithIcon } from "../../../utils";
 import { useGetCampaignTariff } from "../../hooks/useGetCampaignTariff";
+import { CashlessBlock } from "./CashlessBlock";
+import { PaymentType } from "./PaymentType";
 
 export const ReviewsPiece = () => {
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
+  const [isErrorForm, setIsErrorForm] = useState(false);
 
   const state = useLocalState();
   const { personInfo } = state;
@@ -34,11 +37,12 @@ export const ReviewsPiece = () => {
     campaignTariff
   );
 
-  const { handleCreateCampaign, isLoading } = useCreateCampaign();
+  const { handleCreateCampaign, isLoading, invoiceTemplate } =
+    useCreateCampaign();
 
   const onFinish = (values: any) => {
     console.log("Success:", values);
-    
+
     let value = {
       email: personInfo?.email || "",
       name: formValue?.projectName || "",
@@ -48,7 +52,19 @@ export const ReviewsPiece = () => {
         : undefined,
     };
 
-    handleCreateCampaign(value, priceTotal);
+    let cashlessData =
+      formValue.paymentType === "cashless"
+        ? {
+            company: formValue?.company,
+            inn: formValue?.inn,
+            ogrn: formValue?.ogrn,
+            email: formValue?.email,
+            phone: formValue?.phone,
+            address: formValue?.address,
+          }
+        : null;
+
+    handleCreateCampaign(value, priceTotal, cashlessData);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -61,6 +77,17 @@ export const ReviewsPiece = () => {
     });
   };
 
+  useEffect(() => {
+    form.setFieldsValue({
+      email: personInfo?.email,
+    });
+  }, [personInfo?.email]);
+
+  const handleFormChange = () => {
+    const hasErrors = form.getFieldsError().some(({ errors }) => errors.length);
+    setIsErrorForm(hasErrors);
+  };
+
   return (
     <Wrapper>
       <Form
@@ -69,6 +96,9 @@ export const ReviewsPiece = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         disabled={isLoading || isLoadingTariff}
+        layout="vertical"
+        initialValues={{ email: personInfo?.email, paymentType: "card" }}
+        onFieldsChange={handleFormChange}
       >
         <Price
           tariff={campaignTariff || []}
@@ -102,12 +132,20 @@ export const ReviewsPiece = () => {
           </>
         )}
         {count > 0 && (
-          <Footer
-            count={count}
-            priceForOne={priceForOne}
-            month={month}
-            isLoading={isLoading}
-          />
+          <>
+            <StyledTitle level={5}>5. Выберите способ оплаты</StyledTitle>
+            <PaymentType />
+            {formValue.paymentType === "cashless" && <CashlessBlock />}
+            <Footer
+              count={count}
+              priceForOne={priceForOne}
+              month={month}
+              isLoading={isLoading}
+              invoiceTemplate={invoiceTemplate}
+              isCashless={formValue.paymentType === "cashless"}
+              isErrorForm={isErrorForm}
+            />
+          </>
         )}
       </Form>
     </Wrapper>
