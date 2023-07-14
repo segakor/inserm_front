@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import { Button, Modal, Spin } from "antd";
 import { useEffect, useState } from "react";
-
-import pdfMake from "pdfmake/build/pdfMake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
 import { InvoiceTemplate } from "../../types";
 import { saveDocumentByLink } from "../../utils";
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "../../pdfMake/vfs_fonts";
+
+  pdfMake.vfs = pdfFonts;
 
 type Props = {
   onClose: () => void;
