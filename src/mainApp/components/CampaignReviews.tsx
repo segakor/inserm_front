@@ -3,7 +3,7 @@ import { areas, noop } from "../../constants";
 import { CampaignCard, GrouppedCampaign, Role } from "../../types";
 import { StatusesFlat } from "./Card/StatusesFlat";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DownCircleFilled, UpCircleFilled } from "@ant-design/icons";
 import { TableProject } from "../Table/TableProject";
 import { TableProjectNotChangeable } from "../Table/TableProjectNotChangeable";
@@ -33,6 +33,7 @@ const Card = styled.div`
   border-radius: 10px;
   color: white;
   margin-bottom: 20px;
+  cursor: pointer;
 `;
 const Header = styled.div`
   display: flex;
@@ -62,7 +63,6 @@ const Toggle = styled.div`
   grid-gap: 16px;
   align-items: center;
   align-content: center;
-  cursor: pointer;
 `;
 const Count = styled.div`
   min-width: 70px;
@@ -92,6 +92,7 @@ const CardComponent = ({
   onUpdate: (campaignId: string) => void;
 }) => {
   const [chevron, setChevron] = useState(false);
+
   const onClickChevron = () => {
     setChevron(!chevron);
   };
@@ -104,18 +105,26 @@ const CardComponent = ({
     cliapbord(card.link);
   };
 
+  useEffect(() => {
+    setChevron(false);
+  }, [id]);
+
   return (
     <>
-      <Card>
+      <Card onClick={onClickChevron}>
         <Header>
           <Box>
             <Cercle>{keyItem}</Cercle>
             {role !== "CLIENT" && <ButtonCopy onClick={onCopyLink} />}
-            <Link href={card.link} target="_blank">
+            <Link
+              href={card.link}
+              target="_blank"
+              onClick={(e) => e.stopPropagation()}
+            >
               {card.link}
             </Link>
           </Box>
-          <Toggle onClick={onClickChevron}>
+          <Toggle>
             <Count>
               {card.amount} {getNumWord(card.amount, "review")}
             </Count>

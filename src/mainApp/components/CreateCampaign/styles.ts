@@ -47,6 +47,8 @@ export const ListOfAreaCheckBoxWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
+export const CashlessWrapper = ListOfAreaCheckBoxWrapper;
+
 export const AreaItemInputWrapper = styled.div`
   display: flex;
   grid-gap: 10px;
@@ -57,7 +59,7 @@ export const AreaItemWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const AreaItemName = styled(Title)`
+export const Label = styled(Title)`
   font-weight: 500 !important;
 `;
 

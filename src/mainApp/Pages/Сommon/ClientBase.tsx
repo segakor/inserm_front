@@ -7,6 +7,7 @@ import { useGetWarmClient } from "../../hooks/useGetWarmClient";
 import { TableWarmClient } from "../../Table/TableWarmClient";
 import { Radio, RadioChangeEvent } from "antd";
 import { DatePicker } from "../../components/DatePicker";
+import { TableCashlessTransfer } from "../../Table/TableCashlessTransfer";
 
 const Page = styled.div`
   display: flex;
@@ -16,14 +17,16 @@ const Page = styled.div`
 
 const optionsWithDisabled = [
   { label: "Все клиенты", value: "allClient" },
+  { label: "Заявки безнала", value: "cashless" },
   { label: "Неоплаченные заявки", value: "warmClient" },
 ];
 
 const ClientBase = () => {
-  const [activeTab, setActiveTab] = useState<"allClient" | "warmClient">(
-    "allClient"
-  );
+  const [activeTab, setActiveTab] = useState<
+    "allClient" | "warmClient" | "cashless"
+  >("allClient");
   const { isLoading, allClient } = useGetAllClient();
+
   const {
     isLoading: isLoadingWarm,
     warmClient,
@@ -48,6 +51,7 @@ const ClientBase = () => {
       {activeTab === "allClient" && (
         <TableAllClient allClient={allClient} isLoading={isLoading} />
       )}
+      {activeTab === "cashless" && <TableCashlessTransfer />}
       {activeTab === "warmClient" && (
         <>
           <DatePicker onGetRange={(e) => handleGetWarmClient(e)} />
