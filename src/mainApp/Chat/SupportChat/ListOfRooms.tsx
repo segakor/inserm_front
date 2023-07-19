@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { useGetRoomChat } from "../../hooks/useGetRoomChat";
 import { useLocalState } from "../../context/hooks";
@@ -13,20 +12,26 @@ const Wrapper = styled.div`
   overflow: auto;
   overflow-x: hidden;
   width: 450px;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 type Props = {
   onClickRoom: (e: Room) => void;
   selectedRoom: Room | null;
+  isMobile: boolean;
 };
 
-export const ListOfRooms = ({ onClickRoom, selectedRoom }: Props) => {
+export const ListOfRooms = ({ onClickRoom, selectedRoom, isMobile }: Props) => {
   const { rooms } = useGetRoomChat();
 
   const state = useLocalState();
   const listOfNotify = state.listOfNotify;
 
   sortChatItem(rooms, listOfNotify);
+
+  if (isMobile && selectedRoom) return null
 
   return (
     <Wrapper>

@@ -1,32 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import { Title } from "../../../common/Typography";
 import { RoomItemHeader } from "./RoomItemHeader";
 import { ChatComponent } from "../ChatComponent";
 import { Room } from "../../../types";
 import { ListOfRooms } from "./ListOfRooms";
+import { Grid } from "antd";
+
+const { useBreakpoint } = Grid;
 
 const Wrapper = styled.div`
   background-color: white;
-  width: 970px;
   border-radius: 10px;
-  @media (max-width: 768px) {
-    width: auto;
-  }
-`;
-const Header = styled.div`
-  height: 65px;
-  background: #1579e9;
-  border-radius: 10px 10px 0px 0px;
-  padding: 20px;
-  & h5,
-  div {
-    color: white !important;
-  }
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  width: auto;
 `;
 const Body = styled.div`
   display: flex;
@@ -40,16 +25,31 @@ export const ChatSupport = () => {
   const handleClickRoom = (item: Room) => {
     setSelectedRoom(item);
   };
+  const handleRemoveRoom = () => {
+    setSelectedRoom(null);
+  };
+
+  const screens = useBreakpoint();
+  const isMobile = !!screens.xs;
 
   return (
     <Wrapper>
-      <RoomItemHeader room={selectedRoom} />
+      <RoomItemHeader
+        room={selectedRoom}
+        onRemoveRoom={handleRemoveRoom}
+        isMobile={isMobile}
+      />
       <Body>
         <ListOfRooms
           selectedRoom={selectedRoom}
           onClickRoom={handleClickRoom}
+          isMobile={isMobile}
         />
-        <ChatComponent roomId={selectedRoom?.id || 0} chatType={"support"} />
+        <ChatComponent
+          roomId={selectedRoom?.id || 0}
+          chatType={"support"}
+          isMobile={isMobile}
+        />
       </Body>
     </Wrapper>
   );

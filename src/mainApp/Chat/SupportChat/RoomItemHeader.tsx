@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { Title } from "../../../common/Typography";
-import { AlignRightOutlined } from "@ant-design/icons";
+import { AlignRightOutlined, CaretLeftOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Dropdown, Space } from "antd";
+import { Dropdown, Space, Button } from "antd";
 import { Room } from "../../../types";
 import { useNavigate } from "react-router-dom";
+import { useMemo } from "react";
 
 const Wrapper = styled.div`
   height: 65px;
@@ -22,18 +23,23 @@ const Wrapper = styled.div`
 `;
 
 const User = styled.div`
-  padding: 10px 20px 10px 20px;
+  padding: 0px 20px 0px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  @media (max-width: 768px) {
+    padding-right: 0;
+  }
 `;
 
 type Props = {
   room: Room | null;
+  onRemoveRoom: () => void;
+  isMobile: boolean;
 };
 
-export const RoomItemHeader = ({ room }: Props) => {
+export const RoomItemHeader = ({ room, onRemoveRoom, isMobile }: Props) => {
   const navigation = useNavigate();
 
   const projects = room?.projects?.map((item) => ({
@@ -46,8 +52,12 @@ export const RoomItemHeader = ({ room }: Props) => {
     type: "campaign",
   }));
 
-  const allProjects = [...(projects || []), ...(campaigns || [])].map(
-    (item, index) => ({ ...item, key: index })
+
+  const allProjects = useMemo(
+    () => [...(projects || []), ...(campaigns || [])].map(
+      (item, index) => ({ ...item, key: index })
+    ),
+    [room]
   );
 
   const items: MenuProps["items"] = allProjects?.map((item) => ({
@@ -59,13 +69,26 @@ export const RoomItemHeader = ({ room }: Props) => {
     const target = allProjects.find((item) => item.key == e.key);
     navigation(`/app/admin/${target?.type}/${target?.id}`);
   };
+
   return (
     <Wrapper>
-      <div>
-        <Title level={5} style={{ fontSize: 18, width: 280 }}>
-          Список чатов
-        </Title>
-      </div>
+      {!isMobile ? (
+        <div>
+          <Title level={5} style={{ fontSize: 18, width: 280 }}>
+            Список чатов
+          </Title>
+        </div>
+      ) : (
+        <>
+          {room && (
+            <Button
+              onClick={onRemoveRoom}
+              shape="circle"
+              icon={<CaretLeftOutlined />}
+            />
+          )}
+        </>
+      )}
       <User>
         <div>
           <Title level={5}>{room?.name}</Title>
@@ -75,7 +98,6 @@ export const RoomItemHeader = ({ room }: Props) => {
           <Dropdown menu={{ items, onClick: handleDropdownItemClick }}>
             <a onClick={(e) => e.preventDefault()}>
               <Space>
-                <Title level={5}>Проекты</Title>
                 <AlignRightOutlined />
               </Space>
             </a>

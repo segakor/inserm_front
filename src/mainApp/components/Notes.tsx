@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button, Input, Tooltip } from "antd";
 import { useNotes } from "../hooks/useNotes";
@@ -25,6 +25,7 @@ const MessageBox = styled.div`
 const Footer = styled.div`
   display: flex;
   grid-gap: 10px;
+  height: 30px;
 `;
 const MessageTitle = styled.div`
   display: flex;
@@ -93,7 +94,7 @@ export const Notes = ({ type, id }: Props) => {
       <Footer>
         <Tooltip title={TooltipComponent}>
           <TextArea
-            style={{ height: 0, resize: "none", overflow: "hidden" }}
+            style={{ resize: "none"}}
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
