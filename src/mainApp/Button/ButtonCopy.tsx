@@ -11,7 +11,7 @@ export const ButtonCopy = ({ onClick, style }: Props) => {
   return (
     <Button
       size="small"
-      onClick={(e) => {
+      onClick={(e:React.MouseEvent<HTMLElement>) => {
         onClick();
         e.stopPropagation();
       }}
