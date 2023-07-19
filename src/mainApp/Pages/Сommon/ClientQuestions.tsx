@@ -5,7 +5,7 @@ import { ChatSupport } from "../../Chat";
 const Page = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 970px;
 `;
 
 const ClientQuestions = () => {

@@ -5,6 +5,7 @@ import styled from "styled-components";
 type Props = {
   chatType: "client" | "support";
   roomId: number | null;
+  isMobile?: boolean;
 };
 
 const Wrapper = styled.div`
@@ -20,6 +21,11 @@ const Wrapper = styled.div`
 `;
 
 export const ChatComponent = ({ ...props }: Props) => {
+  
+  if (!props.roomId && props.chatType === "support" && props.isMobile) {
+    return null
+  }
+
   if (!props.roomId && props.chatType === "support") {
     return (
       <Wrapper>
