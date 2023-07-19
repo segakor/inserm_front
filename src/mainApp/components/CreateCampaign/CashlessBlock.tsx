@@ -43,13 +43,6 @@ export const CashlessBlock = () => {
         >
           <Input placeholder="Телефон" style={{ width: "300px" }} />
         </Form.Item>
-        <Form.Item
-          name="email"
-          label={<Label level={5}>Email</Label>}
-          rules={[{ required: true, message: "Обязательное поле" }]}
-        >
-          <Input placeholder="Email" style={{ width: "300px" }} />
-        </Form.Item>
       </CashlessWrapper>
     </>
   );

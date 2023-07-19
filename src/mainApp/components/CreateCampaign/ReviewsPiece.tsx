@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Form } from "antd";
 import { useLocalState } from "../../context/hooks";
 import { StyledTitle, Wrapper } from "./styles";
@@ -58,7 +58,7 @@ export const ReviewsPiece = () => {
             company: formValue?.company,
             inn: formValue?.inn,
             ogrn: formValue?.ogrn,
-            email: formValue?.email,
+            email: personInfo?.email || "",
             phone: formValue?.phone,
             address: formValue?.address,
           }
@@ -77,12 +77,6 @@ export const ReviewsPiece = () => {
     });
   };
 
-  useEffect(() => {
-    form.setFieldsValue({
-      email: personInfo?.email,
-    });
-  }, [personInfo?.email]);
-
   const handleFormChange = () => {
     const hasErrors = form.getFieldsError().some(({ errors }) => errors.length);
     setIsErrorForm(hasErrors);
@@ -97,7 +91,9 @@ export const ReviewsPiece = () => {
         onFinishFailed={onFinishFailed}
         disabled={isLoading || isLoadingTariff}
         layout="vertical"
-        initialValues={{ email: personInfo?.email, paymentType: "card" }}
+        initialValues={{
+          paymentType: "card",
+        }}
         onFieldsChange={handleFormChange}
       >
         <Price
