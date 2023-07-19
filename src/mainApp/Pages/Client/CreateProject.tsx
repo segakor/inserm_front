@@ -25,8 +25,6 @@ const CreateProject = () => {
   };
 
   usePerson();
-
-  console.log(import.meta.env)
   
   return (
     <Page>
