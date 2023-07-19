@@ -51,7 +51,6 @@ export const ReviewsMonth = () => {
         tariffId: tariff.id,
       });
     } catch (error) {
-      console.log(error)
       openNotificationWithIcon({
         type: "error",
         message: "",

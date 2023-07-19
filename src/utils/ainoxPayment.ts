@@ -14,7 +14,6 @@ export const goToAinoxPageProject = ({
   period,
   tariffId,
 }: AinoxProject) => {
-  console.log(import.meta.env)
   const formId = JSON.parse(import.meta.env.VITE_AINOX_CONNECTOR_PROJECT);
   const targetFormId = Array.isArray(formId) ? formId[tariffId - 1] : formId;
   window.location.replace(
