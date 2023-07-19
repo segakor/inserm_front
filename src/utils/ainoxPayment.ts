@@ -14,9 +14,8 @@ export const goToAinoxPageProject = ({
   period,
   tariffId,
 }: AinoxProject) => {
-  console.log(email,projectName,price,period,tariffId)
+  console.log(import.meta.env)
   const formId = JSON.parse(import.meta.env.VITE_AINOX_CONNECTOR_PROJECT);
-  console.log(import.meta.env.VITE_AINOX_CONNECTOR_PROJECT)
   const targetFormId = Array.isArray(formId) ? formId[tariffId - 1] : formId;
   window.location.replace(
     `https://go.ainox.pro/antispam/?email=${email}&nazvanie-proekta=${projectName}&idform=${targetFormId}&cena=${price}&period=${period}&&idhits=22659`
