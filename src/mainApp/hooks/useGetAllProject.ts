@@ -42,18 +42,10 @@ export const useGetAllProject = (
       setIsLoading(false);
     }
   };
-  useEffect(() => {
-    handleGetAllProject();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActive]);
-
-  const handleUpdate = () => {
-    handleGetAllProject();
-  };
 
   return {
     allProject,
     isLoading,
-    handleUpdate,
+    handleGetAllProject,
   };
 };

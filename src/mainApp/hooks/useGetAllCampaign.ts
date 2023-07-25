@@ -46,13 +46,5 @@ export const useGetAllCampaign = (
     }
   };
 
-  useEffect(() => {
-    handleGetCampaign();
-  }, [isActive]);
-
-  const handleUpdate = () => {
-    handleGetCampaign();
-  };
-
-  return { allCampaign, isLoading, handleUpdate };
+  return { allCampaign, isLoading, handleGetCampaign };
 };
