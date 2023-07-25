@@ -6,7 +6,11 @@ import { Campaign } from "../../types";
 import { useDispatch } from "../context/hooks";
 import { setPages } from "../context/action";
 
-export const useGetAllCampaign = (isActive: boolean) => {
+export const useGetAllCampaign = (
+  isActive: boolean,
+  sortOrder: string,
+  sortKey: string
+) => {
   const [allCampaign, setAllCampaign] = useState<Campaign[] | undefined>(
     undefined
   );
@@ -17,7 +21,7 @@ export const useGetAllCampaign = (isActive: boolean) => {
   const handleGetCampaign = async () => {
     try {
       setIsLoading(true);
-      const response = await getCampaign(isActive);
+      const response = await getCampaign(isActive, sortOrder, sortKey);
       const campaignArray = response.data.result.map((item) => ({
         ...item,
         type: "campaign",

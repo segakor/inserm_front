@@ -113,3 +113,17 @@ export const confirmationText = {
     "Вы уверены, что хотите отключить автопродление? Обратите внимание,деньги за новый период не спишутся, пока все отзывы не будут опубликованы. Если отключить автоплатеж, то после завершения публикации отзывов работа приостановится.",
   archiveProject: "При архивации проекта, подписка будет отменена. Вы уверены?",
 };
+
+export const optionsSort = [
+  { value: "asc", label: "По возрастанию" },
+  { value: "desc", label: "По убыванию" },
+];
+
+export const optionsKey = [
+  { value: "success", label: "Опубликовано" },
+  { value: "left", label: "Осталось" },
+  { value: "moderate", label: "На модерации" },
+  { value: "reject", label: "Не прошло" },
+  { value: "delete", label: "Удалено" },
+  { value: "all", label: "Всего" },
+];

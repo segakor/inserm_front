@@ -1,13 +1,30 @@
-import { useState } from "react";
-import { Radio, RadioChangeEvent, Spin } from "antd";
+import { useEffect, useState } from "react";
+import { Radio, RadioChangeEvent, Select, Spin } from "antd";
 import { FlatCardCampaign } from "./Card";
 import { useGetAllCampaign } from "../hooks/useGetAllCampaign";
-import { optionsWithDisabled } from "../../constants";
+import { optionsKey, optionsSort, optionsWithDisabled } from "../../constants";
+import styled from "styled-components";
+
+const WrapperPanel = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  grid-gap: 16px;
+  flex-wrap: wrap;
+`;
 
 export const ListOfCampaign = ({ inputSearch }: { inputSearch?: string }) => {
   const [isActive, setIsActive] = useState(true);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortKey, setSortKey] = useState("success");
 
-  const { allCampaign, isLoading, handleUpdate } = useGetAllCampaign(isActive);
+  //TODO:зарефакторить!!!
+
+  const { allCampaign, isLoading, handleUpdate } = useGetAllCampaign(
+    isActive,
+    sortOrder,
+    sortKey
+  );
 
   const filteredData = allCampaign?.filter((item) => {
     if (inputSearch) {
@@ -20,16 +37,44 @@ export const ListOfCampaign = ({ inputSearch }: { inputSearch?: string }) => {
     setIsActive(value);
   };
 
+  const hendleChagneSortKey = (e: string) => {
+    setSortKey(e);
+  };
+  const hendleChagneSortOrder = (e: string) => {
+    setSortOrder(e);
+  };
+
+  useEffect(() => {
+    handleUpdate();
+  }, [sortOrder, sortKey]);
+
   return (
     <>
-      <Radio.Group
-        style={{ marginBottom: 16 }}
-        options={optionsWithDisabled}
-        onChange={onChange}
-        value={isActive}
-        optionType="button"
-        buttonStyle="solid"
-      />
+      <WrapperPanel>
+        <Radio.Group
+          options={optionsWithDisabled}
+          onChange={onChange}
+          value={isActive}
+          optionType="button"
+          buttonStyle="solid"
+        />
+        <div>
+          <Select
+            style={{ width: 140 }}
+            defaultValue={"success"}
+            options={optionsKey}
+            onChange={hendleChagneSortKey}
+          />
+        </div>
+        <div>
+          <Select
+            style={{ width: 150 }}
+            defaultValue="asc"
+            options={optionsSort}
+            onChange={hendleChagneSortOrder}
+          />
+        </div>
+      </WrapperPanel>
       {
         <>
           {filteredData?.map((item, index) => (

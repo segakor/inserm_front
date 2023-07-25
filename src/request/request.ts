@@ -85,10 +85,14 @@ export const getProjectDetails = async (id: string) => {
   return { data, status };
 };
 
-export const getAllProject = async (isActive: boolean) => {
+export const getAllProject = async (
+  isActive: boolean,
+  sortOrder: string,
+  sortKey: string
+) => {
   const { data, status } = await axiosClient.get<ReqGetProject>(
     URL + `/api/project/all`,
-    { params: { isActive: isActive } }
+    { params: { isActive, sortOrder, sortKey } }
   );
   return { data, status };
 };
@@ -459,10 +463,14 @@ export const createCampaign = async (value: ReqCreateCampaign) => {
   };
 };
 
-export const getCampaign = async (isActive: boolean) => {
+export const getCampaign = async (
+  isActive: boolean,
+  sortOrder: string,
+  sortKey: string
+) => {
   const { data, status } = await axiosClient.get<ResGetCampaign>(
     URL + "/api/campaign",
-    { params: { isActive: isActive } }
+    { params: { isActive, sortOrder,sortKey } }
   );
   return { data, status };
 };

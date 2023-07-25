@@ -6,7 +6,11 @@ import { openNotificationWithIcon } from "../../utils";
 import { useDispatch } from "../context/hooks";
 import { setPages } from "../context/action";
 
-export const useGetAllProject = (isActive: boolean) => {
+export const useGetAllProject = (
+  isActive: boolean,
+  sortOrder: string,
+  sortKey: string
+) => {
   const [allProject, setAllProject] = useState<Project[] | undefined>(
     undefined
   );
@@ -18,7 +22,7 @@ export const useGetAllProject = (isActive: boolean) => {
   const handleGetAllProject = async () => {
     try {
       setIsLoading(true);
-      const response = await getAllProject(isActive);
+      const response = await getAllProject(isActive, sortOrder, sortKey);
       setAllProject(response.data.projectsArray);
       dispatch(
         setPages({

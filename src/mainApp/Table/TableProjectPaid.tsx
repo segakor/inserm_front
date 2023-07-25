@@ -183,6 +183,13 @@ export const TableProjectPaid = ({
       title: "Ник в телеграм",
       dataIndex: "tg",
       width: "12%",
+      render: (text: string) => (
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
+        <div>
+          <span>{text}</span>
+          {text && <ButtonCopy onClick={() => cliapbord(text)} style={{marginLeft:10}}/>}
+        </div>
+      ),
     },
     {
       title: "",
