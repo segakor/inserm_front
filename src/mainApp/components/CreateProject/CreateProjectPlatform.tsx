@@ -44,7 +44,17 @@ export const CreateProjectPlatform = () => {
       <StyledTitle level={5}>1. Введите название проекта</StyledTitle>
       <Form.Item
         name="projectName"
-        rules={[{ required: true, message: "Обязательное поле" }]}
+        rules={[
+          { required: true, message: "Обязательное поле" },
+          {
+            validator(_, value) {
+              if (value.indexOf("+") > 0) {
+                return Promise.reject("Символ + недоступен");
+              }
+              return Promise.resolve();
+            },
+          },
+        ]}
       >
         <Input placeholder="Название проекта" style={{ width: "300px" }} />
       </Form.Item>

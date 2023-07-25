@@ -1,15 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetAllProject } from "../hooks/useGetAllProject";
-import { Button, Radio, RadioChangeEvent, Spin } from "antd";
+import { Button, Radio, RadioChangeEvent, Select, Spin } from "antd";
 import { ModalCreateProjectByAdmin } from "./ModalCreateProjectByAdmin";
 import { FlatCardProject } from "./Card";
-import { optionsWithDisabled } from "../../constants";
+import { optionsKey, optionsSort, optionsWithDisabled } from "../../constants";
+import styled from "styled-components";
+
+const WrapperPanel = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  grid-gap: 16px;
+  flex-wrap: wrap;
+`;
+
+export const Spacer = styled.div`
+  flex-grow: 1;
+`;
 
 export const ListOfProject = ({ inputSearch }: { inputSearch?: string }) => {
   const [isActive, setIsActive] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortKey, setSortKey] = useState('success');
 
-  const { allProject, isLoading, handleUpdate } = useGetAllProject(isActive);
+  //TODO:зарефакторить!!!
+
+  const { allProject, isLoading, handleUpdate } = useGetAllProject(
+    isActive,
+    sortOrder,
+    sortKey
+  );
 
   const filteredData = allProject?.filter((item) => {
     if (inputSearch) {
@@ -30,19 +51,46 @@ export const ListOfProject = ({ inputSearch }: { inputSearch?: string }) => {
     setIsModalOpen(false);
   };
 
+  const hendleChagneSortKey = (e: string) => {
+    setSortKey(e);
+  };
+  const hendleChagneSortOrder = (e: string) => {
+    setSortOrder(e);
+  };
+
+  useEffect(() => {
+    handleUpdate();
+  }, [sortOrder, sortKey]);
+
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <WrapperPanel>
         <Radio.Group
-          style={{ marginBottom: 16 }}
           options={optionsWithDisabled}
           onChange={onChange}
           value={isActive}
           optionType="button"
           buttonStyle="solid"
         />
+        <div>
+          <Select
+            style={{ width: 140 }}
+            defaultValue={'success'}
+            options={optionsKey}
+            onChange={hendleChagneSortKey}
+          />
+        </div>
+        <div>
+          <Select
+            style={{ width: 150 }}
+            defaultValue="asc"
+            options={optionsSort}
+            onChange={hendleChagneSortOrder}
+          />
+        </div>
+        <Spacer />
         <Button onClick={handleOpen}>Добавить проект</Button>
-      </div>
+      </WrapperPanel>
       {
         <>
           {filteredData?.map((item, index) => (

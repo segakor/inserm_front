@@ -31,13 +31,16 @@ export const ProjectName = ({ form }: Props) => {
         rules={[
           { required: true, message: "Обязательное поле" },
           {
-            message: "Проект с таким названием уже существует",
             validator: (_, value) => {
               if (listOfProject?.find((item) => item.label === value)) {
-                return Promise.reject("");
-              } else {
-                return Promise.resolve();
+                return Promise.reject("Проект с таким названием уже существует");
               }
+
+              if (value.indexOf("+") > 0) {
+                return Promise.reject("Символ + недоступен");
+              }
+
+              return Promise.resolve();
             },
           },
         ]}
@@ -50,10 +53,7 @@ export const ProjectName = ({ form }: Props) => {
             Импортировать бриф из предыдущего проекта?
           </StyledTitle>
           <Form.Item name="switchBrief" valuePropName="checked">
-            <Switch
-              checkedChildren="Да"
-              unCheckedChildren="Нет"
-            />
+            <Switch checkedChildren="Да" unCheckedChildren="Нет" />
           </Form.Item>
         </>
       )}
@@ -61,7 +61,7 @@ export const ProjectName = ({ form }: Props) => {
         <>
           <StyledTitle level={5}>Выберите бриф проекта для импорта</StyledTitle>
           <Form.Item name="importBrief">
-            <Select options={listOfProject} style={{ width: "300px" }}/>
+            <Select options={listOfProject} style={{ width: "300px" }} />
           </Form.Item>
         </>
       )}
