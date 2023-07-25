@@ -20,7 +20,7 @@ export const ListOfCampaign = ({ inputSearch }: { inputSearch?: string }) => {
 
   //TODO:зарефакторить!!!
 
-  const { allCampaign, isLoading, handleUpdate } = useGetAllCampaign(
+  const { allCampaign, isLoading, handleGetCampaign } = useGetAllCampaign(
     isActive,
     sortOrder,
     sortKey
@@ -45,8 +45,8 @@ export const ListOfCampaign = ({ inputSearch }: { inputSearch?: string }) => {
   };
 
   useEffect(() => {
-    handleUpdate();
-  }, [sortOrder, sortKey]);
+    handleGetCampaign();
+  }, [sortOrder, sortKey, isActive]);
 
   return (
     <>
@@ -82,7 +82,7 @@ export const ListOfCampaign = ({ inputSearch }: { inputSearch?: string }) => {
               key={index}
               campaign={item}
               isActive={isActive}
-              onUpdate={handleUpdate}
+              onUpdate={handleGetCampaign}
             />
           ))}
         </>

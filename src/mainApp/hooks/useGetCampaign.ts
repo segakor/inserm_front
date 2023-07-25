@@ -9,7 +9,7 @@ export const useGetCampaign = () => {
 
   const handleGetCampaign = async () => {
     try {
-      const response = await getCampaign(false);
+      const response = await getCampaign(false, undefined, undefined);
       const campaignArray = response.data.result.map((item) => ({
         ...item,
         type: "campaign",

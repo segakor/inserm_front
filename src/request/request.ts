@@ -465,8 +465,8 @@ export const createCampaign = async (value: ReqCreateCampaign) => {
 
 export const getCampaign = async (
   isActive: boolean,
-  sortOrder: string,
-  sortKey: string
+  sortOrder?: string,
+  sortKey?: string
 ) => {
   const { data, status } = await axiosClient.get<ResGetCampaign>(
     URL + "/api/campaign",

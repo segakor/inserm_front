@@ -22,11 +22,11 @@ export const ListOfProject = ({ inputSearch }: { inputSearch?: string }) => {
   const [isActive, setIsActive] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState("asc");
-  const [sortKey, setSortKey] = useState('success');
+  const [sortKey, setSortKey] = useState("success");
 
   //TODO:зарефакторить!!!
 
-  const { allProject, isLoading, handleUpdate } = useGetAllProject(
+  const { allProject, isLoading, handleGetAllProject } = useGetAllProject(
     isActive,
     sortOrder,
     sortKey
@@ -59,8 +59,8 @@ export const ListOfProject = ({ inputSearch }: { inputSearch?: string }) => {
   };
 
   useEffect(() => {
-    handleUpdate();
-  }, [sortOrder, sortKey]);
+    handleGetAllProject();
+  }, [sortOrder, sortKey, isActive]);
 
   return (
     <>
@@ -75,7 +75,7 @@ export const ListOfProject = ({ inputSearch }: { inputSearch?: string }) => {
         <div>
           <Select
             style={{ width: 140 }}
-            defaultValue={'success'}
+            defaultValue={"success"}
             options={optionsKey}
             onChange={hendleChagneSortKey}
           />
@@ -98,7 +98,7 @@ export const ListOfProject = ({ inputSearch }: { inputSearch?: string }) => {
               key={index}
               project={item}
               isActive={isActive}
-              onUpdate={handleUpdate}
+              onUpdate={handleGetAllProject}
             />
           ))}
         </>
@@ -107,7 +107,7 @@ export const ListOfProject = ({ inputSearch }: { inputSearch?: string }) => {
       {isModalOpen && (
         <ModalCreateProjectByAdmin
           onClose={handleClose}
-          onUpdate={handleUpdate}
+          onUpdate={handleGetAllProject}
         />
       )}
     </>
