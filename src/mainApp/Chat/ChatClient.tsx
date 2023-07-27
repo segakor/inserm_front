@@ -2,6 +2,9 @@ import styled from "styled-components";
 import { ChatComponent } from "./ChatComponent";
 import { useCreateRoomChat } from "../hooks/useCreateRoomChat";
 import { Title } from "../../common/Typography";
+import { Grid } from "antd";
+
+const { useBreakpoint } = Grid;
 
 const Wrapper = styled.div`
   background-color: white;
@@ -32,13 +35,16 @@ const Body = styled.div`
 export const ChatClient = () => {
   const { roomId } = useCreateRoomChat();
 
+  const screens = useBreakpoint();
+  const isMobile = !!screens.xs;
+
   return (
     <Wrapper>
       <Header>
         <Title level={5}>Техподдержка</Title>
       </Header>
       <Body>
-        <ChatComponent roomId={roomId} chatType={"client"} />
+        <ChatComponent roomId={roomId} chatType={"client"} isMobile={isMobile}/>
       </Body>
     </Wrapper>
   );
