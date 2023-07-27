@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Input as InputComponent, Button, Tooltip } from "antd";
 import EmojiPicker from "emoji-picker-react";
-import { SmileTwoTone, SmileOutlined } from "@ant-design/icons";
+import { SmileTwoTone, SmileOutlined, SendOutlined } from "@ant-design/icons";
 
 enum Categories {
   SUGGESTED = "suggested",
@@ -55,43 +55,46 @@ export const ChatInput = ({
         style={{ width: "100%" }}
         onKeyDown={handleKeyDown}
       />
-      <Tooltip
-        color={"white"}
-        overlayStyle={{ maxWidth: "500px" }}
-        open={isOpenEmoji}
-        title={
-          <>
-            <EmojiPicker
-              onEmojiClick={handleEmojiClick}
-              skinTonesDisabled
-              searchDisabled
-              previewConfig={{ showPreview: false }}
-              lazyLoadEmojis
-              categories={[
-                {
-                  category: Categories.SUGGESTED,
-                  name: "Недавние",
-                },
-                {
-                  category: Categories.SMILEYS_PEOPLE,
-                  name: "Смайлики и люди",
-                },
-              ]}
-            />
-          </>
-        }
-      >
-        {!isMobile && (
+      {!isMobile && (
+        <Tooltip
+          color={"white"}
+          overlayStyle={{ maxWidth: "500px" }}
+          open={isOpenEmoji}
+          title={
+            <>
+              <EmojiPicker
+                onEmojiClick={handleEmojiClick}
+                skinTonesDisabled
+                searchDisabled
+                previewConfig={{ showPreview: false }}
+                lazyLoadEmojis
+                categories={[
+                  {
+                    category: Categories.SUGGESTED,
+                    name: "Недавние",
+                  },
+                  {
+                    category: Categories.SMILEYS_PEOPLE,
+                    name: "Смайлики и люди",
+                  },
+                ]}
+              />
+            </>
+          }
+        >
           <Button
             shape="circle"
             icon={isOpenEmoji ? <SmileTwoTone /> : <SmileOutlined />}
             onClick={() => setOpenEmoji((prev) => !prev)}
           />
-        )}
-      </Tooltip>
-      <Button onClick={sendMessage} type="primary" disabled={!value}>
-        Отправить
-      </Button>
+        </Tooltip>
+      )}
+      <Button
+        type="primary"
+        disabled={!value}
+        onClick={sendMessage}
+        icon={<SendOutlined />}
+      />
     </Input>
   );
 };
