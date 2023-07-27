@@ -91,7 +91,9 @@ export const ListOfProject = ({ inputSearch }: { inputSearch?: string }) => {
         <Spacer />
         <Button onClick={handleOpen}>Добавить проект</Button>
       </WrapperPanel>
-      {
+      {isLoading ? (
+        <Spin />
+      ) : (
         <>
           {filteredData?.map((item, index) => (
             <FlatCardProject
@@ -102,8 +104,7 @@ export const ListOfProject = ({ inputSearch }: { inputSearch?: string }) => {
             />
           ))}
         </>
-      }
-      {isLoading && <Spin />}
+      )}
       {isModalOpen && (
         <ModalCreateProjectByAdmin
           onClose={handleClose}
