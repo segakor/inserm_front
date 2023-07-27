@@ -1,24 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Title } from "../../common/Typography";
 import { getDate } from "../../utils";
-import { Input as InputComponent, Button, Spin } from "antd";
+import { Spin } from "antd";
 import { useScroll } from "../hooks/useScroll";
 import { useIOSocketChat } from "../hooks/useIOSocketChat";
 import { useDispatch, useLocalState } from "../context/hooks";
 import { removeItemListOfNotify } from "../context/action";
+import { ChatInput } from "./ChatInput";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-`;
-const Input = styled.div`
-  padding: 15px;
-  border-radius: 10px;
-  display: flex;
-  margin-top: 10px;
-  grid-gap: 16px;
 `;
 const MessageBox = styled.div`
   display: flex;
@@ -60,12 +54,11 @@ const MessageTitle = styled.div`
 type Props = {
   chatType: "client" | "support";
   roomId: number | null;
+  isMobile:boolean;
 };
 
-export const Chat = ({ chatType, roomId }: Props) => {
+export const Chat = ({ chatType, roomId, isMobile }: Props) => {
   const [messages, setMessages] = useState<any>([]);
-
-  const [value, setValue] = useState("");
 
   const { element } = useScroll();
 
@@ -87,10 +80,9 @@ export const Chat = ({ chatType, roomId }: Props) => {
 
   const dispatch = useDispatch();
 
-  const sendMessage = async () => {
+  const sendMessage = async (value: string) => {
     socketChatRef.current.emit("message:send", value);
     socketNotify.current.emit("notification:send", roomId);
-    setValue("");
     dispatch(removeItemListOfNotify(roomId));
   };
 
@@ -100,12 +92,6 @@ export const Chat = ({ chatType, roomId }: Props) => {
     }
     if (!isClient) {
       return chatType === "support" && !isClient;
-    }
-  };
-
-  const handleKeyDown = (event: any) => {
-    if (event.key === "Enter" && value) {
-      sendMessage();
     }
   };
 
@@ -155,19 +141,7 @@ export const Chat = ({ chatType, roomId }: Props) => {
           </div>
         ))}
       </MessageBox>
-      <Input>
-        <InputComponent
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          type="text"
-          placeholder="Напишите сообщение..."
-          style={{ width: "100%" }}
-          onKeyDown={handleKeyDown}
-        />
-        <Button onClick={sendMessage} type="primary" disabled={!value}>
-          Отправить
-        </Button>
-      </Input>
+      <ChatInput onSendMessage={sendMessage} isMobile={isMobile}/>
     </Wrapper>
   );
 };
