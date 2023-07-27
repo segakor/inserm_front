@@ -75,7 +75,9 @@ export const ListOfCampaign = ({ inputSearch }: { inputSearch?: string }) => {
           />
         </div>
       </WrapperPanel>
-      {
+      {isLoading ? (
+        <Spin />
+      ) : (
         <>
           {filteredData?.map((item, index) => (
             <FlatCardCampaign
@@ -86,8 +88,7 @@ export const ListOfCampaign = ({ inputSearch }: { inputSearch?: string }) => {
             />
           ))}
         </>
-      }
-      {isLoading && <Spin />}
+      )}
     </>
   );
 };
