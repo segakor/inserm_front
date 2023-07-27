@@ -5,6 +5,7 @@ import { useNotes } from "../hooks/useNotes";
 import { getDate } from "../../utils";
 import { Title } from "../../common/Typography";
 import { useScroll } from "../hooks/useScroll";
+import { SendOutlined } from "@ant-design/icons";
 
 const Wrapper = styled.div`
   background-color: white;
@@ -21,6 +22,7 @@ const MessageBox = styled.div`
   overflow: auto;
   padding: 5px;
   word-wrap: break-word;
+  margin-bottom: 8px;
 `;
 const Footer = styled.div`
   display: flex;
@@ -65,7 +67,7 @@ export const Notes = ({ type, id }: Props) => {
   const { handleCreateNote, handleGetNotes, notes } = useNotes();
 
   const onSendNote = async () => {
-    await handleCreateNote({ text: value, id}, type);
+    await handleCreateNote({ text: value, id }, type);
     setValue("");
     await handleGetNotes(id, type);
   };
@@ -94,14 +96,17 @@ export const Notes = ({ type, id }: Props) => {
       <Footer>
         <Tooltip title={TooltipComponent}>
           <TextArea
-            style={{ resize: "none"}}
+            style={{ resize: "none",overflow:'hidden' }}
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
         </Tooltip>
-        <Button disabled={!value} onClick={onSendNote}>
-          добавить
-        </Button>
+        <Button
+          type="primary"
+          disabled={!value}
+          onClick={onSendNote}
+          icon={<SendOutlined />}
+        />
       </Footer>
     </Wrapper>
   );
