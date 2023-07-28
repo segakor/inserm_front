@@ -21,6 +21,14 @@ const MessageBox = styled.div`
   padding: 20px;
   overflow: auto;
   height: 100vh;
+  h5 {
+    font-size: 20px !important;
+  }
+  @media (max-width: 768px) {
+    h5 {
+      font-size: 16px !important;
+    }
+  }
 `;
 const OutputMessage = styled.div`
   padding: 12px 20px 12px 20px;
@@ -54,7 +62,7 @@ const MessageTitle = styled.div`
 type Props = {
   chatType: "client" | "support";
   roomId: number | null;
-  isMobile:boolean;
+  isMobile: boolean;
 };
 
 export const Chat = ({ chatType, roomId, isMobile }: Props) => {
@@ -141,7 +149,7 @@ export const Chat = ({ chatType, roomId, isMobile }: Props) => {
           </div>
         ))}
       </MessageBox>
-      <ChatInput onSendMessage={sendMessage} isMobile={isMobile}/>
+      <ChatInput onSendMessage={sendMessage} isMobile={isMobile} />
     </Wrapper>
   );
 };
