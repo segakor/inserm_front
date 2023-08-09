@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ChatComponent } from "./ChatComponent";
 import { useCreateRoomChat } from "../hooks/useCreateRoomChat";
 import { Title } from "../../common/Typography";
-import { Grid } from "antd";
+import { Grid, Avatar } from "antd";
 
 const { useBreakpoint } = Grid;
 
@@ -23,6 +23,7 @@ const Header = styled.div`
     color: white !important;
   }
   display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 10px 20px 10px 20px;
 `;
@@ -30,6 +31,11 @@ const Body = styled.div`
   display: flex;
   flex-direction: row;
   height: calc(100vh - 200px);
+`;
+const AvatarWrapper = styled.div`
+  display: flex;
+  grid-gap: 8px;
+  align-items: center;
 `;
 
 export const ChatClient = () => {
@@ -42,9 +48,17 @@ export const ChatClient = () => {
     <Wrapper>
       <Header>
         <Title level={5}>Техподдержка</Title>
+        <AvatarWrapper>
+          <Avatar src="https://i.ibb.co/KwhgkxV/image.png" size="large" />
+          <Title level={5}>Дарья</Title>
+        </AvatarWrapper>
       </Header>
       <Body>
-        <ChatComponent roomId={roomId} chatType={"client"} isMobile={isMobile}/>
+        <ChatComponent
+          roomId={roomId}
+          chatType={"client"}
+          isMobile={isMobile}
+        />
       </Body>
     </Wrapper>
   );
