@@ -470,7 +470,7 @@ export const getCampaign = async (
 ) => {
   const { data, status } = await axiosClient.get<ResGetCampaign>(
     URL + "/api/campaign",
-    { params: { isActive, sortOrder,sortKey } }
+    { params: { isActive, sortOrder, sortKey } }
   );
   return { data, status };
 };
@@ -490,7 +490,6 @@ export const getListOfBrief = async () => {
 };
 
 export const copyBrief = async (value: ReqCopyBrief) => {
-  console.log(value);
   const { data, status } = await axiosClient.post(
     URL + `/api/project/saveBrief`,
     {
@@ -549,9 +548,10 @@ export const getInvoiceTemplate = async (id: number) => {
   return { data, status };
 };
 
-export const getCashlessTransfer = async () => {
+export const getCashlessTransfer = async (params: { status: string }) => {
   const { data, status } = await axiosClient.get<ResGetCashlessTransfer>(
-    URL + `/api/transfer`
+    URL + `/api/transfer`,
+    { params: { ...params } }
   );
   return { data, status };
 };
@@ -562,6 +562,21 @@ export const changeTransferStatus = async (value: {
 }) => {
   const { data, status } = await axiosClient.post(
     URL + `/api/transfer/update`,
+    {
+      ...value,
+    }
+  );
+  return {
+    data,
+    status,
+  };
+};
+export const changeTransferStatusArchive = async (value: {
+  transferId: number;
+  isActive: boolean;
+}) => {
+  const { data, status } = await axiosClient.post(
+    URL + `/api/transfer/archive`,
     {
       ...value,
     }

@@ -249,7 +249,7 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
       loading={isLoading}
       tableLayout={"fixed"}
       scroll={{ x: 1000 }}
-      locale={{ emptyText: "нет данных" }}
+      locale={{ emptyText: "Нет данных" }}
       footer={() => (isLoading ? "" : footerInfo)}
     />
   );

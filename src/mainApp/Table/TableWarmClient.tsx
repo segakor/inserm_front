@@ -35,7 +35,7 @@ export const TableWarmClient = ({ warmClient, isLoading }: Props) => {
       pagination={false}
       loading={isLoading}
       tableLayout={"fixed"}
-      locale={{ emptyText: "нет данных" }}
+      locale={{ emptyText: "Нет данных" }}
     />
   );
 };

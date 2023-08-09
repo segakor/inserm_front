@@ -58,6 +58,9 @@ const MessageTitle = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
+const StyledSpin = styled(Spin)`
+  margin-top: 150px;
+`
 
 type Props = {
   chatType: "client" | "support";
@@ -106,7 +109,7 @@ export const Chat = ({ chatType, roomId, isMobile }: Props) => {
   return (
     <Wrapper>
       <MessageBox ref={element}>
-        {!isConnect && <Spin size="large" />}
+        {!isConnect && <StyledSpin size="large" />}
         {messages.map((item: any) => (
           <div key={item.id}>
             {checkTypeMsg(item.isClient) ? (

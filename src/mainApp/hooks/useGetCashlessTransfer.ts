@@ -1,10 +1,14 @@
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
-import { getCashlessTransfer, changeTransferStatus } from "../../request";
-import { CashlessTransfer } from "../../types";
+import {
+  getCashlessTransfer,
+  changeTransferStatus,
+  changeTransferStatusArchive,
+} from "../../request";
+import { CashlessStatus, CashlessTransfer } from "../../types";
 import { openNotificationWithIcon } from "../../utils";
 
-export const useGetCashlessTransfer = () => {
+export const useGetCashlessTransfer = (status: CashlessStatus) => {
   const [cashlessTransfer, setCashlessTransfer] = useState<
     CashlessTransfer[] | undefined
   >(undefined);
@@ -14,7 +18,7 @@ export const useGetCashlessTransfer = () => {
   const handleGetCashlessTransfer = async () => {
     try {
       setIsLoading(true);
-      const response = await getCashlessTransfer();
+      const response = await getCashlessTransfer({ status });
       setCashlessTransfer(response.data.result);
     } catch (err) {
       const typedError = err as AxiosError;
@@ -28,10 +32,10 @@ export const useGetCashlessTransfer = () => {
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
     handleGetCashlessTransfer();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [status]);
 
   const handleApproveTransfer = async (value: {
     transferId: number;
@@ -40,7 +44,28 @@ export const useGetCashlessTransfer = () => {
     try {
       setIsLoading(true);
       await changeTransferStatus(value);
-      await handleGetCashlessTransfer()
+      await handleGetCashlessTransfer();
+    } catch (err) {
+      const typedError = err as AxiosError;
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: "Не удалось изменить статус",
+        status: typedError.status,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleArchiveTransfer = async (value: {
+    transferId: number;
+    isActive: boolean;
+  }) => {
+    try {
+      setIsLoading(true);
+      await changeTransferStatusArchive(value);
+      await handleGetCashlessTransfer();
     } catch (err) {
       const typedError = err as AxiosError;
       openNotificationWithIcon({
@@ -60,6 +85,7 @@ export const useGetCashlessTransfer = () => {
       key: index.toString(),
     })),
     isLoading,
-    handleApproveTransfer
+    handleApproveTransfer,
+    handleArchiveTransfer,
   };
 };

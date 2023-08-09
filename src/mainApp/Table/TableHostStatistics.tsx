@@ -26,7 +26,7 @@ export const TableHostStatistics = ({ hosts, isLoading }: Props) => {
       pagination={false}
       loading={isLoading}
       tableLayout={"fixed"}
-      locale={{ emptyText: "нет данных" }}
+      locale={{ emptyText: "Нет данных" }}
     />
   );
 };
