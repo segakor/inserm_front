@@ -4,6 +4,7 @@ import { useLocalState } from "../../context/hooks";
 import { Room } from "../../../types";
 import { sortChatItem } from "../../../utils/sortChatItem";
 import { RoomItem } from "./RoomItem";
+import { Spin } from "antd";
 
 const Wrapper = styled.div`
   border-right: 2px solid #f0f0f0;
@@ -16,6 +17,9 @@ const Wrapper = styled.div`
     width: 100%;
   }
 `;
+const StyledSpin = styled(Spin)`
+  margin-top: 50%;
+`
 
 type Props = {
   onClickRoom: (e: Room) => void;
@@ -24,17 +28,18 @@ type Props = {
 };
 
 export const ListOfRooms = ({ onClickRoom, selectedRoom, isMobile }: Props) => {
-  const { rooms } = useGetRoomChat();
+  const { rooms, isLoading } = useGetRoomChat();
 
   const state = useLocalState();
   const listOfNotify = state.listOfNotify;
 
   sortChatItem(rooms, listOfNotify);
 
-  if (isMobile && selectedRoom) return null
+  if (isMobile && selectedRoom) return null;
 
   return (
     <Wrapper>
+      {isLoading && <StyledSpin />}
       {rooms?.map((item, index) => (
         <RoomItem
           key={index}

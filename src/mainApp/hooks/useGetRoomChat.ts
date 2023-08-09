@@ -5,9 +5,11 @@ import { openNotificationWithIcon } from "../../utils";
 
 export const useGetRoomChat = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGetRooms = async () => {
     try {
+      setIsLoading(true);
       const response = await getRooms();
       setRooms(response.data.result);
     } catch {
@@ -16,6 +18,8 @@ export const useGetRoomChat = () => {
         message: "",
         description: "Не удалось получить чаты",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -25,5 +29,6 @@ export const useGetRoomChat = () => {
 
   return {
     rooms: rooms?.map((item) => ({ ...item, unread: 0 })),
+    isLoading,
   };
 };

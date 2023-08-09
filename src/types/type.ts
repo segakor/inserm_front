@@ -370,8 +370,11 @@ export type CashlessTransfer = ReqCreateCashlessTransfer & {
   amount: number;
   date: number;
   isApproved: boolean;
+  isActive: boolean;
 };
 
 export type ResGetCashlessTransfer = {
   result: CashlessTransfer[];
 };
+
+export type CashlessStatus = "wait" | "approved" | "archive";
