@@ -6,6 +6,7 @@ import { Dropdown, Space, Button } from "antd";
 import { Room } from "../../../types";
 import { useNavigate } from "react-router-dom";
 import { useMemo } from "react";
+import { tokenService } from "../../../utils";
 
 const Wrapper = styled.div`
   height: 65px;
@@ -41,6 +42,7 @@ type Props = {
 
 export const RoomItemHeader = ({ room, onRemoveRoom, isMobile }: Props) => {
   const navigation = useNavigate();
+  const role = tokenService.getRole();
 
   const projects = room?.projects?.map((item) => ({
     ...item,
@@ -67,7 +69,7 @@ export const RoomItemHeader = ({ room, onRemoveRoom, isMobile }: Props) => {
 
   const handleDropdownItemClick = (e: any) => {
     const target = allProjects.find((item) => item.key == e.key);
-    navigation(`/app/admin/${target?.type}/${target?.id}`);
+    navigation(`/app/${role}/${target?.type}/${target?.id}`);
   };
 
   return (
