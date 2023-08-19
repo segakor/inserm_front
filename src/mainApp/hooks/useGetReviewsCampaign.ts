@@ -6,12 +6,21 @@ import { AxiosError } from "axios";
 
 export const useGetReviewsCampaign = (id: string) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<ResGetCampaignDetails | undefined>(undefined);
+  const [data, setData] = useState<ResGetCampaignDetails | undefined>(
+    undefined
+  );
 
   const handleGetReviews = async (id: string) => {
     try {
       setIsLoading(true);
       const response = await getCampaignDetails(id);
+      response.data.archive = response.data.archive.map((arch_item) => ({
+        ...arch_item,
+        reviews: arch_item.reviews.map((rev_item, index) => ({
+          ...rev_item,
+          key: index.toString(),
+        })),
+      }));
       setData(response.data);
     } catch (err) {
       const typedError = err as AxiosError;
@@ -19,7 +28,7 @@ export const useGetReviewsCampaign = (id: string) => {
         type: "error",
         message: "",
         description: "Не удалось загрузить отзывы клиента",
-        status: typedError.status
+        status: typedError.status,
       });
     } finally {
       setIsLoading(false);
@@ -33,6 +42,6 @@ export const useGetReviewsCampaign = (id: string) => {
   return {
     isLoading,
     data,
-    handleGetReviews
+    handleGetReviews,
   };
 };

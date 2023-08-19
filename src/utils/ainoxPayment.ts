@@ -5,7 +5,9 @@ type AinoxProject = {
   period: number;
   tariffId: number;
 };
-type AinoxCampaign = Omit<AinoxProject, "tariffId" | "period">;
+type AinoxCampaign = Omit<AinoxProject, "tariffId" | "period"> & {
+  isRecurent: boolean;
+};
 
 export const goToAinoxPageProject = ({
   email,
@@ -25,9 +27,12 @@ export const goToAinoxPageCampaign = ({
   email,
   projectName,
   price,
+  isRecurent,
 }: AinoxCampaign) => {
-  const formId = import.meta.env.VITE_AINOX_CONNECTOR_CAMPAIGN;
-   window.location.replace(
+  const formId = isRecurent
+    ? import.meta.env.VITE_AINOX_CONNECTOR_CAMPAIGN_RECURENT
+    : import.meta.env.VITE_AINOX_CONNECTOR_CAMPAIGN;
+  window.location.replace(
     `https://go.ainox.pro/antispam/?email=${email}&nazvanie=${projectName}&idform=${formId}&cena=${price}&&idhits=22659`
   );
 };

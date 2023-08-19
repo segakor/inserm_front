@@ -8,7 +8,8 @@ import { ButtonBrief } from "../../Button/ButtonBrief";
 import { ModalBrief } from "../../components/ModalBrief";
 import { useGetReviewsCampaign } from "../../hooks/useGetReviewsCampaign";
 import { CampaignReviews } from "../../components/CampaignReviews";
-import { Spin } from "antd";
+import { Spin, Typography } from "antd";
+import { ArchiveCampaign } from "../../components/ArchiveCampaign";
 
 const Page = styled.div`
   display: flex;
@@ -74,11 +75,23 @@ const Campaign = () => {
       {isLoading ? (
         <Spin />
       ) : (
-        <CampaignReviews
-          group={data?.groppedByType || []}
-          role={"CLIENT"}
-          id={data?.id.toString() || ""}
-        />
+        <>
+          <CampaignReviews
+            group={data?.groppedByType || []}
+            role={"CLIENT"}
+            id={data?.id.toString() || ""}
+          />
+          {!!data?.archive.length && <Title level={5}>Архив</Title>}
+          {data?.archive.map((item, index) => (
+            <ArchiveCampaign
+              date={item.date}
+              statuses={item.statuses}
+              reviews={item.reviews}
+              link={item.link}
+              key={index}
+            />
+          ))}
+        </>
       )}
     </Page>
   );

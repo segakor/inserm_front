@@ -13,6 +13,7 @@ import { openNotificationWithIcon } from "../../../utils";
 import { useGetCampaignTariff } from "../../hooks/useGetCampaignTariff";
 import { CashlessBlock } from "./CashlessBlock";
 import { PaymentType } from "./PaymentType";
+import { RecurentSwitch } from "./RecurentSwitch";
 
 export const ReviewsPiece = () => {
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
@@ -52,6 +53,8 @@ export const ReviewsPiece = () => {
         : undefined,
     };
 
+    let isRecurent = formValue?.isRecurent;
+
     let cashlessData =
       formValue.paymentType === "cashless"
         ? {
@@ -64,7 +67,7 @@ export const ReviewsPiece = () => {
           }
         : null;
 
-    handleCreateCampaign(value, priceTotal, cashlessData);
+    handleCreateCampaign(value, priceTotal, cashlessData, isRecurent);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -131,6 +134,7 @@ export const ReviewsPiece = () => {
           <>
             <StyledTitle level={5}>5. Выберите способ оплаты</StyledTitle>
             <PaymentType />
+            {formValue.paymentType !== "cashless" && <RecurentSwitch/>}
             {formValue.paymentType === "cashless" && <CashlessBlock />}
             <Footer
               count={count}
