@@ -25,7 +25,7 @@ export const TariffDemo = () => {
         <Header>Управление тарифами</Header>
         <ButtonCreateNewProjectDemo />
       </HeaderFlex>
-      <CurrentTariff clientProject={demoProject} />
+      <CurrentTariff clientProject={demoProject} clientCampaign={[]}/>
     </Page>
   );
 };
