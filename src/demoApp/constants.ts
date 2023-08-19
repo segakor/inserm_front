@@ -88,6 +88,7 @@ export const demoCampaign = [
       delete: 0,
       all: 8,
     },
+    autopay: false,
   },
   {
     id: 5,
@@ -106,6 +107,7 @@ export const demoCampaign = [
       delete: 1,
       all: 6,
     },
+    autopay: false,
   },
   {
     id: 6,
@@ -124,6 +126,7 @@ export const demoCampaign = [
       delete: 0,
       all: 3,
     },
+    autopay: false,
   },
 ];
 
