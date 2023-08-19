@@ -293,6 +293,19 @@ export const unsubdcribe = async (value: { projectId: number }) => {
   };
 };
 
+export const unsubdcribeCampaign = async (value: { campaignId: number }) => {
+  const { data, status } = await axiosClient.post(
+    URL + `/api/campaignTariff/unsubscribe`,
+    {
+      ...value,
+    }
+  );
+  return {
+    data,
+    status,
+  };
+};
+
 export const createNote = async (
   value: {
     id: string;

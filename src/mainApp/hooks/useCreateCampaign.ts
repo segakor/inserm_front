@@ -20,7 +20,8 @@ export const useCreateCampaign = () => {
   const handleCreateCampaign = async (
     value: ReqCreateCampaign,
     price: number,
-    cashlessData: Omit<ReqCreateCashlessTransfer, "campaignId"> | null
+    cashlessData: Omit<ReqCreateCashlessTransfer, "campaignId"> | null,
+    isRecurent: boolean
   ) => {
     try {
       setIsLoading(true);
@@ -48,6 +49,7 @@ export const useCreateCampaign = () => {
         email: value.email,
         projectName: value.name,
         price: price,
+        isRecurent: isRecurent,
       });
     } catch (err) {
       openNotificationWithIcon({
@@ -63,6 +65,6 @@ export const useCreateCampaign = () => {
   return {
     handleCreateCampaign,
     isLoading,
-    invoiceTemplate
+    invoiceTemplate,
   };
 };

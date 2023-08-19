@@ -77,6 +77,7 @@ export type Reviews = {
   in_work?: boolean;
   is_paid?: boolean;
   tg?: string;
+  key: string;
 };
 
 export type ReqGetProjectDetails = {
@@ -292,6 +293,7 @@ export type Campaign = {
   type?: string;
   isPaid: boolean;
   date: number;
+  autopay: boolean;
 };
 
 export type ResGetCampaign = {
@@ -313,6 +315,16 @@ export type GrouppedCampaign = {
   cards: CampaignCard[];
 };
 
+export type ArchiveCampaignCard = {
+  id: number;
+  link: string;
+  type: string;
+  date: number;
+  amount: number;
+  reviews: Reviews[];
+  statuses:Statuses
+};
+
 export type ResGetCampaignDetails = {
   id: number;
   name: string;
@@ -320,6 +332,7 @@ export type ResGetCampaignDetails = {
   period: number;
   statuses: Statuses;
   groppedByType: GrouppedCampaign[];
+  archive: ArchiveCampaignCard[];
 };
 
 export type BriefList = {
