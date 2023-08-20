@@ -54,6 +54,9 @@ export const TableCashlessTransfer = () => {
             <li>ОГРН: {record.ogrn}</li>
             <li>Юр. лицо: {record.company}</li>
             <li>Адрес юр. лица: {record.address}</li>
+            <li>Номер счета: {record.number}</li>
+            <li>Название проект: {record.campaign}</li>
+            <li>Emal: {record.email}</li>
           </ul>
         );
       },

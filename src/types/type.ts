@@ -384,6 +384,8 @@ export type CashlessTransfer = ReqCreateCashlessTransfer & {
   date: number;
   isApproved: boolean;
   isActive: boolean;
+  campaign: string;
+  number: number;
 };
 
 export type ResGetCashlessTransfer = {
