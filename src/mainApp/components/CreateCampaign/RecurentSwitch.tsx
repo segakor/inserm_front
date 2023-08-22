@@ -1,11 +1,11 @@
-import { Form, Space, Switch, Tooltip } from "antd";
+import { Form, Switch, Tooltip } from "antd";
 import { StyledTitle } from "./styles";
 import { QuestionCircleFilled } from "@ant-design/icons";
 
 export const RecurentSwitch = () => {
   return (
-    <Form.Item name="isRecurent" valuePropName="checked">
-      <StyledTitle level={5}>
+    <>
+     <StyledTitle level={5}>
         Автопродление тарифа{" "}
         <Tooltip
           title={
@@ -17,7 +17,9 @@ export const RecurentSwitch = () => {
           />
         </Tooltip>
       </StyledTitle>
+    <Form.Item name="isRecurent" valuePropName="checked">
       <Switch checkedChildren="Да" unCheckedChildren="Нет" />
     </Form.Item>
+    </>
   );
 };
