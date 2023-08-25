@@ -2,6 +2,7 @@ import React from "react";
 import { Select, Divider, Input, Form, FormInstance, Switch } from "antd";
 import { useLocalState } from "../../context/hooks";
 import { StyledTitle } from "./styles";
+import { useGetListOfBrief } from "../../hooks/useGetListOfBrief";
 
 type Props = {
   form: FormInstance;
@@ -22,6 +23,10 @@ export const ProjectName = ({ form }: Props) => {
   }));
 
   const formValue = Form.useWatch([], form);
+
+  const { listOfBrief } = useGetListOfBrief();
+
+  const disabledSwitch = !listOfBrief?.length;
 
   return (
     <>
@@ -53,7 +58,7 @@ export const ProjectName = ({ form }: Props) => {
             Импортировать бриф из предыдущего проекта?
           </StyledTitle>
           <Form.Item name="switchBrief" valuePropName="checked">
-            <Switch checkedChildren="Да" unCheckedChildren="Нет" />
+            <Switch checkedChildren="Да" unCheckedChildren="Нет" disabled={disabledSwitch} />
           </Form.Item>
         </>
       )}

@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import updateLocale from "dayjs/plugin/updateLocale";
 import { Title } from "../../common/Typography";
 import { toUnixDate } from "../../utils";
+import moment from "moment";
 
 dayjs.extend(updateLocale);
 dayjs.updateLocale("en", {
@@ -29,9 +30,12 @@ type Props = {
 export const DatePicker = ({ onGetRange }: Props) => {
   const onChangeCalendar = (e: any) => {
     if (e) {
+      const start = toUnixDate(moment(e[0].$d).startOf("day").toDate());
+      const end = toUnixDate(moment(e[1].$d).endOf("day").toDate());
+
       onGetRange({
-        start: toUnixDate(e[0].$d),
-        end: toUnixDate(e[1].$d),
+        start,
+        end,
       });
     }
   };
@@ -39,7 +43,17 @@ export const DatePicker = ({ onGetRange }: Props) => {
   return (
     <RangeWrapper>
       <Title level={5}>Выбрать период</Title>
-      <RangePicker locale={locale} onChange={(e) => onChangeCalendar(e)} />
+      <RangePicker
+        format={"DD-MM-YYYY"}
+        locale={locale}
+        onChange={(e) => onChangeCalendar(e)}
+        disabledDate={(current) => {
+          let customDate = moment().format("DD-MM-YYYY");
+          return (
+            current && current > moment(customDate, "DD-MM-YYYY").add(1, "day")
+          );
+        }}
+      />
     </RangeWrapper>
   );
 };

@@ -1,4 +1,4 @@
-import { Divider, Form, Input, Select, Switch, Tooltip } from "antd";
+import { Divider, Form, Input, Radio, Select, Switch, Tooltip } from "antd";
 import { TariffSelectionBlock } from "../TariffSelectionBlock";
 import { StyledTitle } from "../CreateCampaign/styles";
 import { goToAinoxPageProject, openNotificationWithIcon } from "../../../utils";
@@ -7,6 +7,12 @@ import { useGetListOfBrief } from "../../hooks/useGetListOfBrief";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { useCopyBrief } from "../../hooks/useCopyBrief";
 import { savePrice } from "../../../request";
+import styled from "styled-components";
+import { Title } from "../../../common/Typography";
+
+export const Label = styled(Title)`
+  font-weight: 500 !important;
+`;
 
 export const ReviewsMonth = () => {
   const [form] = Form.useForm();
@@ -85,7 +91,7 @@ export const ReviewsMonth = () => {
           { required: true, message: "Обязательное поле" },
           {
             validator(_, value) {
-              if (value.indexOf("+") > 0) {
+              if (value && value.indexOf("+") >= 0) {
                 return Promise.reject("Символ + недоступен");
               }
               return Promise.resolve();
@@ -141,7 +147,19 @@ export const ReviewsMonth = () => {
         </>
       )}
       <Divider />
-      <StyledTitle level={5}>2. Выберите тариф</StyledTitle>
+      <StyledTitle level={5}>2. Выберите способ оплаты</StyledTitle>
+      <Radio defaultChecked={true} disabled={true}>
+        <Label level={5}>Оплата картой</Label>
+      </Radio>
+      <Tooltip
+        title={"Безналичная оплата доступна при покупке поштучных отзывов"}
+      >
+        <Radio defaultChecked={false} disabled={true}>
+          <Label level={5}>Безналичная оплата по счету</Label>
+        </Radio>
+      </Tooltip>
+      <Divider />
+      <StyledTitle level={5}>3. Выберите тариф</StyledTitle>
       <TariffSelectionBlock onSelectTarif={onSelectedTariff} />
     </Form>
   );

@@ -7,7 +7,9 @@ import { useUpdateBrief } from "../hooks/useUpdateBrief";
 import { Brief } from "../../types";
 import { ButtonCopy } from "../Button/ButtonCopy";
 import { cliapbord, copyBrief, tokenService } from "../../utils";
-import { briefField } from "../../constants";
+import { briefField, confirmationText } from "../../constants";
+import { useState } from "react";
+import { ModalСonfirmation } from "./ModalСonfirmation";
 
 const { TextArea } = Input;
 
@@ -35,6 +37,7 @@ type Props = {
 export const ModalBrief = ({ onClose, id, brief, typeBrief }: Props) => {
   const { handleCreateBrief, isLoading: isLoadingCreate } = useCreateBrief();
   const { handleUpdateBrief, isLoading: isLoadingUpdate } = useUpdateBrief();
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   const [form] = Form.useForm();
   const formValue = Form.useWatch([], form);
@@ -84,12 +87,28 @@ export const ModalBrief = ({ onClose, id, brief, typeBrief }: Props) => {
     console.log("Failed:", errorInfo);
   };
 
+  const handleConfirmModalClose = () => {
+    setIsConfirmModalOpen(false);
+  };
+  const handleConfirmModalOpen = () => {
+    setIsConfirmModalOpen(true);
+  };
+
+  const handleClose = () => {
+    if (form.isFieldsTouched()) {
+      handleConfirmModalOpen();
+      return;
+    }
+    onClose();
+  };
+
+  console.log(form.isFieldsTouched());
+
   return (
     <Modal
       title="Заполните бриф"
       open
-      onOk={onClose}
-      onCancel={onClose}
+      onCancel={handleClose}
       footer={null}
       width={1000}
     >
@@ -158,10 +177,19 @@ export const ModalBrief = ({ onClose, id, brief, typeBrief }: Props) => {
             >
               Добавить комментарий
             </StyledButton>
-            {role !== "CLIENT" && <ButtonCopy onClick={onCopyBrief} style={{marginLeft:10}}/>}
+            {role !== "CLIENT" && (
+              <ButtonCopy onClick={onCopyBrief} style={{ marginLeft: 10 }} />
+            )}
           </>
         )}
       </Form>
+      {isConfirmModalOpen && (
+        <ModalСonfirmation
+          onClose={handleConfirmModalClose}
+          onConfirm={onClose}
+          confirmationText={confirmationText.brief}
+        />
+      )}
     </Modal>
   );
 };
