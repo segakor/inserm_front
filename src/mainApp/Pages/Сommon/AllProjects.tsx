@@ -6,6 +6,8 @@ import { SearchOutlined } from "@ant-design/icons";
 import { ListOfProject } from "../../components/ListOfProject";
 import { ListOfCampaign } from "../../components/ListOfCamaign";
 import { optionTypeProject } from "../../../constants";
+import { useDispatch, useLocalState } from "../../context/hooks";
+import { setActiveTab } from "../../context/action";
 
 const Page = styled.div`
   display: flex;
@@ -22,15 +24,13 @@ const SearchPanel = styled(Input)`
   margin-bottom: 24px;
 `;
 
-
 const AllProjects = () => {
-  const [typeProject, setTypeProject] = useState<"project" | "campaign">(
-    "project"
-  );
+  const { activeTab } = useLocalState();
+  const dispatch = useDispatch();
   const [inputText, setInputText] = useState("");
 
   const onChangeTypeProject = ({ target: { value } }: RadioChangeEvent) => {
-    setTypeProject(value);
+    dispatch(setActiveTab(value));
   };
 
   const handleChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +44,7 @@ const AllProjects = () => {
         style={{ marginBottom: 16 }}
         options={optionTypeProject}
         onChange={onChangeTypeProject}
-        value={typeProject}
+        value={activeTab}
         optionType="button"
         buttonStyle="solid"
       />
@@ -53,8 +53,8 @@ const AllProjects = () => {
         placeholder="Поиск проектов"
         onChange={handleChangeInput}
       />
-      {typeProject === "project" && <ListOfProject inputSearch={inputText}/>}
-      {typeProject === "campaign" && <ListOfCampaign inputSearch={inputText}/>}
+      {activeTab === "project" && <ListOfProject inputSearch={inputText} />}
+      {activeTab === "campaign" && <ListOfCampaign inputSearch={inputText} />}
     </Page>
   );
 };

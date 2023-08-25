@@ -10,4 +10,5 @@ export type LocalState = {
   listOfNotify: Notify[];
   pagesProject: number[];
   pagesCampaign: number[];
+  activeTab: "project" | "campaign";
 };

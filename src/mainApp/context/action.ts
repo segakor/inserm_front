@@ -8,6 +8,7 @@ export const SET_NOTIFY_REF = "SET_NOTIFY_REF";
 export const SET_LIST_OF_NOTIFY = "SET_LIST_OF_NOTIFY";
 export const REMOVE_ITEM_LIST_OF_NOTIFY = "REMOVE_ITEM_LIST_OF_NOTIFY";
 export const SET_PAGES = "SET_PAGES";
+export const SET_ACTIVE_TAB = "SET_ACTIVE_TAB";
 
 export const setPersonInfo = (payload: any) => ({
   type: SET_PERSON_INFO,
@@ -45,6 +46,10 @@ export const setPages = (payload: { pages: number[]; type: string }) => ({
   type: SET_PAGES,
   payload,
 });
+export const setActiveTab = (payload: "project" | "campaign") => ({
+  type: SET_ACTIVE_TAB,
+  payload,
+});
 
 export type SetClientProject = ReturnType<typeof setClientProject>;
 export type SetClientCampaign = ReturnType<typeof setClientCampaign>;
@@ -55,6 +60,7 @@ export type SetNotifyRef = ReturnType<typeof setNotifyRef>;
 export type SetListOfNotify = ReturnType<typeof setListOfNotify>;
 export type RemoveItemListOfNotify = ReturnType<typeof removeItemListOfNotify>;
 export type SetPages = ReturnType<typeof setPages>;
+export type SetActiveTab = ReturnType<typeof setActiveTab>;
 
 export type ReducerAction =
   | SetPersonInfo
@@ -66,4 +72,5 @@ export type ReducerAction =
   | SetNotifyRef
   | SetListOfNotify
   | RemoveItemListOfNotify
-  | SetPages;
+  | SetPages
+  | SetActiveTab;

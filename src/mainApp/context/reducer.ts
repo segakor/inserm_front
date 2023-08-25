@@ -18,6 +18,8 @@ import {
   SetClientCampaign,
   SetPages,
   SET_PAGES,
+  SetActiveTab,
+  SET_ACTIVE_TAB,
 } from "./action";
 
 export const initialState: LocalState = {
@@ -30,6 +32,7 @@ export const initialState: LocalState = {
   listOfNotify: [],
   pagesProject: [],
   pagesCampaign: [],
+  activeTab:'project'
 };
 
 function setPersonInfo(
@@ -128,6 +131,13 @@ function setPages(state: LocalState, { payload }: SetPages): LocalState {
   };
 }
 
+function setActiveTab(state: LocalState, { payload }: SetActiveTab): LocalState {
+  return {
+    ...state,
+    activeTab: payload,
+  };
+}
+
 export const reducer = createReducer(initialState, {
   [SET_PERSON_INFO]: setPersonInfo,
   [SET_CLIENT_PROJECT]: setClientProject,
@@ -138,4 +148,5 @@ export const reducer = createReducer(initialState, {
   [SET_LIST_OF_NOTIFY]: setListOfNotify,
   [REMOVE_ITEM_LIST_OF_NOTIFY]: removeItemListOfNotify,
   [SET_PAGES]: setPages,
+  [SET_ACTIVE_TAB]: setActiveTab,
 });
