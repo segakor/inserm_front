@@ -294,6 +294,7 @@ export type Campaign = {
   isPaid: boolean;
   date: number;
   autopay: boolean;
+  isTransfer: boolean;
 };
 
 export type ResGetCampaign = {

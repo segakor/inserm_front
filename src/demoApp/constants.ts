@@ -89,6 +89,7 @@ export const demoCampaign = [
       all: 8,
     },
     autopay: false,
+    isTransfer: false
   },
   {
     id: 5,
@@ -108,6 +109,7 @@ export const demoCampaign = [
       all: 6,
     },
     autopay: false,
+    isTransfer: false
   },
   {
     id: 6,
@@ -127,6 +129,7 @@ export const demoCampaign = [
       all: 3,
     },
     autopay: false,
+    isTransfer: false
   },
 ];
 
