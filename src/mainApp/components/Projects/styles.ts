@@ -47,3 +47,20 @@ export const Header = styled.div`
   align-items: center;
   margin-bottom: 20px;
 `;
+
+export const FooterLink = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const StatusTransfer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 600px;
+  margin-bottom: 10px;
+  align-items: center;
+  grid-gap:8px;
+  @media (max-width: 768px) {
+    width: auto;
+  }
+`;
