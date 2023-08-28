@@ -127,4 +127,5 @@ export const optionsKey = [
   { value: "reject", label: "Не прошло" },
   { value: "delete", label: "Удалено" },
   { value: "all", label: "Всего" },
+  { value: "id", label: "id" },
 ];
