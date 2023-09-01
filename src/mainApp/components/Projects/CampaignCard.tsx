@@ -20,11 +20,13 @@ import { Tooltip } from "antd";
 import { noop } from "../../../constants";
 import { ReactComponent as WaitIcon } from "../../../assets/transferWait.svg";
 import { ReactComponent as ApproveIcon } from "../../../assets/transferApprove.svg";
+import { ModalTemplate } from "../ModalTemplate";
 
 export const CampaignCard = (campaign: Campaign) => {
   const { name, statuses, id, period, isPaid, isTransfer } = campaign;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalActOpen, setIsModalActOpen] = useState(false);
 
   const { brief, handleGetBrief } = useGetBrief(id.toString(), "campaign");
 
@@ -35,6 +37,13 @@ export const CampaignCard = (campaign: Campaign) => {
   const handleClose = () => {
     setIsModalOpen(false);
     handleGetBrief();
+  };
+
+  const handleActOpen = () => {
+    setIsModalActOpen(true);
+  };
+  const handleActClose = () => {
+    setIsModalActOpen(false);
   };
 
   const navigation = useNavigate();
@@ -107,24 +116,23 @@ export const CampaignCard = (campaign: Campaign) => {
             </Title>
             {isTransfer && (
               <Title
+                onClick={handleActOpen}
                 level={5}
                 style={{
                   fontWeight: "500",
                   color: "#FFFFFF",
                   fontSize: "14px",
                   textDecorationLine: "underline",
-                  cursor: "not-allowed",
+                  cursor: "pointer",
                 }}
               >
-                <Tooltip title={"Временно недоступно"}>
-                  Получить акт выполненных работ
-                </Tooltip>
+                Получить акт выполненных работ
               </Title>
             )}
           </FooterLink>
         </CardBlock>
       </div>
-      <TariffBlock>
+      <TariffBlock mt={isTransfer}>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
         <TariffCard>
           <Header>
@@ -141,6 +149,13 @@ export const CampaignCard = (campaign: Campaign) => {
           id={id.toString()}
           brief={brief}
           typeBrief={"campaign"}
+        />
+      )}
+      {isModalActOpen && (
+        <ModalTemplate
+          onClose={handleActClose}
+          invoiceTemplate={"" as any}
+          type={"act"}
         />
       )}
     </Wrapper>

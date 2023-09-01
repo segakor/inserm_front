@@ -10,7 +10,7 @@ import {
   FooterButton,
 } from "./styles";
 import { useEffect, useState } from "react";
-import { ModalPayment } from "../ModalPayment";
+import { ModalTemplate } from "../ModalTemplate";
 import { noop } from "../../../constants";
 import { InvoiceTemplate } from "../../../types";
 import { useNavigate } from "react-router-dom";
@@ -110,9 +110,10 @@ export const Footer = ({
           </Tooltip>
         </FooterWrapper>
         {isModalOpen && (
-          <ModalPayment
+          <ModalTemplate
             onClose={onModalClose}
             invoiceTemplate={invoiceTemplate}
+            type={'payment'}
           />
         )}
       </Form.Item>
