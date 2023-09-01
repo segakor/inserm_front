@@ -25,7 +25,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const TariffBlock = styled.div<{ mt: boolean }>`
+export const TariffBlock = styled.div<{ mt?: boolean }>`
   display: flex;
   flex-direction: column;
   margin-top: ${(props) => props.mt && "34px"};
