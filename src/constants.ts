@@ -129,3 +129,9 @@ export const optionsKey = [
   { value: "all", label: "Всего" },
   { value: "id", label: "id" },
 ];
+
+export const templateModal = {
+  titleModalPayment:
+    "Вы можете скачать и оплатить счет. После успешной оплаты, в течение 1-2 рабочих дней на вашем аккаунте будет создан проект и мы возьмем его в работу. В случае возникновения проблем вы можете написать нам на почту info@inserm.ru",
+  titleModalAct: "Акт выполненных работ",
+};

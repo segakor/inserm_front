@@ -4,15 +4,16 @@ import { useEffect, useState } from "react";
 import { InvoiceTemplate } from "../../types";
 import { saveDocumentByLink } from "../../utils";
 
-
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "../../pdfMake/vfs_fonts";
+import { templateModal } from "../../constants";
 
-  pdfMake.vfs = pdfFonts;
+pdfMake.vfs = pdfFonts;
 
 type Props = {
   onClose: () => void;
   invoiceTemplate: InvoiceTemplate | null;
+  type: "payment" | "act";
 };
 
 const PdfViewer = styled.embed`
@@ -28,7 +29,7 @@ const StyledSpin = styled(Spin)`
   margin-top: 200px;
 `;
 
-export const ModalPayment = ({ onClose, invoiceTemplate }: Props) => {
+export const ModalTemplate = ({ onClose, invoiceTemplate, type }: Props) => {
   const [blob, setBlob] = useState<any>();
 
   useEffect(() => {
@@ -40,16 +41,18 @@ export const ModalPayment = ({ onClose, invoiceTemplate }: Props) => {
     }
   }, [invoiceTemplate]);
 
-  const titleDoc = 'Inserm ' + invoiceTemplate?.content?.find(
-    (item: any) => item.style === "header"
-  )?.text
+  const titleDoc =
+    "Inserm " +
+    invoiceTemplate?.content?.find((item: any) => item.style === "header")
+      ?.text;
 
   return (
     <Modal
-      title="Вы можете скачать и оплатить счет. После успешной оплаты, в течение
-      1-2 рабочих дней на вашем аккаунте будет создан проект и мы возьмем
-      его в работу. В случае возникновения проблем вы можете написать нам на
-      почту info@inserm.ru"
+      title={
+        type === "payment"
+          ? templateModal.titleModalPayment
+          : templateModal.titleModalAct
+      }
       open
       onOk={onClose}
       onCancel={onClose}
@@ -64,7 +67,7 @@ export const ModalPayment = ({ onClose, invoiceTemplate }: Props) => {
                 saveDocumentByLink({
                   link: blob,
                   name: titleDoc,
-                  format:'pdf'
+                  format: "pdf",
                 })
               }
             >

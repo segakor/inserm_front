@@ -25,9 +25,13 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const TariffBlock = styled.div`
+export const TariffBlock = styled.div<{ mt: boolean }>`
   display: flex;
   flex-direction: column;
+  margin-top: ${(props) => props.mt && "34px"};
+  @media (max-width: 768px) {
+    margin: 0;
+  }
 `;
 export const TariffCard = styled.div`
   width: 267px;
@@ -59,7 +63,7 @@ export const StatusTransfer = styled.div`
   width: 600px;
   margin-bottom: 10px;
   align-items: center;
-  grid-gap:8px;
+  grid-gap: 8px;
   @media (max-width: 768px) {
     width: auto;
   }
