@@ -35,6 +35,7 @@ import {
   ReqCreateCashlessTransfer,
   InvoiceTemplate,
   ResGetCashlessTransfer,
+  RefreshedCampaign,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -594,6 +595,25 @@ export const changeTransferStatusArchive = async (value: {
       ...value,
     }
   );
+  return {
+    data,
+    status,
+  };
+};
+
+export const getActTempalte = async (id: number) => {
+  const { data, status } = await axiosClient.get<InvoiceTemplate>(
+    URL + `/api/transfer/act/${id}`
+  );
+  return { data, status };
+};
+
+export const refreshCampaign = async (campaignId:number) => {
+  const { data, status } = await axiosClient.post<{
+    result: RefreshedCampaign;
+  }>(URL + `/api/campaign/refresh`, {
+    campaignId,
+  });
   return {
     data,
     status,

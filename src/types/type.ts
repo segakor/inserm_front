@@ -295,6 +295,7 @@ export type Campaign = {
   date: number;
   autopay: boolean;
   isTransfer: boolean;
+  transferId: number;
 };
 
 export type ResGetCampaign = {
@@ -323,7 +324,7 @@ export type ArchiveCampaignCard = {
   date: number;
   amount: number;
   reviews: Reviews[];
-  statuses:Statuses
+  statuses: Statuses;
 };
 
 export type ResGetCampaignDetails = {
@@ -394,3 +395,8 @@ export type ResGetCashlessTransfer = {
 };
 
 export type CashlessStatus = "wait" | "approved" | "archive";
+
+export type RefreshedCampaign = {
+  name: string;
+  price: number;
+};

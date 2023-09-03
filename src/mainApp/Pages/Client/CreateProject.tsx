@@ -4,7 +4,6 @@ import { Header } from "../../../common/Typography";
 import { ReviewsPiece } from "../../components/CreateCampaign";
 import { ReviewsMonth } from "../../components/CreateProject";
 import { Radio, RadioChangeEvent } from "antd";
-import { usePerson } from "../../hooks/usePerson";
 
 const Page = styled.div`
   display: flex;
@@ -23,8 +22,6 @@ const CreateProject = () => {
   const onChange = ({ target: { value } }: RadioChangeEvent) => {
     setActiveTab(value);
   };
-
-  usePerson();
   
   return (
     <Page>

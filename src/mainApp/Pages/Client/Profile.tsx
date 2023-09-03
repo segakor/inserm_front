@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Title, Header } from "../../../common/Typography";
 import { FormChangePassword } from "../../Form/FormChangePassword";
 import { FormChangeClientInfo } from "../../Form/FormChangeClientInfo";
-import { usePerson } from "../../hooks/usePerson";
 import { useLocalState } from "../../context/hooks";
 
 const Page = styled.div`
@@ -24,7 +23,6 @@ const FlexBox = styled.div`
 `;
 
 const Profile = () => {
-  usePerson();
   const state = useLocalState();
   const { personInfo } = state;
 
