@@ -4,6 +4,7 @@ import { ButtonCreateNewProject } from "../../Button/ButtonCreateNewProject";
 import { Header } from "../../../common/Typography";
 import { ProjectCard } from "../../components/Projects/ProjectCard";
 import { CampaignCard } from "../../components/Projects/CampaignCard";
+import { usePerson } from "../../hooks/usePerson";
 
 const Page = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ const HeaderFlex = styled.div`
 `;
 
 const Projects = () => {
+  usePerson();
   const state = useLocalState();
 
   const { clientProject, clientCampaign } = state;

@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, Badge } from "antd";
 import styled from "styled-components";
 import { ExclamationCircleFilled } from "@ant-design/icons";

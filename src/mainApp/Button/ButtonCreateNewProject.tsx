@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "antd";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +14,7 @@ const StyledButton = styled(Button)`
 
 export const ButtonCreateNewProject = () => {
   const navigation = useNavigate();
+  //TODO: объединить, сделать униварсальной для кнопок ./Button
   return (
     <StyledButton onClick={() => navigation(`/app/client/createproject`)}>
       Создать новый проект

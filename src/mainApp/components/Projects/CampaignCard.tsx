@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { DetailsCard } from "../Card";
 import { useNavigate } from "react-router-dom";
 import { ModalBrief } from "../ModalBrief";
@@ -21,14 +21,27 @@ import { noop } from "../../../constants";
 import { ReactComponent as WaitIcon } from "../../../assets/transferWait.svg";
 import { ReactComponent as ApproveIcon } from "../../../assets/transferApprove.svg";
 import { ModalTemplate } from "../ModalTemplate";
+import { useActTemplate } from "../../hooks/useGetActTemplate";
+import { ButtonRefresh } from "../../Button/ButtonRefresh";
 
 export const CampaignCard = (campaign: Campaign) => {
-  const { name, statuses, id, period, isPaid, isTransfer } = campaign;
+  const {
+    name,
+    statuses,
+    id,
+    period,
+    isPaid,
+    isTransfer,
+    transferId,
+    autopay,
+  } = campaign;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalActOpen, setIsModalActOpen] = useState(false);
 
   const { brief, handleGetBrief } = useGetBrief(id.toString(), "campaign");
+
+  const { handleGet, tempalate } = useActTemplate();
 
   const handleOpen = () => {
     setIsModalOpen(true);
@@ -40,6 +53,7 @@ export const CampaignCard = (campaign: Campaign) => {
   };
 
   const handleActOpen = () => {
+    handleGet(transferId);
     setIsModalActOpen(true);
   };
   const handleActClose = () => {
@@ -47,6 +61,9 @@ export const CampaignCard = (campaign: Campaign) => {
   };
 
   const navigation = useNavigate();
+
+  const isCanRefresh = !autopay && !isTransfer;
+
   return (
     <Wrapper>
       <div>
@@ -134,6 +151,7 @@ export const CampaignCard = (campaign: Campaign) => {
       </div>
       <TariffBlock mt={isTransfer}>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
+        {isCanRefresh && <ButtonRefresh campaignId={id} />}
         <TariffCard>
           <Header>
             <Title level={5} style={{ fontWeight: "800" }}>
@@ -154,7 +172,7 @@ export const CampaignCard = (campaign: Campaign) => {
       {isModalActOpen && (
         <ModalTemplate
           onClose={handleActClose}
-          invoiceTemplate={"" as any}
+          invoiceTemplate={tempalate}
           type={"act"}
         />
       )}
