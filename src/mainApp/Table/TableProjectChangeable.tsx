@@ -18,7 +18,6 @@ import { usePerson } from "../hooks/usePerson";
 import { useUpdateReview } from "../hooks/useUpdateReview";
 import { StatusSelect } from "../components/StatusSelect";
 import { StatusComponent } from "../components/StatusComponent";
-import { ModalCreateReview } from "../components/ModalCreateReview";
 import { useDeleteReview } from "../hooks/useDeleteReview";
 import { UploadCVS } from "../components/UploadCVS";
 import {
@@ -27,6 +26,7 @@ import {
   CloseOutlined,
   EditOutlined,
 } from "@ant-design/icons";
+import { ModalCreateReview } from "../components/Modal";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;

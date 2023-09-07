@@ -1,10 +1,12 @@
-import { refreshCampaign } from "../../request";
+import { refreshCampaign, removeCampaign } from "../../request";
 import { goToAinoxPageCampaign, openNotificationWithIcon } from "../../utils";
 import { useLocalState } from "../context/hooks";
+import { useGetCampaign } from "./useGetCampaign";
 
-export const useRefreshCampaign = () => {
+export const useEditCampaign = () => {
   const state = useLocalState();
   const { personInfo } = state;
+  const { handleGetCampaign } = useGetCampaign();
 
   const handleRefresh = async (campaignId: number) => {
     try {
@@ -25,7 +27,26 @@ export const useRefreshCampaign = () => {
     }
   };
 
+  const handleRemove = async (campaignId: number) => {
+    try {
+      await removeCampaign(campaignId);
+      await handleGetCampaign();
+      openNotificationWithIcon({
+        type: "success",
+        message: "",
+        description: "Проект удален",
+      });
+    } catch (error) {
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: "Не удалось удалить проект",
+      });
+    }
+  };
+
   return {
     handleRefresh,
+    handleRemove,
   };
 };

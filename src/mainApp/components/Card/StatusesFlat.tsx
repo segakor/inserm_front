@@ -1,4 +1,4 @@
-import { Box, Panel, Status, StatusRow } from "./styles";
+import { Status, StatusRow } from "./styles";
 import { Title } from "../../../common/Typography";
 import { Statuses } from "../../../types";
 

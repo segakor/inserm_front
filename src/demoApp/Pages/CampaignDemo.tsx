@@ -5,8 +5,8 @@ import { Title, Header } from "../../common/Typography";
 import { demoBrief, demoReviewCampaign } from "../constants";
 import { ButtonBrief } from "../../mainApp/Button/ButtonBrief";
 import { DetailsCard } from "../../mainApp/components/Card";
-import { ModalBrief } from "../../mainApp/components/ModalBrief";
 import { CampaignReviews } from "../../mainApp/components/CampaignReviews";
+import { ModalBrief } from "../../mainApp/components/Modal";
 
 const Page = styled.div`
   display: flex;

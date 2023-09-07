@@ -7,7 +7,7 @@ import { Title } from "../../common/Typography";
 import { Project } from "../../types";
 import { getRangeDate } from "../../utils";
 import { demoBrief } from '../constants';
-import { ModalBrief } from "../../mainApp/components/ModalBrief";
+import { ModalBrief } from "../../mainApp/components/Modal";
 
 const Flex = styled.div`
   display: flex;

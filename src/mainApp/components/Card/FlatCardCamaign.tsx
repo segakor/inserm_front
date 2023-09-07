@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Title } from "../../../common/Typography";
 import { Campaign } from "../../../types";
@@ -17,7 +16,7 @@ export const FlatCardCampaign = ({ campaign, isActive, onUpdate }: Props) => {
   const { period, statuses, name, id, brief } = campaign;
 
   const navigation = useNavigate();
-  const role = tokenService.getRole();
+  const isAdminRole = tokenService.getIsAdmin();
 
   const isCompleted = (statuses?.success || 0) >= (statuses?.all || 0);
   const isReadyToWork = statuses?.moderate === 0 && (brief as boolean);
@@ -35,7 +34,9 @@ export const FlatCardCampaign = ({ campaign, isActive, onUpdate }: Props) => {
       <Panel
         isReadyToWork={isReadyToWork}
         isCompleted={isCompleted}
-        onClick={() => navigation(`/app/${role?.toLowerCase()}/campaign/${id}`)}
+        onClick={() =>
+          navigation(`/app/${isAdminRole ? "admin" : "client"}/campaign/${id}`)
+        }
       >
         <Box style={{ marginBottom: "15px" }}>
           <Title level={5} style={{ fontWeight: "800" }}>

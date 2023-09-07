@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { Button, Modal, Spin } from "antd";
 import { useEffect, useState } from "react";
-import { InvoiceTemplate } from "../../types";
-import { saveDocumentByLink } from "../../utils";
+import { InvoiceTemplate } from "../../../types";
+import { saveDocumentByLink } from "../../../utils";
 
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "../../pdfMake/vfs_fonts";
-import { templateModal } from "../../constants";
+import pdfFonts from "../../../pdfMake/vfs_fonts";
+import { templateModal } from "../../../constants";
 
 pdfMake.vfs = pdfFonts;
 

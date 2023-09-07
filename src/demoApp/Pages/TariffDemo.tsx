@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { CurrentTariff } from "../../mainApp/components/CurrentTariff";
 import { Header } from "../../common/Typography";

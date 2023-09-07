@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Header, Title } from "../../../common/Typography";
 import { CollapseFoundation } from "../../components/CollapseFoundation";
 import { textFoundation } from "../../../constants";
+import { useNavigate } from "react-router-dom";
 
 const Page = styled.div`
   display: flex;
@@ -20,13 +21,21 @@ const Box = styled.div`
 `;
 
 const Foundation = () => {
+  const navigate = useNavigate();
+
   return (
     <Page>
       <Header>База знаний</Header>
       <Box>
         <StyledTitle level={5} style={{ fontWeight: "400" }}>
           Если вы не нашли ответ на свой вопрос, перейдите в блок{" "}
-          <b>Нужна помощь</b> и уточните у техподдержки.
+          <b
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/app/client/help")}
+          >
+            Техподдержка
+          </b>{" "}
+          и уточните его.
         </StyledTitle>
         {textFoundation.map((item, index) => (
           <CollapseFoundation {...item} key={index} />

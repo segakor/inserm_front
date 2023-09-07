@@ -5,10 +5,10 @@ import "./AntSelectCustomStyle.css";
 import { TariffItem } from "./TariffItem";
 import { Title } from "../../common/Typography";
 import { Campaign, Project } from "../../types";
-import { ModalСonfirmation } from "./ModalСonfirmation";
 import { useUnsubscribe } from "../hooks/useUnsubscribe";
 import { confirmationText } from "../../constants";
 import { TariffItemCampaign } from "./TariffItemCampaign";
+import { ModalСonfirmation } from "./Modal";
 
 const Wrapper = styled.div`
   display: flex;

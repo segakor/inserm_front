@@ -36,6 +36,7 @@ import {
   InvoiceTemplate,
   ResGetCashlessTransfer,
   RefreshedCampaign,
+  Idea,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -608,7 +609,7 @@ export const getActTempalte = async (id: number) => {
   return { data, status };
 };
 
-export const refreshCampaign = async (campaignId:number) => {
+export const refreshCampaign = async (campaignId: number) => {
   const { data, status } = await axiosClient.post<{
     result: RefreshedCampaign;
   }>(URL + `/api/campaign/refresh`, {
@@ -618,4 +619,34 @@ export const refreshCampaign = async (campaignId:number) => {
     data,
     status,
   };
+};
+
+export const removeCampaign = async (campaignId: number) => {
+  const { data, status } = await axiosClient.post(
+    URL + `/api/campaign/remove`,
+    {
+      campaignId,
+    }
+  );
+  return {
+    data,
+    status,
+  };
+};
+
+export const createIdea = async (text: string) => {
+  const { data, status } = await axiosClient.post(URL + `/api/wish/create`, {
+    text,
+  });
+  return {
+    data,
+    status,
+  };
+};
+
+export const getIdea = async () => {
+  const { data, status } = await axiosClient.get<{ result: Idea[] }>(
+    URL + `/api/wish/all`
+  );
+  return { data, status };
 };

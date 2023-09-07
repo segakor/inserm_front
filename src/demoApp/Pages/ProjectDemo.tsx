@@ -8,7 +8,7 @@ import { Title, Header } from "../../common/Typography";
 import { getRangeDate } from "../../utils";
 import { demoProject, demoReviews } from "../constants";
 import { demoBrief } from "../constants";
-import { ModalBrief } from "../../mainApp/components/ModalBrief";
+import { ModalBrief } from "../../mainApp/components/Modal";
 
 const Page = styled.div`
   display: flex;

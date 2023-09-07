@@ -7,14 +7,19 @@ import { login } from "../../request";
 export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigation = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogin = async (value: ReqLogin) => {
     try {
       setIsLoading(true);
       const response = await login(value);
-      tokenService.setJwtToken(response.data)
-      navigation(`/app/${response.data.role?.toLowerCase()}/projects`);
+      tokenService.setJwtToken(response.data);
+
+      response.data.role?.toLowerCase() === "client"
+        ? navigate(`/app/client/projects`)
+        : navigate(`/app/admin/projects`);
+
+      /* navigate(`/app/${response.data.role?.toLowerCase()}/projects`); */
     } catch {
       openNotificationWithIcon({
         type: "error",
@@ -28,7 +33,7 @@ export const useAuth = () => {
 
   const handleLogout = () => {
     tokenService.removeJwtToken();
-    navigation("/app/login");
+    navigate("/app/login");
   };
 
   return { handleLogin, handleLogout, isLoading };

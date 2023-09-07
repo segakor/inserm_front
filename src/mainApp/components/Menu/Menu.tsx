@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Badge, MenuProps } from "antd";
 import { Menu } from "antd";
 
@@ -27,6 +27,7 @@ import {
   TariffIcon,
 } from "./MenuIcon";
 import styled from "styled-components";
+import { ButtonCreateIdea } from "../../Button/ButtonCreateIdea";
 
 type Props = {
   onHeaderClose?: () => void;
@@ -55,6 +56,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
 
   const role = tokenService.getRole();
   const auth = tokenService.getIsAuth();
+  const isAdminRole = tokenService.getIsAdmin()
 
   const { handleGetClientProject } = useGetProject();
   const { handleGetCampaign } = useGetCampaign();
@@ -195,7 +197,6 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     },
     { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },
     { label: "Тарифы клиентов", key: "clienttariff", icon: <TariffIcon /> },
-    { label: "База знаний", key: "foundation", icon: <FoundationIcon /> },
     {
       label: "Замена и создание \n нового тарифа",
       key: "settingtariff",
@@ -240,7 +241,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
         dispatch(clearState());
         break;
       default:
-        navigation(`${role?.toLowerCase()}/${e.key}`);
+        navigation(`${isAdminRole ? "admin" : "client"}/${e.key}`);
         break;
     }
 
@@ -256,14 +257,17 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
           paddingLeft: 20,
           paddingRight: 20,
           margin: "50px 0 30px 0",
+          display:'flex',
+          flexDirection:'column'
         }}
       >
-        <>
+        <ButtonCreateIdea/>
+        <div>
           Подпишитесь на телеграм канал{" "}
           <a target="_blank" href="https://t.me/inserm">
             INSERM | Сервис по заказу отзывов
           </a>
-        </>
+        </div>
       </div>
     ) : null;
 

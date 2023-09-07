@@ -1,6 +1,5 @@
-import React from "react";
 import { Button, Modal } from "antd";
-import { Title } from "../../common/Typography";
+import { Title } from "../../../common/Typography";
 import styled from "styled-components";
 
 type Props = {

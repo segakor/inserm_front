@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Title } from "../../../common/Typography";
 import { Project } from "../../../types";
@@ -6,8 +6,8 @@ import { tokenService, getRangeDate } from "../../../utils";
 import { useChangeProjectStatus } from "../../hooks/useChangeProjectStatus";
 import { Box, Panel } from "./styles";
 import { StatusesFlat } from "./StatusesFlat";
-import { ModalСonfirmation } from "../ModalСonfirmation";
 import { confirmationText } from "../../../constants";
+import { ModalСonfirmation } from "../Modal";
 
 type Props = {
   project: Project;
@@ -24,7 +24,7 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
   } = project;
 
   const navigation = useNavigate();
-  const role = tokenService.getRole();
+  const isAdminRole = tokenService.getIsAdmin();
 
   const { handleChangeProjectStatus, isLoading } =
     useChangeProjectStatus("project");
@@ -57,7 +57,9 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
       <Panel
         isReadyToWork={isReadyToWork}
         isCompleted={isCompleted}
-        onClick={() => navigation(`/app/${role?.toLowerCase()}/project/${id}`)}
+        onClick={() =>
+          navigation(`/app/${isAdminRole ? "admin" : "client"}/campaign/${id}`)
+        }
       >
         <Box style={{ marginBottom: "15px" }}>
           <Title level={5} style={{ fontWeight: "800" }}>

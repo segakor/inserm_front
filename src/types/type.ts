@@ -223,7 +223,7 @@ export type Client = {
   tg: string;
   totalPrice: number;
   projects: ClientProject[];
-  campaigns: Omit<ClientProject[], "autopay">;
+  campaigns: ClientProject[];
 };
 
 export type ResGetAllClient = {
@@ -399,4 +399,11 @@ export type CashlessStatus = "wait" | "approved" | "archive";
 export type RefreshedCampaign = {
   name: string;
   price: number;
+};
+
+export type Idea = {
+  id: number;
+  text: string;
+  user: string;
+  date: number;
 };

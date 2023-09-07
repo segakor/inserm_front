@@ -9,7 +9,7 @@ import { getRangeDate } from "../../../utils";
 import { useGetReviewsProject } from "../../hooks/useGetReviewsProject";
 import { useGetBrief } from "../../hooks/useGetBrief";
 import { ButtonBrief } from "../../Button/ButtonBrief";
-import { ModalBrief } from "../../components/ModalBrief";
+import { ModalBrief } from "../../components/Modal";
 
 const Page = styled.div`
   display: flex;

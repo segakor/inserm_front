@@ -13,9 +13,9 @@ import {
   Header,
 } from "../../mainApp/components/Projects/styles";
 import { ButtonBrief } from "../../mainApp/Button/ButtonBrief";
-import { ModalBrief } from "../../mainApp/components/ModalBrief";
 import { demoBrief } from "../constants";
 import { noop } from "../../constants";
+import { ModalBrief } from "../../mainApp/components/Modal";
 
 export const CampaignCardDemo = (project: Campaign) => {
   const { name, statuses, id, period } = project;

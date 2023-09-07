@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { DetailsCard } from "../Card";
 import { useNavigate } from "react-router-dom";
-import { ModalBrief } from "../ModalBrief";
+import { ModalBrief } from "../../components/Modal";
 import { ButtonBrief } from "../../Button/ButtonBrief";
 import { Project } from "../../../types";
 import { useGetBrief } from "../../hooks/useGetBrief";

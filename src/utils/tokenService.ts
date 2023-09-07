@@ -1,5 +1,6 @@
 import { Role } from "../types";
 import { refreshToken } from "../request";
+import { adminRoleList } from "../constants";
 
 const JWT_TOKEN_KEY_NAME = "loginData";
 
@@ -9,6 +10,11 @@ export const tokenService = {
   },
   getRole(): Role {
     return JSON.parse(localStorage.getItem(JWT_TOKEN_KEY_NAME) ?? "{}").role;
+  },
+  getIsAdmin() {
+    return adminRoleList.includes(
+      JSON.parse(localStorage.getItem(JWT_TOKEN_KEY_NAME) ?? "{}").role
+    );
   },
   getIsAuth() {
     return JSON.parse(localStorage.getItem(JWT_TOKEN_KEY_NAME) ?? "{}").token
@@ -35,7 +41,6 @@ export const updateToken = async () => {
     tokenService.setJwtToken(response.data);
     //@ts-ignore
     window.location.reload(false);
-
   } catch (error) {
     //@ts-ignore
     window.location.reload(false);

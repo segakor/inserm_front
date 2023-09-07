@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useGetAllProject } from "../hooks/useGetAllProject";
 import { Button, Radio, RadioChangeEvent, Select, Spin } from "antd";
-import { ModalCreateProjectByAdmin } from "./ModalCreateProjectByAdmin";
 import { FlatCardProject } from "./Card";
 import { optionsKey, optionsSort, optionsWithDisabled } from "../../constants";
 import styled from "styled-components";
+import { ModalCreateProjectByAdmin } from "./Modal";
 
 const WrapperPanel = styled.div`
   display: flex;

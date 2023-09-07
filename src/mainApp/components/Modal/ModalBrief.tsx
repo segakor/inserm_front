@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { Modal, Form, Input, Button, Divider } from "antd";
 import { useLocation } from "react-router-dom";
-import { Title } from "../../common/Typography";
-import { useCreateBrief } from "../hooks/useCreateBrief";
-import { useUpdateBrief } from "../hooks/useUpdateBrief";
-import { Brief } from "../../types";
-import { ButtonCopy } from "../Button/ButtonCopy";
-import { cliapbord, copyBrief, tokenService } from "../../utils";
-import { briefField, confirmationText } from "../../constants";
+import { Title } from "../../../common/Typography";
+import { useCreateBrief } from "../../hooks/useCreateBrief";
+import { useUpdateBrief } from "../../hooks/useUpdateBrief";
+import { Brief } from "../../../types";
+import { ButtonCopy } from "../../Button/ButtonCopy";
+import { cliapbord, copyBrief, tokenService } from "../../../utils";
+import { briefField, confirmationText } from "../../../constants";
 import { useState } from "react";
 import { ModalСonfirmation } from "./ModalСonfirmation";
 
@@ -101,8 +101,6 @@ export const ModalBrief = ({ onClose, id, brief, typeBrief }: Props) => {
     }
     onClose();
   };
-
-  console.log(form.isFieldsTouched());
 
   return (
     <Modal
