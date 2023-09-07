@@ -1,6 +1,5 @@
-import React from "react";
 import { Modal } from "antd";
-import { FormCreateAdmin } from "../Form/FormCreateAdmin";
+import { FormCreateAdmin } from "../../Form/FormCreateAdmin";
 
 type Props = {
   onClose: () => void;

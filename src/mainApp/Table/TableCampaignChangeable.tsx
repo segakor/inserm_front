@@ -18,16 +18,14 @@ import { usePerson } from "../hooks/usePerson";
 import { useUpdateReview } from "../hooks/useUpdateReview";
 import { StatusSelect } from "../components/StatusSelect";
 import { StatusComponent } from "../components/StatusComponent";
-import { ModalCreateReview } from "../components/ModalCreateReview";
 import { useDeleteReview } from "../hooks/useDeleteReview";
-import { UploadCVS } from "../components/UploadCVS";
 import {
   SaveOutlined,
   DeleteOutlined,
   CloseOutlined,
   EditOutlined,
 } from "@ant-design/icons";
-import { ModalCreateCampaignReview } from "../components/ModalCreateReviewCampaign";
+import { ModalCreateCampaignReview } from "../components/Modal";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;

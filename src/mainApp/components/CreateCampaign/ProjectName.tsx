@@ -38,7 +38,9 @@ export const ProjectName = ({ form }: Props) => {
           {
             validator: (_, value) => {
               if (listOfProject?.find((item) => item.label === value)) {
-                return Promise.reject("Проект с таким названием уже существует");
+                return Promise.reject(
+                  "Проект с таким названием уже существует"
+                );
               }
 
               if (value.indexOf("+") > 0) {
@@ -58,14 +60,21 @@ export const ProjectName = ({ form }: Props) => {
             Импортировать бриф из предыдущего проекта?
           </StyledTitle>
           <Form.Item name="switchBrief" valuePropName="checked">
-            <Switch checkedChildren="Да" unCheckedChildren="Нет" disabled={disabledSwitch} />
+            <Switch
+              checkedChildren="Да"
+              unCheckedChildren="Нет"
+              disabled={disabledSwitch}
+            />
           </Form.Item>
         </>
       )}
       {formValue?.switchBrief && (
         <>
           <StyledTitle level={5}>Выберите бриф проекта для импорта</StyledTitle>
-          <Form.Item name="importBrief">
+          <Form.Item
+            name="importBrief"
+            rules={[{ required: true, message: "Обязательное поле" }]}
+          >
             <Select options={listOfProject} style={{ width: "300px" }} />
           </Form.Item>
         </>

@@ -4,7 +4,7 @@ import { Title } from "../../common/Typography";
 import { Admin } from "../../types";
 import { useLocalState } from "../context/hooks";
 import { useGetAdmin } from "../hooks/useGetAdmin";
-import { ModalChangeAdmin } from "./ModalChangeAdmin";
+import { ModalChangeAdmin } from "./Modal";
 
 const HeaderTitle = styled(Title)`
   margin-bottom: 30px !important;

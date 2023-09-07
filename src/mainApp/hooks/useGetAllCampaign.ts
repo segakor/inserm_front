@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { getCampaign } from "../../request";
 import { openNotificationWithIcon } from "../../utils";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Campaign } from "../../types";
 import { useDispatch } from "../context/hooks";
 import { setPages } from "../context/action";

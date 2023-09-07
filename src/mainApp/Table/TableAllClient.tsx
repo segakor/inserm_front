@@ -62,18 +62,13 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
           <div style={{ display: "inline" }}>
             <a onClick={() => navigation(`/app/${role}/${type}/${record.id}`)}>
               <Project>
-                {type === "project" && (
-                  <>
-                    {record.autopay ? (
-                      <CheckCircleFilled style={{ color: "#1BBD3F" }} />
-                    ) : (
-                      <CloseCircleFilled style={{ color: "#FF1E1E" }} />
-                    )}
-                  </>
-                )}
-                {type === "campaign" && (
-                  <ExclamationCircleOutlined style={{ color: "blue" }} />
-                )}
+                <>
+                  {record.autopay ? (
+                    <CheckCircleFilled style={{ color: "#1BBD3F" }} />
+                  ) : (
+                    <CloseCircleFilled style={{ color: "#FF1E1E" }} />
+                  )}
+                </>
                 <>{record.name}</>
               </Project>
             </a>
@@ -209,8 +204,12 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
             ))}
             {record.campaigns?.map((item, index) => (
               <Project key={index}>
+                {item.autopay ? (
+                  <CheckCircleFilled style={{ color: "#1BBD3F" }} />
+                ) : (
+                  <CloseCircleFilled style={{ color: "#FF1E1E" }} />
+                )}
                 <>
-                  <ExclamationCircleOutlined style={{ color: "blue" }} />
                   {`[${item.id}]`} {item.name}
                 </>
               </Project>

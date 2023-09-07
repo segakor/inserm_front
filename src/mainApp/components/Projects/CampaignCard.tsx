@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { DetailsCard } from "../Card";
 import { useNavigate } from "react-router-dom";
-import { ModalBrief } from "../ModalBrief";
 import { ButtonBrief } from "../../Button/ButtonBrief";
 import { Campaign } from "../../../types";
 import { useGetBrief } from "../../hooks/useGetBrief";
@@ -10,7 +9,7 @@ import {
   CardBlock,
   FooterLink,
   Header,
-  StatusTransfer,
+  Status,
   TariffBlock,
   TariffCard,
   TitleDate,
@@ -20,9 +19,10 @@ import { Tooltip } from "antd";
 import { noop } from "../../../constants";
 import { ReactComponent as WaitIcon } from "../../../assets/transferWait.svg";
 import { ReactComponent as ApproveIcon } from "../../../assets/transferApprove.svg";
-import { ModalTemplate } from "../ModalTemplate";
 import { useActTemplate } from "../../hooks/useGetActTemplate";
 import { ButtonRefresh } from "../../Button/ButtonRefresh";
+import { ButtonRemoveCampaign } from "../../Button/ButtonRemoveCampaign";
+import { ModalBrief, ModalTemplate } from "../Modal";
 
 export const CampaignCard = (campaign: Campaign) => {
   const {
@@ -67,22 +67,20 @@ export const CampaignCard = (campaign: Campaign) => {
   return (
     <Wrapper>
       <div>
-        {isTransfer && (
-          <StatusTransfer>
-            {isPaid ? <ApproveIcon /> : <WaitIcon />}
-            <Title
-              level={5}
-              style={{
-                fontSize: "14px",
-                color: isPaid ? "#23C915" : "#E73E3E",
-                fontWeight: "500",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {isPaid ? "Оплачен" : "Ожидает оплаты"}
-            </Title>
-          </StatusTransfer>
-        )}
+        <Status>
+          {isPaid ? <ApproveIcon /> : <WaitIcon />}
+          <Title
+            level={5}
+            style={{
+              fontSize: "14px",
+              color: isPaid ? "#23C915" : "#E73E3E",
+              fontWeight: "500",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {isPaid ? "Оплачен" : "Ожидает оплаты"}
+          </Title>
+        </Status>
         <CardBlock color={"#585858"}>
           <Header>
             <Title
@@ -149,9 +147,10 @@ export const CampaignCard = (campaign: Campaign) => {
           </FooterLink>
         </CardBlock>
       </div>
-      <TariffBlock mt={isTransfer}>
+      <TariffBlock>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
         {isCanRefresh && <ButtonRefresh campaignId={id} />}
+        <ButtonRemoveCampaign campaignId={id} />
         <TariffCard>
           <Header>
             <Title level={5} style={{ fontWeight: "800" }}>

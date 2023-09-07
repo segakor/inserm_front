@@ -1,8 +1,6 @@
-import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { getWarmClient } from "../../request";
 import { WarmClient } from "../../types";
-import { openNotificationWithIcon } from "../../utils";
 
 export const useGetWarmClient = () => {
   const [warmClient, setWarmClient] = useState<WarmClient[] | undefined>(undefined);
@@ -17,14 +15,6 @@ export const useGetWarmClient = () => {
       setIsLoading(true);
       const response = await getWarmClient(params);
       setWarmClient(response.data.result);
-    } catch (err) {
-      const typedError = err as AxiosError;
-      openNotificationWithIcon({
-        type: "error",
-        message: "",
-        description: "Не удалось загрузить список неоплаченных заявок",
-        status: typedError.status,
-      });
     } finally {
       setIsLoading(false);
     }

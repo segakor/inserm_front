@@ -5,7 +5,7 @@ import { Title, Header } from "../../../common/Typography";
 import { DetailsCard } from "../../components/Card";
 import { useGetBrief } from "../../hooks/useGetBrief";
 import { ButtonBrief } from "../../Button/ButtonBrief";
-import { ModalBrief } from "../../components/ModalBrief";
+import { ModalBrief } from "../../components/Modal";
 import { useGetReviewsCampaign } from "../../hooks/useGetReviewsCampaign";
 import { CampaignReviews } from "../../components/CampaignReviews";
 import { Spin, Typography } from "antd";

@@ -10,10 +10,10 @@ import {
   FooterButton,
 } from "./styles";
 import { useEffect, useState } from "react";
-import { ModalTemplate } from "../ModalTemplate";
 import { noop } from "../../../constants";
 import { InvoiceTemplate } from "../../../types";
 import { useNavigate } from "react-router-dom";
+import { ModalTemplate } from "../Modal";
 
 type Props = {
   count: number;

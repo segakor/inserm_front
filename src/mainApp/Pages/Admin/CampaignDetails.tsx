@@ -3,15 +3,13 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Title, Header } from "../../../common/Typography";
 import { DetailsCard } from "../../components/Card";
-import { ArchiveProjectList } from "../../components/ArchiveProjectList";
-import { getRangeDate, tokenService } from "../../../utils";
-import { useGetReviewsProject } from "../../hooks/useGetReviewsProject";
-import { TableProjectChangeable } from "../../Table/TableProjectChangeable";
+import { tokenService } from "../../../utils";
 import { useGetBrief } from "../../hooks/useGetBrief";
-import { TableProjectNotChangeable } from "../../Table/TableProjectNotChangeable";
 import { ButtonBrief } from "../../Button/ButtonBrief";
-import { ModalBrief } from "../../components/ModalBrief";
+import { ModalBrief } from "../../components/Modal";
 import { Notes } from "../../components/Notes";
+import { useGetReviewsCampaign } from "../../hooks/useGetReviewsCampaign";
+import { CampaignReviews } from "../../components/CampaignReviews";
 import { FooterDetails } from "../../components/FooterDetails";
 import { Divider } from "antd";
 
@@ -45,9 +43,9 @@ const WrapperCard = styled.div`
   margin-bottom: 10px;
 `;
 
-const ProjectDetails = () => {
+const CampaignDetails = () => {
   const params = useParams();
-  const projectId = params.projectId || "";
+  const campaignId = params.campaignId || "";
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -60,60 +58,45 @@ const ProjectDetails = () => {
     handleGetBrief();
   };
 
-  const {
-    reviews,
-    isLoading,
-    projectName,
-    statusess,
-    tariff,
-    handleGetReviews,
-  } = useGetReviewsProject(projectId);
+  const { handleGetReviews, data } = useGetReviewsCampaign(campaignId);
 
-  const { brief, handleGetBrief } = useGetBrief(projectId);
-
-  const start = tariff?.start;
-  const end = tariff?.end;
+  const { brief, handleGetBrief } = useGetBrief(campaignId, "campaign");
 
   const role = tokenService.getRole();
 
   return (
     <Page>
       <HeaderFlex>
-        <Header>{projectName || ""}</Header>
+        <Header>{data?.name || ""}</Header>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
       </HeaderFlex>
       <WrapperCard>
         <CardBlock>
           <TitleDate level={5} style={{ fontSize: "14px", fontWeight: "400" }}>
-            {getRangeDate({ start, end })}
+            ~ {data?.period} мес.
           </TitleDate>
-          <DetailsCard statuses={statusess} />
+          <DetailsCard statuses={data?.statuses} />
         </CardBlock>
-        <Notes id={projectId} type={"project"} />
+        <Notes id={campaignId} type={"campaign"} />
       </WrapperCard>
       {isModalOpen && (
         <ModalBrief
           onClose={handleClose}
-          id={projectId}
+          id={campaignId}
           brief={brief}
-          typeBrief={"project"}
+          typeBrief={"campaign"}
         />
       )}
-      {role === "ADMIN" || role === "HOST" || role === "SUPERVISOR" ? (
-        <TableProjectChangeable
-          reviews={reviews}
-          isLoading={isLoading}
-          onUpdate={handleGetReviews}
-          projectId={projectId}
-        />
-      ) : (
-        <TableProjectNotChangeable reviews={reviews} isLoading={isLoading} />
-      )}
-      <ArchiveProjectList projectId={projectId} />
-      <Divider/>
-      <FooterDetails type={"project"} currentPageId={projectId} />
+      <CampaignReviews
+        group={data?.groppedByType || []}
+        role={role}
+        id={data?.id.toString() || ""}
+        onUpdate={handleGetReviews}
+      />
+      <Divider />
+      <FooterDetails type={"campaign"} currentPageId={campaignId} />
     </Page>
   );
 };
 
-export default ProjectDetails;
+export default CampaignDetails;

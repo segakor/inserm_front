@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, Input, InputNumber, Modal, Radio } from "antd";
-import { useCreateProjectByAdmin } from "../hooks/useCreateProjectAdmin";
+import { useCreateProjectByAdmin } from "../../hooks/useCreateProjectAdmin";
 
 type Props = {
   onClose: () => void;

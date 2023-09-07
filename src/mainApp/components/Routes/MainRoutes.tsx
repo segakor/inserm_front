@@ -1,12 +1,11 @@
-import React, { Suspense, lazy } from "react";
+import { ReactNode, Suspense, lazy } from "react";
 import styled from "styled-components";
 import { Layout, Spin } from "antd";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { Content } from "../../../common/Layout/Content";
 import { HeaderComponent } from "../HeaderComponent";
-import { Role } from "../../../types";
 import { tokenService } from "../../../utils/tokenService";
-import CampaignDetails from "../../Pages/Сommon/CampaignDetails";
+import { adminRoleList } from "../../../constants";
 
 const StyledLayout = styled(Layout)`
   margin-left: 50px;
@@ -16,36 +15,46 @@ const StyledLayout = styled(Layout)`
   }
 `;
 
-type ProtectedRouteType = {
-  roleRequired?: Role;
-};
-
-const ProtectedRoutes = (props: ProtectedRouteType) => {
-  const auth = tokenService.getIsAuth();
-  const role = tokenService.getRole();
-
-  if (props.roleRequired) {
-    return auth ? (
-      props.roleRequired === role ? (
-        <Outlet />
-      ) : (
-        <Navigate to="/denied" />
-      )
-    ) : (
-      <Navigate to="/login" />
-    );
-  } else {
-    return auth ? <Outlet /> : <Navigate to="/login" />;
-  }
-};
-
 const PublicRoutes = () => {
   const auth = tokenService.getIsAuth();
-  const role = tokenService.getRole();
+  const isAdminRole = tokenService.getIsAdmin();
 
-  const page = `/app/${role?.toLowerCase()}/projects`;
+  const bodyPath = isAdminRole ? "admin" : "client";
+
+  const page = `/app/${bodyPath}/projects`;
 
   return auth ? <Navigate to={page} /> : <Outlet />;
+};
+
+const ProtectedRoutes = ({ allowedRole }: { allowedRole: string[] }) => {
+  const auth = tokenService.getIsAuth();
+  const role = tokenService.getRole();
+
+  return auth ? (
+    allowedRole.includes(role || "") ? (
+      <Outlet />
+    ) : (
+      <Navigate replace to="/app/denied" />
+    )
+  ) : (
+    <Navigate to="/login" />
+  );
+};
+
+const ProtectedChildRoutes = ({
+  allowedRole,
+  children,
+}: {
+  allowedRole: string[];
+  children: ReactNode | JSX.Element;
+}) => {
+  const role = tokenService.getRole();
+
+  return allowedRole.includes(role || "") ? (
+    <>{children}</>
+  ) : (
+    <Navigate to="/app/denied" />
+  );
 };
 
 export const MainRoutes = () => {
@@ -60,43 +69,41 @@ export const MainRoutes = () => {
   const Help = lazy(() => import("../../Pages/Client/Help"));
   const CreateProject = lazy(() => import("../../Pages/Client/CreateProject"));
 
-  //common lazy
-  const AllProjects = lazy(() => import("../../Pages/Сommon/AllProjects"));
-  const ClientBase = lazy(() => import("../../Pages/Сommon/ClientBase"));
+  //admin lazy
+  const AllProjects = lazy(() => import("../../Pages/Admin/AllProjects"));
+  const ClientBase = lazy(() => import("../../Pages/Admin/ClientBase"));
   const ProjectModerate = lazy(
-    () => import("../../Pages/Сommon/ProjectModerate")
+    () => import("../../Pages/Admin/ProjectModerate")
   );
-  const ProjectDetails = lazy(
-    () => import("../../Pages/Сommon/ProjectDetails")
+  const ProjectDetails = lazy(() => import("../../Pages/Admin/ProjectDetails"));
+  const CampaignDetails = lazy(
+    () => import("../../Pages/Admin/CampaignDetails")
   );
   const ProjectForPayment = lazy(
-    () => import("../../Pages/Сommon/ProjectForPayment")
+    () => import("../../Pages/Admin/ProjectForPayment")
   );
-  const ProjectPaid = lazy(() => import("../../Pages/Сommon/ProjectPaid"));
-  const TariffSetting = lazy(() => import("../../Pages/Сommon/TariffSetting"));
-  const Login = lazy(() => import("../../Pages/Сommon/Login"));
+  const ProjectPaid = lazy(() => import("../../Pages/Admin/ProjectPaid"));
+  const TariffSetting = lazy(() => import("../../Pages/Admin/TariffSetting"));
   const ClientQuestions = lazy(
-    () => import("../../Pages/Сommon/ClientQuestions")
+    () => import("../../Pages/Admin/ClientQuestions")
   );
   const HostStatistics = lazy(() => import("../../Pages/Admin/HostStatistics"));
-  //payment lazy
-  const Payment = lazy(() => import("../../Pages/Сommon/Payment"));
-
-  //admin lazy
   const TariffClient = lazy(() => import("../../Pages/Admin/TariffClient"));
   const CreateAdmin = lazy(() => import("../../Pages/Admin/CreateAdmin"));
-  const FoundationClient = lazy(
-    () => import("../../Pages/Admin/FoundationClient")
-  );
+
+  //common lazy
+  const Payment = lazy(() => import("../../Pages/Сommon/Payment"));
+  const Login = lazy(() => import("../../Pages/Сommon/Login"));
 
   return (
     <StyledLayout>
       <HeaderComponent />
       <Content>
         <Routes>
+          {/** CLIENT ROUTE */}
           <Route
             path="/client"
-            element={<ProtectedRoutes roleRequired="CLIENT" />}
+            element={<ProtectedRoutes allowedRole={["CLIENT"]} />}
           >
             <Route path="*" element={<Navigate replace to="projects" />} />
             <Route
@@ -172,173 +179,10 @@ export const MainRoutes = () => {
               }
             />
           </Route>
-          <Route path="/host" element={<ProtectedRoutes roleRequired="HOST" />}>
-            <Route
-              path="projects"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <AllProjects />
-                </Suspense>
-              }
-            />
-            <Route
-              path="clientbase"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <ClientBase />
-                </Suspense>
-              }
-            />
-            <Route
-              path="project/:projectId"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <ProjectDetails />
-                </Suspense>
-              }
-            />
-            <Route
-              path="campaign/:campaignId"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <CampaignDetails />
-                </Suspense>
-              }
-            />
-          </Route>
-          <Route
-            path="/supervisor"
-            element={<ProtectedRoutes roleRequired="SUPERVISOR" />}
-          >
-            <Route
-              path="projects"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <AllProjects />
-                </Suspense>
-              }
-            />
-            <Route
-              path="project/:projectId"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <ProjectDetails />
-                </Suspense>
-              }
-            />
-            <Route
-              path="campaign/:campaignId"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <CampaignDetails />
-                </Suspense>
-              }
-            />
-            <Route
-              path="projectmoderate"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <ProjectModerate />
-                </Suspense>
-              }
-            />
-            <Route
-              path="projectforpayment"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <ProjectForPayment />
-                </Suspense>
-              }
-            />
-            <Route
-              path="projectpaid"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <ProjectPaid />
-                </Suspense>
-              }
-            />
-            <Route
-              path="clientbase"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <ClientBase />
-                </Suspense>
-              }
-            />
-            <Route
-              path="clientquestions"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <ClientQuestions />
-                </Suspense>
-              }
-            />
-             <Route
-              path="hoststatistics"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <HostStatistics />
-                </Suspense>
-              }
-            />
-          </Route>
-          <Route
-            path="/support"
-            element={<ProtectedRoutes roleRequired="SUPPORT" />}
-          >
-            <Route
-              path="projects"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <AllProjects />
-                </Suspense>
-              }
-            />
-            <Route
-              path="project/:projectId"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <ProjectDetails />
-                </Suspense>
-              }
-            />
-            <Route
-              path="campaign/:campaignId"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <CampaignDetails />
-                </Suspense>
-              }
-            />
-            <Route
-              path="clientbase"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <ClientBase />
-                </Suspense>
-              }
-            />
-            <Route
-              path="settingtariff"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <TariffSetting />
-                </Suspense>
-              }
-            />
-            <Route
-              path="clientquestions"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <ClientQuestions />
-                </Suspense>
-              }
-            />
-          </Route>
+          {/** ADMIN ROUTE */}
           <Route
             path="/admin"
-            element={<ProtectedRoutes roleRequired="ADMIN" />}
+            element={<ProtectedRoutes allowedRole={adminRoleList} />}
           >
             <Route
               path="projects"
@@ -368,7 +212,9 @@ export const MainRoutes = () => {
               path="projectmoderate"
               element={
                 <Suspense fallback={<Spin />}>
-                  <ProjectModerate />
+                  <ProtectedChildRoutes allowedRole={["ADMIN", "SUPERVISOR"]}>
+                    <ProjectModerate />
+                  </ProtectedChildRoutes>
                 </Suspense>
               }
             />
@@ -376,7 +222,9 @@ export const MainRoutes = () => {
               path="projectforpayment"
               element={
                 <Suspense fallback={<Spin />}>
-                  <ProjectForPayment />
+                  <ProtectedChildRoutes allowedRole={["ADMIN", "SUPERVISOR"]}>
+                    <ProjectForPayment />
+                  </ProtectedChildRoutes>
                 </Suspense>
               }
             />
@@ -384,7 +232,9 @@ export const MainRoutes = () => {
               path="projectpaid"
               element={
                 <Suspense fallback={<Spin />}>
-                  <ProjectPaid />
+                  <ProtectedChildRoutes allowedRole={["ADMIN", "SUPERVISOR"]}>
+                    <ProjectPaid />
+                  </ProtectedChildRoutes>
                 </Suspense>
               }
             />
@@ -400,15 +250,9 @@ export const MainRoutes = () => {
               path="clienttariff"
               element={
                 <Suspense fallback={<Spin />}>
-                  <TariffClient />
-                </Suspense>
-              }
-            />
-            <Route
-              path="foundation"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <FoundationClient />
+                  <ProtectedChildRoutes allowedRole={["ADMIN"]}>
+                    <TariffClient />
+                  </ProtectedChildRoutes>
                 </Suspense>
               }
             />
@@ -416,7 +260,9 @@ export const MainRoutes = () => {
               path="settingtariff"
               element={
                 <Suspense fallback={<Spin />}>
-                  <TariffSetting />
+                  <ProtectedChildRoutes allowedRole={["ADMIN", "SUPPORT"]}>
+                    <TariffSetting />
+                  </ProtectedChildRoutes>
                 </Suspense>
               }
             />
@@ -424,7 +270,9 @@ export const MainRoutes = () => {
               path="createadmin"
               element={
                 <Suspense fallback={<Spin />}>
-                  <CreateAdmin />
+                  <ProtectedChildRoutes allowedRole={["ADMIN"]}>
+                    <CreateAdmin />
+                  </ProtectedChildRoutes>
                 </Suspense>
               }
             />
@@ -432,7 +280,11 @@ export const MainRoutes = () => {
               path="clientquestions"
               element={
                 <Suspense fallback={<Spin />}>
-                  <ClientQuestions />
+                  <ProtectedChildRoutes
+                    allowedRole={["ADMIN", "SUPPORT", "SUPERVISOR"]}
+                  >
+                    <ClientQuestions />
+                  </ProtectedChildRoutes>
                 </Suspense>
               }
             />
@@ -440,7 +292,9 @@ export const MainRoutes = () => {
               path="hoststatistics"
               element={
                 <Suspense fallback={<Spin />}>
-                  <HostStatistics />
+                  <ProtectedChildRoutes allowedRole={["ADMIN", "SUPERVISOR"]}>
+                    <HostStatistics />
+                  </ProtectedChildRoutes>
                 </Suspense>
               }
             />
@@ -466,7 +320,17 @@ export const MainRoutes = () => {
               }
             />
           </Route>
-          <Route path="/denied" element={<>Denied</>} />
+          {
+            <Route
+              path="/denied"
+              element={
+                <>
+                  🔒 Access Denied. You Do Not Have The Permission To Access
+                  This Page On This Server 🔒
+                </>
+              }
+            />
+          }
           <Route path="*" element={<Navigate replace to="login" />} />
         </Routes>
       </Content>

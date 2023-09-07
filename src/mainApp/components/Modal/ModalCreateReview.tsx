@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, Input, Modal } from "antd";
-import { useCreateReview } from "../hooks/useCreateReview";
+import { useCreateReview } from "../../hooks/useCreateReview";
 
 
 type Props = {
