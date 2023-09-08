@@ -63,7 +63,7 @@ export const CampaignCard = (campaign: Campaign) => {
   const navigation = useNavigate();
 
   const isCanRefresh = !autopay && !isTransfer;
-  const isCanRemove = !autopay;
+  const isCanRemove = !isPaid;
 
   return (
     <Wrapper>
