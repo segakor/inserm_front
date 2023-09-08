@@ -67,7 +67,7 @@ export const ReviewsPiece = () => {
           }
         : null;
 
-    /* handleCreateCampaign(value, priceTotal, cashlessData, isRecurent); */
+    handleCreateCampaign(value, priceTotal, cashlessData, isRecurent);
   };
 
   const onFinishFailed = (errorInfo: any) => {
