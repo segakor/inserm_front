@@ -63,6 +63,7 @@ export const CampaignCard = (campaign: Campaign) => {
   const navigation = useNavigate();
 
   const isCanRefresh = !autopay && !isTransfer;
+  const isCanRemove = !autopay;
 
   return (
     <Wrapper>
@@ -150,7 +151,7 @@ export const CampaignCard = (campaign: Campaign) => {
       <TariffBlock>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
         {isCanRefresh && <ButtonRefresh campaignId={id} />}
-        <ButtonRemoveCampaign campaignId={id} />
+        {isCanRemove && <ButtonRemoveCampaign campaignId={id} />}
         <TariffCard>
           <Header>
             <Title level={5} style={{ fontWeight: "800" }}>
