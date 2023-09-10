@@ -11,6 +11,19 @@ export const useUnsubscribe = () => {
     return new Promise((resolve, reject) => {
       type === "project"
         ? unsubdcribe({ projectId: id })
+            .then(() => {
+              handleGetClientProject();
+              handleGetCampaign();
+              resolve(true);
+            })
+            .catch(() => {
+              openNotificationWithIcon({
+                type: "error",
+                message: "",
+                description: `Не удалось отменить подписку`,
+              });
+              reject();
+            })
         : unsubdcribeCampaign({ campaignId: id })
             .then(() => {
               handleGetClientProject();
