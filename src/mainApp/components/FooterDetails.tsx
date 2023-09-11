@@ -35,7 +35,7 @@ export const FooterDetails = ({ type, currentPageId }: Props) => {
       : pagesProject[nextIndexId];
 
   const nextPage = () => {
-    navigation(`/app/${role?.toLowerCase()}/${type}/${nextId}`);
+    navigation(`/app/admin/${nextId}`);
   };
 
   return (
