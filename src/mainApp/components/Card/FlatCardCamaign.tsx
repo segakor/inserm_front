@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Title } from "../../../common/Typography";
 import { Campaign } from "../../../types";
-import { getDate, tokenService } from "../../../utils";
+import { getDate } from "../../../utils";
 import { Box, Panel } from "./styles";
 import { StatusesFlat } from "./StatusesFlat";
 import { useChangeProjectStatus } from "../../hooks/useChangeProjectStatus";
@@ -16,7 +16,6 @@ export const FlatCardCampaign = ({ campaign, isActive, onUpdate }: Props) => {
   const { period, statuses, name, id, brief } = campaign;
 
   const navigation = useNavigate();
-  const isAdminRole = tokenService.getIsAdmin();
 
   const isCompleted = (statuses?.success || 0) >= (statuses?.all || 0);
   const isReadyToWork = statuses?.moderate === 0 && (brief as boolean);
@@ -34,9 +33,7 @@ export const FlatCardCampaign = ({ campaign, isActive, onUpdate }: Props) => {
       <Panel
         isReadyToWork={isReadyToWork}
         isCompleted={isCompleted}
-        onClick={() =>
-          navigation(`/app/${isAdminRole ? "admin" : "client"}/campaign/${id}`)
-        }
+        onClick={() => navigation(`/app/admin/campaign/${id}`)}
       >
         <Box style={{ marginBottom: "15px" }}>
           <Title level={5} style={{ fontWeight: "800" }}>
