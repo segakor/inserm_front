@@ -3,7 +3,6 @@ import { DoubleRightOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import { useLocalState } from "../context/hooks";
 import { useNavigate } from "react-router-dom";
-import { tokenService } from "../../utils";
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,8 +16,6 @@ type Props = {
 
 export const FooterDetails = ({ type, currentPageId }: Props) => {
   const navigation = useNavigate();
-
-  const role = tokenService.getRole();
 
   const state = useLocalState();
 
@@ -35,7 +32,7 @@ export const FooterDetails = ({ type, currentPageId }: Props) => {
       : pagesProject[nextIndexId];
 
   const nextPage = () => {
-    navigation(`/app/admin/${nextId}`);
+    navigation(`/app/admin/${type}/${nextId}`);
   };
 
   return (
