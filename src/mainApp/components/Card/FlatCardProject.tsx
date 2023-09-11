@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Title } from "../../../common/Typography";
 import { Project } from "../../../types";
-import { tokenService, getRangeDate } from "../../../utils";
+import { getRangeDate } from "../../../utils";
 import { useChangeProjectStatus } from "../../hooks/useChangeProjectStatus";
 import { Box, Panel } from "./styles";
 import { StatusesFlat } from "./StatusesFlat";
@@ -24,7 +24,6 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
   } = project;
 
   const navigation = useNavigate();
-  const isAdminRole = tokenService.getIsAdmin();
 
   const { handleChangeProjectStatus, isLoading } =
     useChangeProjectStatus("project");
@@ -57,9 +56,7 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
       <Panel
         isReadyToWork={isReadyToWork}
         isCompleted={isCompleted}
-        onClick={() =>
-          navigation(`/app/${isAdminRole ? "admin" : "client"}/campaign/${id}`)
-        }
+        onClick={() => navigation(`/app/admin/project/${id}`)}
       >
         <Box style={{ marginBottom: "15px" }}>
           <Title level={5} style={{ fontWeight: "800" }}>
