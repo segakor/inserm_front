@@ -93,14 +93,14 @@ export const Footer = ({
             </Title>
           </FooterCardTotalPrice>
           <Tooltip
-            title={count < 2 ? "Минимальный заказ - 2 отзыва" : ""}
+            title={count < 3 ? "Минимальный заказ - 3 отзыва" : ""}
             placement="bottom"
             color={"red"}
           >
             <FooterButton
               htmlType={"submit"}
               loading={isLoading}
-              disabled={count < 2}
+              disabled={count < 3}
               onClick={isCashless ? onModalOpen : noop}
             >
               <Title level={5} style={{ color: "white" }}>

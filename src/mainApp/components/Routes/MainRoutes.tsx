@@ -83,12 +83,10 @@ export const MainRoutes = () => {
     () => import("../../Pages/Admin/ProjectForPayment")
   );
   const ProjectPaid = lazy(() => import("../../Pages/Admin/ProjectPaid"));
-  const TariffSetting = lazy(() => import("../../Pages/Admin/TariffSetting"));
   const ClientQuestions = lazy(
     () => import("../../Pages/Admin/ClientQuestions")
   );
   const HostStatistics = lazy(() => import("../../Pages/Admin/HostStatistics"));
-  const TariffClient = lazy(() => import("../../Pages/Admin/TariffClient"));
   const CreateAdmin = lazy(() => import("../../Pages/Admin/CreateAdmin"));
 
   //common lazy
@@ -243,26 +241,6 @@ export const MainRoutes = () => {
               element={
                 <Suspense fallback={<Spin />}>
                   <ClientBase />
-                </Suspense>
-              }
-            />
-            <Route
-              path="clienttariff"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <ProtectedChildRoutes allowedRole={["ADMIN"]}>
-                    <TariffClient />
-                  </ProtectedChildRoutes>
-                </Suspense>
-              }
-            />
-            <Route
-              path="settingtariff"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <ProtectedChildRoutes allowedRole={["ADMIN", "SUPPORT"]}>
-                    <TariffSetting />
-                  </ProtectedChildRoutes>
                 </Suspense>
               }
             />

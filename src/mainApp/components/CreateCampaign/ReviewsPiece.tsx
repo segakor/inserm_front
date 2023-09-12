@@ -96,6 +96,7 @@ export const ReviewsPiece = () => {
         layout="vertical"
         initialValues={{
           paymentType: "card",
+          isRecurent: true
         }}
         onFieldsChange={handleFormChange}
       >
