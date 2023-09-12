@@ -7,6 +7,11 @@ export const getAmountAutoPay = (allClient: Client[]) => {
       arr.push(item.autopay);
     });
   });
+  allClient.forEach((item) => {
+    item.campaigns.forEach((item) => {
+      arr.push(item.autopay);
+    });
+  });
   return {
     active: arr.filter((item) => item === true).length,
     notActive: arr.filter((item) => item === false).length,

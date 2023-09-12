@@ -196,13 +196,6 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       icon: <PaidreviewsIcon />,
     },
     { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },
-    { label: "Тарифы клиентов", key: "clienttariff", icon: <TariffIcon /> },
-    {
-      label: "Замена и создание \n нового тарифа",
-      key: "settingtariff",
-      icon: <SettingIcon />,
-      style: { whiteSpace: "normal", lineHeight: "20px" },
-    },
     {
       label: "Создание админов",
       key: "createadmin",

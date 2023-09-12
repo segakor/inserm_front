@@ -113,6 +113,8 @@ export const confirmationText = {
     "Вы уверены, что хотите отключить автопродление? Обратите внимание,деньги за новый период не спишутся, пока все отзывы не будут опубликованы. Если отключить автоплатеж, то после завершения публикации отзывов работа приостановится.",
   archiveProject: "При архивации проекта, подписка будет отменена. Вы уверены?",
   brief: "Все несохраненные данные будут утеряны",
+  removeCampaign:
+    " Вы точно хотите удалить проект? Восстановить его обратно не получится.",
 };
 
 export const optionsSort = [
@@ -136,9 +138,4 @@ export const templateModal = {
   titleModalAct: "Акт выполненных работ",
 };
 
-export const adminRoleList = [
-  "HOST",
-  "SUPERVISOR",
-  "SUPPORT",
-  "ADMIN",
-];
+export const adminRoleList = ["HOST", "SUPERVISOR", "SUPPORT", "ADMIN"];

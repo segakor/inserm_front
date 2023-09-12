@@ -1,4 +1,4 @@
-import { Status, StatusRow } from "./styles";
+import { Status, StatusRow, Divider } from "./styles";
 import { Title } from "../../../common/Typography";
 import { Statuses } from "../../../types";
 
@@ -20,7 +20,7 @@ export const StatusesFlat = ({ statuses }: Props) => {
           >
             Опубликовано
           </Title>
-          <>&ensp;-&ensp;</>
+          <Divider>-</Divider>
           <Title
             style={{
               fontSize: "14px",
@@ -30,7 +30,7 @@ export const StatusesFlat = ({ statuses }: Props) => {
           >
             {statuses?.success || 0}
           </Title>
-          <>&ensp;|&ensp;</>
+          <Divider>|</Divider>
         </>
         <>
           <Title
@@ -42,7 +42,7 @@ export const StatusesFlat = ({ statuses }: Props) => {
           >
             Осталось
           </Title>
-          <>&ensp;-&ensp;</>
+          <Divider>-</Divider>
           <Title
             style={{
               fontSize: "14px",
@@ -52,7 +52,7 @@ export const StatusesFlat = ({ statuses }: Props) => {
           >
             {statuses?.left || 0}
           </Title>
-          <>&ensp;|&ensp;</>
+          <Divider>|</Divider>
         </>
         <>
           <Title
@@ -64,7 +64,7 @@ export const StatusesFlat = ({ statuses }: Props) => {
           >
             На модерации
           </Title>
-          <>&ensp;-&ensp;</>
+          <Divider>-</Divider>
           <Title
             style={{
               fontSize: "14px",
@@ -74,7 +74,7 @@ export const StatusesFlat = ({ statuses }: Props) => {
           >
             {statuses?.moderate || 0}
           </Title>
-          <>&ensp;|&ensp;</>
+          <Divider>|</Divider>
         </>
         <>
           <Title
@@ -86,7 +86,7 @@ export const StatusesFlat = ({ statuses }: Props) => {
           >
             Не прошло
           </Title>
-          <>&ensp;-&ensp;</>
+          <Divider>-</Divider>
           <Title
             style={{
               fontSize: "14px",
@@ -96,7 +96,7 @@ export const StatusesFlat = ({ statuses }: Props) => {
           >
             {statuses?.reject || 0}
           </Title>
-          <>&ensp;|&ensp;</>
+          <Divider>|</Divider>
         </>
         <>
           <Title
@@ -108,7 +108,7 @@ export const StatusesFlat = ({ statuses }: Props) => {
           >
             Удалено
           </Title>
-          <>&ensp;-&ensp;</>
+          <Divider>-</Divider>
           <Title
             style={{
               fontSize: "14px",
@@ -118,7 +118,7 @@ export const StatusesFlat = ({ statuses }: Props) => {
           >
             {statuses?.delete || 0}
           </Title>
-          <>&ensp;|&ensp;</>
+          <Divider>|</Divider>
         </>
         <>
           <Title
@@ -130,7 +130,7 @@ export const StatusesFlat = ({ statuses }: Props) => {
           >
             Всего
           </Title>
-          <>&ensp;-&ensp;</>
+          <Divider>-</Divider>
           <Title style={{ fontSize: "14px", fontWeight: "800" }}>
             {statuses?.all || 0}
           </Title>

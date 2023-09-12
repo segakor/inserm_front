@@ -48,3 +48,8 @@ export const StatusRow = styled.div`
     flex-direction: column;
   }
 `;
+
+export const Divider = styled.div`
+  margin-right: 8px;
+  margin-left: 8px;
+`;

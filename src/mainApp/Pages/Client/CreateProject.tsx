@@ -1,9 +1,9 @@
-import { useState } from "react";
+/* import { useState } from "react"; */
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { ReviewsPiece } from "../../components/CreateCampaign";
-import { ReviewsMonth } from "../../components/CreateProject";
-import { Radio, RadioChangeEvent } from "antd";
+/* import { ReviewsMonth } from "../../components/CreateProject";
+import { Radio, RadioChangeEvent } from "antd"; */
 
 const Page = styled.div`
   display: flex;
@@ -11,22 +11,24 @@ const Page = styled.div`
   width: 100%;
 `;
 
-const optionsWithDisabled = [
+/* const optionsWithDisabled = [
   { label: "Оплата поштучно", value: "piece" },
   { label: "Оплата помесячно", value: "month" },
-];
+]; */
 
 const CreateProject = () => {
-  const [activeTab, setActiveTab] = useState<"piece" | "month">("piece");
+/*   const [activeTab, setActiveTab] = useState<"piece" | "month">("piece");
 
   const onChange = ({ target: { value } }: RadioChangeEvent) => {
     setActiveTab(value);
-  };
+  }; */
   
+  //NOTE: off month
+
   return (
     <Page>
       <Header>Выберите вариант оплаты</Header>
-      <Radio.Group
+     {/*  <Radio.Group
         style={{ marginBottom: 24 }}
         options={optionsWithDisabled}
         onChange={onChange}
@@ -35,7 +37,8 @@ const CreateProject = () => {
         buttonStyle="solid"
       />
       {activeTab === 'piece' && <ReviewsPiece/>}
-      {activeTab === 'month' && <ReviewsMonth />}
+      {activeTab === 'month' && <ReviewsMonth />} */}
+      <ReviewsPiece/>
     </Page>
   );
 };

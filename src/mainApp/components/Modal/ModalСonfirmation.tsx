@@ -32,12 +32,15 @@ export const ModalСonfirmation = ({
   onClose,
   onConfirm,
   confirmationText,
-  isLoading
+  isLoading,
 }: Props) => {
   return (
     <>
-      <Modal onCancel={onClose} open footer={null} width={"400px"}>
-        <Title level={5} style={{ fontWeight: "400" }}>
+      <Modal onCancel={onClose} open footer={null} width={"400px"} title="Подтвердите выбор">
+        <Title
+          level={5}
+          style={{ fontWeight: "400", marginTop: "16px" }}
+        >
           {confirmationText}
         </Title>
         <FooterButton>
