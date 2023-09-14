@@ -7,5 +7,9 @@ export const ButtonRefresh = ({ campaignId }: { campaignId: number }) => {
   const onHandleRefresh = () => {
     handleRefresh(campaignId);
   };
-  return <OutlinedButton onClick={onHandleRefresh}>Обновить проект</OutlinedButton>;
+  return (
+    <div>
+      <OutlinedButton onClick={onHandleRefresh}>Обновить проект</OutlinedButton>
+    </div>
+  );
 };
