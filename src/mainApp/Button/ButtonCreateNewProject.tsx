@@ -6,8 +6,10 @@ export const ButtonCreateNewProject = () => {
   const navigation = useNavigate();
   //TODO: объединить, сделать униварсальной для кнопок ./Button
   return (
-    <OutlinedButton onClick={() => navigation(`/app/client/createproject`)}>
+    <div>
+      <OutlinedButton onClick={() => navigation(`/app/client/createproject`)}>
       Создать новый проект
     </OutlinedButton>
+    </div>
   );
 };
