@@ -88,7 +88,7 @@ export const CreateCampaignPlatform = () => {
         onFinishFailed={onFinishFailed}
         disabled={isLoading || isLoadingTariff}
         layout="vertical"
-        initialValues={{ paymentType: "card" }}
+        initialValues={{ paymentType: "card", isRecurent: true }}
         onFieldsChange={handleFormChange}
       >
         <Price
@@ -149,7 +149,7 @@ export const CreateCampaignPlatform = () => {
         )}
         {count > 0 && (
           <>
-            <StyledTitle level={5}>5. Выберите способ оплаты</StyledTitle>
+            <StyledTitle level={5}>4. Выберите способ оплаты</StyledTitle>
             <PaymentType />
             {formValue.paymentType !== "cashless" && <RecurentSwitch />}
             {formValue.paymentType === "cashless" && <CashlessBlock />}

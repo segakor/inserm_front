@@ -1,9 +1,14 @@
-/* import { useState } from "react"; */
+import { useState } from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { CreateCampaignPlatform } from "../../components/CreateCampaign";
-/* import { CreateProjectPlatform } from "../../components/CreateProject";
-import { Radio, RadioChangeEvent } from "antd"; */
+import {
+  headerCreateProjectPage,
+  isReviewsMonthEnabled,
+  optionsCreateProject,
+} from "../../../constants";
+import { CreateProjectPlatform } from "../../components/CreateProject";
+import { Radio, RadioChangeEvent } from "antd";
 
 const Page = styled.div`
   display: flex;
@@ -11,34 +16,30 @@ const Page = styled.div`
   width: 100%;
 `;
 
-/* const optionsWithDisabled = [
-  { label: "Оплата поштучно", value: "piece" },
-  { label: "Оплата помесячно", value: "month" },
-]; */
-
 const Payment = () => {
-/*   const [activeTab, setActiveTab] = useState<"piece" | "month">("piece");
+  const [activeTab, setActiveTab] = useState<"piece" | "month">("piece");
 
   const onChange = ({ target: { value } }: RadioChangeEvent) => {
     setActiveTab(value);
-  }; */
-
-  //NOTE: off month
+  };
 
   return (
     <Page>
-      <Header>Выберите вариант оплаты</Header>
-{/*       <Radio.Group
-        style={{ marginBottom: 24 }}
-        options={optionsWithDisabled}
-        onChange={onChange}
-        value={activeTab}
-        optionType="button"
-        buttonStyle="solid"
-      />
+      <Header>{headerCreateProjectPage}</Header>
+      {isReviewsMonthEnabled && (
+        <Radio.Group
+          style={{ marginBottom: 24 }}
+          options={optionsCreateProject}
+          onChange={onChange}
+          value={activeTab}
+          optionType="button"
+          buttonStyle="solid"
+        />
+      )}
       {activeTab === "piece" && <CreateCampaignPlatform />}
-      {activeTab === "month" && <CreateProjectPlatform />} */}
-      <CreateCampaignPlatform />
+      {activeTab === "month" && isReviewsMonthEnabled && (
+        <CreateProjectPlatform />
+      )}
     </Page>
   );
 };
