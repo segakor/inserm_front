@@ -26,7 +26,7 @@ export const ButtonRemoveCampaign = ({
   };
 
   return (
-    <>
+    <div>
       <OutlinedButton onClick={handleOpen}>Удалить проект</OutlinedButton>
       {isModalOpen && (
         <ModalСonfirmation
@@ -35,6 +35,6 @@ export const ButtonRemoveCampaign = ({
           confirmationText={confirmationText.removeCampaign}
         />
       )}
-    </>
+    </div>
   );
 };

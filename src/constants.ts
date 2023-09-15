@@ -11,7 +11,7 @@ export const areas = [
 ];
 
 export const colorCardCampaign = [
-  { id: 1, color: "#2CAE97", title: "2-24 отзыва" },
+  { id: 1, color: "#2CAE97", title: "3-24 отзыва" },
   { id: 2, color: "#ECA843", title: "25-49 отзывов" },
   { id: 3, color: "#EF5479", title: "50-99 отзывов" },
   { id: 4, color: "#7E6DE7", title: "100-199 отзывов" },
@@ -139,3 +139,14 @@ export const templateModal = {
 };
 
 export const adminRoleList = ["HOST", "SUPERVISOR", "SUPPORT", "ADMIN"];
+
+export const optionsCreateProject = [
+  { label: "Оплата поштучно", value: "piece" },
+  { label: "Оплата помесячно", value: "month" },
+];
+
+export const isReviewsMonthEnabled = false;
+
+export const headerCreateProjectPage = isReviewsMonthEnabled
+  ? "Выберите вариант оплаты"
+  : "Оформление заказа";

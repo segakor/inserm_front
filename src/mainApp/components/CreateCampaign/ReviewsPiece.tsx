@@ -96,7 +96,7 @@ export const ReviewsPiece = () => {
         layout="vertical"
         initialValues={{
           paymentType: "card",
-          isRecurent: true
+          isRecurent: true,
         }}
         onFieldsChange={handleFormChange}
       >
@@ -108,7 +108,7 @@ export const ReviewsPiece = () => {
         {formValue?.projectName && (
           <>
             <StyledTitle level={5}>
-              3. Выберите нужные площадки для размещения отзывов (наша компания
+              2. Выберите нужные площадки для размещения отзывов (наша компания
               работает только с данными площадками)
             </StyledTitle>
             <ListOfAreaCheckBox
@@ -121,7 +121,7 @@ export const ReviewsPiece = () => {
         {!!selectedArea.length && formValue?.projectName && (
           <>
             <StyledTitle level={5}>
-              4. Укажите ссылки на карточки вашей компании и количество отзывов
+              3. Укажите ссылки на карточки вашей компании и количество отзывов
               для каждой карточки
             </StyledTitle>
             <ListOfAreaItem
@@ -133,9 +133,9 @@ export const ReviewsPiece = () => {
         )}
         {count > 0 && (
           <>
-            <StyledTitle level={5}>5. Выберите способ оплаты</StyledTitle>
+            <StyledTitle level={5}>4. Выберите способ оплаты</StyledTitle>
             <PaymentType />
-            {formValue.paymentType !== "cashless" && <RecurentSwitch/>}
+            {formValue.paymentType !== "cashless" && <RecurentSwitch />}
             {formValue.paymentType === "cashless" && <CashlessBlock />}
             <Footer
               count={count}
