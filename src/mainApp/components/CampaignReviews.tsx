@@ -11,6 +11,9 @@ import { TableCampaignChangeable } from "../Table/TableCampaignChangeable";
 import { getNumWord } from "../../utils/getCountReviews";
 import { ButtonCopy } from "../Button/ButtonCopy";
 import { cliapbord } from "../../utils";
+import { ButtonChangeLink } from "../Button/ButtonChangeLink";
+import { Form, Input } from "antd";
+import { useChangeLink } from "../hooks/useChangeLink";
 
 type Props = {
   group: GrouppedCampaign[];
@@ -78,6 +81,12 @@ const Box = styled.div`
   }
 `;
 
+const StyledForm = styled(Form)`
+  .ant-form-item {
+    margin-bottom: 0px;
+  }
+`;
+
 const CardComponent = ({
   card,
   keyItem,
@@ -92,10 +101,33 @@ const CardComponent = ({
   onUpdate: (campaignId: string) => void;
 }) => {
   const [chevron, setChevron] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+
+  const [form] = Form.useForm();
+
+  const { handleChangeLink } = useChangeLink();
 
   const onClickChevron = () => {
     setChevron(!chevron);
   };
+
+  const onClickEdit = () => {
+    setIsEdit(!isEdit);
+  };
+
+  const onReset = () => {
+    form.resetFields();
+    setIsEdit(false);
+  };
+
+  const linkField = Form.useWatch("link", form);
+
+  const onSave = () => {
+    handleChangeLink({ cardId: card.id, link: linkField });
+    setIsEdit(false);
+    onUpdate(id);
+  };
+
   const reviews = card.reviews.map((item, index) => ({
     ...item,
     key: index.toString(),
@@ -110,19 +142,41 @@ const CardComponent = ({
   }, [id]);
 
   return (
-    <>
+    <StyledForm form={form}>
       <Card onClick={onClickChevron}>
         <Header>
           <Box>
             <Cercle>{keyItem}</Cercle>
             {role !== "CLIENT" && <ButtonCopy onClick={onCopyLink} />}
-            <Link
-              href={card.link}
-              target="_blank"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {card.link}
-            </Link>
+            {role !== "CLIENT" && !isEdit && (
+              <ButtonChangeLink onClick={onClickEdit} type="edit" />
+            )}
+            {role !== "CLIENT" && isEdit && (
+              <ButtonChangeLink
+                onClick={onSave}
+                type="save"
+                style={{ color: "green" }}
+              />
+            )}
+            {role !== "CLIENT" && isEdit && (
+              <ButtonChangeLink
+                onClick={onReset}
+                type="cancel"
+                style={{ color: "red" }}
+              />
+            )}
+            {!isEdit && (
+              <Link
+                href={card.link}
+                target="_blank"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {card.link}
+              </Link>
+            )}
+            <Form.Item name={"link"} initialValue={card.link} hidden={!isEdit}>
+              <Input onClick={(e) => e.stopPropagation()} />
+            </Form.Item>
           </Box>
           <Toggle>
             <Count>
@@ -158,7 +212,7 @@ const CardComponent = ({
           )}
         </>
       )}
-    </>
+    </StyledForm>
   );
 };
 

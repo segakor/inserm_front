@@ -650,3 +650,16 @@ export const getIdea = async () => {
   );
   return { data, status };
 };
+
+export const changeLink = async (value: { link: string; cardId: number }) => {
+  const { data, status } = await axiosClient.post(
+    URL + `/api/campaign/changeLink`,
+    {
+      ...value,
+    }
+  );
+  return {
+    data,
+    status,
+  };
+};
