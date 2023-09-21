@@ -119,8 +119,8 @@ export const Footer = ({
           />
           <label>
             Нажимая на кнопку, вы соглашаетесь с{" "}
-            <a className="decorate" href='../../../doc/offer.docx' download>Офертой</a> и{" "}
-            <a className="decorate" href='../../../doc/privacyPolicy.odt' download>Политикой конфиденциальности</a>
+            <a className="decorate" href='../../../doc/offer.docx' download='offer.docx'>Офертой</a> и{" "}
+            <a className="decorate" href='../../../doc/privacyPolicy.odt' download='privacyPolicy.odt'>Политикой конфиденциальности</a>
           </label>
         </Agreement>
       </Form.Item>
