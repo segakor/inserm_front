@@ -13,7 +13,7 @@ import {
 import { useEffect, useState } from "react";
 import { noop } from "../../../constants";
 import { InvoiceTemplate } from "../../../types";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ModalTemplate } from "../Modal";
 
 type Props = {
@@ -119,8 +119,21 @@ export const Footer = ({
           />
           <label>
             Нажимая на кнопку, вы соглашаетесь с{" "}
-            <a className="decorate" href='../../../doc/offer.docx' download='offer.docx'>Офертой</a> и{" "}
-            <a className="decorate" href='../../../doc/privacyPolicy.odt' download='privacyPolicy.odt'>Политикой конфиденциальности</a>
+            <Link
+              className="decorate"
+              to="../../../public/offer.docx"
+              target="_blank"
+            >
+              Офертой
+            </Link>{" "}
+            и{" "}
+            <Link
+              className="decorate"
+              to="../../../public/privacyPolicy.odt"
+              target="_blank"
+            >
+              Политикой конфиденциальности
+            </Link>
           </label>
         </Agreement>
       </Form.Item>
