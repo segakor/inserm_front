@@ -121,7 +121,7 @@ export const Footer = ({
             Нажимая на кнопку, вы соглашаетесь с{" "}
             <Link
               className="decorate"
-              to="../../../public/offer.docx"
+              to="/offer.docx"
               target="_blank"
             >
               Офертой
@@ -129,7 +129,7 @@ export const Footer = ({
             и{" "}
             <Link
               className="decorate"
-              to="../../../public/privacyPolicy.odt"
+              to="/privacyPolicy.odt"
               target="_blank"
             >
               Политикой конфиденциальности
