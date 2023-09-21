@@ -6,6 +6,7 @@ import { ModalCreateReview } from "./ModalCreateReview";
 import { ModalTemplate } from "./ModalTemplate";
 import { ModalСonfirmation } from "./ModalСonfirmation";
 import { ModalCreateCampaignReview } from "./ModalCreateCampaignReview";
+import { ModalCreatePromo } from "./ModalCreatePromo";
 
 export {
   ModalBrief,
@@ -16,4 +17,5 @@ export {
   ModalTemplate,
   ModalСonfirmation,
   ModalCreateCampaignReview,
+  ModalCreatePromo,
 };

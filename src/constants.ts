@@ -150,3 +150,28 @@ export const isReviewsMonthEnabled = false;
 export const headerCreateProjectPage = isReviewsMonthEnabled
   ? "Выберите вариант оплаты"
   : "Оформление заказа";
+
+export const promoCodeResult = [
+  { code: "success", message: "Промокод успешно применен", type: "success" },
+  { code: "promo_not_found", message: "Прокод не найден", type: "error" },
+  {
+    code: "promo_has_expired",
+    message: "Истек срок действия промокода",
+    type: "error",
+  },
+  {
+    code: "not_enough_reviews_in_the_order",
+    message: "Не выполнены обязательный условия",
+    type: "error",
+  },
+  {
+    code: "promo_has_already_been_used",
+    message: "Вы уже использовали этот промокод",
+    type: "error",
+  },
+  {
+    code: "promo_is_archived",
+    message: "Промокод находится в архиве",
+    type: "error",
+  },
+];

@@ -14,10 +14,14 @@ import { useGetCampaignTariff } from "../../hooks/useGetCampaignTariff";
 import { CashlessBlock } from "./CashlessBlock";
 import { PaymentType } from "./PaymentType";
 import { RecurentSwitch } from "./RecurentSwitch";
+import { Promocode } from "./Promocode";
+import { usePerson } from "../../hooks/usePerson";
 
 export const ReviewsPiece = () => {
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
   const [isErrorForm, setIsErrorForm] = useState(false);
+
+  usePerson();
 
   const state = useLocalState();
   const { personInfo } = state;
@@ -50,6 +54,13 @@ export const ReviewsPiece = () => {
       cards,
       brief: formValue?.importBrief
         ? JSON.parse(formValue?.importBrief)
+        : undefined,
+      promo: formValue?.promoLink
+        ? {
+            name: formValue?.promoCode,
+            link: formValue?.promoLink,
+            type: formValue?.promoAreaType,
+          }
         : undefined,
     };
 
@@ -84,6 +95,8 @@ export const ReviewsPiece = () => {
     const hasErrors = form.getFieldsError().some(({ errors }) => errors.length);
     setIsErrorForm(hasErrors);
   };
+
+  console.log(formValue);
 
   return (
     <Wrapper>
@@ -133,6 +146,11 @@ export const ReviewsPiece = () => {
         )}
         {count > 0 && (
           <>
+            <Promocode
+              form={form}
+              count={count}
+              email={personInfo?.email || ""}
+            />
             <StyledTitle level={5}>4. Выберите способ оплаты</StyledTitle>
             <PaymentType />
             {formValue.paymentType !== "cashless" && <RecurentSwitch />}

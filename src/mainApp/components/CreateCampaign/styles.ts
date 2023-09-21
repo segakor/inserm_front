@@ -142,6 +142,7 @@ export const FooterWrapper = styled.div`
     grid-gap: 10px;
   }
 `;
+
 export const FooterCardAmount = styled.div`
   height: 50px;
   border-radius: 10px;
@@ -172,4 +173,39 @@ export const FooterButton = styled(Button)`
   @media (max-width: 768px) {
     width: 100%;
   }
+`;
+
+export const PromoWrapper = styled.div`
+  border: 2px dashed rgb(21, 121, 233);
+  border-radius: 10px;
+  width: 430px;
+  padding: 16px;
+  .ant-form-item {
+    margin: 0;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+export const PromoCard = styled.div`
+  .ant-form-item {
+    width: 100%;
+    margin: 0;
+  }
+`;
+
+export const Agreement = styled.div`
+width: 180px;
+float: right;
+margin-top: 10px;
+.decorate {
+  cursor: pointer;
+  color: #1579e9;
+  text-decoration-line: underline;
+}
+@media (max-width: 768px) {
+  float: none;
+  width: auto;
+}
 `;

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Badge, MenuProps } from "antd";
 import { Menu } from "antd";
 
-import { ExclamationCircleFilled, SignalFilled } from "@ant-design/icons";
+import { ExclamationCircleFilled, SignalFilled, GiftFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useLocalState } from "../../context/hooks";
 import { useAuth } from "../../hooks/useAuth";
@@ -205,6 +205,11 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       label: "Статистика",
       key: "hoststatistics",
       icon: <SignalFilled style={{ color: "#1579E9" }} />,
+    },
+    {
+      label: "Промокоды",
+      key: "promo",
+      icon: <GiftFilled style={{ color: "#1579E9" }} />,
     },
   ];
 

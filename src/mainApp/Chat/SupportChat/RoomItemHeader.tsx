@@ -42,7 +42,6 @@ type Props = {
 
 export const RoomItemHeader = ({ room, onRemoveRoom, isMobile }: Props) => {
   const navigation = useNavigate();
-  const role = tokenService.getRole();
 
   const projects = room?.projects?.map((item) => ({
     ...item,
@@ -69,9 +68,17 @@ export const RoomItemHeader = ({ room, onRemoveRoom, isMobile }: Props) => {
 
   const handleDropdownItemClick = (e: any) => {
     const target = allProjects.find((item) => item.key == e.key);
-    navigation(`/app/${role}/${target?.type}/${target?.id}`);
+    if (e.domEvent.ctrlKey) {
+      window.open(
+        `/app/admin/${target?.type}/${target?.id}`,
+        "_blank",
+        "rel=noopener noreferrer"
+      );
+      return;
+    }
+    navigation(`/app/admin/${target?.type}/${target?.id}`);
   };
-
+  
   return (
     <Wrapper>
       {!isMobile ? (

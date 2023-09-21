@@ -12,6 +12,7 @@ import { useGetCampaignTariff } from "../../hooks/useGetCampaignTariff";
 import { PaymentType } from "./PaymentType";
 import { CashlessBlock } from "./CashlessBlock";
 import { RecurentSwitch } from "./RecurentSwitch";
+import { Promocode } from "./Promocode";
 
 export const CreateCampaignPlatform = () => {
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
@@ -45,6 +46,13 @@ export const CreateCampaignPlatform = () => {
       cards,
       brief: formValue?.importBrief
         ? JSON.parse(formValue?.importBrief)
+        : undefined,
+      promo: formValue?.promoLink
+        ? {
+            name: formValue?.promoCode,
+            link: formValue?.promoLink,
+            type: formValue?.promoAreaType,
+          }
         : undefined,
     };
 
@@ -149,6 +157,11 @@ export const CreateCampaignPlatform = () => {
         )}
         {count > 0 && (
           <>
+            <Promocode
+              form={form}
+              count={count}
+              email={formValue?.email || ""}
+            />
             <StyledTitle level={5}>4. Выберите способ оплаты</StyledTitle>
             <PaymentType />
             {formValue.paymentType !== "cashless" && <RecurentSwitch />}

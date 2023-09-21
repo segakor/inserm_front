@@ -1,27 +1,34 @@
-import React, { useState } from "react";
-import { Button, Form, Input, InputNumber, Modal, Radio } from "antd";
-import { useCreateProjectByAdmin } from "../../hooks/useCreateProjectAdmin";
+import { useState } from "react";
+import { Button, DatePicker, Form, Input, InputNumber, Modal } from "antd";
+import { usePromo } from "../../hooks/usePromo";
+import "dayjs/locale/zh-cn";
+import locale from "antd/es/date-picker/locale/ru_RU";
+import dayjs from "dayjs";
+import updateLocale from "dayjs/plugin/updateLocale";
+import { toUnixDate } from "../../../utils";
 
 type Props = {
   onClose: () => void;
   onUpdate: () => void;
 };
 
-const option = [
-  { label: "Тариф S", value: 1 },
-  { label: "Тариф M", value: 2 },
-  { label: "Тариф L", value: 3 },
-];
+dayjs.extend(updateLocale);
+dayjs.updateLocale("en", {
+  weekStart: 1,
+});
 
-export const ModalCreateProjectByAdmin = ({ onClose, onUpdate }: Props) => {
+export const ModalCreatePromo = ({ onClose, onUpdate }: Props) => {
   const [form] = Form.useForm();
   const [isErrorValues, setIsErrorValues] = useState(true);
 
-  const { isLoading, handleCreateProjectByAdmin } = useCreateProjectByAdmin();
+  const { handleCreatePromo } = usePromo();
+
 
   const save = async () => {
     const row = await form.validateFields();
-    handleCreateProjectByAdmin({ ...row }).then(() => {
+    row.start = toUnixDate(row.start?.$d);
+    row.end = toUnixDate(row.end?.$d)
+    handleCreatePromo({ ...row }).then(() => {
       onClose();
       onUpdate();
     });
@@ -35,25 +42,13 @@ export const ModalCreateProjectByAdmin = ({ onClose, onUpdate }: Props) => {
   return (
     <>
       <Modal
-        title="Создать проект"
+        title="Добавить промокод"
         open
         onOk={onClose}
         onCancel={onClose}
         footer={null}
       >
         <Form form={form} component={false} onFieldsChange={handleFormChange}>
-          <Form.Item
-            name={"email"}
-            rules={[
-              {
-                type: "email",
-                required: true,
-                message: "Обязательное поле",
-              },
-            ]}
-          >
-            <Input placeholder="Email" />
-          </Form.Item>
           <Form.Item
             name={"name"}
             rules={[
@@ -63,10 +58,10 @@ export const ModalCreateProjectByAdmin = ({ onClose, onUpdate }: Props) => {
               },
             ]}
           >
-            <Input placeholder="Название проекта" />
+            <Input placeholder="Промокод" />
           </Form.Item>
           <Form.Item
-            name={"tariffId"}
+            name={"start"}
             rules={[
               {
                 required: true,
@@ -74,14 +69,31 @@ export const ModalCreateProjectByAdmin = ({ onClose, onUpdate }: Props) => {
               },
             ]}
           >
-            <Radio.Group
-              options={option}
-              optionType="button"
-              buttonStyle="solid"
+            <DatePicker
+              style={{ width: "100%" }}
+              format={"DD-MM-YYYY"}
+              locale={locale}
+              placeholder={'Дата с'}
             />
           </Form.Item>
           <Form.Item
-            name={"price"}
+            name={"end"}
+            rules={[
+              {
+                required: true,
+                message: "Обязательное поле",
+              },
+            ]}
+          >
+            <DatePicker
+              style={{ width: "100%" }}
+              format={"DD-MM-YYYY"}
+              locale={locale}
+              placeholder={'Дата по'}
+            />
+          </Form.Item>
+          <Form.Item
+            name={"giftCount"}
             rules={[
               {
                 required: true,
@@ -90,9 +102,24 @@ export const ModalCreateProjectByAdmin = ({ onClose, onUpdate }: Props) => {
             ]}
           >
             <InputNumber
-              placeholder="Цена"
+              placeholder="Колличество отзывов в подарок"
               style={{ width: "100%" }}
-              prefix="₽"
+              min={1}
+            />
+          </Form.Item>
+          <Form.Item
+            name={"minCount"}
+            rules={[
+              {
+                required: true,
+                message: "Обязательное поле",
+              },
+            ]}
+          >
+            <InputNumber
+              placeholder="Покупка от (условие промокода)"
+              style={{ width: "100%" }}
+              min={3}
             />
           </Form.Item>
           <Button
@@ -101,9 +128,8 @@ export const ModalCreateProjectByAdmin = ({ onClose, onUpdate }: Props) => {
             style={{ marginBottom: 16 }}
             block
             disabled={isErrorValues}
-            loading={isLoading}
           >
-            Создать
+            Добавить
           </Button>
         </Form>
       </Modal>
