@@ -88,6 +88,7 @@ export const MainRoutes = () => {
   );
   const HostStatistics = lazy(() => import("../../Pages/Admin/HostStatistics"));
   const CreateAdmin = lazy(() => import("../../Pages/Admin/CreateAdmin"));
+  const Promo = lazy(() => import("../../Pages/Admin/Promo"));
 
   //common lazy
   const Payment = lazy(() => import("../../Pages/Сommon/Payment"));
@@ -272,6 +273,16 @@ export const MainRoutes = () => {
                 <Suspense fallback={<Spin />}>
                   <ProtectedChildRoutes allowedRole={["ADMIN", "SUPERVISOR"]}>
                     <HostStatistics />
+                  </ProtectedChildRoutes>
+                </Suspense>
+              }
+            />
+            <Route
+              path="promo"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <ProtectedChildRoutes allowedRole={["ADMIN", "SUPERVISOR"]}>
+                    <Promo />
                   </ProtectedChildRoutes>
                 </Suspense>
               }

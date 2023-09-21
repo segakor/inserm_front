@@ -282,6 +282,11 @@ export type ReqCreateCampaign = {
     type: "camaign" | "project";
     id: number;
   };
+  promo?: {
+    name: string;
+    link: string;
+    type: AreaType;
+  };
 };
 
 export type Campaign = {
@@ -309,6 +314,7 @@ export type CampaignCard = {
   isFinished: boolean;
   reviews: Reviews[];
   amount: number;
+  isPromo: boolean;
 };
 
 export type GrouppedCampaign = {
@@ -407,3 +413,29 @@ export type Idea = {
   user: string;
   date: number;
 };
+
+export type Promo = {
+  id: number;
+  name: string;
+  start: number;
+  end: number;
+  giftCount: number;
+  minCount: number;
+  isArchived: boolean;
+};
+
+export type CreatePromo = Omit<Promo, "id">;
+
+export type PromoCheck = {
+  name: string;
+  email: string;
+  count: number;
+};
+
+export type ResultCodePromo =
+  | "promo_not_found"
+  | "promo_has_expired"
+  | "not_enough_reviews_in_the_order"
+  | "promo_is_archived"
+  | "promo_has_already_been_used"
+  | "success";

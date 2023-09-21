@@ -1,4 +1,4 @@
-import { Form, Tooltip, Divider } from "antd";
+import { Form, Tooltip, Divider, Checkbox } from "antd";
 import { Title } from "../../../common/Typography";
 import { getNumWord } from "../../../utils/getCountReviews";
 import {
@@ -8,6 +8,7 @@ import {
   FooterCardTime,
   FooterCardTotalPrice,
   FooterButton,
+  Agreement,
 } from "./styles";
 import { useEffect, useState } from "react";
 import { noop } from "../../../constants";
@@ -35,6 +36,7 @@ export const Footer = ({
   isErrorForm,
 }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAgree, setIsAgree] = useState(true);
 
   const navigation = useNavigate();
 
@@ -94,13 +96,13 @@ export const Footer = ({
           </FooterCardTotalPrice>
           <Tooltip
             title={count < 3 ? "Минимальный заказ - 3 отзыва" : ""}
-            placement="bottom"
+            placement="top"
             color={"red"}
           >
             <FooterButton
               htmlType={"submit"}
               loading={isLoading}
-              disabled={count < 3}
+              disabled={count < 3 || !isAgree}
               onClick={isCashless ? onModalOpen : noop}
             >
               <Title level={5} style={{ color: "white" }}>
@@ -109,14 +111,26 @@ export const Footer = ({
             </FooterButton>
           </Tooltip>
         </FooterWrapper>
-        {isModalOpen && (
-          <ModalTemplate
-            onClose={onModalClose}
-            invoiceTemplate={invoiceTemplate}
-            type={'payment'}
+        <Agreement>
+          <Checkbox
+            style={{ marginRight: "10px" }}
+            checked={isAgree}
+            onChange={() => setIsAgree((prev) => !prev)}
           />
-        )}
+          <label>
+            Нажимая на кнопку, вы соглашаетесь с{" "}
+            <a className="decorate" href='../../../doc/offer.docx' download>Офертой</a> и{" "}
+            <a className="decorate" href='../../../doc/privacyPolicy.odt' download>Политикой конфиденциальности</a>
+          </label>
+        </Agreement>
       </Form.Item>
+      {isModalOpen && (
+        <ModalTemplate
+          onClose={onModalClose}
+          invoiceTemplate={invoiceTemplate}
+          type={"payment"}
+        />
+      )}
     </>
   );
 };

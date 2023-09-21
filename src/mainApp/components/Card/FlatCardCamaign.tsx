@@ -28,12 +28,24 @@ export const FlatCardCampaign = ({ campaign, isActive, onUpdate }: Props) => {
     });
   };
 
+  const onNavigate = (e: React.MouseEvent<HTMLElement>) => {
+    if (e.ctrlKey) {
+      window.open(
+        `/app/admin/campaign/${id}`,
+        "_blank",
+        "rel=noopener noreferrer"
+      );
+      return;
+    }
+    navigation(`/app/admin/campaign/${id}`);
+  };
+
   return (
     <>
       <Panel
         isReadyToWork={isReadyToWork}
         isCompleted={isCompleted}
-        onClick={() => navigation(`/app/admin/campaign/${id}`)}
+        onClick={onNavigate}
       >
         <Box style={{ marginBottom: "15px" }}>
           <Title level={5} style={{ fontWeight: "800" }}>

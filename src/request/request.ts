@@ -37,6 +37,9 @@ import {
   ResGetCashlessTransfer,
   RefreshedCampaign,
   Idea,
+  Promo,
+  CreatePromo,
+  PromoCheck,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -658,6 +661,43 @@ export const changeLink = async (value: { link: string; cardId: number }) => {
       ...value,
     }
   );
+  return {
+    data,
+    status,
+  };
+};
+
+export const createPromo = async (value: CreatePromo) => {
+  const { data, status } = await axiosClient.post(URL + `/api/promo/create`, {
+    ...value,
+  });
+  return {
+    data,
+    status,
+  };
+};
+
+export const getPromo = async () => {
+  const { data, status } = await axiosClient.get<{ result: Promo[] }>(
+    URL + `/api/promo/all`
+  );
+  return { data, status };
+};
+
+export const archivePromo = async (id: number) => {
+  const { data, status } = await axiosClient.post(
+    URL + `/api/promo/archive/${id}`
+  );
+  return {
+    data,
+    status,
+  };
+};
+
+export const promoCheck = async (value: PromoCheck) => {
+  const { data, status } = await axiosClient.post<{result:{giftCount:number}}>(URL + `/api/promo/check`, {
+    ...value,
+  });
   return {
     data,
     status,

@@ -30,9 +30,9 @@ const WrapperStatuses = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
 `;
-const Card = styled.div`
+const Card = styled.div<{isPromo?:boolean}>`
   padding: 12px 20px;
-  background: #1579e9;
+  background: ${(props) => (props.isPromo ? "#22cc77" : "#1579e9")};
   border-radius: 10px;
   color: white;
   margin-bottom: 20px;
@@ -143,7 +143,7 @@ const CardComponent = ({
 
   return (
     <StyledForm form={form}>
-      <Card onClick={onClickChevron}>
+      <Card onClick={onClickChevron} isPromo={card.isPromo}>
         <Header>
           <Box>
             <Cercle>{keyItem}</Cercle>

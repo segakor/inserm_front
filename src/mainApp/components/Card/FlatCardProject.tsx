@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { MouseEventHandler, ReactElement, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Title } from "../../../common/Typography";
 import { Project } from "../../../types";
 import { getRangeDate } from "../../../utils";
@@ -24,6 +24,18 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
   } = project;
 
   const navigation = useNavigate();
+
+  const onNavigate = (e: React.MouseEvent<HTMLElement>) => {
+    if (e.ctrlKey) {
+      window.open(
+        `/app/admin/project/${id}`,
+        "_blank",
+        "rel=noopener noreferrer"
+      );
+      return;
+    }
+    navigation(`/app/admin/project/${id}`);
+  };
 
   const { handleChangeProjectStatus, isLoading } =
     useChangeProjectStatus("project");
@@ -56,7 +68,7 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
       <Panel
         isReadyToWork={isReadyToWork}
         isCompleted={isCompleted}
-        onClick={() => navigation(`/app/admin/project/${id}`)}
+        onClick={onNavigate}
       >
         <Box style={{ marginBottom: "15px" }}>
           <Title level={5} style={{ fontWeight: "800" }}>
