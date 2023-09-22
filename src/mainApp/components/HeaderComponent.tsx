@@ -5,6 +5,7 @@ import { MenuComponent } from "./Menu";
 import { Drawer } from "antd";
 import { Header } from "../../common/Layout/Header";
 import { tokenService } from "../../utils/tokenService";
+import { useParams } from "react-router-dom";
 
 export const HeaderComponent = () => {
   const [open, setOpen] = useState(false);
@@ -34,6 +35,7 @@ export const HeaderComponent = () => {
     }
   }, [])
 
+  useParams(); //NOTE: при смене роута в мобилке не видит смену auth
 
   return (
     <Header>
