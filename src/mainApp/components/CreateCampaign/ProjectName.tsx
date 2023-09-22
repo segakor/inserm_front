@@ -43,8 +43,8 @@ export const ProjectName = ({ form }: Props) => {
                 );
               }
 
-              if (value.indexOf("+") > 0) {
-                return Promise.reject("Символ + недоступен");
+              if (/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi.test(value)) {
+                return Promise.reject("Спецсимволы недоступны");
               }
 
               return Promise.resolve();
