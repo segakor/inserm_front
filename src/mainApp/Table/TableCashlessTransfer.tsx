@@ -35,7 +35,7 @@ export const TableCashlessTransfer = () => {
   } = useGetCashlessTransfer(status);
 
   const columns: ColumnsType<TableItem> = [
-    { title: "id", dataIndex: "campaignId", width: 60 },
+    { title: "id", dataIndex: "id", width: 60 },
     {
       title: "Дата",
       dataIndex: "date",
