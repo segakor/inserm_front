@@ -35,6 +35,7 @@ export const Promocode = ({ form, count, email }: Props) => {
   return (
     <>
       <StyledTitle level={5}>Промокод</StyledTitle>
+      <p>Введите промокод, если у вас он есть</p>
       <PromoWrapper>
         <Form.Item name={"promoCode"}>
           <Space.Compact style={{ width: "100%" }} size="large">
@@ -61,9 +62,9 @@ export const Promocode = ({ form, count, email }: Props) => {
         <>
           <Divider />
           <StyledTitle level={5}>
-            Выберите нужную площадку для размещения отзывов (подарочные отзывы
-            доступны только для одной площадки)
+            Выберите нужную площадку для размещения отзывов
           </StyledTitle>
+          <p>Подарочные отзывы доступны только для одной площадки</p>
           <PromoCard>
             <Space.Compact size="large" style={{ width: "100%" }}>
               <Form.Item

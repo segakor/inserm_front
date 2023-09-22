@@ -118,10 +118,10 @@ export const ReviewsPiece = () => {
         <ProjectName form={form} />
         {formValue?.projectName && (
           <>
-            <StyledTitle level={5}>
-              2. Выберите нужные площадки для размещения отзывов (наша компания
-              работает только с данными площадками)
+           <StyledTitle level={5}>
+              2. Выберите нужные площадки для размещения отзывов
             </StyledTitle>
+            <p>На данный момент мы работаем с площадками:</p>
             <ListOfAreaCheckBox
               handleClickArea={handleClickArea}
               selectedArea={selectedArea}

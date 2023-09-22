@@ -138,9 +138,9 @@ export const CreateCampaignPlatform = () => {
         {formValue?.projectName && (
           <>
             <StyledTitle level={5}>
-              3. Выберите нужные площадки для размещения отзывов (наша компания
-              работает только с данными площадками)
+              3. Выберите нужные площадки для размещения отзывов
             </StyledTitle>
+            <p>На данный момент мы работаем с площадками:</p>
             <ListOfAreaCheckBox
               handleClickArea={handleClickArea}
               selectedArea={selectedArea}
