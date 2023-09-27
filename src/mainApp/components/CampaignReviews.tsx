@@ -30,13 +30,17 @@ const WrapperStatuses = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
 `;
-const Card = styled.div<{isPromo?:boolean}>`
+const Card = styled.div<{ isPromo?: boolean }>`
   padding: 12px 20px;
   background: ${(props) => (props.isPromo ? "#22cc77" : "#1579e9")};
   border-radius: 10px;
   color: white;
   margin-bottom: 20px;
   cursor: pointer;
+  position: -webkit-sticky; /* Safari & IE */
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `;
 const Header = styled.div`
   display: flex;
