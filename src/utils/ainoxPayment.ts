@@ -33,6 +33,6 @@ export const goToAinoxPageCampaign = ({
     ? import.meta.env.VITE_AINOX_CONNECTOR_CAMPAIGN_RECURENT
     : import.meta.env.VITE_AINOX_CONNECTOR_CAMPAIGN;
   window.location.replace(
-    `https://go.ainox.pro/antispam/?email=${email}&nazvanie=${projectName}&idform=${formId}&cena=${price}&&idhits=22659`
+    `https://go.ainox.pro/in.php?redirect=true&email=${email}&nazvanie=${projectName}&idform=${formId}&cena=${price}&&idhits=22659`
   );
 };
