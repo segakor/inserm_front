@@ -161,7 +161,7 @@ export const promoCodeResult = [
   },
   {
     code: "not_enough_reviews_in_the_order",
-    message: "Не выполнены обязательный условия",
+    message: "Не выполнены обязательные условия",
     type: "error",
   },
   {
