@@ -6,7 +6,6 @@ import { Dropdown, Space, Button } from "antd";
 import { Room } from "../../../types";
 import { useNavigate } from "react-router-dom";
 import { useMemo } from "react";
-import { tokenService } from "../../../utils";
 
 const Wrapper = styled.div`
   height: 65px;

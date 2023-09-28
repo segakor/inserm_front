@@ -50,6 +50,7 @@ type TariffProject = {
   name: string;
   price: number;
   start: number;
+  forOne: number;
 };
 
 export type Project = {
@@ -313,6 +314,7 @@ export type CampaignCard = {
   type: string;
   isFinished: boolean;
   reviews: Reviews[];
+  statuses: Statuses;
   amount: number;
   isPromo: boolean;
 };

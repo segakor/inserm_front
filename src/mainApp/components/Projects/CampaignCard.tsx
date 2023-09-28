@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { DetailsCard } from "../Card";
 import { useNavigate } from "react-router-dom";
 import { ButtonBrief } from "../../Button/ButtonBrief";
@@ -9,6 +9,7 @@ import {
   CardBlock,
   FooterLink,
   Header,
+  HeaderTariff,
   Status,
   TariffBlock,
   TariffCard,
@@ -65,6 +66,10 @@ export const CampaignCard = (campaign: Campaign) => {
   const isCanRefresh = !autopay && !isTransfer;
   const isCanRemove = !isPaid;
 
+  const goToCampaign = useCallback(() => {
+    isPaid ? navigation(`/app/client/campaign/${id}`) : noop;
+  }, [isPaid]);
+
   return (
     <Wrapper>
       <div>
@@ -91,7 +96,9 @@ export const CampaignCard = (campaign: Campaign) => {
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
+                cursor: isPaid ? "pointer" : "not-allowed",
               }}
+              onClick={goToCampaign}
             >
               {name}
             </Title>
@@ -118,9 +125,7 @@ export const CampaignCard = (campaign: Campaign) => {
                 textDecorationLine: "underline",
                 cursor: isPaid ? "pointer" : "not-allowed",
               }}
-              onClick={
-                isPaid ? () => navigation(`/app/client/campaign/${id}`) : noop
-              }
+              onClick={goToCampaign}
             >
               <Tooltip
                 title={
@@ -153,12 +158,12 @@ export const CampaignCard = (campaign: Campaign) => {
         {isCanRefresh && <ButtonRefresh campaignId={id} />}
         {isCanRemove && <ButtonRemoveCampaign campaignId={id} />}
         <TariffCard>
-          <Header>
+          <HeaderTariff>
             <Title level={5} style={{ fontWeight: "800" }}>
-              Поштучный пакет
+              Срок выполнения
             </Title>
             <TitleDate>~ {period} мес.</TitleDate>
-          </Header>
+          </HeaderTariff>
         </TariffCard>
       </TariffBlock>
       {isModalOpen && (

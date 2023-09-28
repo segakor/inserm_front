@@ -12,8 +12,11 @@ import { getNumWord } from "../../utils/getCountReviews";
 import { ButtonCopy } from "../Button/ButtonCopy";
 import { cliapbord } from "../../utils";
 import { ButtonChangeLink } from "../Button/ButtonChangeLink";
-import { Form, Input } from "antd";
+import { Form, Grid, Input } from "antd";
 import { useChangeLink } from "../hooks/useChangeLink";
+import { DetailsCard } from "./Card";
+
+const { useBreakpoint } = Grid;
 
 type Props = {
   group: GrouppedCampaign[];
@@ -29,6 +32,9 @@ const WrapperStatuses = styled.div`
   padding: 12px 20px;
   margin-top: 20px;
   margin-bottom: 20px;
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 `;
 const Card = styled.div<{ isPromo?: boolean }>`
   padding: 12px 20px;
@@ -221,6 +227,8 @@ const CardComponent = ({
 };
 
 export const CampaignReviews = ({ group, role, id, onUpdate }: Props) => {
+  const screens = useBreakpoint();
+  const isMobile = !!screens.xs || !screens.lg;
   return (
     <>
       {group.map((item, index) => (
@@ -228,18 +236,23 @@ export const CampaignReviews = ({ group, role, id, onUpdate }: Props) => {
           <Title level={5} style={{ fontSize: "18px" }}>
             {areas.find((area) => area.value === item.type)?.label}
           </Title>
-          <WrapperStatuses>
-            <StatusesFlat statuses={item.statuses} />
-          </WrapperStatuses>
           {item.cards.map((card, index) => (
-            <CardComponent
-              card={card}
-              key={index}
-              keyItem={index + 1}
-              role={role}
-              id={id}
-              onUpdate={onUpdate ? onUpdate : noop}
-            />
+            <div key={index}>
+              <WrapperStatuses>
+                {!isMobile ? (
+                  <StatusesFlat statuses={card.statuses} />
+                ) : (
+                  <DetailsCard statuses={card.statuses} withBorder/>
+                )}
+              </WrapperStatuses>
+              <CardComponent
+                card={card}
+                keyItem={index + 1}
+                role={role}
+                id={id}
+                onUpdate={onUpdate ? onUpdate : noop}
+              />
+            </div>
           ))}
         </div>
       ))}
