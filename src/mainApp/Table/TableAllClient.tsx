@@ -149,7 +149,7 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
     <FooterInfo>
       <div>
         {`Потрачено клиентами: `}
-        <b>{`${allSum}`}</b>
+        <b>{`${allSum?.toLocaleString()}`}</b>
       </div>
       <div>
         {`Активных подписок: `}

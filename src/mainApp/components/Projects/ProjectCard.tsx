@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useCallback, useState } from "react";
 import { DetailsCard } from "../Card";
 import { useNavigate } from "react-router-dom";
 import { ModalBrief } from "../../components/Modal";
@@ -8,7 +8,7 @@ import { useGetBrief } from "../../hooks/useGetBrief";
 import { Title } from "../../../common/Typography";
 import { getRangeDate } from "../../../utils";
 import { colorCardProject } from "../../../constants";
-import { CardBlock, Header, TariffBlock, TariffCard, TitleDate, Wrapper } from "./styles";
+import { CardBlock, Header, HeaderTariff, TariffBlock, TariffCard, TitleDate, Wrapper } from "./styles";
 
 export const ProjectCard = (project: Project) => {
   const {
@@ -34,6 +34,11 @@ export const ProjectCard = (project: Project) => {
   const color = colorCardProject.find((item) => item.tariffName === tariffName)?.color;
 
   const navigation = useNavigate();
+
+  const goToProjeсt = useCallback(() => {
+    navigation(`/app/client/project/${id}`)
+  }, []);
+
   return (
     <Wrapper>
       <CardBlock color={color}>
@@ -45,7 +50,9 @@ export const ProjectCard = (project: Project) => {
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
               overflow: "hidden",
+              cursor: "pointer",
             }}
+            onClick={goToProjeсt}
           >
             {name}
           </Title>
@@ -71,7 +78,7 @@ export const ProjectCard = (project: Project) => {
             textDecorationLine: "underline",
             cursor: "pointer",
           }}
-          onClick={() => navigation(`/app/client/project/${id}`)}
+          onClick={goToProjeсt}
         >
           Смотреть отчет
         </Title>
@@ -79,25 +86,12 @@ export const ProjectCard = (project: Project) => {
       <TariffBlock>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
         <TariffCard>
-          <Header>
+          <HeaderTariff>
             <Title level={5} style={{ fontWeight: "800" }}>
-              Тариф “{tariffName}”
+              Период
             </Title>
             <TitleDate>{getRangeDate({ start, end })}</TitleDate>
-          </Header>
-          <Title
-            level={5}
-            style={{
-              fontWeight: "500",
-              color: "#8E8E8E",
-              fontSize: "14px",
-              textDecorationLine: "underline",
-              cursor: "pointer",
-            }}
-            onClick={() => navigation(`/app/client/tariff`)}
-          >
-            Изменить тариф
-          </Title>
+          </HeaderTariff>
         </TariffCard>
       </TariffBlock>
       {isModalOpen && (

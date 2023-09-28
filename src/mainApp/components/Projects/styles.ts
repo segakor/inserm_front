@@ -13,6 +13,9 @@ export const CardBlock = styled.div<{ color?: string }>`
     width: auto;
     margin: 0 0 40px 0;
   }
+  -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
 `;
 
 export const Wrapper = styled.div`
@@ -38,6 +41,9 @@ export const TariffCard = styled.div`
   background: #ffffff;
   border-radius: 10px;
   padding: 20px 15px 20px 15px;
+  -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
 `;
 export const TitleDate = styled.div`
   padding: 5px 10px 5px 10px;
@@ -50,6 +56,10 @@ export const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+`;
+
+export const HeaderTariff = styled(Header)`
+  margin: 0;
 `;
 
 export const FooterLink = styled.div`
