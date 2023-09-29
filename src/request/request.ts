@@ -40,6 +40,7 @@ import {
   Promo,
   CreatePromo,
   PromoCheck,
+  TariffList,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -702,4 +703,11 @@ export const promoCheck = async (value: PromoCheck) => {
     data,
     status,
   };
+};
+
+export const getSubscription = async () => {
+  const { data, status } = await axiosClient.get<{ result: TariffList }>(
+    URL + `/api/campaignTariff/campaignList`
+  );
+  return { data, status };
 };

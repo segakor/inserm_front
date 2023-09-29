@@ -1,26 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Select } from "antd";
-import "./AntSelectCustomStyle.css";
-import { TariffItem } from "./TariffItem";
 import { Title } from "../../common/Typography";
-import { Campaign, Project } from "../../types";
 import { useUnsubscribe } from "../hooks/useUnsubscribe";
 import { confirmationText } from "../../constants";
 import { TariffItemCampaign } from "./TariffItemCampaign";
 import { ModalСonfirmation } from "./Modal";
+import { useGetClientTariff } from "../hooks/useGetClientTariff";
+import { Spin } from "antd";
 
-const Wrapper = styled.div`
-  display: flex;
-  grid-gap: 20px;
-  margin: 20px 0 30px 0;
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-const CurrentTariffSection = styled.div`
+const TariffWrapper = styled.div`
   width: 460px;
-  margin-bottom: 20px;
   @media (max-width: 768px) {
     width: auto;
     display: flex;
@@ -28,57 +17,25 @@ const CurrentTariffSection = styled.div`
   }
 `;
 
-type Props = {
-  clientProject: Project[] | undefined;
-  clientCampaign: Campaign[] | undefined;
-};
+const Wrapper = styled.div`
+  display: flex;
+  grid-gap: 40px;
+  width: auto;
+  flex-wrap: wrap;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
 
-export const CurrentTariff = ({ clientProject, clientCampaign }: Props) => {
-  const [selectValue, setSelectValue] = useState<any>("");
+export const CurrentTariff = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAutoPay, setIsAutoPay] = useState(false);
+  const [projectData, setProjectData] = useState<{
+    id: number;
+    type: string;
+  } | null>(null);
 
-  const handleChange = (value: string) => {
-    setSelectValue(value);
-  };
-
-  const allProject = [clientProject, clientCampaign].flat();
-
-  const listOfProject = allProject?.map((item) => ({
-    label: item?.name,
-    value: JSON.stringify({
-      id: item?.id,
-      type: item?.type,
-      label: item?.name,
-    }),
-  }));
-
-  useEffect(() => {
-    if (!!listOfProject.length) {
-      setSelectValue(listOfProject[0].value);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const getProjectData = useCallback(() => {
-    const dataSelect = JSON.parse(selectValue || "{}");
-
-    const target = allProject.filter(
-      (item) => item?.id === dataSelect.id && item?.type === dataSelect.type
-    );
-
-    return {
-      type: dataSelect.type,
-      id: target[0]?.id || 0,
-      //@ts-ignore
-      tariff: dataSelect.type === "project" ? target[0]?.tariff : null,
-      autopay: target[0]?.autopay,
-    };
-  }, [selectValue]);
-
-  const { type, id, tariff, autopay } = getProjectData();
-
-  const handleChangeAutoPay = () => {
+  const handleChangeAutoPay = ({ id, type }: { id: number; type: string }) => {
+    setProjectData({ id, type });
     handleOpen();
   };
 
@@ -88,62 +45,65 @@ export const CurrentTariff = ({ clientProject, clientCampaign }: Props) => {
 
   const handleClose = () => {
     setIsModalOpen(false);
+    setProjectData(null);
   };
-
-  useEffect(() => {
-    setIsAutoPay(autopay || false);
-  }, [autopay]);
 
   const { handleUnsubscribe } = useUnsubscribe();
 
+  const { data, handleGetClientTariff, isLoading } = useGetClientTariff();
+
+  useEffect(() => {
+    handleGetClientTariff();
+  }, []);
+
   const onUnsubcribe = () => {
-    handleUnsubscribe(id, type)
+    handleUnsubscribe(projectData?.id || 0, projectData?.type || "")
       .then(() => {
-        setIsAutoPay(false);
         handleClose();
+        handleGetClientTariff();
       })
       .catch(() => handleClose());
   };
 
+  if (isLoading) {
+    return <Spin />;
+  }
+
+  if (!data && !isLoading) {
+    return <Title level={5}>У вас нет ни одного проекта, создайте его</Title>;
+  }
+
   return (
     <>
-      {!!listOfProject?.length ? (
-        <>
-          <Title level={5} style={{ fontWeight: "400" }}>
-            Выберите проект
-          </Title>
-          <Wrapper>
-            <Select
-              onChange={handleChange}
-              options={listOfProject}
-              value={JSON.parse(selectValue || "{}")?.label}
+      <Wrapper>
+        {data?.campaigns?.map((item, index) => (
+          <TariffWrapper key={index}>
+            <TariffItemCampaign
+              autoPay={item.autopay}
+              onChangeAutoPay={handleChangeAutoPay}
+              name={item.name}
+              period={item.period}
+              id={item.campaignId}
+              price={item.price}
+              count={item.count}
             />
-          </Wrapper>
-          {tariff && (
-            <>
-              <CurrentTariffSection>
-                <TariffItem
-                  {...getProjectData().tariff}
-                  onChangeAutoPay={handleChangeAutoPay}
-                  autoPay={isAutoPay}
-                />
-              </CurrentTariffSection>
-            </>
-          )}
-          {!tariff && (
-            <CurrentTariffSection>
-              <TariffItemCampaign
-                autoPay={isAutoPay}
-                onChangeAutoPay={handleChangeAutoPay}
-              />
-            </CurrentTariffSection>
-          )}
-        </>
-      ) : (
-        <Wrapper>
-          <Title level={5}>Нет ни одного проекта, создайте его</Title>
-        </Wrapper>
-      )}
+          </TariffWrapper>
+        ))}
+        {data?.projects?.map((item, index) => (
+          <TariffWrapper key={index}>
+            <TariffItemCampaign
+              autoPay={item.autopay}
+              onChangeAutoPay={handleChangeAutoPay}
+              name={item.name}
+              id={item.projectId}
+              price={item.price}
+              count={item.count}
+              start={item.start}
+              end={item.end}
+            />
+          </TariffWrapper>
+        ))}
+      </Wrapper>
       {isModalOpen && (
         <ModalСonfirmation
           onClose={handleClose}

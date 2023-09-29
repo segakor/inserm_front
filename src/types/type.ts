@@ -441,3 +441,27 @@ export type ResultCodePromo =
   | "promo_is_archived"
   | "promo_has_already_been_used"
   | "success";
+
+export type CampaignSubscription = {
+  campaignId: number;
+  name: string;
+  autopay: boolean;
+  price: number;
+  count: number;
+  period: number;
+};
+
+export type ProjectSubscription = {
+  projectId: number;
+  name: string;
+  autopay: boolean;
+  price: number;
+  count: number;
+  start: number;
+  end: number;
+};
+
+export type TariffList = {
+  campaigns: CampaignSubscription[];
+  projects: ProjectSubscription[];
+};
