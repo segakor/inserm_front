@@ -19,16 +19,13 @@ const HeaderFlex = styled.div`
 `;
 
 const Tariff = () => {
-  const state = useLocalState();
-  const { clientProject, clientCampaign } = state;
-
   return (
     <Page>
       <HeaderFlex>
         <Header>Управление тарифами</Header>
         <ButtonCreateNewProject />
       </HeaderFlex>
-      <CurrentTariff clientProject={clientProject} clientCampaign={clientCampaign}/>
+      <CurrentTariff />
     </Page>
   );
 };

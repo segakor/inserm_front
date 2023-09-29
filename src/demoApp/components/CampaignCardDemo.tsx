@@ -11,6 +11,7 @@ import {
   TitleDate,
   Wrapper,
   Header,
+  HeaderTariff
 } from "../../mainApp/components/Projects/styles";
 import { ButtonBrief } from "../../mainApp/Button/ButtonBrief";
 import { demoBrief } from "../constants";
@@ -90,12 +91,12 @@ export const CampaignCardDemo = (project: Campaign) => {
       <TariffBlock>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
         <TariffCard>
-          <Header>
+          <HeaderTariff>
             <Title level={5} style={{ fontWeight: "800" }}>
               Поштучный пакет
             </Title>
             <TitleDate>~ {period} мес.</TitleDate>
-          </Header>
+          </HeaderTariff>
         </TariffCard>
       </TariffBlock>
       {isModalOpen && (

@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { CurrentTariff } from "../../mainApp/components/CurrentTariff";
+import { CurrentTariffDemo } from "../components/CurrentTariffDemo";
 import { Header } from "../../common/Typography";
 import { ButtonCreateNewProjectDemo } from "../components/Button/ButtonCreateNewProjectDemo";
-import { demoProject } from "../constants";
 
 const Page = styled.div`
   display: flex;
@@ -24,7 +23,7 @@ export const TariffDemo = () => {
         <Header>Управление тарифами</Header>
         <ButtonCreateNewProjectDemo />
       </HeaderFlex>
-      <CurrentTariff clientProject={demoProject} clientCampaign={[]}/>
+      <CurrentTariffDemo />
     </Page>
   );
 };

@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Button, Switch } from "antd";
 import { Title } from "../../common/Typography";
@@ -36,8 +35,8 @@ const Card = styled.div`
     }
   }
 `;
-const Card1 = styled(Card)<{ color: string }>`
-  background: ${(props) => props.color};
+const Card1 = styled(Card)`
+  background: #2cae97;
   color: #ffffff;
 `;
 const Card2 = styled(Card)`
@@ -46,83 +45,58 @@ const Card2 = styled(Card)`
 const Card3 = styled(Card)`
   border: 2px solid #1579e9;
 `;
-const StyledButton = styled(Button)`
-  border-radius: 10px;
-  height: 40px;
-  border: 2px solid #1579e9;
-`;
 const SwitchWrapper = styled.div`
   display: flex;
   grid-gap: 12px;
 `;
 
 type Props = {
-  amount?: number;
-  id?: number;
-  name?: string;
-  price?: number;
-  period?: number;
-  start?: number;
-  end?: number;
+  amount: number;
+  id: number;
+  name: string;
+  price: number;
+  start: number;
+  end: number;
   forOne?: number;
-  disabled?: boolean;
-  onSelectTarif?: (tariff: {
-    period: number;
-    price: number;
-    id: number;
-  }) => void;
-  onChangeAutoPay?: (e: boolean) => void;
-  autoPay?: boolean;
+  autoPay: boolean;
+  onChangeAutoPay: ({ id, type }: { id: number; type: string }) => void;
 };
 
 export const TariffItem = ({
   amount,
-  id,
   name,
   price,
-  period,
   start,
   forOne,
   end,
-  disabled,
-  onSelectTarif,
   onChangeAutoPay,
   autoPay,
+  id,
 }: Props) => {
-  const colorCard =
-    name === "S" ? "#2CAE97" : name === "M" ? "#ECA843" : " #EF5479";
-
-  const setPeriod = (period?: number) => {
-    switch (true) {
-      case period === 1:
-        return "1 месяц";
-      case period === 3:
-        return "3 месяца";
-      case period === 6 || period === 12:
-        return `${period} месяцев`;
-      default:
-        return `нет данных`;
-    }
+  const handleChangeAutoPay = () => {
+    onChangeAutoPay({ id, type: "project" });
   };
-
-  const handleClick = () => {
-    if (onSelectTarif) {
-      onSelectTarif({ period: period || 0, price: price || 0, id: id || 0 });
-    }
-  };
-
   return (
     <Wrapper>
-      <Row style={{ marginBottom: 40 }}>
-        <Title level={4} style={{ fontWeight: "800" }}>
-          Тариф “{name}”
+      <Row style={{ marginBottom: 20 }}>
+        <Title
+          level={4}
+          style={{
+            fontWeight: "800",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            maxWidth: "350px",
+          }}
+        >
+          {name}
         </Title>
         <Title style={{ fontSize: 14, fontWeight: "400" }}>
-          {period ? setPeriod(period) : getRangeDate({ start, end })}
+          {getRangeDate({ start, end })}
         </Title>
       </Row>
       <Row style={{ marginBottom: 20 }}>
-        <Card1 color={colorCard}>
+        <Card1>
           <Title style={{ fontSize: 14, fontWeight: "400", color: "#FFFFFF" }}>
             Отзывов в месяц
           </Title>
@@ -147,33 +121,16 @@ export const TariffItem = ({
           </Title>
         </Card3>
       </Row>
-      <Row style={{ marginBottom: 30 }}>
-        <Title style={{ fontSize: 14, fontWeight: "400" }}>
-          Яндекс, Яндекс Маркет, 2ГИС, Zoon, Avito, Яндекс Услуги, Yell, Яндекс
-          Браузер
+      <SwitchWrapper>
+        <Switch
+          checked={autoPay}
+          onChange={handleChangeAutoPay}
+          disabled={!autoPay}
+        />
+        <Title level={4} style={{ fontWeight: "700", fontSize: 14 }}>
+          Автопродление
         </Title>
-      </Row>
-      {period ? (
-        <StyledButton
-          type="primary"
-          disabled={disabled}
-          block
-          onClick={handleClick}
-        >
-          Выбрать тариф
-        </StyledButton>
-      ) : (
-        <SwitchWrapper>
-          <Switch
-            checked={autoPay}
-            onChange={onChangeAutoPay}
-            disabled={!autoPay}
-          />
-          <Title level={4} style={{ fontWeight: "700", fontSize: 14 }}>
-            Автопродление
-          </Title>
-        </SwitchWrapper>
-      )}
+      </SwitchWrapper>
     </Wrapper>
   );
 };
