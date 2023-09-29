@@ -145,12 +145,6 @@ export const optionsCreateProject = [
   { label: "Оплата помесячно", value: "month" },
 ];
 
-export const isReviewsMonthEnabled = false;
-
-export const headerCreateProjectPage = isReviewsMonthEnabled
-  ? "Выберите вариант оплаты"
-  : "Оформление заказа";
-
 export const promoCodeResult = [
   { code: "success", message: "Промокод успешно применен", type: "success" },
   { code: "promo_not_found", message: "Прокод не найден", type: "error" },
