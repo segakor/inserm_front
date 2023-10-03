@@ -79,7 +79,7 @@ export const TariffItemCampaign = ({
   end,
 }: Props) => {
   const handleChangeAutoPay = () => {
-    onChangeAutoPay({ id, type: "campaign" });
+    onChangeAutoPay({ id, type: period ? "campaign" : "project" });
   };
   return (
     <Wrapper>
