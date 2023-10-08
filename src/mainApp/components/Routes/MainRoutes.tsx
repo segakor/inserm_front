@@ -1,7 +1,14 @@
 import { ReactNode, Suspense, lazy } from "react";
 import styled from "styled-components";
 import { Layout, Spin } from "antd";
-import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+  useParams,
+  useLocation,
+} from "react-router-dom";
 import { Content } from "../../../common/Layout/Content";
 import { HeaderComponent } from "../HeaderComponent";
 import { tokenService } from "../../../utils/tokenService";
@@ -20,6 +27,17 @@ const PublicRoutes = () => {
   const isAdminRole = tokenService.getIsAdmin();
 
   const bodyPath = isAdminRole ? "admin" : "client";
+
+  const params = useParams();
+  const { search } = useLocation();
+
+  if (params["*"] === "payment" && bodyPath === "client") {
+    return auth ? (
+      <Navigate to={"/app/client/createproject" + search} />
+    ) : (
+      <Outlet />
+    );
+  }
 
   const page = `/app/${bodyPath}/projects`;
 
@@ -68,6 +86,7 @@ export const MainRoutes = () => {
   const Contacts = lazy(() => import("../../Pages/Client/Contacts"));
   const Help = lazy(() => import("../../Pages/Client/Help"));
   const CreateProject = lazy(() => import("../../Pages/Client/CreateProject"));
+  const Referral = lazy(() => import("../../Pages/Client/Referral"));
 
   //admin lazy
   const AllProjects = lazy(() => import("../../Pages/Admin/AllProjects"));
@@ -174,6 +193,14 @@ export const MainRoutes = () => {
               element={
                 <Suspense fallback={<Spin />}>
                   <CreateProject />
+                </Suspense>
+              }
+            />
+            <Route
+              path="referral"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <Referral />
                 </Suspense>
               }
             />

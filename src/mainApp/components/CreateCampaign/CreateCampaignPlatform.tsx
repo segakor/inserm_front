@@ -13,10 +13,16 @@ import { PaymentType } from "./PaymentType";
 import { CashlessBlock } from "./CashlessBlock";
 import { RecurentSwitch } from "./RecurentSwitch";
 import { Promocode } from "./Promocode";
+import { useLocation } from "react-router-dom";
 
 export const CreateCampaignPlatform = () => {
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
   const [isErrorForm, setIsErrorForm] = useState(false);
+
+  const { search } = useLocation();
+
+  const params = new URLSearchParams(search);
+  const referral = params.get("referral");
 
   const handleClickArea = (area: string) => {
     selectedArea.find((item) => item === area)
@@ -54,6 +60,7 @@ export const CreateCampaignPlatform = () => {
             type: formValue?.promoAreaType,
           }
         : undefined,
+      referral: referral ?? undefined,
     };
 
     let isRecurent = formValue?.isRecurent;

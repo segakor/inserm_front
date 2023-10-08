@@ -41,6 +41,7 @@ import {
   CreatePromo,
   PromoCheck,
   TariffList,
+  ReferralList,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -696,7 +697,9 @@ export const archivePromo = async (id: number) => {
 };
 
 export const promoCheck = async (value: PromoCheck) => {
-  const { data, status } = await axiosClient.post<{result:{giftCount:number}}>(URL + `/api/promo/check`, {
+  const { data, status } = await axiosClient.post<{
+    result: { giftCount: number };
+  }>(URL + `/api/promo/check`, {
     ...value,
   });
   return {
@@ -710,4 +713,34 @@ export const getSubscription = async () => {
     URL + `/api/campaignTariff/campaignList`
   );
   return { data, status };
+};
+
+export const getReferralLink = async () => {
+  const { data, status } = await axiosClient.get<{ result: string }>(
+    URL + `/api/referral/link`
+  );
+  return { data, status };
+};
+
+export const getReferralList = async () => {
+  const { data, status } = await axiosClient.get<{ result: ReferralList[] }>(
+    URL + `/api/referral/list`
+  );
+  return { data, status };
+};
+
+export const referralUpdate = async (value: {
+  referralId: number;
+  isPaid: boolean;
+}) => {
+  const { data, status } = await axiosClient.post(
+    URL + `/api/referral/update`,
+    {
+      ...value,
+    }
+  );
+  return {
+    data,
+    status,
+  };
 };

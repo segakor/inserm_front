@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { useGetAllClient } from "../../hooks/useGetAllClient";
@@ -9,6 +9,10 @@ import { Radio, RadioChangeEvent } from "antd";
 import { DatePicker } from "../../components/DatePicker";
 import { TableCashlessTransfer } from "../../Table/TableCashlessTransfer";
 import { TableClientIdea } from "../../Table/TableClientIdea";
+import { optionsClientBase } from "../../../constants";
+import { OptionsClientBase } from "../../../types";
+import { TableStatisticsReferral } from "../../Table/TableStatisticsReferral";
+import { useReferral } from "../../hooks/useReferral";
 
 const Page = styled.div`
   display: flex;
@@ -16,17 +20,8 @@ const Page = styled.div`
   width: 100%;
 `;
 
-const optionsWithDisabled = [
-  { label: "Все клиенты", value: "allClient" },
-  { label: "Заявки безнала", value: "cashless" },
-  { label: "Неоплаченные заявки", value: "warmClient" },
-  { label: "Идеи", value: "idea" },
-];
-
 const ClientBase = () => {
-  const [activeTab, setActiveTab] = useState<
-    "allClient" | "warmClient" | "cashless" | "idea"
-  >("allClient");
+  const [activeTab, setActiveTab] = useState<OptionsClientBase>("allClient");
   const { isLoading, allClient } = useGetAllClient();
 
   const {
@@ -39,12 +34,18 @@ const ClientBase = () => {
     setActiveTab(value);
   };
 
+  const { handleGetReferralList, referralList } = useReferral();
+
+  useEffect(() => {
+    handleGetReferralList();
+  }, []);
+
   return (
     <Page>
       <Header>База клиентов</Header>
       <Radio.Group
         style={{ marginBottom: 16 }}
-        options={optionsWithDisabled}
+        options={optionsClientBase}
         onChange={onChange}
         value={activeTab}
         optionType="button"
@@ -63,6 +64,11 @@ const ClientBase = () => {
       {activeTab === "idea" && (
         <>
           <TableClientIdea />
+        </>
+      )}
+      {activeTab === "referral" && (
+        <>
+          <TableStatisticsReferral isAdmin/>
         </>
       )}
     </Page>

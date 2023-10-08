@@ -12,6 +12,7 @@ import { PromoCard, PromoWrapper, StyledTitle } from "./styles";
 import { usePromo } from "../../hooks/usePromo";
 import { areas, promoCodeResult } from "../../../constants";
 import { getNumWord } from "../../../utils/getCountReviews";
+import {useEffect} from "react";
 
 type Props = {
   form: FormInstance;
@@ -31,6 +32,10 @@ export const Promocode = ({ form, count, email }: Props) => {
   const aletText = promoCodeResult.find((item) => item.code === resultCode);
 
   const completedPromo = resultCode === "success";
+
+  useEffect(()=>{
+    form.setFieldValue('giftCount', giftCount)
+  },[giftCount])
 
   return (
     <>
@@ -90,6 +95,8 @@ export const Promocode = ({ form, count, email }: Props) => {
                   )} в подарок`}
                   disabled
                 />
+              </Form.Item>
+              <Form.Item hidden name={'giftCount'}>
               </Form.Item>
             </Space.Compact>
           </PromoCard>

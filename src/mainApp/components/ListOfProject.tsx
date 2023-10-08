@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useGetAllProject } from "../hooks/useGetAllProject";
 import { Button, Radio, RadioChangeEvent, Select, Spin } from "antd";
 import { FlatCardProject } from "./Card";
-import { optionsKey, optionsSort, optionsWithDisabled } from "../../constants";
+import { optionsKey, optionsSort, optionsStatusProject } from "../../constants";
 import styled from "styled-components";
 import { ModalCreateProjectByAdmin } from "./Modal";
 
@@ -66,7 +66,7 @@ export const ListOfProject = ({ inputSearch }: { inputSearch?: string }) => {
     <>
       <WrapperPanel>
         <Radio.Group
-          options={optionsWithDisabled}
+          options={optionsStatusProject}
           onChange={onChange}
           value={isActive}
           optionType="button"
