@@ -5,7 +5,7 @@ import { Input, Radio, RadioChangeEvent, Select } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { ListOfProject } from "../../components/ListOfProject";
 import { ListOfCampaign } from "../../components/ListOfCamaign";
-import { optionTypeProject } from "../../../constants";
+import { optionsTypeProject } from "../../../constants";
 import { useDispatch, useLocalState } from "../../context/hooks";
 import { setActiveTab } from "../../context/action";
 
@@ -42,7 +42,7 @@ const AllProjects = () => {
       <Header>Список проектов</Header>
       <Radio.Group
         style={{ marginBottom: 16 }}
-        options={optionTypeProject}
+        options={optionsTypeProject}
         onChange={onChangeTypeProject}
         value={activeTab}
         optionType="button"

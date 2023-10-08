@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Radio, RadioChangeEvent, Select, Spin } from "antd";
 import { FlatCardCampaign } from "./Card";
 import { useGetAllCampaign } from "../hooks/useGetAllCampaign";
-import { optionsKey, optionsSort, optionsWithDisabled } from "../../constants";
+import { optionsKey, optionsSort, optionsStatusProject } from "../../constants";
 import styled from "styled-components";
 
 const WrapperPanel = styled.div`
@@ -52,7 +52,7 @@ export const ListOfCampaign = ({ inputSearch }: { inputSearch?: string }) => {
     <>
       <WrapperPanel>
         <Radio.Group
-          options={optionsWithDisabled}
+          options={optionsStatusProject}
           onChange={onChange}
           value={isActive}
           optionType="button"

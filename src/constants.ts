@@ -98,12 +98,12 @@ export const textFoundation = [
 
 export const noop = () => {};
 
-export const optionsWithDisabled = [
+export const optionsStatusProject = [
   { label: "Активные", value: true },
   { label: "Архивные", value: false },
 ];
 
-export const optionTypeProject = [
+export const optionsTypeProject = [
   { label: "Проекты", value: "project" },
   { label: "Проекты штучные", value: "campaign" },
 ];
@@ -168,4 +168,19 @@ export const promoCodeResult = [
     message: "Промокод находится в архиве",
     type: "error",
   },
+];
+
+export const optionsReferral = [
+  { value: "getLink", label: "Реферальная ссылка" },
+  { value: "paymentStatistics", label: "Статистика по оплатам" },
+  { value: "exportMoney", label: "Вывод ДС" },
+  { value: "conditions", label: "Условия" },
+];
+
+export const optionsClientBase = [
+  { label: "Все клиенты", value: "allClient" },
+  { label: "Заявки безнала", value: "cashless" },
+  { label: "Неоплаченные заявки", value: "warmClient" },
+  { label: "Идеи", value: "idea" },
+  { label: "Рефералки", value: "referral" },
 ];

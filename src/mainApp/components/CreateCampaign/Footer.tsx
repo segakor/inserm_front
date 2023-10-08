@@ -15,6 +15,7 @@ import { noop } from "../../../constants";
 import { InvoiceTemplate } from "../../../types";
 import { Link, useNavigate } from "react-router-dom";
 import { ModalTemplate } from "../Modal";
+import { GiftOutlined } from "@ant-design/icons";
 
 type Props = {
   count: number;
@@ -24,6 +25,7 @@ type Props = {
   isCashless?: boolean;
   invoiceTemplate: InvoiceTemplate | null;
   isErrorForm: boolean;
+  giftCount?: number;
 };
 
 export const Footer = ({
@@ -34,6 +36,7 @@ export const Footer = ({
   isCashless,
   invoiceTemplate,
   isErrorForm,
+  giftCount,
 }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAgree, setIsAgree] = useState(true);
@@ -91,7 +94,13 @@ export const Footer = ({
               Итого
             </Title>
             <Title level={5} style={{ color: "black" }}>
-              {count} {getNumWord(count, "review")}
+              {count} {getNumWord(count, "review")}{" "}
+              {giftCount && (
+                <>+
+                  ({giftCount}{' '}
+                  <GiftOutlined />)
+                </>
+              )}
             </Title>
           </FooterCardTotalPrice>
           <Tooltip
@@ -119,19 +128,11 @@ export const Footer = ({
           />
           <label>
             Нажимая на кнопку, вы соглашаетесь с{" "}
-            <Link
-              className="decorate"
-              to="/offer.docx"
-              target="_blank"
-            >
+            <Link className="decorate" to="/offer.docx" target="_blank">
               Офертой
             </Link>{" "}
             и{" "}
-            <Link
-              className="decorate"
-              to="/privacyPolicy.odt"
-              target="_blank"
-            >
+            <Link className="decorate" to="/privacyPolicy.odt" target="_blank">
               Политикой конфиденциальности
             </Link>
           </label>

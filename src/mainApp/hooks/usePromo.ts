@@ -2,7 +2,6 @@ import { useState } from "react";
 import { archivePromo, createPromo, getPromo, promoCheck } from "../../request";
 import { openNotificationWithIcon } from "../../utils";
 import { CreatePromo, Promo, PromoCheck, ResultCodePromo } from "../../types";
-import { AxiosError } from "axios";
 
 export const usePromo = () => {
   const [allPromo, setAllPromo] = useState<Promo[] | null>(null);

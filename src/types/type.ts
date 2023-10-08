@@ -288,6 +288,7 @@ export type ReqCreateCampaign = {
     link: string;
     type: AreaType;
   };
+  referral?: string;
 };
 
 export type Campaign = {
@@ -465,3 +466,22 @@ export type TariffList = {
   campaigns: CampaignSubscription[];
   projects: ProjectSubscription[];
 };
+
+export type OptionsReferral =
+  | "getLink"
+  | "paymentStatistics"
+  | "exportMoney"
+  | "conditions";
+
+export type ReferralList = {
+  id: number;
+  isPaid: boolean;
+  campaign: Campaign;
+};
+
+export type OptionsClientBase =
+  | "allClient"
+  | "warmClient"
+  | "cashless"
+  | "idea"
+  | "referral";

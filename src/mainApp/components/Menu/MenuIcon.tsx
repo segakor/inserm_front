@@ -10,6 +10,7 @@ import { ReactComponent as ReviewsforpaymentIcon } from "../../../assets/reviews
 import { ReactComponent as SettingIcon } from "../../../assets/setting.svg";
 import { ReactComponent as PaidreviewsIcon } from "../../../assets/paidreviews.svg";
 import { ReactComponent as CreateadminIcon } from "../../../assets/createadmin.svg";
+import { ReactComponent as ReferralIcon } from "../../../assets/referral.svg";
 
 export {
   CreateadminIcon,
@@ -24,4 +25,5 @@ export {
   ProfileIcon,
   TariffIcon,
   ProjectIcon,
+  ReferralIcon
 };

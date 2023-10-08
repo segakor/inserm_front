@@ -16,12 +16,18 @@ import { PaymentType } from "./PaymentType";
 import { RecurentSwitch } from "./RecurentSwitch";
 import { Promocode } from "./Promocode";
 import { usePerson } from "../../hooks/usePerson";
+import { useLocation } from "react-router-dom";
 
 export const ReviewsPiece = () => {
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
   const [isErrorForm, setIsErrorForm] = useState(false);
 
   usePerson();
+
+  const { search } = useLocation();
+
+  const params = new URLSearchParams(search);
+  const referral = params.get("referral");
 
   const state = useLocalState();
   const { personInfo } = state;
@@ -62,6 +68,7 @@ export const ReviewsPiece = () => {
             type: formValue?.promoAreaType,
           }
         : undefined,
+      referral: referral ?? undefined,
     };
 
     let isRecurent = formValue?.isRecurent;
@@ -96,6 +103,8 @@ export const ReviewsPiece = () => {
     setIsErrorForm(hasErrors);
   };
 
+  console.log(formValue)
+
   return (
     <Wrapper>
       <Form
@@ -118,7 +127,7 @@ export const ReviewsPiece = () => {
         <ProjectName form={form} />
         {formValue?.projectName && (
           <>
-           <StyledTitle level={5}>
+            <StyledTitle level={5}>
               2. Выберите нужные площадки для размещения отзывов
             </StyledTitle>
             <p>На данный момент мы работаем с площадками:</p>
@@ -161,6 +170,7 @@ export const ReviewsPiece = () => {
               invoiceTemplate={invoiceTemplate}
               isCashless={formValue.paymentType === "cashless"}
               isErrorForm={isErrorForm}
+              giftCount={formValue.giftCount}
             />
           </>
         )}

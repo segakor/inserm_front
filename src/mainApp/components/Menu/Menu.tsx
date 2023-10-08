@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { Badge, MenuProps } from "antd";
 import { Menu } from "antd";
 
-import { ExclamationCircleFilled, SignalFilled, GiftFilled } from "@ant-design/icons";
+import {
+  ExclamationCircleFilled,
+  SignalFilled,
+  GiftFilled,
+} from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useLocalState } from "../../context/hooks";
 import { useAuth } from "../../hooks/useAuth";
@@ -22,6 +26,7 @@ import {
   ProfileIcon,
   ProjectCheckIcon,
   ProjectIcon,
+  ReferralIcon,
   ReviewsforpaymentIcon,
   SettingIcon,
   TariffIcon,
@@ -56,7 +61,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
 
   const role = tokenService.getRole();
   const auth = tokenService.getIsAuth();
-  const isAdminRole = tokenService.getIsAdmin()
+  const isAdminRole = tokenService.getIsAdmin();
 
   const { handleGetClientProject } = useGetProject();
   const { handleGetCampaign } = useGetCampaign();
@@ -136,6 +141,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     { label: "Профиль", key: "profile", icon: <ProfileIcon /> },
     { label: "База знаний", key: "foundation", icon: <FoundationIcon /> },
     { label: "Контакты", key: "contacts", icon: <ContactsIcon /> },
+    { label: "Партнерская программа", key: "referral", icon: <ReferralIcon /> },
   ];
 
   const itemHost: MenuProps["items"] = [
@@ -255,11 +261,11 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
           paddingLeft: 20,
           paddingRight: 20,
           margin: "50px 0 30px 0",
-          display:'flex',
-          flexDirection:'column'
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        <ButtonCreateIdea/>
+        <ButtonCreateIdea />
         <div>
           Подпишитесь на телеграм канал{" "}
           <a target="_blank" href="https://t.me/inserm">
