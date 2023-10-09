@@ -141,7 +141,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     { label: "Профиль", key: "profile", icon: <ProfileIcon /> },
     { label: "База знаний", key: "foundation", icon: <FoundationIcon /> },
     { label: "Контакты", key: "contacts", icon: <ContactsIcon /> },
-    { label: "Партнерская программа", key: "referral", icon: <ReferralIcon /> },
+    /* { label: "Партнерская программа", key: "referral", icon: <ReferralIcon /> }, */ //TODO: включить по готовности
   ];
 
   const itemHost: MenuProps["items"] = [
