@@ -119,7 +119,7 @@ export const TariffItemCampaign = ({
               Стоимость за отзыв
             </Title>
             <Title level={4} style={{ fontWeight: "800" }}>
-              {period ? <>{price} р</> : price / count}
+              {period ? <>{price} ₽</> : <>{price / count} ₽</>}
             </Title>
           </Card2>
           <Card3>
@@ -127,7 +127,7 @@ export const TariffItemCampaign = ({
               Общая стоимость
             </Title>
             <Title level={4} style={{ color: "#1579E9", fontWeight: "800" }}>
-              {period ? price * count : price}
+              {period ? price * count : price}{<> ₽</>}
             </Title>
           </Card3>
         </Row>
