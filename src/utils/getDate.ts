@@ -5,6 +5,13 @@ var options = {
   timezone: "UTC",
 } as const;
 
+var optionsWithTime = {
+  ...options,
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric'
+} as const;
+
 export const getRangeDate = ({
   start = 0,
   end = 0,
@@ -19,6 +26,10 @@ export const getRangeDate = ({
 
 export const getDate = ({ date = 0 }: { date?: number }) => {
   return `${new Date(date * 1000).toLocaleString("ru", options)}`;
+};
+
+export const getDateWithTime = ({ date = 0 }: { date?: number }) => {
+  return `${new Date(date * 1000).toLocaleString("ru", optionsWithTime)}`;
 };
 
 export const toUnixDate = (date: Date) => {

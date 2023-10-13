@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Title } from "../../common/Typography";
-import { getDate } from "../../utils";
+import { getDateWithTime } from "../../utils";
 import { Spin } from "antd";
 import { useScroll } from "../hooks/useScroll";
 import { useIOSocketChat } from "../hooks/useIOSocketChat";
@@ -123,7 +123,7 @@ export const Chat = ({ chatType, roomId, isMobile }: Props) => {
                         fontWeight: 400,
                       }}
                     >
-                      {getDate({ date: item.date })}
+                      {getDateWithTime({ date: item.date })}
                     </Title>
                   </MessageTitle>
                   <Title level={5} style={{ fontWeight: 400 }}>
@@ -141,7 +141,7 @@ export const Chat = ({ chatType, roomId, isMobile }: Props) => {
                       fontWeight: 400,
                     }}
                   >
-                    {getDate({ date: item.date })}
+                    {getDateWithTime({ date: item.date })}
                   </Title>
                 </MessageTitle>
                 <Title level={5} style={{ fontWeight: 400 }}>

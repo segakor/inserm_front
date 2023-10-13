@@ -184,3 +184,8 @@ export const optionsClientBase = [
   { label: "Идеи", value: "idea" },
   { label: "Рефералки", value: "referral" },
 ];
+
+export const optionsPromo = [
+  { value: "promo", label: "Промокоды" },
+  { value: "promoStatistics", label: "Статистика" },
+];

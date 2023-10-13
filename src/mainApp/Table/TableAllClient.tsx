@@ -4,12 +4,8 @@ import { Badge, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Client, ClientProject } from "../../types";
 import { useNavigate } from "react-router-dom";
-import { tokenService, getRangeDate } from "../../utils";
-import {
-  CheckCircleFilled,
-  CloseCircleFilled,
-  ExclamationCircleOutlined,
-} from "@ant-design/icons";
+import { getRangeDate } from "../../utils";
+import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
 import { getAmountAutoPay } from "../../utils/amountAutoPay";
 
 type TableItem = Client & {
@@ -34,7 +30,22 @@ const FooterInfo = styled.div`
 
 export const TableAllClient = ({ allClient, isLoading }: Props) => {
   const navigation = useNavigate();
-  const role = tokenService.getRole();
+
+  const onNavigate = (
+    e: React.MouseEvent<HTMLElement>,
+    type: string,
+    id: number
+  ) => {
+    if (e.ctrlKey) {
+      window.open(
+        `/app/admin/${type}/${id}`,
+        "_blank",
+        "rel=noopener noreferrer"
+      );
+      return;
+    }
+    navigation(`/app/admin/${type}/${id}`);
+  };
 
   const TableAllProjects = ({
     projects,
@@ -60,7 +71,7 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
         title: "Название проекта",
         render: (record: ClientProject) => (
           <div style={{ display: "inline" }}>
-            <a onClick={() => navigation(`/app/${role}/${type}/${record.id}`)}>
+            <a onClick={(e) => onNavigate(e, type, record.id)}>
               <Project>
                 <>
                   {record.autopay ? (
@@ -148,6 +159,10 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
   const footerInfo = (
     <FooterInfo>
       <div>
+        {`Всего клиентов: `}
+        <b>{`${allClient?.length}`}</b>
+      </div>
+      <div>
         {`Потрачено клиентами: `}
         <b>{`${allSum?.toLocaleString()}`}</b>
       </div>
@@ -218,7 +233,13 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
         );
       },
     },
-    { width: "15%", title: "Всего потрачено", dataIndex: "totalPrice" },
+    {
+      width: "15%",
+      title: "Всего потрачено",
+      dataIndex: "totalPrice",
+      sortDirections: ["descend"],
+      sorter: (a, b) => a.totalPrice - b.totalPrice,
+    },
   ];
 
   return (
@@ -249,6 +270,7 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
       tableLayout={"fixed"}
       scroll={{ x: 1000 }}
       locale={{ emptyText: "Нет данных" }}
+      showSorterTooltip={false}
       footer={() => (isLoading ? "" : footerInfo)}
     />
   );

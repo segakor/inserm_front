@@ -5,6 +5,7 @@ import { getDate } from "../../../utils";
 import { Box, Panel } from "./styles";
 import { StatusesFlat } from "./StatusesFlat";
 import { useChangeProjectStatus } from "../../hooks/useChangeProjectStatus";
+import { DollarTwoTone } from "@ant-design/icons";
 
 type Props = {
   campaign: Campaign;
@@ -13,7 +14,7 @@ type Props = {
 };
 
 export const FlatCardCampaign = ({ campaign, isActive, onUpdate }: Props) => {
-  const { period, statuses, name, id, brief } = campaign;
+  const { period, statuses, name, id, brief, autopay } = campaign;
 
   const navigation = useNavigate();
 
@@ -50,6 +51,12 @@ export const FlatCardCampaign = ({ campaign, isActive, onUpdate }: Props) => {
         <Box style={{ marginBottom: "15px" }}>
           <Title level={5} style={{ fontWeight: "800" }}>
             {`[${id}] `}
+            {autopay && (
+              <DollarTwoTone
+                twoToneColor="#52c41a"
+                style={{ marginRight: "4px" }}
+              />
+            )}
             {name}
           </Title>
           <div>

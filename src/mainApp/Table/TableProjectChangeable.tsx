@@ -368,7 +368,7 @@ export const TableProjectChangeable = ({
                 gridGap: "8px",
               }}
             >
-              <Button onClick={showModal} type="primary">
+              <Button onClick={showModal} type="primary" style={{background:'black'}}>
                 Добавить запись
               </Button>
               <UploadCVS onUpdate={onUpdate} projectId={projectId} />
