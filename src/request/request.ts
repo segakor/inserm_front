@@ -42,6 +42,7 @@ import {
   PromoCheck,
   TariffList,
   ReferralList,
+  PromoStatistics,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -743,4 +744,11 @@ export const referralUpdate = async (value: {
     data,
     status,
   };
+};
+
+export const getPromoStatistics = async () => {
+  const { data, status } = await axiosClient.get<{ result: PromoStatistics[] }>(
+    URL + `/api/promo/statistics`
+  );
+  return { data, status };
 };

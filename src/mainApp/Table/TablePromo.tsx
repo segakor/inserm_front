@@ -53,7 +53,7 @@ export const TablePromo = () => {
     {
       title: "Дата с",
       dataIndex: "start",
-      width: 100,
+      width: 60,
       render: (record: number) => {
         return <>{getDate({ date: record })}</>;
       },
@@ -61,7 +61,7 @@ export const TablePromo = () => {
     {
       title: "Дата по",
       dataIndex: "end",
-      width: 100,
+      width: 60,
       render: (record: number) => {
         return <>{getDate({ date: record })}</>;
       },
@@ -69,7 +69,7 @@ export const TablePromo = () => {
     {
       title: "Отзывов в подарок",
       dataIndex: "giftCount",
-      width: 100,
+      width: 80,
       render: (giftCount: number) => {
         return <>{giftCount}</>;
       },
@@ -119,7 +119,7 @@ export const TablePromo = () => {
       <Button
         onClick={() => setIsModalOpen((prev) => !prev)}
         type="primary"
-        style={{ marginBottom: 16 }}
+        style={{ marginBottom: 16, background: "black" }}
       >
         Добавить промокод
       </Button>

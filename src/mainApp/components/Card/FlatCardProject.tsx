@@ -1,5 +1,5 @@
-import { MouseEventHandler, ReactElement, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Title } from "../../../common/Typography";
 import { Project } from "../../../types";
 import { getRangeDate } from "../../../utils";
@@ -8,6 +8,7 @@ import { Box, Panel } from "./styles";
 import { StatusesFlat } from "./StatusesFlat";
 import { confirmationText } from "../../../constants";
 import { ModalСonfirmation } from "../Modal";
+import { DollarTwoTone } from "@ant-design/icons";
 
 type Props = {
   project: Project;
@@ -21,6 +22,7 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
     statuses,
     id,
     brief,
+    autopay
   } = project;
 
   const navigation = useNavigate();
@@ -74,6 +76,12 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
           <Title level={5} style={{ fontWeight: "800" }}>
             {`[${project.id}] `}
             {project.name}
+            {autopay && (
+              <DollarTwoTone
+                twoToneColor="#52c41a"
+                style={{ marginRight: "4px" }}
+              />
+            )}
           </Title>
           <>{getRangeDate({ start, end })}</>
         </Box>

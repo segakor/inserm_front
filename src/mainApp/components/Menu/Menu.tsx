@@ -245,13 +245,25 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
         dispatch(clearState());
         break;
       default:
-        navigation(`${isAdminRole ? "admin" : "client"}/${e.key}`);
+        onNavigate(e);
         break;
     }
 
     if (onHeaderClose) {
       onHeaderClose();
     }
+  };
+
+  const onNavigate = (e: any) => {
+    if (e.domEvent.ctrlKey) {
+      window.open(
+        `/app/${isAdminRole ? "admin" : "client"}/${e.key}`,
+        "_blank",
+        "rel=noopener noreferrer"
+      );
+      return;
+    }
+    navigation(`${isAdminRole ? "admin" : "client"}/${e.key}`);
   };
 
   const LinkTg =

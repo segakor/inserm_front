@@ -1,10 +1,23 @@
 import { useState } from "react";
-import { archivePromo, createPromo, getPromo, promoCheck } from "../../request";
+import {
+  archivePromo,
+  createPromo,
+  getPromo,
+  getPromoStatistics,
+  promoCheck,
+} from "../../request";
 import { openNotificationWithIcon } from "../../utils";
-import { CreatePromo, Promo, PromoCheck, ResultCodePromo } from "../../types";
+import {
+  CreatePromo,
+  Promo,
+  PromoCheck,
+  PromoStatistics,
+  ResultCodePromo,
+} from "../../types";
 
 export const usePromo = () => {
   const [allPromo, setAllPromo] = useState<Promo[] | null>(null);
+  const [promoStat, setPromoState] = useState<PromoStatistics[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [resultCode, setResultCode] = useState<ResultCodePromo | null>(null);
   const [giftCount, setGiftCount] = useState(0);
@@ -59,15 +72,29 @@ export const usePromo = () => {
     try {
       setIsLoading(true);
       const res = await promoCheck(value);
-      setResultCode('success');
+      setResultCode("success");
       setGiftCount(res.data.result.giftCount);
     } catch (err) {
       const typedError = err as any;
-      setResultCode(typedError?.data?.message)
+      setResultCode(typedError?.data?.message);
     } finally {
       setIsLoading(false);
     }
   };
+
+  const handleGetStatisticsPromo = async () => {
+    try {
+      setIsLoading(true);
+      const res = await getPromoStatistics();
+      setPromoState(res.data.result);
+    } catch (err) {
+      const typedError = err as any;
+      setResultCode(typedError?.data?.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return {
     handleCreatePromo,
     handleGetPromo,
@@ -77,8 +104,13 @@ export const usePromo = () => {
       ...item,
       key: index.toString(),
     })),
+    promoStat: promoStat?.map((item, index) => ({
+      ...item,
+      key: index.toString(),
+    })),
     isLoading,
     resultCode,
-    giftCount
+    giftCount,
+    handleGetStatisticsPromo,
   };
 };

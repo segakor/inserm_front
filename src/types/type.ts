@@ -427,6 +427,11 @@ export type Promo = {
   isArchived: boolean;
 };
 
+export type PromoStatistics = Promo & {
+  campaign: Campaign;
+  totalPrice: number;
+};
+
 export type CreatePromo = Omit<Promo, "id">;
 
 export type PromoCheck = {
