@@ -48,7 +48,7 @@ export const CreateCampaignPlatform = () => {
 
     let value = {
       email: formValue?.email || "",
-      name: formValue?.projectName || "",
+      name: formValue?.projectName.trim() || "",
       cards,
       brief: formValue?.importBrief
         ? JSON.parse(formValue?.importBrief)
@@ -116,9 +116,11 @@ export const CreateCampaignPlatform = () => {
           rules={[
             { required: true, message: "Обязательное поле" },
             {
-              validator(_, value) {
-                if (value.indexOf("+") > 0) {
-                  return Promise.reject("Символ + недоступен");
+              validator: (_, value) => {
+                if (/[`~!@#$%^&*()_|+=?;:'"<>]/gi.test(value)) {
+                  return Promise.reject(
+                    "Спецсимволы ~!@#$%^&*()_|+=?;:'<> недоступны"
+                  );
                 }
                 return Promise.resolve();
               },
