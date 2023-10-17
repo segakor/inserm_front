@@ -51,13 +51,13 @@ export const FlatCardCampaign = ({ campaign, isActive, onUpdate }: Props) => {
         <Box style={{ marginBottom: "15px" }}>
           <Title level={5} style={{ fontWeight: "800" }}>
             {`[${id}] `}
+            {name}
             {autopay && (
               <DollarTwoTone
                 twoToneColor="#52c41a"
-                style={{ marginRight: "4px" }}
+                style={{ marginLeft: "4px" }}
               />
             )}
-            {name}
           </Title>
           <div>
             {getDate({ date: campaign.date })} ~ {period} мес.

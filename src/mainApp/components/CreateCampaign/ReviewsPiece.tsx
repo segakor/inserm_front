@@ -56,7 +56,7 @@ export const ReviewsPiece = () => {
 
     let value = {
       email: personInfo?.email || "",
-      name: formValue?.projectName || "",
+      name: formValue?.projectName.trim() || "",
       cards,
       brief: formValue?.importBrief
         ? JSON.parse(formValue?.importBrief)

@@ -37,7 +37,7 @@ export const ProjectName = ({ form }: Props) => {
           { required: true, message: "Обязательное поле" },
           {
             validator: (_, value) => {
-              if (listOfProject?.find((item) => item.label === value)) {
+              if (listOfProject?.find((item) => item.label === value.trim())) {
                 return Promise.reject(
                   "Проект с таким названием уже существует"
                 );

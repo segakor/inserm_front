@@ -79,7 +79,7 @@ export const FlatCardProject = ({ project, isActive, onUpdate }: Props) => {
             {autopay && (
               <DollarTwoTone
                 twoToneColor="#52c41a"
-                style={{ marginRight: "4px" }}
+                style={{ marginLeft: "4px" }}
               />
             )}
           </Title>
