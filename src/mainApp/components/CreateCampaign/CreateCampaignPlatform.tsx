@@ -117,11 +117,13 @@ export const CreateCampaignPlatform = () => {
             { required: true, message: "Обязательное поле" },
             {
               validator: (_, value) => {
-                if (/[`~!@#$%^&*()_|+=?;:'"<>”‘]/gi.test(value)) {
+                if (/[`~!@#$%^&*()_|+=?;:'"<>”“‘’]/gi.test(value)) {
                   return Promise.reject(
-                    "Спецсимволы ~!@#$%^&*()_|+=?;:'<>”‘ недоступны"
+                    "Спецсимволы ~!@#$%^&*()_|+=?;:'<>”“‘’ недоступны"
                   );
                 }
+
+                return Promise.resolve();
               },
             },
           ]}
