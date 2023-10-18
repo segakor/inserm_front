@@ -43,7 +43,7 @@ export const ProjectName = ({ form }: Props) => {
                 );
               }
 
-              if (/[`~!@#$%^&*()_|+=?;:'"<>”‘]/gi.test(value)) {
+              if (/[`~!@#$%^&*()_|+=?;:'"<>”“‘’]/gi.test(value)) {
                 return Promise.reject(
                   "Спецсимволы ~!@#$%^&*()_|+=?;:'<>”‘ недоступны"
                 );
