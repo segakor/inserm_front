@@ -169,7 +169,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },
     {
       label: "Статистика",
-      key: "hoststatistics",
+      key: "statistics",
       icon: <SignalFilled style={{ color: "#1579E9" }} />,
     },
   ];
@@ -209,7 +209,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     },
     {
       label: "Статистика",
-      key: "hoststatistics",
+      key: "statistics",
       icon: <SignalFilled style={{ color: "#1579E9" }} />,
     },
     {

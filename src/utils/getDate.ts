@@ -8,8 +8,7 @@ var options = {
 var optionsWithTime = {
   ...options,
   hour: 'numeric',
-  minute: 'numeric',
-  second: 'numeric'
+  minute: 'numeric'
 } as const;
 
 export const getRangeDate = ({

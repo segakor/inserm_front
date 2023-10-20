@@ -81,7 +81,6 @@ const Campaign = () => {
             role={"CLIENT"}
             id={data?.id.toString() || ""}
           />
-          {!!data?.archive.length && <Title level={5}>Архив</Title>}
           {data?.archive.map((item, index) => (
             <ArchiveCampaign
               date={item.date}

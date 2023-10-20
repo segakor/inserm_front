@@ -189,3 +189,8 @@ export const optionsPromo = [
   { value: "promo", label: "Промокоды" },
   { value: "promoStatistics", label: "Статистика" },
 ];
+
+export const optionsStatistics = [
+  { value: "host", label: "Выкладка" },
+  { value: "finance", label: "Финансы" },
+];

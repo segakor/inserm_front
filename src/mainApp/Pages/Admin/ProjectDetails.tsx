@@ -14,6 +14,7 @@ import { ModalBrief } from "../../components/Modal";
 import { Notes } from "../../components/Notes";
 import { FooterDetails } from "../../components/FooterDetails";
 import { Divider } from "antd";
+import { CampaignList } from "../../components/CampaignList";
 
 const Page = styled.div`
   display: flex;
@@ -67,6 +68,7 @@ const ProjectDetails = () => {
     statusess,
     tariff,
     handleGetReviews,
+    campaignList
   } = useGetReviewsProject(projectId);
 
   const { brief, handleGetBrief } = useGetBrief(projectId);
@@ -90,6 +92,10 @@ const ProjectDetails = () => {
           <DetailsCard statuses={statusess} />
         </CardBlock>
         <Notes id={projectId} type={"project"} />
+        <CampaignList
+          campaigns={campaignList?.campaigns || []}
+          projects={campaignList?.projects || []}
+        />
       </WrapperCard>
       {isModalOpen && (
         <ModalBrief
