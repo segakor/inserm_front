@@ -12,6 +12,8 @@ import { useGetReviewsCampaign } from "../../hooks/useGetReviewsCampaign";
 import { CampaignReviews } from "../../components/CampaignReviews";
 import { FooterDetails } from "../../components/FooterDetails";
 import { Divider } from "antd";
+import { ArchiveCampaign } from "../../components/ArchiveCampaign";
+import { CampaignList } from "../../components/CampaignList";
 
 const Page = styled.div`
   display: flex;
@@ -58,7 +60,8 @@ const CampaignDetails = () => {
     handleGetBrief();
   };
 
-  const { handleGetReviews, data } = useGetReviewsCampaign(campaignId);
+  const { handleGetReviews, data, campaignList } =
+    useGetReviewsCampaign(campaignId);
 
   const { brief, handleGetBrief } = useGetBrief(campaignId, "campaign");
 
@@ -78,6 +81,10 @@ const CampaignDetails = () => {
           <DetailsCard statuses={data?.statuses} />
         </CardBlock>
         <Notes id={campaignId} type={"campaign"} />
+        <CampaignList
+          campaigns={campaignList?.campaigns || []}
+          projects={campaignList?.projects || []}
+        />
       </WrapperCard>
       {isModalOpen && (
         <ModalBrief
@@ -93,6 +100,15 @@ const CampaignDetails = () => {
         id={data?.id.toString() || ""}
         onUpdate={handleGetReviews}
       />
+      {data?.archive.map((item, index) => (
+        <ArchiveCampaign
+          date={item.date}
+          statuses={item.statuses}
+          reviews={item.reviews}
+          link={item.link}
+          key={index}
+        />
+      ))}
       <Divider />
       <FooterDetails type={"campaign"} currentPageId={campaignId} />
     </Page>

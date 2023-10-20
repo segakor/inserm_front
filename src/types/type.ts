@@ -86,6 +86,7 @@ export type ReqGetProjectDetails = {
   name: string;
   statuses: Statuses;
   tariff: TariffProject;
+  userId: number;
 };
 
 export type Tariff = {
@@ -344,6 +345,7 @@ export type ResGetCampaignDetails = {
   statuses: Statuses;
   groppedByType: GrouppedCampaign[];
   archive: ArchiveCampaignCard[];
+  userId: number;
 };
 
 export type BriefList = {
@@ -490,3 +492,8 @@ export type OptionsClientBase =
   | "cashless"
   | "idea"
   | "referral";
+
+export type AllPersonCampaign = {
+  campaigns: { id: number; name: string }[];
+  projects: { id: number; name: string }[];
+};

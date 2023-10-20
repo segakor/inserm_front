@@ -105,7 +105,7 @@ export const MainRoutes = () => {
   const ClientQuestions = lazy(
     () => import("../../Pages/Admin/ClientQuestions")
   );
-  const HostStatistics = lazy(() => import("../../Pages/Admin/HostStatistics"));
+  const Statistics = lazy(() => import("../../Pages/Admin/Statistics"));
   const CreateAdmin = lazy(() => import("../../Pages/Admin/CreateAdmin"));
   const Promo = lazy(() => import("../../Pages/Admin/Promo"));
 
@@ -295,11 +295,11 @@ export const MainRoutes = () => {
               }
             />
             <Route
-              path="hoststatistics"
+              path="statistics"
               element={
                 <Suspense fallback={<Spin />}>
                   <ProtectedChildRoutes allowedRole={["ADMIN", "SUPERVISOR"]}>
-                    <HostStatistics />
+                    <Statistics />
                   </ProtectedChildRoutes>
                 </Suspense>
               }

@@ -19,6 +19,18 @@ const RangeWrapper = styled.div`
   grid-gap: 12px;
   margin-bottom: 16px;
   align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: start;
+  }
+`;
+
+const StyledRangePickerContainer = styled.div`
+  @media (max-width: 576px) {
+    .ant-picker-panels {
+      flex-direction: column !important;
+    }
+  }
 `;
 
 const { RangePicker } = DatePickerAntd;
@@ -42,10 +54,14 @@ export const DatePicker = ({ onGetRange }: Props) => {
 
   return (
     <RangeWrapper>
-      <Title level={5}>Выбрать период</Title>
+      <Title level={5}>Выберете период</Title>
       <RangePicker
+        panelRender={(panelNode) => (
+          <StyledRangePickerContainer>{panelNode}</StyledRangePickerContainer>
+        )}
         format={"DD-MM-YYYY"}
         locale={locale}
+        size="large"
         onChange={(e) => onChangeCalendar(e)}
         disabledDate={(current) => {
           let customDate = moment().format("DD-MM-YYYY");

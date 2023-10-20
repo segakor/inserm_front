@@ -43,6 +43,7 @@ import {
   TariffList,
   ReferralList,
   PromoStatistics,
+  AllPersonCampaign,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -749,6 +750,24 @@ export const referralUpdate = async (value: {
 export const getPromoStatistics = async () => {
   const { data, status } = await axiosClient.get<{ result: PromoStatistics[] }>(
     URL + `/api/promo/statistics`
+  );
+  return { data, status };
+};
+
+export const getFinanceStatistics = async (params?: {
+  start: number;
+  end: number;
+}) => {
+  const { data, status } = await axiosClient.get<{
+    totalPrice: number;
+    revenue: number;
+  }>(URL + `/api/statistics/finance`, { params: { ...params } });
+  return { data, status };
+};
+
+export const getPersonCampaignList = async (id:number) => {
+  const { data, status } = await axiosClient.get<AllPersonCampaign>(
+    URL + `/api/person/campaignList/${id}`
   );
   return { data, status };
 };

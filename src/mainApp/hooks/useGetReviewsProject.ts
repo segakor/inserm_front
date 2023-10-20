@@ -1,12 +1,15 @@
-import { getProjectDetails } from "../../request";
+import { getPersonCampaignList, getProjectDetails } from "../../request";
 import { openNotificationWithIcon } from "../../utils";
 import { useEffect, useState } from "react";
-import { ReqGetProjectDetails } from "../../types";
+import { AllPersonCampaign, ReqGetProjectDetails } from "../../types";
 import { AxiosError } from "axios";
 
 export const useGetReviewsProject = (id: string) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<ReqGetProjectDetails | undefined>(undefined);
+  const [campaignList, setCampaignList] = useState<AllPersonCampaign | null>(
+    null
+  );
 
   const handleGetReviews = async (id: string) => {
     try {
@@ -19,16 +22,33 @@ export const useGetReviewsProject = (id: string) => {
         type: "error",
         message: "",
         description: "Не удалось загрузить отзывы клиента",
-        status: typedError.status
+        status: typedError.status,
       });
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleGetPersonCampaignList = async (userId: number) => {
+    try {
+      const response = await getPersonCampaignList(userId);
+      setCampaignList(response.data);
+    } catch (error) {
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: "Не удалось загрузить список всех проектов клиента",
+      });
+    }
+  };
+
   useEffect(() => {
     handleGetReviews(id);
   }, [id]);
+
+  useEffect(() => {
+    data?.userId && handleGetPersonCampaignList(data?.userId);
+  }, [data?.userId]);
 
   return {
     isLoading,
@@ -39,6 +59,7 @@ export const useGetReviewsProject = (id: string) => {
     })),
     tariff: data?.tariff,
     statusess: data?.statuses,
-    handleGetReviews
+    handleGetReviews,
+    campaignList
   };
 };
