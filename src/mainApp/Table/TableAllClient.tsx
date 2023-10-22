@@ -153,7 +153,7 @@ export const TableAllClient = () => {
 
   const allSum = allClient
     ?.map((item) => item.totalPrice)
-    .reduce((a, b) => a + b);
+    .reduce((a, b) => a + b) || 0;
 
   const amountAutoPay = getAmountAutoPay(allClient || []);
 
