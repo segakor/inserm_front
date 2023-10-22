@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
-import { useGetAllClient } from "../../hooks/useGetAllClient";
 import { TableAllClient } from "../../Table/TableAllClient";
 import { useGetWarmClient } from "../../hooks/useGetWarmClient";
 import { TableWarmClient } from "../../Table/TableWarmClient";
@@ -22,7 +21,6 @@ const Page = styled.div`
 
 const ClientBase = () => {
   const [activeTab, setActiveTab] = useState<OptionsClientBase>("allClient");
-  const { isLoading, allClient } = useGetAllClient();
 
   const {
     isLoading: isLoadingWarm,
@@ -52,7 +50,7 @@ const ClientBase = () => {
         buttonStyle="solid"
       />
       {activeTab === "allClient" && (
-        <TableAllClient allClient={allClient} isLoading={isLoading} />
+        <TableAllClient />
       )}
       {activeTab === "cashless" && <TableCashlessTransfer />}
       {activeTab === "warmClient" && (

@@ -402,9 +402,10 @@ export const createReviewList = async (value: ReqCreateReviewList) => {
   };
 };
 
-export const getAllClient = async () => {
+export const getAllClient = async (params?: { status: string }) => {
   const { data, status } = await axiosClient.get<ResGetAllClient>(
-    URL + `/api/person/all`
+    URL + `/api/person/all`,
+    { params: { ...params } }
   );
   return {
     data,
@@ -765,7 +766,7 @@ export const getFinanceStatistics = async (params?: {
   return { data, status };
 };
 
-export const getPersonCampaignList = async (id:number) => {
+export const getPersonCampaignList = async (id: number) => {
   const { data, status } = await axiosClient.get<AllPersonCampaign>(
     URL + `/api/person/campaignList/${id}`
   );
