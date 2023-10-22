@@ -1,20 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import styled from "styled-components";
-import { Badge, Table, Tag } from "antd";
+import { Badge, Divider, Radio, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Client, ClientProject } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { getRangeDate } from "../../utils";
 import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
 import { getAmountAutoPay } from "../../utils/amountAutoPay";
+import { useGetAllClient } from "../hooks/useGetAllClient";
+import { useState } from "react";
 
 type TableItem = Client & {
   key: string;
-};
-
-type Props = {
-  allClient: TableItem[] | undefined;
-  isLoading: boolean;
 };
 
 const Project = styled.div`
@@ -28,8 +25,12 @@ const FooterInfo = styled.div`
   flex-direction: column;
 `;
 
-export const TableAllClient = ({ allClient, isLoading }: Props) => {
+export const TableAllClient = () => {
   const navigation = useNavigate();
+
+  const [status, setStatus] = useState("buyer");
+
+  const { isLoading, allClient } = useGetAllClient(status);
 
   const onNavigate = (
     e: React.MouseEvent<HTMLElement>,
@@ -56,7 +57,7 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
     showHeader: boolean;
     type: "project" | "campaign";
   }) => {
-    const projectWithKey = projects.map((item, index) => ({
+    const projectWithKey = projects?.map((item, index) => ({
       ...item,
       key: index.toString(),
     }));
@@ -130,7 +131,7 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
       { title: "Потрачено", dataIndex: "price" },
     ];
 
-    if (!projects.length) {
+    if (!projects?.length) {
       return null;
     }
 
@@ -205,7 +206,7 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
       render: (record: TableItem) => {
         return (
           <>
-            {record.projects.map((item, index) => (
+            {record.projects?.map((item, index) => (
               <Project key={index}>
                 {item.autopay ? (
                   <CheckCircleFilled style={{ color: "#1BBD3F" }} />
@@ -243,35 +244,47 @@ export const TableAllClient = ({ allClient, isLoading }: Props) => {
   ];
 
   return (
-    <Table
-      columns={columns}
-      expandable={{
-        expandedRowRender: (record) => (
-          <div style={{ border: "2px dashed#32a1ce" }}>
-            <TableAllProjects
-              projects={record.projects}
-              showHeader={true}
-              type={"project"}
-            />
-            <TableAllProjects
-              projects={record.campaigns}
-              showHeader={!record.projects.length ? true : false}
-              type={"campaign"}
-            />
-          </div>
-        ),
-        rowExpandable: (record) =>
-          !!record.projects.length || !!record.campaigns.length,
-      }}
-      dataSource={allClient}
-      bordered
-      pagination={false}
-      loading={isLoading}
-      tableLayout={"fixed"}
-      scroll={{ x: 1000 }}
-      locale={{ emptyText: "Нет данных" }}
-      showSorterTooltip={false}
-      footer={() => (isLoading ? "" : footerInfo)}
-    />
+    <div>
+      <Radio.Group
+        onChange={({ target: { value } }) => {
+          setStatus(value);
+        }}
+        value={status}
+      >
+        <Radio value="buyer">С проектами</Radio>
+        <Radio value="beggar">Без проектов</Radio>
+      </Radio.Group>
+      <Divider />
+      <Table
+        columns={columns}
+        expandable={{
+          expandedRowRender: (record) => (
+            <div style={{ border: "2px dashed#32a1ce" }}>
+              <TableAllProjects
+                projects={record.projects}
+                showHeader={true}
+                type={"project"}
+              />
+              <TableAllProjects
+                projects={record.campaigns}
+                showHeader={!record.projects?.length ? true : false}
+                type={"campaign"}
+              />
+            </div>
+          ),
+          rowExpandable: (record) =>
+            !!record.projects?.length || !!record.campaigns?.length,
+        }}
+        dataSource={allClient}
+        bordered
+        pagination={false}
+        loading={isLoading}
+        tableLayout={"fixed"}
+        scroll={{ x: 1000 }}
+        locale={{ emptyText: "Нет данных" }}
+        showSorterTooltip={false}
+        footer={() => (isLoading ? "" : footerInfo)}
+      />
+    </div>
   );
 };

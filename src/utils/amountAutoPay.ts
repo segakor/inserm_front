@@ -3,12 +3,12 @@ import { Client } from "../types";
 export const getAmountAutoPay = (allClient: Client[]) => {
   const arr: boolean[] = [];
   allClient.forEach((item) => {
-    item.projects.forEach((item) => {
+    item.projects?.forEach((item) => {
       arr.push(item.autopay);
     });
   });
   allClient.forEach((item) => {
-    item.campaigns.forEach((item) => {
+    item.campaigns?.forEach((item) => {
       arr.push(item.autopay);
     });
   });
