@@ -4,7 +4,7 @@ import { Badge, Divider, Radio, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Client, ClientProject } from "../../types";
 import { useNavigate } from "react-router-dom";
-import { getRangeDate } from "../../utils";
+import { getRangeDate, getDate } from "../../utils";
 import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
 import { getAmountAutoPay } from "../../utils/amountAutoPay";
 import { useGetAllClient } from "../hooks/useGetAllClient";
@@ -151,10 +151,6 @@ export const TableAllClient = () => {
     value: item.name,
   }));
 
-  const allSum = allClient
-    ?.map((item) => item.totalPrice)
-    .reduce((a, b) => a + b) || 0;
-
   const amountAutoPay = getAmountAutoPay(allClient || []);
 
   const footerInfo = (
@@ -162,10 +158,6 @@ export const TableAllClient = () => {
       <div>
         {`Всего клиентов: `}
         <b>{`${allClient?.length}`}</b>
-      </div>
-      <div>
-        {`Потрачено клиентами: `}
-        <b>{`${allSum?.toLocaleString()}`}</b>
       </div>
       <div>
         {`Активных подписок: `}
@@ -187,6 +179,13 @@ export const TableAllClient = () => {
       filterMode: "menu",
       filterSearch: true,
       onFilter: (value: any, record) => record.name.startsWith(value),
+    },
+    {
+      width: "8%",
+      title: "Дата регистрации",
+      render: (record: TableItem) => {
+        return <>{getDate({ date: record.date })}</>;
+      },
     },
     {
       width: "18%",

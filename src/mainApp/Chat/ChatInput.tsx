@@ -4,6 +4,8 @@ import { Input as InputComponent, Button, Tooltip } from "antd";
 import EmojiPicker from "emoji-picker-react";
 import { SmileTwoTone, SmileOutlined, SendOutlined } from "@ant-design/icons";
 
+const { TextArea } = InputComponent;
+
 enum Categories {
   SUGGESTED = "suggested",
   SMILEYS_PEOPLE = "smileys_people",
@@ -47,10 +49,10 @@ export const ChatInput = ({
 
   return (
     <Input>
-      <InputComponent
+      <TextArea
+        autoSize
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        type="text"
         placeholder="Напишите сообщение..."
         style={{ width: "100%" }}
         onKeyDown={handleKeyDown}

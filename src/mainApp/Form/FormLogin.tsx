@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Button, Form, Input } from "antd";
 import { Title } from "../../common/Typography";
@@ -6,6 +6,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useResetPassword } from "../hooks/useResetPassword";
 import { useRegistartion } from "../hooks/useRegistration";
 import ReCAPTCHA from "react-google-recaptcha";
+import { localeLogin } from "../../constants";
 
 const Wrapper = styled.div`
   background-color: #ffffff;
@@ -58,24 +59,6 @@ const DescRestore = styled(Title)`
   margin-bottom: 30px !important;
 `;
 
-const locale = [
-  {
-    type: "login",
-    formTitle: "Войдите в свой личный кабинет",
-    submitTitle: "Войти",
-  },
-  {
-    type: "restore",
-    formTitle: "Восстановление пароля",
-    submitTitle: "Отправить",
-  },
-  {
-    type: "registration",
-    formTitle: "Регистрация",
-    submitTitle: "Зарегистрироваться",
-  },
-];
-
 export const FormLogin = () => {
   const [form] = Form.useForm();
   const email = Form.useWatch("username", form);
@@ -122,7 +105,7 @@ export const FormLogin = () => {
     return !email;
   };
 
-  const title = locale.find((item) => item.type === typeForm);
+  const title = localeLogin.find((item) => item.type === typeForm);
 
   const onChangeCapcha = (value: any) => {
     value ? setIsVerified(true) : setIsVerified(false);
@@ -140,7 +123,7 @@ export const FormLogin = () => {
           {title?.formTitle}
         </HeaderForm>
         <StyledForm
-          name="basic"
+          name="login"
           initialValues={{ remember: true }}
           autoComplete="on"
           form={form}

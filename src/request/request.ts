@@ -345,10 +345,35 @@ export const getNotes = async (id: string, type: string) => {
   };
 };
 
+export const deleteNote = async (noteId: number, type: string) => {
+  const path = type === "project" ? "project" : "campaign";
+
+  const { data, status } = await axiosClient.post(URL + `/api/${path}/removeNote`, {
+    noteId,
+  });
+  return {
+    data,
+    status,
+  };
+};
+
 export const getRooms = async () => {
   const { data, status } = await axiosClient.get<ReqRooms>(
     URL + `/api/chat/rooms`
   );
+  return {
+    data,
+    status,
+  };
+};
+
+export const setMarkOnChat = async (value: {
+  isMark: boolean;
+  roomId: number;
+}) => {
+  const { data, status } = await axiosClient.post(URL + "/api/chat/mark", {
+    ...value,
+  });
   return {
     data,
     status,
@@ -421,22 +446,6 @@ export const getHostStatistics = async (params?: {
     URL + `/api/statistics`,
     { params: { ...params } }
   );
-  return {
-    data,
-    status,
-  };
-};
-
-export const createProjectByAdmin = async (value: {
-  email: string;
-  name: string;
-  tariffId: number;
-  period: number;
-  price: number;
-}) => {
-  const { data, status } = await axiosClient.post(URL + `/api/project/buy`, {
-    ...value,
-  });
   return {
     data,
     status,

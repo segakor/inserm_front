@@ -5,7 +5,7 @@ import { useNotes } from "../hooks/useNotes";
 import { getDate } from "../../utils";
 import { Title } from "../../common/Typography";
 import { useScroll } from "../hooks/useScroll";
-import { SendOutlined } from "@ant-design/icons";
+import { CloseOutlined, SendOutlined } from "@ant-design/icons";
 
 const Wrapper = styled.div`
   background-color: white;
@@ -33,6 +33,12 @@ const Footer = styled.div`
 const MessageTitle = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+const CloseWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  grid-gap: 8px;
 `;
 const Message = styled.div`
   border: 1px solid #4096ff;
@@ -65,7 +71,8 @@ export const Notes = ({ type, id }: Props) => {
 
   const { element } = useScroll();
 
-  const { handleCreateNote, handleGetNotes, notes } = useNotes();
+  const { handleCreateNote, handleGetNotes, notes, handleDeleteNote } =
+    useNotes();
 
   const onSendNote = async () => {
     await handleCreateNote({ text: value, id }, type);
@@ -85,7 +92,13 @@ export const Notes = ({ type, id }: Props) => {
           <Message key={index}>
             <MessageTitle>
               <Title level={5}>{item.user}</Title>
-              <div>{getDate({ date: item.date })}</div>
+              <CloseWrapper>
+                <div>{getDate({ date: item.date })}</div>
+                <CloseOutlined
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleDeleteNote(item.id, type, id)}
+                />
+              </CloseWrapper>
             </MessageTitle>
             <div
               style={{ whiteSpace: "pre-wrap" }}
@@ -97,7 +110,7 @@ export const Notes = ({ type, id }: Props) => {
       <Footer>
         <Tooltip title={TooltipComponent}>
           <TextArea
-            style={{ resize: "none",overflow:'hidden' }}
+            style={{ resize: "none", overflow: "hidden" }}
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
