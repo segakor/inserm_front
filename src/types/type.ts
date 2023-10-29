@@ -197,6 +197,7 @@ export type Room = {
   projects: { name: string; id: number }[];
   campaigns: { name: string; id: number }[];
   unread: number;
+  isMark: boolean;
 };
 export type ReqRooms = {
   result: Room[];
@@ -226,6 +227,7 @@ export type Client = {
   totalPrice: number;
   projects: ClientProject[];
   campaigns: ClientProject[];
+  date: number;
 };
 
 export type ResGetAllClient = {

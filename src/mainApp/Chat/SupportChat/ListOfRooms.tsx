@@ -28,7 +28,7 @@ type Props = {
 };
 
 export const ListOfRooms = ({ onClickRoom, selectedRoom, isMobile }: Props) => {
-  const { rooms, isLoading } = useGetRoomChat();
+  const { rooms, isLoading, handleSetMarkOnChat } = useGetRoomChat();
 
   const state = useLocalState();
   const listOfNotify = state.listOfNotify;
@@ -45,6 +45,7 @@ export const ListOfRooms = ({ onClickRoom, selectedRoom, isMobile }: Props) => {
           key={index}
           room={item}
           onClickRoom={onClickRoom}
+          onClickMark={handleSetMarkOnChat}
           isActive={selectedRoom?.id === item.id ? true : false}
         />
       ))}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createNote, getNotes } from "../../request";
+import { createNote, deleteNote, getNotes } from "../../request";
 import { Note } from "../../types";
 import { openNotificationWithIcon } from "../../utils";
 
@@ -37,9 +37,27 @@ export const useNotes = () => {
     }
   };
 
+  const handleDeleteNote = async (
+    noteId: number,
+    type: string,
+    projectId: string
+  ) => {
+    try {
+      await deleteNote(noteId, type);
+      await handleGetNotes(projectId, type);
+    } catch {
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: "Не удалось удалить заметку",
+      });
+    }
+  };
+
   return {
     handleCreateNote,
     handleGetNotes,
     notes,
+    handleDeleteNote
   };
 };

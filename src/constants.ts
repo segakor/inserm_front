@@ -155,7 +155,7 @@ export const promoCodeResult = [
   },
   {
     code: "not_enough_reviews_in_the_order",
-    message: "Не выполнены обязательные условия",
+    message: "Не выполнены обязательные условия. Минимальный заказ от min шт.",
     type: "error",
   },
   {
@@ -193,4 +193,22 @@ export const optionsPromo = [
 export const optionsStatistics = [
   { value: "host", label: "Выкладка" },
   { value: "finance", label: "Финансы" },
+];
+
+export const localeLogin = [
+  {
+    type: "login",
+    formTitle: "Войдите в свой личный кабинет",
+    submitTitle: "Войти",
+  },
+  {
+    type: "restore",
+    formTitle: "Восстановление пароля",
+    submitTitle: "Отправить",
+  },
+  {
+    type: "registration",
+    formTitle: "Регистрация",
+    submitTitle: "Зарегистрироваться",
+  },
 ];

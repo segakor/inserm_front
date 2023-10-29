@@ -10,9 +10,10 @@ import {
 } from "antd";
 import { PromoCard, PromoWrapper, StyledTitle } from "./styles";
 import { usePromo } from "../../hooks/usePromo";
-import { areas, promoCodeResult } from "../../../constants";
+import { areas } from "../../../constants";
 import { getNumWord } from "../../../utils/getCountReviews";
-import {useEffect} from "react";
+import { useEffect } from "react";
+import { getPromoResult } from "../../../utils";
 
 type Props = {
   form: FormInstance;
@@ -29,13 +30,13 @@ export const Promocode = ({ form, count, email }: Props) => {
     handleCheckPromo({ email, name: formValue?.promoCode, count });
   };
 
-  const aletText = promoCodeResult.find((item) => item.code === resultCode);
+  const alertText = getPromoResult(resultCode || '');
 
   const completedPromo = resultCode === "success";
 
-  useEffect(()=>{
-    form.setFieldValue('giftCount', giftCount)
-  },[giftCount])
+  useEffect(() => {
+    form.setFieldValue("giftCount", giftCount);
+  }, [giftCount]);
 
   return (
     <>
@@ -57,8 +58,8 @@ export const Promocode = ({ form, count, email }: Props) => {
         {resultCode && (
           <Alert
             style={{ marginTop: "16px" }}
-            message={aletText?.message}
-            type={(aletText?.type as any) || "error"}
+            message={alertText?.message}
+            type={(alertText?.type as any) || "error"}
             showIcon
           />
         )}
@@ -96,8 +97,7 @@ export const Promocode = ({ form, count, email }: Props) => {
                   disabled
                 />
               </Form.Item>
-              <Form.Item hidden name={'giftCount'}>
-              </Form.Item>
+              <Form.Item hidden name={"giftCount"}></Form.Item>
             </Space.Compact>
           </PromoCard>
         </>

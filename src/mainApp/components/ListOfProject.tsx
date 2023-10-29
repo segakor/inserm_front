@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useGetAllProject } from "../hooks/useGetAllProject";
-import { Button, Radio, RadioChangeEvent, Select, Spin } from "antd";
+import { Radio, RadioChangeEvent, Select, Spin } from "antd";
 import { FlatCardProject } from "./Card";
 import { optionsKey, optionsSort, optionsStatusProject } from "../../constants";
 import styled from "styled-components";
-import { ModalCreateProjectByAdmin } from "./Modal";
 
 const WrapperPanel = styled.div`
   display: flex;
@@ -20,7 +19,6 @@ export const Spacer = styled.div`
 
 export const ListOfProject = ({ inputSearch }: { inputSearch?: string }) => {
   const [isActive, setIsActive] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState("asc");
   const [sortKey, setSortKey] = useState("success");
 
@@ -41,14 +39,6 @@ export const ListOfProject = ({ inputSearch }: { inputSearch?: string }) => {
 
   const onChange = ({ target: { value } }: RadioChangeEvent) => {
     setIsActive(value);
-  };
-
-  const handleOpen = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleClose = () => {
-    setIsModalOpen(false);
   };
 
   const hendleChagneSortKey = (e: string) => {
@@ -89,7 +79,6 @@ export const ListOfProject = ({ inputSearch }: { inputSearch?: string }) => {
           />
         </div>
         <Spacer />
-        <Button onClick={handleOpen}>Добавить проект</Button>
       </WrapperPanel>
       {isLoading ? (
         <Spin />
@@ -104,12 +93,6 @@ export const ListOfProject = ({ inputSearch }: { inputSearch?: string }) => {
             />
           ))}
         </>
-      )}
-      {isModalOpen && (
-        <ModalCreateProjectByAdmin
-          onClose={handleClose}
-          onUpdate={handleGetAllProject}
-        />
       )}
     </>
   );
