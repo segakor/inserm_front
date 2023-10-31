@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AllPersonCampaign, ReqGetProjectDetails } from "../../types";
 import { AxiosError } from "axios";
 
-export const useGetReviewsProject = (id: string) => {
+export const useGetReviewsProject = (id: string, isAdmin?: boolean) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<ReqGetProjectDetails | undefined>(undefined);
   const [campaignList, setCampaignList] = useState<AllPersonCampaign | null>(
@@ -47,7 +47,7 @@ export const useGetReviewsProject = (id: string) => {
   }, [id]);
 
   useEffect(() => {
-    data?.userId && handleGetPersonCampaignList(data?.userId);
+    data?.userId && isAdmin && handleGetPersonCampaignList(data?.userId);
   }, [data?.userId]);
 
   return {
@@ -60,6 +60,6 @@ export const useGetReviewsProject = (id: string) => {
     tariff: data?.tariff,
     statusess: data?.statuses,
     handleGetReviews,
-    campaignList
+    campaignList,
   };
 };

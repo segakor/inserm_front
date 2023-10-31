@@ -69,7 +69,7 @@ const ProjectDetails = () => {
     tariff,
     handleGetReviews,
     campaignList
-  } = useGetReviewsProject(projectId);
+  } = useGetReviewsProject(projectId, true);
 
   const { brief, handleGetBrief } = useGetBrief(projectId);
 
