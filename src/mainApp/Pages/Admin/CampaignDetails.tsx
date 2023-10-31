@@ -61,7 +61,7 @@ const CampaignDetails = () => {
   };
 
   const { handleGetReviews, data, campaignList } =
-    useGetReviewsCampaign(campaignId);
+    useGetReviewsCampaign(campaignId, true);
 
   const { brief, handleGetBrief } = useGetBrief(campaignId, "campaign");
 
