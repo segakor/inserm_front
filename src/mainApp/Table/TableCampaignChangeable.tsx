@@ -26,6 +26,7 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 import { ModalCreateCampaignReview } from "../components/Modal";
+import { UploadCVS } from "../components/UploadCVS";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
@@ -81,7 +82,7 @@ export const TableCampaignChangeable = ({
   campaingId,
   onUpdate,
   cardId,
-  link
+  link,
 }: Props) => {
   const [form] = Form.useForm();
   const tgFormField = Form.useWatch("tg", form);
@@ -216,7 +217,10 @@ export const TableCampaignChangeable = ({
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <div>
           <span>{text}</span>
-          <ButtonCopy onClick={() => cliapbord(text)} style={{marginLeft:10}}/>
+          <ButtonCopy
+            onClick={() => cliapbord(text)}
+            style={{ marginLeft: 10 }}
+          />
         </div>
       ),
     },
@@ -359,10 +363,19 @@ export const TableCampaignChangeable = ({
                 gridGap: "8px",
               }}
             >
-              <Button onClick={showModal} type="primary" style={{background:'black'}}>
-                Добавить запись
+              <Button
+                onClick={showModal}
+                type="primary"
+                style={{ background: "black" }}
+              >
+                Добавить отзыв
               </Button>
-              {/* <UploadCVS onUpdate={onUpdate} projectId={cardId} /> */}
+              <UploadCVS
+                onUpdate={onUpdate}
+                id={cardId}
+                type={"campaign"}
+                campaingId={campaingId}
+              />
             </div>
           )}
           {isModalOpen && (

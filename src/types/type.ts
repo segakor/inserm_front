@@ -205,7 +205,8 @@ export type ReqRooms = {
 
 export type ReqCreateReviewList = {
   reviews: { text: string; link: string }[];
-  projectId: string;
+  projectId?: string;
+  cardId?: string;
 };
 
 export type ClientProject = {
@@ -499,3 +500,12 @@ export type AllPersonCampaign = {
   campaigns: { id: number; name: string }[];
   projects: { id: number; name: string }[];
 };
+
+export type News = {
+  id: number;
+  title: string;
+  description: string;
+  createDate: number;
+};
+
+export type CreateNews = Omit<News, "id">;

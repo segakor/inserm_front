@@ -103,7 +103,6 @@ export const ReviewsPiece = () => {
     setIsErrorForm(hasErrors);
   };
 
-  console.log(formValue)
 
   return (
     <Wrapper>

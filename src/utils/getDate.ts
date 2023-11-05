@@ -1,3 +1,5 @@
+import { newsMonth } from "../constants";
+
 var options = {
   year: "2-digit",
   month: "numeric",
@@ -7,8 +9,8 @@ var options = {
 
 var optionsWithTime = {
   ...options,
-  hour: 'numeric',
-  minute: 'numeric'
+  hour: "numeric",
+  minute: "numeric",
 } as const;
 
 export const getRangeDate = ({
@@ -33,4 +35,11 @@ export const getDateWithTime = ({ date = 0 }: { date?: number }) => {
 
 export const toUnixDate = (date: Date) => {
   return Math.floor(date.getTime() / 1000);
+};
+
+export const getNewsDate = ({ date = 0 }: { date?: number }) => {
+  return {
+    month: newsMonth[new Date(date * 1000).getMonth()],
+    day: new Date(date * 1000).getDate(),
+  };
 };

@@ -18,7 +18,7 @@ export const getCountReviews = (
       maxCount = getMaxOfArray(formValue[key].map((item: any) => item?.amount));
 
       count += formValue[key]
-        .map((item: any) => item?.amount)
+        .map((item: any) => item?.amount || 0)
         .reduce((a: any, b: any) => a + b);
     }
   }
@@ -38,19 +38,4 @@ export const getCountReviews = (
     month: Math.ceil(maxCount / 2 / 4),
     cards: cards.flat(Infinity),
   };
-};
-
-const numWord = (value: number, words: string[]) => {
-  value = Math.abs(value) % 100;
-  var num = value % 10;
-  if (value > 10 && value < 20) return words[2];
-  if (num > 1 && num < 5) return words[1];
-  if (num == 1) return words[0];
-  return words[2];
-};
-
-export const getNumWord = (count: number, type: "review" | "month") => {
-  if (type === "review") return numWord(count, ["отзыв", "отзыва", "отзывов"]);
-  if (type === "month") return numWord(count, ["месяц", "месяца", "месяцев"]);
-  return null;
 };

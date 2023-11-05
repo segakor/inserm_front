@@ -8,7 +8,7 @@ import { DownCircleFilled, UpCircleFilled } from "@ant-design/icons";
 import { TableProject } from "../Table/TableProject";
 import { TableProjectNotChangeable } from "../Table/TableProjectNotChangeable";
 import { TableCampaignChangeable } from "../Table/TableCampaignChangeable";
-import { getNumWord } from "../../utils/getCountReviews";
+import { getNumWord } from "../../utils";
 import { ButtonCopy } from "../Button/ButtonCopy";
 import { cliapbord } from "../../utils";
 import { ButtonChangeLink } from "../Button/ButtonChangeLink";

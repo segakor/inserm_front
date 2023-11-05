@@ -11,7 +11,7 @@ import {
 import { PromoCard, PromoWrapper, StyledTitle } from "./styles";
 import { usePromo } from "../../hooks/usePromo";
 import { areas } from "../../../constants";
-import { getNumWord } from "../../../utils/getCountReviews";
+import { getNumWord } from "../../../utils";
 import { useEffect } from "react";
 import { getPromoResult } from "../../../utils";
 
@@ -30,13 +30,17 @@ export const Promocode = ({ form, count, email }: Props) => {
     handleCheckPromo({ email, name: formValue?.promoCode, count });
   };
 
-  const alertText = getPromoResult(resultCode || '');
+  const alertText = getPromoResult(resultCode || "");
 
   const completedPromo = resultCode === "success";
 
   useEffect(() => {
     form.setFieldValue("giftCount", giftCount);
   }, [giftCount]);
+
+  useEffect(() => {
+    if (giftCount) onCheckPromo();
+  }, [count, giftCount]);
 
   return (
     <>
@@ -45,14 +49,16 @@ export const Promocode = ({ form, count, email }: Props) => {
       <PromoWrapper>
         <Form.Item name={"promoCode"}>
           <Space.Compact style={{ width: "100%" }} size="large">
-            <Input placeholder="Промокод" disabled={completedPromo} />
-            <Button
-              type="primary"
-              onClick={onCheckPromo}
-              disabled={!formValue?.promoCode || completedPromo}
-            >
-              Применить
-            </Button>
+            <Input placeholder="Промокод" disabled={!!giftCount} />
+            {!giftCount && (
+              <Button
+                type="primary"
+                onClick={onCheckPromo}
+                disabled={!formValue?.promoCode || completedPromo}
+              >
+                Применить
+              </Button>
+            )}
           </Space.Compact>
         </Form.Item>
         {resultCode && (

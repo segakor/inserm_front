@@ -369,9 +369,9 @@ export const TableProjectChangeable = ({
               }}
             >
               <Button onClick={showModal} type="primary" style={{background:'black'}}>
-                Добавить запись
+                Добавить отзыв
               </Button>
-              <UploadCVS onUpdate={onUpdate} projectId={projectId} />
+              <UploadCVS onUpdate={onUpdate} id={projectId} type={'project'}/>
             </div>
           )}
           {isModalOpen && (

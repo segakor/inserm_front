@@ -44,6 +44,8 @@ import {
   ReferralList,
   PromoStatistics,
   AllPersonCampaign,
+  News,
+  CreateNews,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -348,9 +350,12 @@ export const getNotes = async (id: string, type: string) => {
 export const deleteNote = async (noteId: number, type: string) => {
   const path = type === "project" ? "project" : "campaign";
 
-  const { data, status } = await axiosClient.post(URL + `/api/${path}/removeNote`, {
-    noteId,
-  });
+  const { data, status } = await axiosClient.post(
+    URL + `/api/${path}/removeNote`,
+    {
+      noteId,
+    }
+  );
   return {
     data,
     status,
@@ -779,5 +784,25 @@ export const getPersonCampaignList = async (id: number) => {
   const { data, status } = await axiosClient.get<AllPersonCampaign>(
     URL + `/api/person/campaignList/${id}`
   );
+  return { data, status };
+};
+
+export const getNews = async () => {
+  const { data, status } = await axiosClient.get<{ result: News[] }>(
+    URL + `/api/news/list`
+  );
+  return { data, status };
+};
+
+export const createNews = async (value: CreateNews) => {
+  const { data, status } = await axiosClient.post(URL + `/api/news/create`, {
+    ...value,
+  });
+  return { data, status };
+};
+export const deleteNews = async (value: { id: number }) => {
+  const { data, status } = await axiosClient.post(URL + `/api/news/delete`, {
+    ...value,
+  });
   return { data, status };
 };
