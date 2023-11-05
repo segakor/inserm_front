@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "antd";
 import Papa from "papaparse";
 import { UploadOutlined, FileTextOutlined } from "@ant-design/icons";
@@ -7,10 +7,12 @@ import { checkCSV } from "../../utils";
 
 type Props = {
   onUpdate: (projectId: string) => void;
-  projectId: string;
+  id: string;
+  type: "project" | "campaign";
+  campaingId?: string;
 };
 
-export const UploadCVS = ({ onUpdate, projectId }: Props) => {
+export const UploadCVS = ({ onUpdate, id, type, campaingId }: Props) => {
   const [file, setFile] = useState<any>(null);
   const [data, setData] = useState<any>(null);
 
@@ -23,18 +25,27 @@ export const UploadCVS = ({ onUpdate, projectId }: Props) => {
       header: true,
       skipEmptyLines: true,
       encoding: "UTF-8",
-      delimiter: ';',
+      delimiter: ";",
       complete: function (results) {
         console.log(results.data);
-        const hasError = checkCSV(results.data as { text: string; link: string }[]);
-        if(!hasError)  setData(results.data)
+        const hasError = checkCSV(
+          results.data as { text: string; link: string }[]
+        );
+        if (!hasError) setData(results.data);
       },
     });
   };
 
   const onUpload = () => {
-    handleCreateReviewList({ projectId: projectId, reviews: data }).then(() => {
-      onUpdate(projectId);
+    const target = {
+      reviews: data,
+      ...(type === "project" && { projectId: id }),
+      ...(type === "campaign" && { cardId: id }),
+    };
+
+    handleCreateReviewList({ ...target }).then(() => {
+      //NOTE: для проектов в апдейт id карточки, для компаний id кампании, т.к. карточек много
+      onUpdate(type === "project" ? id : campaingId || "");
       setData(null);
       setFile(null);
     });

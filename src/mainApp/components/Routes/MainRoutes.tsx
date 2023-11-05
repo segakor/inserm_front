@@ -87,6 +87,7 @@ export const MainRoutes = () => {
   const Help = lazy(() => import("../../Pages/Client/Help"));
   const CreateProject = lazy(() => import("../../Pages/Client/CreateProject"));
   const Referral = lazy(() => import("../../Pages/Client/Referral"));
+  const ClientNews = lazy(() => import("../../Pages/Client/News"));
 
   //admin lazy
   const AllProjects = lazy(() => import("../../Pages/Admin/AllProjects"));
@@ -108,6 +109,7 @@ export const MainRoutes = () => {
   const Statistics = lazy(() => import("../../Pages/Admin/Statistics"));
   const CreateAdmin = lazy(() => import("../../Pages/Admin/CreateAdmin"));
   const Promo = lazy(() => import("../../Pages/Admin/Promo"));
+  const News = lazy(() => import("../../Pages/Admin/News"));
 
   //common lazy
   const Payment = lazy(() => import("../../Pages/Сommon/Payment"));
@@ -201,6 +203,14 @@ export const MainRoutes = () => {
               element={
                 <Suspense fallback={<Spin />}>
                   <Referral />
+                </Suspense>
+              }
+            />
+            <Route
+              path="news"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <ClientNews />
                 </Suspense>
               }
             />
@@ -310,6 +320,16 @@ export const MainRoutes = () => {
                 <Suspense fallback={<Spin />}>
                   <ProtectedChildRoutes allowedRole={["ADMIN", "SUPERVISOR"]}>
                     <Promo />
+                  </ProtectedChildRoutes>
+                </Suspense>
+              }
+            />
+            <Route
+              path="news"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <ProtectedChildRoutes allowedRole={["ADMIN"]}>
+                    <News />
                   </ProtectedChildRoutes>
                 </Suspense>
               }

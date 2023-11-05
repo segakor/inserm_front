@@ -6,6 +6,8 @@ import {
   ExclamationCircleFilled,
   SignalFilled,
   GiftFilled,
+  SoundOutlined,
+  BulbFilled,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useLocalState } from "../../context/hooks";
@@ -142,6 +144,11 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     { label: "База знаний", key: "foundation", icon: <FoundationIcon /> },
     { label: "Контакты", key: "contacts", icon: <ContactsIcon /> },
     /* { label: "Партнерская программа", key: "referral", icon: <ReferralIcon /> }, */ //TODO: включить по готовности
+    {
+      label: "Обновления сервиса",
+      key: "news",
+      icon: <BulbFilled style={{ color: "#1579E9" }} />,
+    },
   ];
 
   const itemHost: MenuProps["items"] = [
@@ -177,12 +184,6 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
   const itemSupport: MenuProps["items"] = [
     { label: "Список проектов", key: "projects", icon: <ProjectIcon /> },
     { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },
-    {
-      label: "Замена и создание \n нового тарифа",
-      key: "settingtariff",
-      icon: <SettingIcon />,
-      style: { whiteSpace: "normal", lineHeight: "20px" },
-    },
   ];
   const itemAdmin: MenuProps["items"] = [
     { label: "Список проектов", key: "projects", icon: <ProjectIcon /> },
@@ -216,6 +217,11 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       label: "Промокоды",
       key: "promo",
       icon: <GiftFilled style={{ color: "#1579E9" }} />,
+    },
+    {
+      label: "Обновления сервиса",
+      key: "news",
+      icon: <BulbFilled style={{ color: "#1579E9" }} />,
     },
   ];
 

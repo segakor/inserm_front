@@ -1,6 +1,6 @@
 import { Form, Tooltip, Divider, Checkbox } from "antd";
 import { Title } from "../../../common/Typography";
-import { getNumWord } from "../../../utils/getCountReviews";
+import { getNumWord } from "../../../utils";
 import {
   FooterCardAmount,
   FooterWrapper,
