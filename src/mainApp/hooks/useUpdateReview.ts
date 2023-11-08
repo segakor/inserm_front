@@ -1,4 +1,4 @@
-import { updateReview } from "../../request";
+import { updateReview, updateReviewByClient } from "../../request";
 import { Reviews } from "../../types";
 import { openNotificationWithIcon } from "../../utils";
 
@@ -15,7 +15,23 @@ export const useUpdateReview = () => {
     }
   };
 
+  const handleUpdateReviewByClient = async (value: {
+    id: number;
+    text: string;
+  }) => {
+    try {
+      await updateReviewByClient(value);
+    } catch {
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: "Не удалось обновить текст отзыва",
+      });
+    }
+  };
+
   return {
     handleUpdateReview,
+    handleUpdateReviewByClient
   };
 };

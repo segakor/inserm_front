@@ -19,7 +19,12 @@ export const FilledSmallButton = styled(Button)`
   margin-bottom: 20px;
   border: 2px solid #1579e9;
   color: #ffffff;
-  :hover{
-    color:#ffffff !important
+  :hover {
+    color: #ffffff !important;
   }
+`;
+
+export const ButtonChangeRowWrapper = styled.div`
+  display: flex;
+  grid-gap: 8px;
 `;

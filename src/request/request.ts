@@ -806,3 +806,15 @@ export const deleteNews = async (value: { id: number }) => {
   });
   return { data, status };
 };
+export const updateReviewByClient = async (value: {
+  id: number;
+  text: string;
+}) => {
+  const { data, status } = await axiosClient.post(URL + `/api/review/clientUpdate`, {
+    ...value,
+  });
+  return {
+    data,
+    status,
+  };
+};
