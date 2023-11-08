@@ -11,7 +11,7 @@ import { TableCampaignChangeable } from "../Table/TableCampaignChangeable";
 import { getNumWord } from "../../utils";
 import { ButtonCopy } from "../Button/ButtonCopy";
 import { cliapbord } from "../../utils";
-import { ButtonChangeLink } from "../Button/ButtonChangeLink";
+import { ButtonChangeRow } from "../Button/ButtonChangeRow";
 import { Form, Grid, Input } from "antd";
 import { useChangeLink } from "../hooks/useChangeLink";
 import { DetailsCard } from "./Card";
@@ -158,21 +158,12 @@ const CardComponent = ({
           <Box>
             <Cercle>{keyItem}</Cercle>
             {role !== "CLIENT" && <ButtonCopy onClick={onCopyLink} />}
-            {role !== "CLIENT" && !isEdit && (
-              <ButtonChangeLink onClick={onClickEdit} type="edit" />
-            )}
-            {role !== "CLIENT" && isEdit && (
-              <ButtonChangeLink
-                onClick={onSave}
-                type="save"
-                style={{ color: "green" }}
-              />
-            )}
-            {role !== "CLIENT" && isEdit && (
-              <ButtonChangeLink
-                onClick={onReset}
-                type="cancel"
-                style={{ color: "red" }}
+            {role !== "CLIENT" && (
+              <ButtonChangeRow
+                isEdit={isEdit}
+                onClick={onClickEdit}
+                onClickCancel={onReset}
+                onClickSave={onSave}
               />
             )}
             {!isEdit && (
@@ -242,7 +233,7 @@ export const CampaignReviews = ({ group, role, id, onUpdate }: Props) => {
                 {!isMobile ? (
                   <StatusesFlat statuses={card.statuses} />
                 ) : (
-                  <DetailsCard statuses={card.statuses} withBorder/>
+                  <DetailsCard statuses={card.statuses} withBorder />
                 )}
               </WrapperStatuses>
               <CardComponent
