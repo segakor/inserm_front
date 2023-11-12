@@ -16,7 +16,7 @@ export const UploadCVS = ({ onUpdate, id, type, campaingId }: Props) => {
   const [file, setFile] = useState<any>(null);
   const [data, setData] = useState<any>(null);
 
-  const { handleCreateReviewList } = useCreateReview();
+  const { handleCreateReview } = useCreateReview();
 
   const changeHandler = (event: any) => {
     setFile(event.target.files[0]);
@@ -43,7 +43,7 @@ export const UploadCVS = ({ onUpdate, id, type, campaingId }: Props) => {
       ...(type === "campaign" && { cardId: id }),
     };
 
-    handleCreateReviewList({ ...target }).then(() => {
+    handleCreateReview({ ...target }).then(() => {
       //NOTE: для проектов в апдейт id карточки, для компаний id кампании, т.к. карточек много
       onUpdate(type === "project" ? id : campaingId || "");
       setData(null);
