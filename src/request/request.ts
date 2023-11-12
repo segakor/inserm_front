@@ -800,21 +800,33 @@ export const createNews = async (value: CreateNews) => {
   });
   return { data, status };
 };
+
 export const deleteNews = async (value: { id: number }) => {
   const { data, status } = await axiosClient.post(URL + `/api/news/delete`, {
     ...value,
   });
   return { data, status };
 };
+
 export const updateReviewByClient = async (value: {
   id: number;
   text: string;
 }) => {
-  const { data, status } = await axiosClient.post(URL + `/api/review/clientUpdate`, {
-    ...value,
-  });
+  const { data, status } = await axiosClient.post(
+    URL + `/api/review/clientUpdate`,
+    {
+      ...value,
+    }
+  );
   return {
     data,
     status,
   };
+};
+
+export const deleteMessage = async (value: { messageId: number }) => {
+  const { data, status } = await axiosClient.post(URL + `/api/chat/delete`, {
+    ...value,
+  });
+  return { data, status };
 };

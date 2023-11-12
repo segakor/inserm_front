@@ -19,14 +19,13 @@ import { useUpdateReview } from "../hooks/useUpdateReview";
 import { StatusSelect } from "../components/StatusSelect";
 import { StatusComponent } from "../components/StatusComponent";
 import { useDeleteReview } from "../hooks/useDeleteReview";
-import { UploadCVS } from "../components/UploadCVS";
 import {
   SaveOutlined,
   DeleteOutlined,
   CloseOutlined,
   EditOutlined,
 } from "@ant-design/icons";
-import { ModalCreateReview } from "../components/Modal";
+import { ModalCreateReviews } from "../components/Modal";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
@@ -371,14 +370,14 @@ export const TableProjectChangeable = ({
               <Button onClick={showModal} type="primary" style={{background:'black'}}>
                 Добавить отзыв
               </Button>
-              <UploadCVS onUpdate={onUpdate} id={projectId} type={'project'}/>
             </div>
           )}
           {isModalOpen && (
-            <ModalCreateReview
+            <ModalCreateReviews
               onClose={closeModal}
               projectId={projectId}
               onUpdate={onUpdate}
+              type={'project'}
             />
           )}
           <Table

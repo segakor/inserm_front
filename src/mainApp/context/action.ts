@@ -9,6 +9,9 @@ export const SET_LIST_OF_NOTIFY = "SET_LIST_OF_NOTIFY";
 export const REMOVE_ITEM_LIST_OF_NOTIFY = "REMOVE_ITEM_LIST_OF_NOTIFY";
 export const SET_PAGES = "SET_PAGES";
 export const SET_ACTIVE_TAB = "SET_ACTIVE_TAB";
+export const SET_IS_ACTIVE = "SET_IS_ACTIVE";
+export const SET_SORT_KEY = "SET_SORT_KEY";
+export const SET_SORT_ORDER = "SET_SORT_ORDER";
 
 export const setPersonInfo = (payload: any) => ({
   type: SET_PERSON_INFO,
@@ -50,6 +53,18 @@ export const setActiveTab = (payload: "project" | "campaign") => ({
   type: SET_ACTIVE_TAB,
   payload,
 });
+export const setIsActive = (payload: boolean) => ({
+  type: SET_IS_ACTIVE,
+  payload,
+});
+export const setSortKey = (payload: string) => ({
+  type: SET_SORT_KEY,
+  payload,
+});
+export const setSortOrder = (payload: string) => ({
+  type: SET_SORT_ORDER,
+  payload,
+});
 
 export type SetClientProject = ReturnType<typeof setClientProject>;
 export type SetClientCampaign = ReturnType<typeof setClientCampaign>;
@@ -61,6 +76,9 @@ export type SetListOfNotify = ReturnType<typeof setListOfNotify>;
 export type RemoveItemListOfNotify = ReturnType<typeof removeItemListOfNotify>;
 export type SetPages = ReturnType<typeof setPages>;
 export type SetActiveTab = ReturnType<typeof setActiveTab>;
+export type SetIsActive = ReturnType<typeof setIsActive>;
+export type SetSortKey = ReturnType<typeof setSortKey>;
+export type SetSortOrder = ReturnType<typeof setSortOrder>;
 
 export type ReducerAction =
   | SetPersonInfo
@@ -73,4 +91,7 @@ export type ReducerAction =
   | SetListOfNotify
   | RemoveItemListOfNotify
   | SetPages
-  | SetActiveTab;
+  | SetActiveTab
+  | SetIsActive
+  | SetSortKey
+  | SetSortOrder;

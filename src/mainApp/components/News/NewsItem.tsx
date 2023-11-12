@@ -26,7 +26,7 @@ export const NewsItem = ({ isAdmin, news, onDelete }: Props) => {
         <Title level={3} style={{ marginBottom: "8px" }}>
           {news.title}
         </Title>
-        <Title level={5} style={{ fontWeight: "500" }}>
+        <Title level={5} style={{ whiteSpace: "pre-line", fontWeight: 400 }}>
           {news.description}
         </Title>
         {isAdmin && (
