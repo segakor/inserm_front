@@ -204,7 +204,7 @@ export type ReqRooms = {
 };
 
 export type ReqCreateReviewList = {
-  reviews: { text: string; link: string }[];
+  reviews: { text: string; link: string; key: number|string }[];
   projectId?: string;
   cardId?: string;
 };

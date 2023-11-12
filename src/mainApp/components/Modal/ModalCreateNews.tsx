@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Button, Form, Input, Modal } from "antd";
-import { usePromo } from "../../hooks/usePromo";
 import "dayjs/locale/zh-cn";
-import { toUnixDate } from "../../../utils";
 import { News } from "../../../types";
+
+const { TextArea } = Input;
 
 type Props = {
   onClose: () => void;
@@ -16,7 +16,7 @@ export const ModalCreateNews = ({ onClose, onCreate }: Props) => {
 
   const save = async () => {
     const row = await form.validateFields();
-    onCreate({...row})
+    onCreate({ ...row });
     onClose();
   };
 
@@ -55,7 +55,7 @@ export const ModalCreateNews = ({ onClose, onCreate }: Props) => {
               },
             ]}
           >
-            <Input placeholder="Описание" />
+            <TextArea placeholder="Описание" />
           </Form.Item>
           <Button
             onClick={save}

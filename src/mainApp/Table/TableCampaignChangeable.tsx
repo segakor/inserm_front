@@ -25,8 +25,7 @@ import {
   CloseOutlined,
   EditOutlined,
 } from "@ant-design/icons";
-import { ModalCreateCampaignReview } from "../components/Modal";
-import { UploadCVS } from "../components/UploadCVS";
+import { ModalCreateReviews } from "../components/Modal";
 
 type Props = {
   reviews: ReviewsTableItem[] | undefined;
@@ -370,21 +369,15 @@ export const TableCampaignChangeable = ({
               >
                 Добавить отзыв
               </Button>
-              <UploadCVS
-                onUpdate={onUpdate}
-                id={cardId}
-                type={"campaign"}
-                campaingId={campaingId}
-              />
             </div>
           )}
           {isModalOpen && (
-            <ModalCreateCampaignReview
+            <ModalCreateReviews
               onClose={closeModal}
               cardId={cardId}
               onUpdate={onUpdate}
-              campaignId={campaingId}
-              link={link}
+              projectId={campaingId}
+              type={'campaign'}
             />
           )}
           <Table

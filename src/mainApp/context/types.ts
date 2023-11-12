@@ -10,5 +10,10 @@ export type LocalState = {
   listOfNotify: Notify[];
   pagesProject: number[];
   pagesCampaign: number[];
-  activeTab: "project" | "campaign";
+  filterProject: {
+    activeTab: "project" | "campaign";
+    isActive: boolean;
+    sortKey: string;
+    sortOrder: string;
+  };
 };

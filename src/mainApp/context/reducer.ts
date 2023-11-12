@@ -20,6 +20,12 @@ import {
   SET_PAGES,
   SetActiveTab,
   SET_ACTIVE_TAB,
+  SetIsActive,
+  SetSortKey,
+  SetSortOrder,
+  SET_IS_ACTIVE,
+  SET_SORT_KEY,
+  SET_SORT_ORDER,
 } from "./action";
 
 export const initialState: LocalState = {
@@ -32,7 +38,12 @@ export const initialState: LocalState = {
   listOfNotify: [],
   pagesProject: [],
   pagesCampaign: [],
-  activeTab:'project'
+  filterProject: {
+    activeTab: "project",
+    isActive: true,
+    sortKey: "success",
+    sortOrder: "asc",
+  },
 };
 
 function setPersonInfo(
@@ -131,10 +142,34 @@ function setPages(state: LocalState, { payload }: SetPages): LocalState {
   };
 }
 
-function setActiveTab(state: LocalState, { payload }: SetActiveTab): LocalState {
+function setActiveTab(
+  state: LocalState,
+  { payload }: SetActiveTab
+): LocalState {
   return {
     ...state,
-    activeTab: payload,
+    filterProject: { ...state.filterProject, activeTab: payload },
+  };
+}
+function setIsActive(state: LocalState, { payload }: SetIsActive): LocalState {
+  return {
+    ...state,
+    filterProject: { ...state.filterProject, isActive: payload },
+  };
+}
+function setSortKey(state: LocalState, { payload }: SetSortKey): LocalState {
+  return {
+    ...state,
+    filterProject: { ...state.filterProject, sortKey: payload },
+  };
+}
+function setSortOrder(
+  state: LocalState,
+  { payload }: SetSortOrder
+): LocalState {
+  return {
+    ...state,
+    filterProject: { ...state.filterProject, sortOrder: payload },
   };
 }
 
@@ -149,4 +184,7 @@ export const reducer = createReducer(initialState, {
   [REMOVE_ITEM_LIST_OF_NOTIFY]: removeItemListOfNotify,
   [SET_PAGES]: setPages,
   [SET_ACTIVE_TAB]: setActiveTab,
+  [SET_IS_ACTIVE]: setIsActive,
+  [SET_SORT_KEY]: setSortKey,
+  [SET_SORT_ORDER]: setSortOrder,
 });

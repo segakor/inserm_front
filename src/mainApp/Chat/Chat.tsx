@@ -8,6 +8,8 @@ import { useIOSocketChat } from "../hooks/useIOSocketChat";
 import { useDispatch, useLocalState } from "../context/hooks";
 import { removeItemListOfNotify } from "../context/action";
 import { ChatInput } from "./ChatInput";
+import { deleteMessage } from "../../request";
+import { DeleteFilled } from "@ant-design/icons";
 
 const Wrapper = styled.div`
   display: flex;
@@ -60,7 +62,7 @@ const MessageTitle = styled.div`
 `;
 const StyledSpin = styled(Spin)`
   margin-top: 150px;
-`
+`;
 
 type Props = {
   chatType: "client" | "support";
@@ -106,6 +108,13 @@ export const Chat = ({ chatType, roomId, isMobile }: Props) => {
     }
   };
 
+  const onDeleteMessage = (messageId: number) => {
+    deleteMessage({ messageId }).then(() => {
+      const data = messages.filter((item: any) => item.id !== messageId);
+      setMessages(data);
+    });
+  };
+
   return (
     <Wrapper>
       <MessageBox ref={element}>
@@ -123,12 +132,25 @@ export const Chat = ({ chatType, roomId, isMobile }: Props) => {
                         fontWeight: 400,
                       }}
                     >
-                      {getDateWithTime({ date: item.date })}
+                      {getDateWithTime({ date: item.date })}{" "}
                     </Title>
                   </MessageTitle>
-                  <Title level={5} style={{ fontWeight: 400 }}>
+                  <Title
+                    level={5}
+                    style={{ fontWeight: 400, whiteSpace: "pre-line" }}
+                  >
                     {item.text}
                   </Title>
+                  {!item.isClient && (
+                    <DeleteFilled
+                      onClick={() => onDeleteMessage(item.id)}
+                      style={{
+                        color: "red",
+                        cursor: "pointer",
+                        float: "right",
+                      }}
+                    />
+                  )}
                 </OutputMessage>
               </OutputMessageWrapper>
             ) : (
@@ -144,7 +166,10 @@ export const Chat = ({ chatType, roomId, isMobile }: Props) => {
                     {getDateWithTime({ date: item.date })}
                   </Title>
                 </MessageTitle>
-                <Title level={5} style={{ fontWeight: 400 }}>
+                <Title
+                  level={5}
+                  style={{ fontWeight: 400, whiteSpace: "pre-line" }}
+                >
                   {item.text}
                 </Title>
               </InputMessage>

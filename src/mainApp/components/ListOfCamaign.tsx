@@ -1,24 +1,14 @@
-import { useEffect, useState } from "react";
-import { Radio, RadioChangeEvent, Select, Spin } from "antd";
+import { useEffect } from "react";
+import { Spin } from "antd";
 import { FlatCardCampaign } from "./Card";
 import { useGetAllCampaign } from "../hooks/useGetAllCampaign";
-import { optionsKey, optionsSort, optionsStatusProject } from "../../constants";
-import styled from "styled-components";
 
-const WrapperPanel = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-  grid-gap: 16px;
-  flex-wrap: wrap;
-`;
+import { useLocalState } from "../context/hooks";
 
 export const ListOfCampaign = ({ inputSearch }: { inputSearch?: string }) => {
-  const [isActive, setIsActive] = useState(true);
-  const [sortOrder, setSortOrder] = useState("asc");
-  const [sortKey, setSortKey] = useState("success");
-
-  //TODO:зарефакторить!!!
+  const {
+    filterProject: { isActive, sortKey, sortOrder },
+  } = useLocalState();
 
   const { allCampaign, isLoading, handleGetCampaign } = useGetAllCampaign(
     isActive,
@@ -33,48 +23,12 @@ export const ListOfCampaign = ({ inputSearch }: { inputSearch?: string }) => {
     return item;
   });
 
-  const onChange = ({ target: { value } }: RadioChangeEvent) => {
-    setIsActive(value);
-  };
-
-  const hendleChagneSortKey = (e: string) => {
-    setSortKey(e);
-  };
-  const hendleChagneSortOrder = (e: string) => {
-    setSortOrder(e);
-  };
-
   useEffect(() => {
     handleGetCampaign();
   }, [sortOrder, sortKey, isActive]);
 
   return (
     <>
-      <WrapperPanel>
-        <Radio.Group
-          options={optionsStatusProject}
-          onChange={onChange}
-          value={isActive}
-          optionType="button"
-          buttonStyle="solid"
-        />
-        <div>
-          <Select
-            style={{ width: 140 }}
-            defaultValue={"success"}
-            options={optionsKey}
-            onChange={hendleChagneSortKey}
-          />
-        </div>
-        <div>
-          <Select
-            style={{ width: 150 }}
-            defaultValue="asc"
-            options={optionsSort}
-            onChange={hendleChagneSortOrder}
-          />
-        </div>
-      </WrapperPanel>
       {isLoading ? (
         <Spin />
       ) : (

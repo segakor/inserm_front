@@ -29,12 +29,12 @@ export const ChatInput = ({
   const [value, setValue] = useState("");
   const [isOpenEmoji, setOpenEmoji] = useState(false);
 
-  const handleKeyDown = (event: any) => {
+  /* const handleKeyDown = (event: any) => {
     if (event.key === "Enter" && value) {
       onSendMessage(value);
       setValue("");
     }
-  };
+  }; */
 
   const sendMessage = () => {
     onSendMessage(value);
@@ -55,7 +55,7 @@ export const ChatInput = ({
         onChange={(e) => setValue(e.target.value)}
         placeholder="Напишите сообщение..."
         style={{ width: "100%" }}
-        onKeyDown={handleKeyDown}
+        /* onKeyDown={handleKeyDown} */
       />
       {!isMobile && (
         <Tooltip
