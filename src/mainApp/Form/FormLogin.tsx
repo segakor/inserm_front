@@ -7,6 +7,7 @@ import { useResetPassword } from "../hooks/useResetPassword";
 import { useRegistartion } from "../hooks/useRegistration";
 import ReCAPTCHA from "react-google-recaptcha";
 import { localeLogin } from "../../constants";
+import { openNotificationWithIcon } from "../../utils";
 
 const Wrapper = styled.div`
   background-color: #ffffff;
@@ -63,7 +64,6 @@ export const FormLogin = () => {
   const [form] = Form.useForm();
   const email = Form.useWatch("username", form);
   const password = Form.useWatch("password", form);
-  const password_repeat = Form.useWatch("password_repeat", form);
 
   const [typeForm, setTypeForm] = useState<
     "login" | "restore" | "registration"
@@ -80,31 +80,6 @@ export const FormLogin = () => {
 
   const isLoading = isLoadingRegistration || isLoadingLogin;
 
-  const onSubmit = () => {
-    const emailL = email.toLowerCase();
-
-    if (typeForm === "login") {
-      handleLogin({ email: emailL, password });
-    }
-    if (typeForm === "registration") {
-      handleRegistartion({ email: emailL, password });
-    }
-    if (typeForm === "restore") {
-      form.setFieldsValue({ password: "" });
-      handleResetPassword({ email: emailL });
-    }
-  };
-
-  const isDisableSubmit = () => {
-    if (typeForm === "login") {
-      return !(email && password);
-    }
-    if (typeForm === "registration") {
-      return !(email && password === password_repeat && isVerified);
-    }
-    return !email;
-  };
-
   const title = localeLogin.find((item) => item.type === typeForm);
 
   const onChangeCapcha = (value: any) => {
@@ -114,6 +89,37 @@ export const FormLogin = () => {
   const handleBack = () => {
     setTypeForm("login");
     setIsVerified(false);
+  };
+
+  const onFinish = () => {
+    const emailL = email.toLowerCase();
+
+    if (typeForm === "login") {
+      handleLogin({ email: emailL, password });
+    }
+    
+    if (typeForm === "registration") {
+      isVerified
+        ? handleRegistartion({ email: emailL, password })
+        : openNotificationWithIcon({
+            type: "error",
+            message: "",
+            description: `CAPTCHA не пройдена`,
+          });
+    }
+
+    if (typeForm === "restore") {
+      form.setFieldsValue({ password: "" });
+      handleResetPassword({ email: emailL });
+    }
+  };
+
+  const onFinishFailed = () => {
+    openNotificationWithIcon({
+      type: "error",
+      message: "",
+      description: `Заполните все поля`,
+    });
   };
 
   return (
@@ -128,6 +134,8 @@ export const FormLogin = () => {
           autoComplete="on"
           form={form}
           disabled={isLoading}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
         >
           {typeForm === "login" && (
             <>
@@ -242,8 +250,6 @@ export const FormLogin = () => {
               type="primary"
               htmlType="submit"
               block
-              onClick={onSubmit}
-              disabled={isDisableSubmit()}
               loading={isLoading}
             >
               {title?.submitTitle}

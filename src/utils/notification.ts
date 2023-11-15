@@ -22,7 +22,7 @@ export const openNotificationWithIcon = ({
     notification[type]({
       duration: 3,
       placement: placement,
-      message: message,
+      message: type === 'error' && 'Ошибка',
       description: description,
     });
 };
