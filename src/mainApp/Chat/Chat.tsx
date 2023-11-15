@@ -24,7 +24,7 @@ const MessageBox = styled.div`
   overflow: auto;
   height: 100vh;
   h5 {
-    font-size: 20px !important;
+    font-size: 18px !important;
   }
   @media (max-width: 768px) {
     h5 {

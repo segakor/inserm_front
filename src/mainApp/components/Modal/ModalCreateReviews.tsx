@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Button,
+  Divider,
   Form,
   FormInstance,
   Input,
@@ -101,16 +102,22 @@ const EditableCell: React.FC<EditableCellProps> = ({
           },
         ]}
       >
-        <TextArea autoSize ref={inputRef} onPressEnter={save} onBlur={save} />
+        <TextArea
+          autoSize
+          ref={inputRef}
+          onPressEnter={save}
+          onBlur={save}
+          placeholder={typeof title === "string" ? title : ""}
+        />
       </Form.Item>
     ) : (
-      <div
-        className="editable-cell-value-wrap"
-        style={{ paddingRight: 24 }}
+      <Input
         onClick={toggleEdit}
-      >
-        {children}
-      </div>
+        onBlur={toggleEdit}
+        onFocus={toggleEdit}
+        placeholder={typeof title === "string" ? title : ""}
+        value={Array.isArray(children) ? children[1] : ""}
+      />
     );
   }
 
@@ -137,7 +144,7 @@ export const ModalCreateReviews = ({
   const { handleCreateReview } = useCreateReview();
 
   const [dataSource, setDataSource] = useState<DataType[]>([
-    { key: 0, text: "Текст отзыва...", link: "Ссылка на отзыв..." },
+    { key: 0, text: "", link: "" },
   ]);
 
   const [count, setCount] = useState(1);
@@ -185,8 +192,8 @@ export const ModalCreateReviews = ({
   const handleAdd = () => {
     const newData: DataType = {
       key: count,
-      text: "Текст отзыва...",
-      link: "Ссылка на отзыв...",
+      text: "",
+      link: "",
     };
     setDataSource([...dataSource, newData]);
     setCount(count + 1);
@@ -255,13 +262,6 @@ export const ModalCreateReviews = ({
         width={1024}
         okButtonProps={{ disabled: !dataSource.length }}
       >
-        <Button
-          onClick={handleAdd}
-          type="primary"
-          style={{ marginBottom: 16, float: "right" }}
-        >
-          Еще
-        </Button>
         <Table
           components={components}
           rowClassName={() => "editable-row"}
@@ -269,6 +269,13 @@ export const ModalCreateReviews = ({
           dataSource={dataSource}
           columns={mergedColumns as ColumnTypes}
           pagination={false}
+          footer={() => (
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button type="primary" onClick={handleAdd}>
+                Еще
+              </Button>
+            </div>
+          )}
         />
       </Modal>
     </>
