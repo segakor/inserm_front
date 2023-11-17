@@ -19,6 +19,7 @@ type Props = {
   cardId?: string;
   onUpdate: (project: string) => void;
   type: "project" | "campaign";
+  link?: string;
 };
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
@@ -140,11 +141,12 @@ export const ModalCreateReviews = ({
   cardId,
   onUpdate,
   type,
+  link,
 }: Props) => {
   const { handleCreateReview } = useCreateReview();
 
   const [dataSource, setDataSource] = useState<DataType[]>([
-    { key: 0, text: "", link: "" },
+    { key: 0, text: "", link: link || '' },
   ]);
 
   const [count, setCount] = useState(1);
@@ -170,7 +172,7 @@ export const ModalCreateReviews = ({
     {
       title: "Текст",
       dataIndex: "text",
-      width: type === "campaign" ? "100%" : "50%",
+      width: /* type === "campaign" ? "100%" : */ "50%",
       editable: true,
     },
     {
@@ -193,7 +195,7 @@ export const ModalCreateReviews = ({
     const newData: DataType = {
       key: count,
       text: "",
-      link: "",
+      link: link || '',
     };
     setDataSource([...dataSource, newData]);
     setCount(count + 1);
@@ -233,10 +235,10 @@ export const ModalCreateReviews = ({
     };
   });
 
-  const mergedColumns =
+  /* const mergedColumns =
     type === "campaign"
       ? columns.filter((col) => col.dataIndex !== "link")
-      : columns;
+      : columns; */
 
   const onSave = () => {
     const targetValue = {
@@ -267,7 +269,7 @@ export const ModalCreateReviews = ({
           rowClassName={() => "editable-row"}
           bordered
           dataSource={dataSource}
-          columns={mergedColumns as ColumnTypes}
+          columns={columns as ColumnTypes}
           pagination={false}
           footer={() => (
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
