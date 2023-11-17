@@ -378,6 +378,7 @@ export const TableCampaignChangeable = ({
               onUpdate={onUpdate}
               projectId={campaingId}
               type={'campaign'}
+              link={link}
             />
           )}
           <Table
