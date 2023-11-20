@@ -227,7 +227,7 @@ export const TableProjectChangeable = ({
       render: (_: any, record: ReviewsTableItem) => (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <div>
-          {(record.isEdited || record.is_edited) && (
+          {(record?.isEdited || record?.is_edited) && (
             <ExclamationCircleFilled
               style={{ color: "orange", marginRight: 8 }}
             />
