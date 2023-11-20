@@ -79,8 +79,8 @@ export type Reviews = {
   is_paid?: boolean;
   tg?: string;
   key: string;
-  is_edited: boolean // project
-  isEdited: boolean // campaign
+  is_edited?: boolean // project
+  isEdited?: boolean // campaign
 };
 
 export type ReqGetProjectDetails = {
