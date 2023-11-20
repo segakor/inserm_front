@@ -7,7 +7,6 @@ type Props = {
   onClick: () => void;
   onClickSave: () => void;
   onClickCancel: () => void;
-  style?: React.CSSProperties;
   isEdit: boolean;
 };
 
@@ -15,7 +14,6 @@ export const ButtonChangeRow = ({
   onClick,
   onClickSave,
   onClickCancel,
-  style,
   isEdit,
 }: Props) => {
   return (

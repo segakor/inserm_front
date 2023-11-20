@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, ConfigProvider, Empty, Form, Input } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Reviews } from "../../types";
@@ -57,6 +57,10 @@ export const TableProject = ({ reviews, isLoading, withoutLink }: Props) => {
   const [editingKey, setEditingKey] = useState("");
 
   const [dataSource, setDataSource] = useState(reviews);
+
+  useEffect(() => {
+    setDataSource(reviews);
+  }, [reviews]);
 
   const { handleUpdateReviewByClient } = useUpdateReview();
 
@@ -135,7 +139,9 @@ export const TableProject = ({ reviews, isLoading, withoutLink }: Props) => {
             >
               <TextArea maxLength={1000} autoSize showCount />
             </Form.Item>
-            <div style={{ float: "right", marginTop: editable? '24px':'8px' }}>
+            <div
+              style={{ float: "right", marginTop: editable ? "24px" : "8px" }}
+            >
               {record.status === "wait" && (
                 <ButtonChangeRow
                   isEdit={editable}

@@ -24,6 +24,7 @@ import {
   DeleteOutlined,
   CloseOutlined,
   EditOutlined,
+  ExclamationCircleFilled,
 } from "@ant-design/icons";
 import { ModalCreateReviews } from "../components/Modal";
 
@@ -212,12 +213,15 @@ export const TableCampaignChangeable = ({
       dataIndex: "text",
       width: "20%",
       editable: isAdmin,
-      render: (text: string) => (
+      render: (_: any, record: ReviewsTableItem) => (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <div>
-          <span>{text}</span>
+          {(record.isEdited || record.is_edited) && (
+            <ExclamationCircleFilled style={{ color: "orange", marginRight:8 }} />
+          )}
+          <span>{record.text}</span>
           <ButtonCopy
-            onClick={() => cliapbord(text)}
+            onClick={() => cliapbord(record.text)}
             style={{ marginLeft: 10 }}
           />
         </div>
@@ -377,7 +381,7 @@ export const TableCampaignChangeable = ({
               cardId={cardId}
               onUpdate={onUpdate}
               projectId={campaingId}
-              type={'campaign'}
+              type={"campaign"}
               link={link}
             />
           )}

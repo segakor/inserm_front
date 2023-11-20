@@ -24,6 +24,7 @@ import {
   DeleteOutlined,
   CloseOutlined,
   EditOutlined,
+  ExclamationCircleFilled,
 } from "@ant-design/icons";
 import { ModalCreateReviews } from "../components/Modal";
 
@@ -211,7 +212,10 @@ export const TableProjectChangeable = ({
       render: (text: string) => (
         <div style={{ display: "inline" }}>
           <a onClick={() => window.open(text, "_blank")}>{text}</a>
-          <ButtonCopy onClick={() => cliapbord(text)} style={{marginLeft:10}}/>
+          <ButtonCopy
+            onClick={() => cliapbord(text)}
+            style={{ marginLeft: 10 }}
+          />
         </div>
       ),
     },
@@ -220,11 +224,19 @@ export const TableProjectChangeable = ({
       dataIndex: "text",
       width: "20%",
       editable: isAdmin,
-      render: (text: string) => (
+      render: (_: any, record: ReviewsTableItem) => (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <div>
-          <span>{text}</span>
-          <ButtonCopy onClick={() => cliapbord(text)} style={{marginLeft:10}}/>
+          {(record.isEdited || record.is_edited) && (
+            <ExclamationCircleFilled
+              style={{ color: "orange", marginRight: 8 }}
+            />
+          )}
+          <span>{record.text}</span>
+          <ButtonCopy
+            onClick={() => cliapbord(record.text)}
+            style={{ marginLeft: 10 }}
+          />
         </div>
       ),
     },
@@ -367,7 +379,11 @@ export const TableProjectChangeable = ({
                 gridGap: "8px",
               }}
             >
-              <Button onClick={showModal} type="primary" style={{background:'black'}}>
+              <Button
+                onClick={showModal}
+                type="primary"
+                style={{ background: "black" }}
+              >
                 Добавить отзыв
               </Button>
             </div>
@@ -377,7 +393,7 @@ export const TableProjectChangeable = ({
               onClose={closeModal}
               projectId={projectId}
               onUpdate={onUpdate}
-              type={'project'}
+              type={"project"}
             />
           )}
           <Table
