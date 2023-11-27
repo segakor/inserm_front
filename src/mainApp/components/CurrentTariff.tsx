@@ -8,21 +8,23 @@ import { ModalСonfirmation } from "./Modal";
 import { useGetClientTariff } from "../hooks/useGetClientTariff";
 import { Spin } from "antd";
 
-const TariffWrapper = styled.div`
-  width: 460px;
-  @media (max-width: 768px) {
-    width: auto;
-    display: flex;
-    flex-direction: column;
-  }
-`;
-
 const Wrapper = styled.div`
   display: flex;
   grid-gap: 40px;
   width: auto;
   flex-wrap: wrap;
   @media (max-width: 768px) {
+    flex-direction: column;
+    width: auto;
+    flex-wrap: nowrap;
+  }
+`;
+
+const TariffWrapper = styled.div`
+  width: 460px;
+  @media (max-width: 768px) {
+    width: auto;
+    display: flex;
     flex-direction: column;
   }
 `;

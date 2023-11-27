@@ -16,6 +16,10 @@ const Row = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    grid-gap: 8px;
+  }
 `;
 const SwitchWrapper = styled.div`
   display: flex;
@@ -24,7 +28,6 @@ const SwitchWrapper = styled.div`
 
 const Card = styled.div`
   width: 130px;
-  height: 100px;
   border-radius: 10px;
   padding: 12px 20px 12px 20px;
   display: flex;
@@ -32,15 +35,7 @@ const Card = styled.div`
   grid-gap: 14px;
   @media (max-width: 768px) {
     padding: 8px 18px 8px 18px;
-    grid-gap: 10px;
-    width: 100px;
-    height: 85px;
-    h1 {
-      font-size: 8px !important;
-    }
-    h4 {
-      font-size: 12px !important;
-    }
+    width: 100%;
   }
 `;
 
@@ -100,38 +95,33 @@ export const TariffItemCampaign = ({
           {!period ? getRangeDate({ start, end }) : <>~ {period} мес.</>}
         </Title>
       </Row>
-      {
-        <Row style={{ marginBottom: 20 }}>
-          <Card1>
-            <Title
-              style={{ fontSize: 14, fontWeight: "400", color: "#FFFFFF" }}
-            >
-              Количество отзывов
-            </Title>
-            <Title level={4} style={{ color: "#FFFFFF", fontWeight: "800" }}>
-              {count}
-            </Title>
-          </Card1>
-          <Card2>
-            <Title
-              style={{ fontSize: 14, fontWeight: "400", color: "#8E8E8E" }}
-            >
-              Стоимость за отзыв
-            </Title>
-            <Title level={4} style={{ fontWeight: "800" }}>
-              {period ? <>{price} ₽</> : <>{price / count} ₽</>}
-            </Title>
-          </Card2>
-          <Card3>
-            <Title style={{ fontSize: 14, fontWeight: "400" }}>
-              Общая стоимость
-            </Title>
-            <Title level={4} style={{ color: "#1579E9", fontWeight: "800" }}>
-              {period ? price * count : price}{<> ₽</>}
-            </Title>
-          </Card3>
-        </Row>
-      }
+      <Row style={{ marginBottom: 20 }}>
+        <Card1>
+          <Title style={{ fontSize: 14, fontWeight: "400", color: "#FFFFFF" }}>
+            Количество отзывов
+          </Title>
+          <Title level={5} style={{ color: "#FFFFFF", fontWeight: "800" }}>
+            {count}
+          </Title>
+        </Card1>
+        <Card2>
+          <Title style={{ fontSize: 14, fontWeight: "400", color: "#8E8E8E" }}>
+            Стоимость за отзыв
+          </Title>
+          <Title level={5} style={{ fontWeight: "800" }}>
+            {period ? <>{price} ₽</> : <>{price / count} ₽</>}
+          </Title>
+        </Card2>
+        <Card3>
+          <Title style={{ fontSize: 14, fontWeight: "400" }}>
+            Общая стоимость
+          </Title>
+          <Title level={5} style={{ color: "#1579E9", fontWeight: "800" }}>
+            {period ? price * count : price}
+            {<> ₽</>}
+          </Title>
+        </Card3>
+      </Row>
       <SwitchWrapper>
         <Switch
           checked={autoPay}

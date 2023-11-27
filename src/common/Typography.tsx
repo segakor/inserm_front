@@ -12,16 +12,9 @@ type Props = {
   children: string |  React.ReactNode;
 };
 
-/* type PropsTitle = {
-  children: React.ReactNode;
-  level?: 1 | 2 | 5 | 3 | 4 | undefined;
-  style?: React.CSSProperties | undefined;
-}; */
-
 const StyledHeader = styled(Title)`
   font-size: 30px !important;
   font-weight: 800 !important;
-  line-height: 130% !important;
   margin-bottom: 40px !important;
   @media (max-width: 768px) {
     font-size: 20px !important;
@@ -32,7 +25,3 @@ const StyledHeader = styled(Title)`
 export const Header = ({ children }: Props) => {
   return <StyledHeader>{children}</StyledHeader>;
 };
-
-/* export const Title1 = ({ children, level, style }: PropsTitle) => {
-  return <Title level={level} style={style}>{children}</Title>;
-}; */

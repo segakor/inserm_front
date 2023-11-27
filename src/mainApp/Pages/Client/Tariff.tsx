@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { CurrentTariff } from "../../components/CurrentTariff";
 import { ButtonCreateNewProject } from "../../Button/ButtonCreateNewProject";
-import { useLocalState } from "../../context/hooks";
 
 const Page = styled.div`
   display: flex;

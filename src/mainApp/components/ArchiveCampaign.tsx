@@ -48,9 +48,10 @@ const Link = styled.div`
   padding: 12px 20px;
   background: #1579e9;
   border-radius: 10px;
-  color: white;
   margin-bottom: 20px;
-  cursor: pointer;
+  a {
+    color: white;
+  }
 `;
 
 type ReviewsTableItem = Reviews & {
@@ -75,7 +76,7 @@ export const ArchiveCampaign = ({ date, statuses, reviews, link }: Props) => {
         >
           {getDate({ date })}
         </Title>
-        <HeaderAction>
+        <HeaderAction onClick={() => setIsOpen(!isOpen)}>
           <div>
             {!isOpen ? (
               <PlusCircleOutlined style={{ color: "#1579E9" }} />
@@ -84,10 +85,7 @@ export const ArchiveCampaign = ({ date, statuses, reviews, link }: Props) => {
             )}
           </div>
           <div>
-            <Title
-              style={{ fontSize: "14px", fontWeight: "700" }}
-              onClick={() => setIsOpen(!isOpen)}
-            >
+            <Title style={{ fontSize: "14px", fontWeight: "700" }}>
               {!isOpen ? "Смотреть отчет" : "Закрыть отчет"}
             </Title>
           </div>
@@ -137,7 +135,9 @@ export const ArchiveCampaign = ({ date, statuses, reviews, link }: Props) => {
       </DetailCard>
       {isOpen && (
         <>
-          <Link>{link}</Link>
+          <Link>
+            <a target="_blank" href={link}>{link}</a>
+          </Link>
           <TableProject reviews={reviews} isLoading={false} withoutLink />
         </>
       )}

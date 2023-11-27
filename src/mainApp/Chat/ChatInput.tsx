@@ -29,16 +29,16 @@ export const ChatInput = ({
   const [value, setValue] = useState("");
   const [isOpenEmoji, setOpenEmoji] = useState(false);
 
-  /* const handleKeyDown = (event: any) => {
-    if (event.key === "Enter" && value) {
-      onSendMessage(value);
-      setValue("");
-    }
-  }; */
-
   const sendMessage = () => {
     onSendMessage(value);
     setValue("");
+  };
+
+  const handleKeyDown = (event: any) => {
+    if (event.which === 13 && !event.shiftKey) {
+      sendMessage();
+      event.preventDefault();
+    }
   };
 
   const handleEmojiClick = (emojiObject: any) => {
@@ -55,7 +55,7 @@ export const ChatInput = ({
         onChange={(e) => setValue(e.target.value)}
         placeholder="Напишите сообщение..."
         style={{ width: "100%" }}
-        /* onKeyDown={handleKeyDown} */
+        onKeyDown={handleKeyDown}
       />
       {!isMobile && (
         <Tooltip
@@ -86,7 +86,13 @@ export const ChatInput = ({
         >
           <Button
             shape="circle"
-            icon={isOpenEmoji ? <SmileTwoTone /> : <SmileOutlined />}
+            icon={
+              isOpenEmoji ? (
+                <SmileTwoTone style={{ margin: "2px 0 0 1px" }} />
+              ) : (
+                <SmileOutlined style={{ margin: "2px 0 0 1px" }} />
+              )
+            }
             onClick={() => setOpenEmoji((prev) => !prev)}
           />
         </Tooltip>
@@ -95,7 +101,7 @@ export const ChatInput = ({
         type="primary"
         disabled={!value}
         onClick={sendMessage}
-        icon={<SendOutlined />}
+        icon={<SendOutlined style={{ margin: "2px 0 0 1px" }} />}
       />
     </Input>
   );
