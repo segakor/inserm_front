@@ -4,7 +4,7 @@ import { Title } from "../../common/Typography";
 import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { Statuses } from "../../types";
 import { getRangeDate } from "../../utils";
-import { useGetArchiveReviews } from '../hooks/useGetArchiveReviews';
+import { useGetArchiveReviews } from "../hooks/useGetArchiveReviews";
 import { TableProject } from "../Table/TableProject";
 
 const Wrapper = styled.div`
@@ -56,7 +56,7 @@ type Props = {
 export const ArchiveProject = ({ id, start, end, statuses }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { reviews, isLoading } = useGetArchiveReviews(id.toString())
+  const { reviews, isLoading } = useGetArchiveReviews(id.toString());
 
   return (
     <Wrapper>
@@ -66,7 +66,7 @@ export const ArchiveProject = ({ id, start, end, statuses }: Props) => {
         >
           {getRangeDate({ start, end })}
         </Title>
-        <HeaderAction>
+        <HeaderAction onClick={() => setIsOpen(!isOpen)}>
           <div>
             {!isOpen ? (
               <PlusCircleOutlined style={{ color: "#1579E9" }} />
@@ -75,10 +75,7 @@ export const ArchiveProject = ({ id, start, end, statuses }: Props) => {
             )}
           </div>
           <div>
-            <Title
-              style={{ fontSize: "14px", fontWeight: "700" }}
-              onClick={() => setIsOpen(!isOpen)}
-            >
+            <Title style={{ fontSize: "14px", fontWeight: "700" }}>
               {!isOpen ? "Смотреть отчет" : "Закрыть отчет"}
             </Title>
           </div>

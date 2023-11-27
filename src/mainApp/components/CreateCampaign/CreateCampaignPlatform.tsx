@@ -159,11 +159,17 @@ export const CreateCampaignPlatform = () => {
           </>
         )}
         {!!selectedArea.length && formValue?.projectName && (
-          <ListOfAreaItem
-            selectedArea={selectedArea}
-            priceForOne={priceForOne}
-            form={form}
-          />
+          <>
+            <StyledTitle level={5}>
+              4. Укажите ссылки на карточки вашей компании и количество отзывов
+              для каждой карточки
+            </StyledTitle>
+            <ListOfAreaItem
+              selectedArea={selectedArea}
+              priceForOne={priceForOne}
+              form={form}
+            />
+          </>
         )}
         {count > 0 && (
           <>
@@ -172,7 +178,7 @@ export const CreateCampaignPlatform = () => {
               count={count}
               email={formValue?.email || ""}
             />
-            <StyledTitle level={5}>4. Выберите способ оплаты</StyledTitle>
+            <StyledTitle level={5}>5. Выберите способ оплаты</StyledTitle>
             <PaymentType />
             {formValue.paymentType !== "cashless" && <RecurentSwitch />}
             {formValue.paymentType === "cashless" && <CashlessBlock />}

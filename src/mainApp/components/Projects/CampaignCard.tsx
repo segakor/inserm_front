@@ -87,7 +87,7 @@ export const CampaignCard = (campaign: Campaign) => {
             {isPaid ? "Оплачен" : "Ожидает оплаты"}
           </Title>
         </Status>
-        <CardBlock color={"#585858"}>
+        <CardBlock color={"#2CAE97"}>
           <Header>
             <Title
               level={5}

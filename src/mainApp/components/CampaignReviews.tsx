@@ -110,7 +110,7 @@ const CardComponent = ({
   id: string;
   onUpdate: (campaignId: string) => void;
 }) => {
-  const [chevron, setChevron] = useState(false);
+  const [chevron, setChevron] = useState(role === "CLIENT" ? true : false);
   const [isEdit, setIsEdit] = useState(false);
 
   const [form] = Form.useForm();
@@ -147,8 +147,8 @@ const CardComponent = ({
     cliapbord(card.link);
   };
 
-  useEffect(() => {
-    setChevron(false);
+    useEffect(() => {
+    role !== 'CLIENT' && setChevron(false);
   }, [id]);
 
   return (

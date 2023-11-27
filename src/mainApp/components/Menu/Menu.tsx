@@ -135,6 +135,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       icon: <ProjectIcon />,
       onTitleClick: () => {
         navigation(`/app/client/projects`);
+        onHeaderClose?.()
         setSelectedKeys([""]);
       },
       children: projectItem || [],
@@ -303,6 +304,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
             items={setItem()}
             mode="inline"
             selectedKeys={selectedKeys}
+            style={{borderInline:'none'}}
           />
           <div>
             {LinkTg}
@@ -311,6 +313,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
               mode="inline"
               selectedKeys={selectedKeys}
               items={filteredItemsBottom}
+              style={{borderInline:'none'}}
             />
           </div>
         </StyledMenuContainer>
