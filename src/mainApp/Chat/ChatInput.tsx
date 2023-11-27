@@ -88,9 +88,9 @@ export const ChatInput = ({
             shape="circle"
             icon={
               isOpenEmoji ? (
-                <SmileTwoTone style={{ margin: "2px 0 0 1px" }} />
+                <SmileTwoTone style={{ margin: "3px 0 0 0" }} />
               ) : (
-                <SmileOutlined style={{ margin: "2px 0 0 1px" }} />
+                <SmileOutlined style={{ margin: "3px 0 0 0" }} />
               )
             }
             onClick={() => setOpenEmoji((prev) => !prev)}
@@ -101,7 +101,7 @@ export const ChatInput = ({
         type="primary"
         disabled={!value}
         onClick={sendMessage}
-        icon={<SendOutlined style={{ margin: "2px 0 0 1px" }} />}
+        icon={<SendOutlined style={{ margin: "3.5px 0px 0px 2px" }} />}
       />
     </Input>
   );
