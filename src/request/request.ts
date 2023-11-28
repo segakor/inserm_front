@@ -830,3 +830,13 @@ export const deleteMessage = async (value: { messageId: number }) => {
   });
   return { data, status };
 };
+
+export const returnArchived = async (value: { id: number }) => {
+  const { data, status } = await axiosClient.post(
+    URL + `/api/campaign/returnArchived`,
+    {
+      ...value,
+    }
+  );
+  return { data, status };
+};

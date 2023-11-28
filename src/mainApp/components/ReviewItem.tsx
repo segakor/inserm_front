@@ -23,6 +23,8 @@ const Wrapper = styled.div`
   grid-gap: 10px;
   a {
     text-decoration: underline;
+    font-weight: bold;
+    font-size: 12px;
   }
   font-size: 12px;
   white-space: pre-line;
@@ -33,7 +35,7 @@ const Row = styled.div`
   justify-content: space-between;
 `;
 
-const Cercle = styled.div`
+const Cercle = styled.b`
   min-width: 25px;
   min-height: 25px;
   background: #313131;
@@ -117,12 +119,12 @@ export const ReviewItem = ({ item }: Props) => {
         )}
       </Form>
       <Row>
-        <StatusComponent status={item.status} />
-        <div>
+        <StatusComponent status={item.status} withOutBorder/>
+        <b>
           {typeof item.date === "number"
             ? getDate({ date: item.date })
             : item.date}
-        </div>
+        </b>
       </Row>
     </Wrapper>
   );

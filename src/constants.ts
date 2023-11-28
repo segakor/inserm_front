@@ -115,6 +115,7 @@ export const confirmationText = {
   brief: "Все несохраненные данные будут утеряны",
   removeCampaign:
     "Вы точно хотите удалить проект? Восстановить его обратно не получится.",
+  removedArchived: "Вы уверены, что хотите удалить последнюю архивацию?",
 };
 
 export const optionsSort = [
