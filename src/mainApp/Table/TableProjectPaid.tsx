@@ -257,6 +257,7 @@ export const TableProjectPaid = ({
           tableLayout={"fixed"}
           scroll={{ x: 1000 }}
           pagination = {{defaultPageSize: 50}}
+          style={{ whiteSpace: "pre-line" }}
         />
       </ConfigProvider>
       <Form.Item name={"is_paid"} hidden>

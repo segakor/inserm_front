@@ -102,6 +102,7 @@ export const TableProjectNotChangeable = ({ reviews, isLoading }: Props) => {
           loading={isLoading}
           tableLayout={"fixed"}
           scroll={{ x: 1000 }}
+          style={{ whiteSpace: "pre-line" }}
         />
       </ConfigProvider>
     </Form>

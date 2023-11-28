@@ -409,6 +409,7 @@ export const TableProjectChangeable = ({
             loading={isLoading}
             tableLayout={"fixed"}
             scroll={{ x: 1000 }}
+            style={{ whiteSpace: "pre-line" }}
           />
         </ConfigProvider>
         <Form.Item name={"in_work"} hidden>

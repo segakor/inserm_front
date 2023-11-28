@@ -217,7 +217,9 @@ export const TableCampaignChangeable = ({
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <div>
           {(record?.isEdited || record?.is_edited) && (
-            <ExclamationCircleFilled style={{ color: "orange", marginRight:8 }} />
+            <ExclamationCircleFilled
+              style={{ color: "orange", marginRight: 8 }}
+            />
           )}
           <span>{record.text}</span>
           <ButtonCopy
@@ -398,7 +400,7 @@ export const TableCampaignChangeable = ({
             loading={isLoading}
             tableLayout={"fixed"}
             scroll={{ x: 1000 }}
-            style={{ marginBottom: 30 }}
+            style={{ marginBottom: 30, whiteSpace: "pre-line" }}
           />
         </ConfigProvider>
         <Form.Item name={"in_work"} hidden>

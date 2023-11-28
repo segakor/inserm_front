@@ -267,6 +267,7 @@ export const TableProjectModerate = ({
           loading={isLoading}
           tableLayout={"fixed"}
           scroll={{ x: 1000 }}
+          style={{ whiteSpace: "pre-line" }}
         />
       </ConfigProvider>
       <Form.Item name={"status"} hidden>

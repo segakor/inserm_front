@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { Table, ConfigProvider, Empty, Form, Input } from "antd";
+import { Table, ConfigProvider, Empty, Form, Input, Grid } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Reviews } from "../../types";
 import { getDate } from "../../utils";
 import { StatusComponent } from "../components/StatusComponent";
 import { ButtonChangeRow } from "../Button/ButtonChangeRow";
 import { useUpdateReview } from "../hooks/useUpdateReview";
+import { ListOfReviews } from "../components/ReviewItem";
+
+const { useBreakpoint } = Grid;
 
 type ReviewsTableItem = Reviews & {
   key: string;
@@ -181,6 +184,13 @@ export const TableProject = ({ reviews, isLoading, withoutLink }: Props) => {
     ? columns
     : columns.filter((item) => item.key !== "link");
 
+  const screens = useBreakpoint();
+  const isMobile = !!screens.xs || !screens.lg;
+
+  if (isMobile) {
+    return <ListOfReviews data={reviews || []} />;
+  }
+
   return (
     <Form form={form} component={false}>
       <ConfigProvider
@@ -194,7 +204,7 @@ export const TableProject = ({ reviews, isLoading, withoutLink }: Props) => {
           size="small"
           bordered
           pagination={false}
-          style={{ marginBottom: 30 }}
+          style={{ marginBottom: 30, whiteSpace: "pre-line" }}
           loading={isLoading}
           tableLayout={"fixed"}
           scroll={{ x: 1000 }}
