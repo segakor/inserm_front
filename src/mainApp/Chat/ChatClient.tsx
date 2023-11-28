@@ -30,7 +30,8 @@ const Header = styled.div`
 const Body = styled.div`
   display: flex;
   flex-direction: row;
-  height: calc(100vh - 200px);
+  height: calc(100vh - 250px);
+  overflow: hidden;
 `;
 const AvatarWrapper = styled.div`
   display: flex;
