@@ -14,6 +14,8 @@ import { FooterDetails } from "../../components/FooterDetails";
 import { Divider } from "antd";
 import { ArchiveCampaign } from "../../components/ArchiveCampaign";
 import { CampaignList } from "../../components/CampaignList";
+import { ButtonRemovedArchived } from "../../Button/ButtonRemovedArchived";
+import { ButtonDeleteCampaign } from "../../Button/ButtonDeleteCampaign";
 
 const Page = styled.div`
   display: flex;
@@ -60,8 +62,10 @@ const CampaignDetails = () => {
     handleGetBrief();
   };
 
-  const { handleGetReviews, data, campaignList } =
-    useGetReviewsCampaign(campaignId, true);
+  const { handleGetReviews, data, campaignList } = useGetReviewsCampaign(
+    campaignId,
+    true
+  );
 
   const { brief, handleGetBrief } = useGetBrief(campaignId, "campaign");
 
@@ -85,6 +89,13 @@ const CampaignDetails = () => {
           campaigns={campaignList?.campaigns || []}
           projects={campaignList?.projects || []}
         />
+        <div>
+          <ButtonRemovedArchived
+            campaignId={Number(campaignId)}
+            onUpdate={handleGetReviews}
+          />
+          <ButtonDeleteCampaign campaignId={Number(campaignId)} />
+        </div>
       </WrapperCard>
       {isModalOpen && (
         <ModalBrief
