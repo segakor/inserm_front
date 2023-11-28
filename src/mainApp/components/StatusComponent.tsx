@@ -1,4 +1,3 @@
-import React from "react";
 import { Tag } from "antd";
 import {
   CheckCircleOutlined,
@@ -47,7 +46,7 @@ export const StatusComponent = ({ status }: { status: string }) => {
 
   return (
     <div>
-      <Tag icon={setStatus?.icon} color={setStatus?.color} style={{ width: 115 }}>
+      <Tag icon={setStatus?.icon} color={setStatus?.color} style={{ width: 120 }}>
         {setStatus?.label}
       </Tag>
     </div>
