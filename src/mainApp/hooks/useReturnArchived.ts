@@ -8,13 +8,13 @@ export const useReturnArchived = () => {
       openNotificationWithIcon({
         type: "success",
         message: "",
-        description: "Последняя архивация удалена",
+        description: "Последнее продление удалено",
       });
     } catch {
       openNotificationWithIcon({
         type: "error",
         message: "",
-        description: "Не удалось удалить последнюю архивацию",
+        description: "Не удалось удалить последнее продление",
       });
     }
   };

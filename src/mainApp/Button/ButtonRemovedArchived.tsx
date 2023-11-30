@@ -31,7 +31,7 @@ export const ButtonRemovedArchived = ({
   return (
     <div>
       <OutlinedButton onClick={handleOpen}>
-        Удалить последнюю архивацию
+        Удалить последнее продление
       </OutlinedButton>
       {isModalOpen && (
         <ModalСonfirmation
