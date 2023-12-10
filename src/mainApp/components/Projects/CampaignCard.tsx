@@ -10,6 +10,7 @@ import {
   FooterLink,
   Header,
   HeaderTariff,
+  IsProcessOfWriting,
   Status,
   TariffBlock,
   TariffCard,
@@ -20,6 +21,7 @@ import { Tooltip } from "antd";
 import { noop } from "../../../constants";
 import { ReactComponent as WaitIcon } from "../../../assets/transferWait.svg";
 import { ReactComponent as ApproveIcon } from "../../../assets/transferApprove.svg";
+import { ReactComponent as ReviewEmpty } from "../../../assets/reviewEmpty.svg";
 import { useActTemplate } from "../../hooks/useGetActTemplate";
 import { ButtonRefresh } from "../../Button/ButtonRefresh";
 import { ButtonRemoveCampaign } from "../../Button/ButtonRemoveCampaign";
@@ -35,6 +37,7 @@ export const CampaignCard = (campaign: Campaign) => {
     isTransfer,
     transferId,
     autopay,
+    isProcessOfWriting,
   } = campaign;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -165,6 +168,14 @@ export const CampaignCard = (campaign: Campaign) => {
             <TitleDate>~ {period} мес.</TitleDate>
           </HeaderTariff>
         </TariffCard>
+        {isProcessOfWriting && (
+          <IsProcessOfWriting>
+            <ReviewEmpty />
+            <Title level={5} style={{ fontWeight: "400" }}>
+              Тексты в процессе написания
+            </Title>
+          </IsProcessOfWriting>
+        )}
       </TariffBlock>
       {isModalOpen && (
         <ModalBrief

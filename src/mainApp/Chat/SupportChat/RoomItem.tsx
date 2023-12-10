@@ -22,7 +22,13 @@ const Wrapper = styled.div<{ isActive: boolean }>`
   }
 `;
 const UserName = styled.div`
-  flex-direction: row;
+  max-width: 200px;
+  .email {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #8E8E8E;
+  }
 `;
 
 type Props = {
@@ -45,7 +51,7 @@ export const RoomItem = ({
     <Wrapper onClick={handleClick} isActive={isActive}>
       <UserName>
         <Title level={5}>{room.name || "-"}</Title>
-        <div style={{ color: "#8E8E8E" }}>{room.email}</div>
+        <div className="email">{room.email}</div>
       </UserName>
       <div className="badge">
         <Badge count={room.unread} />

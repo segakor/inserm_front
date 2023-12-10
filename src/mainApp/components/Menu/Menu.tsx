@@ -8,6 +8,7 @@ import {
   GiftFilled,
   SoundOutlined,
   BulbFilled,
+  MailFilled,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useLocalState } from "../../context/hooks";
@@ -223,6 +224,11 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       label: "Обновления сервиса",
       key: "news",
       icon: <BulbFilled style={{ color: "#1579E9" }} />,
+    },
+    {
+      label: "Настройка писем",
+      key: "mail",
+      icon: <MailFilled style={{ color: "#1579E9" }}/>,
     },
   ];
 

@@ -90,7 +90,8 @@ export const demoCampaign = [
     },
     autopay: false,
     isTransfer: false,
-    transferId: 0
+    transferId: 0,
+    isProcessOfWriting: false,
   },
   {
     id: 5,
@@ -111,7 +112,8 @@ export const demoCampaign = [
     },
     autopay: false,
     isTransfer: false,
-    transferId: 0
+    transferId: 0,
+    isProcessOfWriting: false,
   },
   {
     id: 6,
@@ -132,7 +134,8 @@ export const demoCampaign = [
     },
     autopay: false,
     isTransfer: false,
-    transferId: 0
+    transferId: 0,
+    isProcessOfWriting: false,
   },
 ];
 

@@ -1,32 +1,31 @@
 import styled from "styled-components";
-import { Tooltip, Space } from "antd";
-import { QuestionCircleFilled } from "@ant-design/icons";
 import { Header, Title } from "../../common/Typography";
+import { ChatClient } from "../Chat";
+
+import { Grid } from "antd";
+
+const { useBreakpoint } = Grid;
 
 const Page = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 970px;
 `;
-
+const StyledTitle = styled(Title)`
+  margin-bottom: 20px !important;
+`;
 export const Help = () => {
+  const screens = useBreakpoint();
+  const isMobile = !!screens.xs;
+  
   return (
     <Page>
-      <Header>
-        Техподдержка{" "}
-        <Tooltip
-          title={
-            "Задайте свой вопрос и мы ответим в течение 40 минут в рабочие часы (пн-пт 9-18)"
-          }
-        >
-          <Space>
-            <QuestionCircleFilled
-              style={{ color: "#1579E9", cursor: "pointer" }}
-            />
-          </Space>
-        </Tooltip>
-      </Header>
-      <Title level={5}>Временно недоступно</Title>
+      {!isMobile && <Header>Техподдержка</Header>}
+      <StyledTitle level={5} style={{ fontWeight: "400" }}>
+        Задайте свой вопрос и мы ответим на него в течение 40 минут в рабочее
+        время (Пн-Пт 9:00-18:00 по Мск)
+      </StyledTitle>
+      <ChatClient />
     </Page>
   );
 };
