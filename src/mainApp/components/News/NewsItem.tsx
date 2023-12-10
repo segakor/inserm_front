@@ -22,13 +22,22 @@ export const NewsItem = ({ isAdmin, news, onDelete }: Props) => {
           {month}
         </Title>
       </TimeBlock>
-      <WrapperDesc>
-        <Title level={3} style={{ marginBottom: "8px" }}>
-          {news.title}
-        </Title>
-        <Title level={5} style={{ whiteSpace: "pre-line", fontWeight: 400 }}>
-          {news.description}
-        </Title>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <WrapperDesc>
+          <Title level={3} style={{ marginBottom: "8px" }}>
+            {news.title}
+          </Title>
+          <Title level={5} style={{ whiteSpace: "pre-line", fontWeight: 400 }}>
+            {news.description}
+          </Title>
+        </WrapperDesc>
         {isAdmin && (
           <div>
             <DeleteFilled
@@ -37,7 +46,7 @@ export const NewsItem = ({ isAdmin, news, onDelete }: Props) => {
             />
           </div>
         )}
-      </WrapperDesc>
+      </div>
     </Wrapper>
   );
 };

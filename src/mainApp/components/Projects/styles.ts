@@ -44,6 +44,7 @@ export const TariffCard = styled.div`
   -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  margin-bottom: 16px;
 `;
 export const TitleDate = styled.div`
   padding: 5px 10px 5px 10px;
@@ -77,4 +78,10 @@ export const Status = styled.div`
   @media (max-width: 768px) {
     width: auto;
   }
+`;
+
+export const IsProcessOfWriting = styled.div`
+  display: flex;
+  align-items: center;
+  grid-gap: 10px;
 `;

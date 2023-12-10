@@ -110,6 +110,7 @@ export const MainRoutes = () => {
   const CreateAdmin = lazy(() => import("../../Pages/Admin/CreateAdmin"));
   const Promo = lazy(() => import("../../Pages/Admin/Promo"));
   const News = lazy(() => import("../../Pages/Admin/News"));
+  const Mail = lazy(() => import("../../Pages/Admin/Mail"));
 
   //common lazy
   const Payment = lazy(() => import("../../Pages/Сommon/Payment"));
@@ -330,6 +331,16 @@ export const MainRoutes = () => {
                 <Suspense fallback={<Spin />}>
                   <ProtectedChildRoutes allowedRole={["ADMIN"]}>
                     <News />
+                  </ProtectedChildRoutes>
+                </Suspense>
+              }
+            />
+            <Route
+              path="mail"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <ProtectedChildRoutes allowedRole={["ADMIN"]}>
+                    <Mail />
                   </ProtectedChildRoutes>
                 </Suspense>
               }

@@ -35,7 +35,7 @@ export const CurrentTariffDemo = () => {
               name={item.name}
               period={item.period}
               id={1}
-              price={222}
+              price={250}
               count={item.statuses.all}
             />
           </TariffWrapper>
@@ -47,7 +47,7 @@ export const CurrentTariffDemo = () => {
               onChangeAutoPay={()=>console.log()}
               name={item.name}
               id={1}
-              price={item.tariff.forOne}
+              price={item.tariff.price}
               count={item.tariff.amount}
               start={item.tariff.start}
               end={item.tariff.end}

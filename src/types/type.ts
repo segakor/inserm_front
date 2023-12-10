@@ -79,8 +79,8 @@ export type Reviews = {
   is_paid?: boolean;
   tg?: string;
   key: string;
-  is_edited?: boolean // project
-  isEdited?: boolean // campaign
+  is_edited?: boolean; // project
+  isEdited?: boolean; // campaign
 };
 
 export type ReqGetProjectDetails = {
@@ -206,7 +206,7 @@ export type ReqRooms = {
 };
 
 export type ReqCreateReviewList = {
-  reviews: { text: string; link: string; key: number|string }[];
+  reviews: { text: string; link: string; key: number | string }[];
   projectId?: string;
   cardId?: string;
 };
@@ -309,6 +309,7 @@ export type Campaign = {
   autopay: boolean;
   isTransfer: boolean;
   transferId: number;
+  isProcessOfWriting: boolean;
 };
 
 export type ResGetCampaign = {
@@ -511,3 +512,15 @@ export type News = {
 };
 
 export type CreateNews = Omit<News, "id">;
+
+export type Mail = {
+  id: number;
+  name: string;
+  subject: string;
+};
+
+export type MailDetail = Mail & {
+  body: string;
+};
+
+export type ReqMailUpdate = Omit<MailDetail, "name">;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as UpIcon } from "../../assets/up.svg";
 import { ReactComponent as DownIcon } from "../../assets/down.svg";

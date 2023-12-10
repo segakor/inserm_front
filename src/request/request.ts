@@ -46,6 +46,9 @@ import {
   AllPersonCampaign,
   News,
   CreateNews,
+  Mail,
+  ReqMailUpdate,
+  MailDetail,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -837,6 +840,27 @@ export const returnArchived = async (value: { id: number }) => {
     {
       ...value,
     }
+  );
+  return { data, status };
+};
+
+export const getMails = async () => {
+  const { data, status } = await axiosClient.get<{ result: Mail[] }>(
+    URL + `/api/mail/list`
+  );
+  return { data, status };
+};
+
+export const updateMail = async (value: ReqMailUpdate) => {
+  const { data, status } = await axiosClient.post(URL + `/api/mail/update`, {
+    ...value,
+  });
+  return { data, status };
+};
+
+export const getMailDetails = async (id: number) => {
+  const { data, status } = await axiosClient.get<{ result: MailDetail }>(
+    URL + `/api/mail/detail/${id}`
   );
   return { data, status };
 };
