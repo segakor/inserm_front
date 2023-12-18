@@ -1,12 +1,9 @@
 import styled from "styled-components";
 import { Modal, Form, Input, Button } from "antd";
-import { Title } from "../../../common/Typography";
-import { useCreateBrief } from "../../hooks/useCreateBrief";
-import { Brief } from "../../../types";
-import { briefField, confirmationText } from "../../../constants";
-import { useState } from "react";
-import { ModalСonfirmation } from "./ModalСonfirmation";
-import { NotesBrief } from "../NotesBrief";
+
+import { Title } from "../../common/Typography";
+import { Brief } from "../../types";
+import { briefField } from "../../constants";
 
 const { TextArea } = Input;
 
@@ -31,11 +28,7 @@ type Props = {
   typeBrief: "campaign" | "project";
 };
 
-export const ModalBrief = ({ onClose, id, brief, typeBrief }: Props) => {
-  const { handleCreateBrief, isLoading: isLoadingCreate } = useCreateBrief();
-
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-
+export const ModalBriefDemo = ({ onClose, id, brief, typeBrief }: Props) => {
   const [form] = Form.useForm();
   const formValue = Form.useWatch([], form);
 
@@ -49,34 +42,12 @@ export const ModalBrief = ({ onClose, id, brief, typeBrief }: Props) => {
     fieldValue.campaignId = id;
   }
 
-  const isBrief = brief ? true : false;
-
   const field =
     typeBrief === "project"
       ? briefField.mainField
       : briefField.mainField.filter((item) => !item?.canHide);
 
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-    handleCreateBrief(fieldValue).then(() => onClose());
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  const handleConfirmModalClose = () => {
-    setIsConfirmModalOpen(false);
-  };
-  const handleConfirmModalOpen = () => {
-    setIsConfirmModalOpen(true);
-  };
-
   const handleClose = () => {
-    if (form.isFieldsTouched()) {
-      handleConfirmModalOpen();
-      return;
-    }
     onClose();
   };
 
@@ -97,8 +68,6 @@ export const ModalBrief = ({ onClose, id, brief, typeBrief }: Props) => {
       <Form
         layout={"vertical"}
         form={form}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         initialValues={brief}
       >
         {field.map((item, index) => (
@@ -113,28 +82,10 @@ export const ModalBrief = ({ onClose, id, brief, typeBrief }: Props) => {
               },
             ]}
           >
-            <StyledTextArea autoSize disabled={isBrief} />
+            <StyledTextArea autoSize disabled/>
           </Form.Item>
         ))}
-        {!isBrief && (
-          <StyledButton
-            type="primary"
-            disabled={isBrief}
-            htmlType="submit"
-            loading={isLoadingCreate}
-          >
-            Сохранить
-          </StyledButton>
-        )}
-        {brief && <NotesBrief brief={brief} />}
       </Form>
-      {isConfirmModalOpen && (
-        <ModalСonfirmation
-          onClose={handleConfirmModalClose}
-          onConfirm={onClose}
-          confirmationText={confirmationText.brief}
-        />
-      )}
     </Modal>
   );
 };

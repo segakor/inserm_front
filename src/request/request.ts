@@ -49,6 +49,8 @@ import {
   Mail,
   ReqMailUpdate,
   MailDetail,
+  BriefNote,
+  ReqCreateBriefNote
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -861,6 +863,30 @@ export const updateMail = async (value: ReqMailUpdate) => {
 export const getMailDetails = async (id: number) => {
   const { data, status } = await axiosClient.get<{ result: MailDetail }>(
     URL + `/api/mail/detail/${id}`
+  );
+  return { data, status };
+};
+
+export const sendEmail = async (id: number) => {
+  const { data, status } = await axiosClient.post(URL + `/api/mail/sendTest`, {
+    id,
+  });
+  return { data, status };
+};
+
+export const getBriefNotes = async (id: number) => {
+  const { data, status } = await axiosClient.get<{ result: BriefNote[] }>(
+    URL + `/api/brief/notes/${id}`
+  );
+  return { data, status };
+};
+
+export const createBriefNote = async (value: ReqCreateBriefNote) => {
+  const { data, status } = await axiosClient.post(
+    URL + `/api/brief/notes/create`,
+    {
+      ...value,
+    }
   );
   return { data, status };
 };

@@ -524,3 +524,10 @@ export type MailDetail = Mail & {
 };
 
 export type ReqMailUpdate = Omit<MailDetail, "name">;
+
+export type BriefNote = Omit<Note, "user">;
+
+export type ReqCreateBriefNote = {
+  briefId: number;
+  text: string;
+};

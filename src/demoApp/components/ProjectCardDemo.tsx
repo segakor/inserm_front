@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ButtonBrief } from "../../mainApp/Button/ButtonBrief";
@@ -7,7 +7,7 @@ import { Title } from "../../common/Typography";
 import { Project } from "../../types";
 import { getRangeDate } from "../../utils";
 import { demoBrief } from '../constants';
-import { ModalBrief } from "../../mainApp/components/Modal";
+import { ModalBriefDemo } from "./ModalBriefDemo";
 
 const Flex = styled.div`
   display: flex;
@@ -127,7 +127,7 @@ export const ProjectCardDemo = (project: Project) => {
         </TariffCard>
       </TariffBlock>
       {isModalOpen && (
-        <ModalBrief
+        <ModalBriefDemo
           onClose={handleClose}
           id={project.id.toString()}
           brief={brief}

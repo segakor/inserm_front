@@ -21,13 +21,6 @@ const Page = styled.div`
   flex-direction: column;
   width: 100%;
 `;
-const HeaderFlex = styled.div`
-  display: flex;
-  justify-content: space-between;
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
 const CardBlock = styled.div`
   width: 600px;
   @media (max-width: 768px) {
@@ -68,7 +61,7 @@ const ProjectDetails = () => {
     statusess,
     tariff,
     handleGetReviews,
-    campaignList
+    campaignList,
   } = useGetReviewsProject(projectId, true);
 
   const { brief, handleGetBrief } = useGetBrief(projectId);
@@ -80,15 +73,12 @@ const ProjectDetails = () => {
 
   return (
     <Page>
-      <HeaderFlex>
-        <Header>{projectName || ""}</Header>
-        <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
-      </HeaderFlex>
+      <Header>{projectName || ""}</Header>
+      <TitleDate level={5} style={{ fontSize: "14px", fontWeight: "400" }}>
+        {getRangeDate({ start, end })}
+      </TitleDate>
       <WrapperCard>
         <CardBlock>
-          <TitleDate level={5} style={{ fontSize: "14px", fontWeight: "400" }}>
-            {getRangeDate({ start, end })}
-          </TitleDate>
           <DetailsCard statuses={statusess} />
         </CardBlock>
         <Notes id={projectId} type={"project"} />
@@ -96,6 +86,7 @@ const ProjectDetails = () => {
           campaigns={campaignList?.campaigns || []}
           projects={campaignList?.projects || []}
         />
+        <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
       </WrapperCard>
       {isModalOpen && (
         <ModalBrief
@@ -116,7 +107,7 @@ const ProjectDetails = () => {
         <TableProjectNotChangeable reviews={reviews} isLoading={isLoading} />
       )}
       <ArchiveProjectList projectId={projectId} />
-      <Divider/>
+      <Divider />
       <FooterDetails type={"project"} currentPageId={projectId} />
     </Page>
   );

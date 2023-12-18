@@ -20,7 +20,8 @@ export const MailItem = ({ mail }: Props) => {
   const [open, setOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
-  const { handleGetDetails, handleUpdate, details, loading } = useMail();
+  const { handleGetDetails, handleUpdate, handleSend, details, loading } =
+    useMail();
 
   const monacoRef = useRef<any>(null);
 
@@ -46,6 +47,10 @@ export const MailItem = ({ mail }: Props) => {
       setFormValues();
     }
   }, [open, details]);
+
+  const onSend = () => {
+    handleSend(mail.id);
+  };
 
   const onOpen = () => {
     setOpen(true);
@@ -162,9 +167,14 @@ export const MailItem = ({ mail }: Props) => {
             <Divider />
             <Buttons>
               {!isEdit && (
-                <Button onClick={onEdit} type="primary">
-                  Редактировать
-                </Button>
+                <>
+                  <Button onClick={onSend} loading={loading.send}>
+                    Отправить на почту
+                  </Button>
+                  <Button onClick={onEdit} type="primary">
+                    Редактировать
+                  </Button>
+                </>
               )}
               {isEdit && (
                 <>

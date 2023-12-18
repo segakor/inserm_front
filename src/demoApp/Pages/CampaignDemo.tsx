@@ -6,7 +6,7 @@ import { demoBrief, demoReviewCampaign } from "../constants";
 import { ButtonBrief } from "../../mainApp/Button/ButtonBrief";
 import { DetailsCard } from "../../mainApp/components/Card";
 import { CampaignReviews } from "../../mainApp/components/CampaignReviews";
-import { ModalBrief } from "../../mainApp/components/Modal";
+import { ModalBriefDemo } from "../components/ModalBriefDemo";
 
 const Page = styled.div`
   display: flex;
@@ -63,7 +63,7 @@ export const CampaignDemo = () => {
         <DetailsCard statuses={currentCampaign?.statuses} />
       </CardBlock>
       {isModalOpen && (
-        <ModalBrief
+        <ModalBriefDemo
           onClose={handleClose}
           id={campaignId}
           brief={brief}
