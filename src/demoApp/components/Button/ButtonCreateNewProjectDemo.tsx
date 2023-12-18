@@ -1,9 +1,9 @@
 import { Button } from "antd";
 import styled from "styled-components";
 
-const StyledButton = styled(Button)`
+const OutlinedButton = styled(Button)`
   border-radius: 10px;
-  width: 180px;
+  min-width: 180px;
   height: 50px;
   background: transparent;
   margin-bottom: 20px;
@@ -13,8 +13,8 @@ const StyledButton = styled(Button)`
 
 export const ButtonCreateNewProjectDemo = () => {
   return (
-    <StyledButton disabled>
+    <OutlinedButton disabled>
       Создать новый проект
-    </StyledButton>
+    </OutlinedButton>
   );
 };

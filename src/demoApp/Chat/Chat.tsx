@@ -99,7 +99,7 @@ export const Chat = ({ chatType, isMobile }: Props) => {
         isClient: false,
       };
       setMessages((prev: any) => [...prev, val]);
-    }, 200);
+    }, 1000);
   };
 
   const { element } = useScroll();

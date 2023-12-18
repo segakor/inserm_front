@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Button,
-  Divider,
   Form,
   FormInstance,
   Input,
@@ -146,7 +145,7 @@ export const ModalCreateReviews = ({
   const { handleCreateReview } = useCreateReview();
 
   const [dataSource, setDataSource] = useState<DataType[]>([
-    { key: 0, text: "", link: link || '' },
+    { key: 0, text: "", link: link || "" },
   ]);
 
   const [count, setCount] = useState(1);
@@ -195,7 +194,7 @@ export const ModalCreateReviews = ({
     const newData: DataType = {
       key: count,
       text: "",
-      link: link || '',
+      link: link || "",
     };
     setDataSource([...dataSource, newData]);
     setCount(count + 1);
@@ -260,9 +259,9 @@ export const ModalCreateReviews = ({
         onOk={onSave}
         onCancel={onClose}
         okText={"Сохранить"}
-        cancelText={"Закрыть"}
         width={1024}
         okButtonProps={{ disabled: !dataSource.length }}
+        cancelButtonProps={{ style: { display: "none" } }}
       >
         <Table
           components={components}

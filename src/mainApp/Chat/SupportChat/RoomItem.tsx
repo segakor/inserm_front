@@ -1,9 +1,8 @@
-import React from "react";
 import styled from "styled-components";
-import { Badge, Dropdown, MenuProps } from "antd";
+import { Badge } from "antd";
 import { Title } from "../../../common/Typography";
 import { Room } from "../../../types";
-import { EllipsisOutlined, FlagOutlined, FlagTwoTone } from "@ant-design/icons";
+import { FlagTwoTone } from "@ant-design/icons";
 
 const Wrapper = styled.div<{ isActive: boolean }>`
   padding: 10px 20px 10px 20px;
@@ -22,12 +21,12 @@ const Wrapper = styled.div<{ isActive: boolean }>`
   }
 `;
 const UserName = styled.div`
-  max-width: 200px;
+  max-width: 185px;
   .email {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    color: #8E8E8E;
+    color: #8e8e8e;
   }
 `;
 

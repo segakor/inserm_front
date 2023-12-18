@@ -1,18 +1,11 @@
 import styled from "styled-components";
-import "dayjs/locale/zh-cn";
-import locale from "antd/es/date-picker/locale/ru_RU";
 import { DatePicker as DatePickerAntd } from "antd";
-
-import dayjs from "dayjs";
-import updateLocale from "dayjs/plugin/updateLocale";
 import { Title } from "../../common/Typography";
 import { toUnixDate } from "../../utils";
 import moment from "moment";
 
-dayjs.extend(updateLocale);
-dayjs.updateLocale("en", {
-  weekStart: 1,
-});
+import "dayjs/locale/ru";
+import locale from "antd/es/locale/ru_RU";
 
 const RangeWrapper = styled.div`
   display: flex;
@@ -60,7 +53,7 @@ export const DatePicker = ({ onGetRange }: Props) => {
           <StyledRangePickerContainer>{panelNode}</StyledRangePickerContainer>
         )}
         format={"DD-MM-YYYY"}
-        locale={locale}
+        locale={locale.DatePicker}
         size="large"
         onChange={(e) => onChangeCalendar(e)}
         disabledDate={(current) => {

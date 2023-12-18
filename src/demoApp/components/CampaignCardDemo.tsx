@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Campaign } from "../../types";
 import { Title } from "../../common/Typography";
@@ -16,7 +16,7 @@ import {
 import { ButtonBrief } from "../../mainApp/Button/ButtonBrief";
 import { demoBrief } from "../constants";
 import { noop } from "../../constants";
-import { ModalBrief } from "../../mainApp/components/Modal";
+import { ModalBriefDemo } from "./ModalBriefDemo";
 
 export const CampaignCardDemo = (project: Campaign) => {
   const { name, statuses, id, period } = project;
@@ -100,7 +100,7 @@ export const CampaignCardDemo = (project: Campaign) => {
         </TariffCard>
       </TariffBlock>
       {isModalOpen && (
-        <ModalBrief
+        <ModalBriefDemo
           onClose={handleClose}
           id={project.id.toString()}
           brief={brief}

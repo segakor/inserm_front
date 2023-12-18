@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { ButtonBrief } from "../../mainApp/Button/ButtonBrief";
@@ -8,7 +8,7 @@ import { Title, Header } from "../../common/Typography";
 import { getRangeDate } from "../../utils";
 import { demoProject, demoReviews } from "../constants";
 import { demoBrief } from "../constants";
-import { ModalBrief } from "../../mainApp/components/Modal";
+import { ModalBriefDemo } from "../components/ModalBriefDemo";
 
 const Page = styled.div`
   display: flex;
@@ -71,7 +71,7 @@ export const ProjectDemo = () => {
         <DetailsCard statuses={currentProject?.statuses} />
       </CardBlock>
       {isModalOpen && (
-        <ModalBrief
+        <ModalBriefDemo
           onClose={handleClose}
           id={projectId}
           brief={brief}

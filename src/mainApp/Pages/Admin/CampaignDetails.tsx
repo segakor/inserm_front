@@ -22,13 +22,6 @@ const Page = styled.div`
   flex-direction: column;
   width: 100%;
 `;
-const HeaderFlex = styled.div`
-  display: flex;
-  justify-content: space-between;
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
 const CardBlock = styled.div`
   width: 600px;
   @media (max-width: 768px) {
@@ -73,15 +66,12 @@ const CampaignDetails = () => {
 
   return (
     <Page>
-      <HeaderFlex>
-        <Header>{data?.name || ""}</Header>
-        <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
-      </HeaderFlex>
+      <Header>{data?.name || ""}</Header>
+      <TitleDate level={5} style={{ fontSize: "14px", fontWeight: "400" }}>
+        ~ {data?.period} мес.
+      </TitleDate>
       <WrapperCard>
         <CardBlock>
-          <TitleDate level={5} style={{ fontSize: "14px", fontWeight: "400" }}>
-            ~ {data?.period} мес.
-          </TitleDate>
           <DetailsCard statuses={data?.statuses} />
         </CardBlock>
         <Notes id={campaignId} type={"campaign"} />
@@ -90,6 +80,7 @@ const CampaignDetails = () => {
           projects={campaignList?.projects || []}
         />
         <div>
+          <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
           <ButtonRemovedArchived
             campaignId={Number(campaignId)}
             onUpdate={handleGetReviews}

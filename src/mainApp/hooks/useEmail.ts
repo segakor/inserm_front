@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
-import { getMails, getMailDetails, updateMail } from "../../request";
+import { useState } from "react";
+import { getMails, getMailDetails, updateMail, sendEmail } from "../../request";
 import { openNotificationWithIcon } from "../../utils";
 import { Mail, MailDetail, ReqMailUpdate } from "../../types";
 
 export const useMail = () => {
   const [listOfMail, setListOfMail] = useState<Mail[] | null>(null);
   const [details, setDetails] = useState<MailDetail | null>(null);
-  const [loading, setLoading] = useState({ body: false, list: false });
+  const [loading, setLoading] = useState({
+    body: false,
+    list: false,
+    send: false,
+  });
 
   const handleGet = async () => {
     try {
@@ -51,9 +55,9 @@ export const useMail = () => {
             message: "",
             description: "Шаблон письма успешно обновлен",
           });
-          resolve(true)
+          resolve(true);
         } catch (error) {
-          reject()
+          reject();
           openNotificationWithIcon({
             type: "error",
             message: "",
@@ -64,10 +68,31 @@ export const useMail = () => {
     });
   };
 
+  const handleSend = async (id: number) => {
+    try {
+      setLoading({ ...loading, send: true });
+      await sendEmail(id);
+      openNotificationWithIcon({
+        type: "success",
+        message: "",
+        description: "Отправлено",
+      });
+    } catch (err) {
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: "Не удалось отправить письмо",
+      });
+    } finally {
+      setLoading({ ...loading, send: false });
+    }
+  };
+
   return {
     handleGet,
     handleGetDetails,
     handleUpdate,
+    handleSend,
     listOfMail,
     details,
     loading,
