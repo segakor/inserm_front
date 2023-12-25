@@ -180,6 +180,7 @@ export const optionsReferral = [
 
 export const optionsClientBase = [
   { label: "Все клиенты", value: "allClient" },
+  { label: "Все клиенты_new", value: "allClientNew" },
   { label: "Заявки безнала", value: "cashless" },
   { label: "Неоплаченные заявки", value: "warmClient" },
   { label: "Идеи", value: "idea" },

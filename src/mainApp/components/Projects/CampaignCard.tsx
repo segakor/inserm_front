@@ -45,7 +45,8 @@ export const CampaignCard = (campaign: Campaign) => {
 
   const { brief, handleGetBrief } = useGetBrief(id.toString(), "campaign");
 
-  const { handleGet, tempalate } = useActTemplate();
+  const { handleGetAct, handleGetInvoice, tempalate, typeTemplate } =
+    useActTemplate();
 
   const handleOpen = () => {
     setIsModalOpen(true);
@@ -56,8 +57,8 @@ export const CampaignCard = (campaign: Campaign) => {
     handleGetBrief();
   };
 
-  const handleActOpen = () => {
-    handleGet(transferId);
+  const handleActOpen = (type: "act" | "payment") => {
+    type === "act" ? handleGetAct(transferId) : handleGetInvoice(transferId);
     setIsModalActOpen(true);
   };
   const handleActClose = () => {
@@ -140,7 +141,7 @@ export const CampaignCard = (campaign: Campaign) => {
             </Title>
             {isTransfer && (
               <Title
-                onClick={handleActOpen}
+                onClick={() => handleActOpen("act")}
                 level={5}
                 style={{
                   fontWeight: "500",
@@ -151,6 +152,21 @@ export const CampaignCard = (campaign: Campaign) => {
                 }}
               >
                 Получить акт выполненных работ
+              </Title>
+            )}
+            {isTransfer && (
+              <Title
+                onClick={() => handleActOpen("payment")}
+                level={5}
+                style={{
+                  fontWeight: "500",
+                  color: "#FFFFFF",
+                  fontSize: "14px",
+                  textDecorationLine: "underline",
+                  cursor: "pointer",
+                }}
+              >
+                Получить счет
               </Title>
             )}
           </FooterLink>
@@ -189,7 +205,7 @@ export const CampaignCard = (campaign: Campaign) => {
         <ModalTemplate
           onClose={handleActClose}
           invoiceTemplate={tempalate}
-          type={"act"}
+          type={typeTemplate as "act" | "payment"}
         />
       )}
     </Wrapper>

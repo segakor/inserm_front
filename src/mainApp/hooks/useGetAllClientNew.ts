@@ -1,18 +1,18 @@
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
-import { getAllClient } from "../../request";
-import { Client } from "../../types";
+import { getAllClientNew } from "../../request";
+import { ClientNew } from "../../types";
 import { openNotificationWithIcon } from "../../utils";
 
-export const useGetAllClient = (status: string) => {
-  const [allClient, setAllClient] = useState<Client[] | undefined>(undefined);
+export const useGetAllClientNew = () => {
+  const [allClient, setAllClient] = useState<ClientNew[] | undefined>(undefined);
 
   const [isLoading, setIsLoading] = useState(false);
 
   const handleGetAllClient = async () => {
     try {
       setIsLoading(true);
-      const response = await getAllClient({ status });
+      const response = await getAllClientNew();
       setAllClient(response.data.result);
     } catch (err) {
       const typedError = err as AxiosError;
@@ -30,7 +30,7 @@ export const useGetAllClient = (status: string) => {
   useEffect(() => {
     handleGetAllClient();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [status]);
+  }, []);
 
   return {
     allClient: allClient?.map((item, index) => ({
