@@ -50,7 +50,8 @@ import {
   ReqMailUpdate,
   MailDetail,
   BriefNote,
-  ReqCreateBriefNote
+  ReqCreateBriefNote,
+  ClientNew
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -441,6 +442,16 @@ export const getAllClient = async (params?: { status: string }) => {
   const { data, status } = await axiosClient.get<ResGetAllClient>(
     URL + `/api/person/all`,
     { params: { ...params } }
+  );
+  return {
+    data,
+    status,
+  };
+};
+
+export const getAllClientNew = async () => {
+  const { data, status } = await axiosClient.get<{result:ClientNew[]}>(
+    URL + `/api/person/allNew`
   );
   return {
     data,

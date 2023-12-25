@@ -233,6 +233,35 @@ export type Client = {
   date: number;
 };
 
+export type ClientProjectNew = {
+  amount: number;
+  autopay: boolean;
+  briefDate: number;
+  history: {
+    date: number;
+    price: number;
+  }[];
+  id: number;
+  is_active: boolean;
+  name: string;
+  payType: string;
+  platforms: string[];
+  price: number;
+  tariffName: string;
+};
+
+export type ClientNew = {
+  id: number;
+  email: string;
+  name: string;
+  phone: string;
+  tg: string;
+  totalPrice: number;
+  projects: ClientProjectNew[];
+  campaigns: ClientProjectNew[];
+  date: number;
+};
+
 export type ResGetAllClient = {
   result: Client[];
 };
@@ -494,6 +523,7 @@ export type ReferralList = {
 
 export type OptionsClientBase =
   | "allClient"
+  | "allClientNew"
   | "warmClient"
   | "cashless"
   | "idea"

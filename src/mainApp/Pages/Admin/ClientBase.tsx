@@ -12,6 +12,7 @@ import { optionsClientBase } from "../../../constants";
 import { OptionsClientBase } from "../../../types";
 import { TableStatisticsReferral } from "../../Table/TableStatisticsReferral";
 import { useReferral } from "../../hooks/useReferral";
+import { TableAllClientNew } from "../../Table/TableAllClientNew";
 
 const Page = styled.div`
   display: flex;
@@ -51,6 +52,9 @@ const ClientBase = () => {
       />
       {activeTab === "allClient" && (
         <TableAllClient />
+      )}
+      {activeTab === "allClientNew" && (
+        <TableAllClientNew />
       )}
       {activeTab === "cashless" && <TableCashlessTransfer />}
       {activeTab === "warmClient" && (

@@ -1,6 +1,6 @@
-import { Client } from "../types";
+import { Client, ClientNew } from "../types";
 
-export const getAmountAutoPay = (allClient: Client[]) => {
+export const getAmountAutoPay = (allClient: Client[] | ClientNew[]) => {
   const arr: boolean[] = [];
   allClient.forEach((item) => {
     item.projects?.forEach((item) => {

@@ -66,6 +66,10 @@ export const HeaderTariff = styled(Header)`
 export const FooterLink = styled.div`
   display: flex;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: auto;
+  }
 `;
 
 export const Status = styled.div`
