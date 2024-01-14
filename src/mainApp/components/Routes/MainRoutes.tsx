@@ -88,6 +88,8 @@ export const MainRoutes = () => {
   const CreateProject = lazy(() => import("../../Pages/Client/CreateProject"));
   const Referral = lazy(() => import("../../Pages/Client/Referral"));
   const ClientNews = lazy(() => import("../../Pages/Client/News"));
+  const UpdateProject = lazy(() => import("../../Pages/Client/UpdateProject"));
+  const Notifications = lazy(() => import("../../Pages/Client/Notifications"));
 
   //admin lazy
   const AllProjects = lazy(() => import("../../Pages/Admin/AllProjects"));
@@ -196,6 +198,22 @@ export const MainRoutes = () => {
               element={
                 <Suspense fallback={<Spin />}>
                   <CreateProject />
+                </Suspense>
+              }
+            />
+            <Route
+              path="updateproject/:id"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <UpdateProject />
+                </Suspense>
+              }
+            />
+            <Route
+              path="notify"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <Notifications />
                 </Suspense>
               }
             />

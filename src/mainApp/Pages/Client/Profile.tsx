@@ -11,7 +11,6 @@ const Page = styled.div`
 `;
 const FlexBox = styled.div`
   display: flex;
-  justify-content: space-between;
   height: auto;
   width: 860px;
   margin-top: 20px;

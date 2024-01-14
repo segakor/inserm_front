@@ -196,16 +196,16 @@ export const PromoCard = styled.div`
 `;
 
 export const Agreement = styled.div`
-width: 180px;
-float: right;
-margin-top: 10px;
-.decorate {
-  cursor: pointer;
-  color: #1579e9;
-  text-decoration-line: underline;
-}
-@media (max-width: 768px) {
-  float: none;
-  width: auto;
-}
+  width: 180px;
+  float: right;
+  margin-top: 10px;
+  .decorate {
+    cursor: pointer;
+    color: #1579e9;
+    text-decoration-line: underline;
+  }
+  @media (max-width: 768px) {
+    float: none;
+    width: auto;
+  }
 `;

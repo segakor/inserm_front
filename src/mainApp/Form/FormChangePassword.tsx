@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Title } from "../../common/Typography";
 import { Button, Input, Form } from "antd";
@@ -20,7 +20,6 @@ const StyledInput = styled(Input.Password)`
   border-radius: 10px;
   height: 50px;
 `;
-
 const StyledButton = styled(Button)`
   border-radius: 10px;
   height: 50px;

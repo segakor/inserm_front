@@ -6,8 +6,8 @@ import {
   ExclamationCircleFilled,
   SignalFilled,
   GiftFilled,
-  SoundOutlined,
   BulbFilled,
+  BellFilled,
   MailFilled,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
@@ -136,13 +136,18 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       icon: <ProjectIcon />,
       onTitleClick: () => {
         navigation(`/app/client/projects`);
-        onHeaderClose?.()
+        onHeaderClose?.();
         setSelectedKeys([""]);
       },
       children: projectItem || [],
     },
     { label: "Управление тарифами", key: "tariff", icon: <TariffIcon /> },
     { label: "Профиль", key: "profile", icon: <ProfileIcon /> },
+    {
+      label: "Уведомления",
+      key: "notify",
+      icon: <BellFilled style={{ color: "#1579E9" }} />,
+    },
     { label: "База знаний", key: "foundation", icon: <FoundationIcon /> },
     { label: "Контакты", key: "contacts", icon: <ContactsIcon /> },
     /* { label: "Партнерская программа", key: "referral", icon: <ReferralIcon /> }, */ //TODO: включить по готовности
@@ -228,7 +233,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     {
       label: "Настройка писем",
       key: "mail",
-      icon: <MailFilled style={{ color: "#1579E9" }}/>,
+      icon: <MailFilled style={{ color: "#1579E9" }} />,
     },
   ];
 
@@ -310,7 +315,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
             items={setItem()}
             mode="inline"
             selectedKeys={selectedKeys}
-            style={{borderInline:'none'}}
+            style={{ borderInline: "none" }}
           />
           <div>
             {LinkTg}
@@ -319,7 +324,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
               mode="inline"
               selectedKeys={selectedKeys}
               items={filteredItemsBottom}
-              style={{borderInline:'none'}}
+              style={{ borderInline: "none" }}
             />
           </div>
         </StyledMenuContainer>

@@ -11,7 +11,7 @@ export const areas = [
 ];
 
 export const colorCardCampaign = [
-  { id: 1, color: "#2CAE97", title: "3-24 отзыва" },
+  { id: 1, color: "#2CAE97", title: "4-24 отзыва" },
   { id: 2, color: "#ECA843", title: "25-49 отзывов" },
   { id: 3, color: "#EF5479", title: "50-99 отзывов" },
   { id: 4, color: "#7E6DE7", title: "100-199 отзывов" },
@@ -148,7 +148,7 @@ export const optionsCreateProject = [
 
 export const promoCodeResult = [
   { code: "success", message: "Промокод успешно применен", type: "success" },
-  { code: "promo_not_found", message: "Прокод не найден", type: "error" },
+  { code: "promo_not_found", message: "Промокод не найден", type: "error" },
   {
     code: "promo_has_expired",
     message: "Истек срок действия промокода",

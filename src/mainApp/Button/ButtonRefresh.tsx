@@ -1,15 +1,16 @@
-import { useEditCampaign } from "../hooks/useEditCampaign";
 import { OutlinedButton } from "./styles";
+import { useNavigate } from "react-router-dom";
 
 export const ButtonRefresh = ({ campaignId }: { campaignId: number }) => {
-  const { handleRefresh } = useEditCampaign();
+  const navigation = useNavigate();
 
-  const onHandleRefresh = () => {
-    handleRefresh(campaignId);
-  };
   return (
     <div>
-      <OutlinedButton onClick={onHandleRefresh}>Обновить проект</OutlinedButton>
+      <OutlinedButton
+        onClick={() => navigation(`/app/client/updateproject/${campaignId}`)}
+      >
+        Обновить проект
+      </OutlinedButton>
     </div>
   );
 };

@@ -30,9 +30,10 @@ const { RangePicker } = DatePickerAntd;
 
 type Props = {
   onGetRange: (e: { start: number; end: number }) => void;
+  isLoading?: boolean;
 };
 
-export const DatePicker = ({ onGetRange }: Props) => {
+export const DatePicker = ({ onGetRange, isLoading }: Props) => {
   const onChangeCalendar = (e: any) => {
     if (e) {
       const start = toUnixDate(moment(e[0].$d).startOf("day").toDate());
@@ -56,6 +57,7 @@ export const DatePicker = ({ onGetRange }: Props) => {
         locale={locale.DatePicker}
         size="large"
         onChange={(e) => onChangeCalendar(e)}
+        disabled={isLoading}
         disabledDate={(current) => {
           let customDate = moment().format("DD-MM-YYYY");
           return (
