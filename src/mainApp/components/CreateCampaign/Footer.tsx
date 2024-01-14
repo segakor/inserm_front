@@ -96,22 +96,21 @@ export const Footer = ({
             <Title level={5} style={{ color: "black" }}>
               {count} {getNumWord(count, "review")}{" "}
               {giftCount && (
-                <>+
-                  ({giftCount}{' '}
-                  <GiftOutlined />)
+                <>
+                  + ({giftCount} <GiftOutlined />)
                 </>
               )}
             </Title>
           </FooterCardTotalPrice>
           <Tooltip
-            title={count < 3 ? "Минимальный заказ - 3 отзыва" : ""}
+            title={count < 4 ? "Минимальный заказ - 4 отзыва" : ""}
             placement="top"
             color={"red"}
           >
             <FooterButton
               htmlType={"submit"}
               loading={isLoading}
-              disabled={count < 3 || !isAgree}
+              disabled={count < 4 || !isAgree}
               onClick={isCashless ? onModalOpen : noop}
             >
               <Title level={5} style={{ color: "white" }}>

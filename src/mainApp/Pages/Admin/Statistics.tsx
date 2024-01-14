@@ -46,7 +46,10 @@ const Statistics = () => {
         optionType="button"
         buttonStyle="solid"
       />
-      <DatePicker onGetRange={onChangePeriod} />
+      <DatePicker
+        onGetRange={onChangePeriod}
+        isLoading={isLoading || isLoadingF}
+      />
       {activeTab === "host" && (
         <>
           <DetailsCardHostStatistics {...statistics} isLoading={isLoading} />

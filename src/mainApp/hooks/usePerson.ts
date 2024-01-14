@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getPerson, changePerson } from "../../request";
+import { getPerson, changePerson, changePersonTgId } from "../../request";
 import { openNotificationWithIcon } from "../../utils";
 import { setPersonInfo } from "../context/action";
 import { useDispatch, useLocalState } from "../context/hooks";
@@ -20,7 +20,7 @@ export const usePerson = (nowUpdate?: boolean) => {
         type: "error",
         message: "",
         description: "Не удалось загрузить данные клиента",
-        status: typedError.status
+        status: typedError.status,
       });
     }
   };
@@ -39,10 +39,31 @@ export const usePerson = (nowUpdate?: boolean) => {
         type: "error",
         message: "",
         description: "Не удалось обновить данные клиента",
-        status: typedError.status
+        status: typedError.status,
       });
     }
   };
+
+  const handleAddTgKey = async (value: { tgId: string }) => {
+    try {
+      await changePersonTgId(value);
+      await handleGetPerson();
+      openNotificationWithIcon({
+        type: "success",
+        message: "",
+        description: "API key успешно добавлен",
+      });
+    } catch (err) {
+      const typedError = err as AxiosError;
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: "Не удалось обновить данные клиента",
+        status: typedError.status,
+      });
+    }
+  };
+
   useEffect(() => {
     if (!state.personInfo && !nowUpdate) {
       handleGetPerson();
@@ -50,5 +71,5 @@ export const usePerson = (nowUpdate?: boolean) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { handleChangePerson, handleGetPerson };
+  return { handleChangePerson, handleGetPerson, handleAddTgKey };
 };

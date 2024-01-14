@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import { Sider } from "../../common/Layout/Sider";
@@ -9,7 +8,6 @@ const LogoIcon = styled(Logo)`
 `;
 
 export const SiderComponent = () => {
-
   return (
     <Sider>
       <LogoIcon />

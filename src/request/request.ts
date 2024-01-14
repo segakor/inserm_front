@@ -51,7 +51,8 @@ import {
   MailDetail,
   BriefNote,
   ReqCreateBriefNote,
-  ClientNew
+  ClientNew,
+  DetailsCampaing,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -85,6 +86,16 @@ export const changePerson = async (value: ReqPersonChange) => {
   const { data, status } = await axiosClient.post(URL + "/api/person/change", {
     ...value,
   });
+  return { data, status };
+};
+
+export const changePersonTgId = async (value: { tgId: string }) => {
+  const { data, status } = await axiosClient.post(
+    URL + "/api/person/addTelegramId",
+    {
+      ...value,
+    }
+  );
   return { data, status };
 };
 
@@ -450,7 +461,7 @@ export const getAllClient = async (params?: { status: string }) => {
 };
 
 export const getAllClientNew = async () => {
-  const { data, status } = await axiosClient.get<{result:ClientNew[]}>(
+  const { data, status } = await axiosClient.get<{ result: ClientNew[] }>(
     URL + `/api/person/allNew`
   );
   return {
@@ -898,6 +909,13 @@ export const createBriefNote = async (value: ReqCreateBriefNote) => {
     {
       ...value,
     }
+  );
+  return { data, status };
+};
+
+export const getCampaingPaymentDetails = async (id: string) => {
+  const { data, status } = await axiosClient.get<{ result: DetailsCampaing }>(
+    URL + `/api/campaign/paymentDetails/${id}`
   );
   return { data, status };
 };

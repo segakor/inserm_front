@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Title } from "../../common/Typography";
 import { Button, Input, Form, Select } from "antd";

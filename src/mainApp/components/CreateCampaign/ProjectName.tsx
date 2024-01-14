@@ -1,4 +1,3 @@
-import React from "react";
 import { Select, Divider, Input, Form, FormInstance, Switch } from "antd";
 import { useLocalState } from "../../context/hooks";
 import { StyledTitle } from "./styles";
@@ -43,9 +42,9 @@ export const ProjectName = ({ form }: Props) => {
                 );
               }
 
-              if (/[`~!@#$%^&*()_|+=?;:'"<>”“‘’]/gi.test(value)) {
+              if (/[`~!@#$%^&*_|+=?;:'"<>”“‘’]/gi.test(value)) {
                 return Promise.reject(
-                  "Спецсимволы ~!@#$%^&*()_|+=?;:'<>”“‘’ недоступны"
+                  "Спецсимволы ~!@#$%^&*_|+=?;:'<>”“‘’ недоступны"
                 );
               }
 

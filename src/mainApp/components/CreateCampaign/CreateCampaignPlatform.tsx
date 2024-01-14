@@ -95,21 +95,18 @@ export const CreateCampaignPlatform = () => {
   };
 
   return (
-    <Wrapper>
-      <Form
-        name="reviewPiece"
-        form={form}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        disabled={isLoading || isLoadingTariff}
-        layout="vertical"
-        initialValues={{ paymentType: "card", isRecurent: true }}
-        onFieldsChange={handleFormChange}
-      >
-        <Price
-          tariff={campaignTariff || []}
-          isLoadingTariff={isLoadingTariff}
-        />
+    <Form
+      name="reviewPiece"
+      form={form}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+      disabled={isLoading || isLoadingTariff}
+      layout="vertical"
+      initialValues={{ paymentType: "card", isRecurent: true }}
+      onFieldsChange={handleFormChange}
+    >
+      <Price tariff={campaignTariff || []} isLoadingTariff={isLoadingTariff} />
+      <Wrapper>
         <StyledTitle level={5}>1. Введите название проекта</StyledTitle>
         <Form.Item
           name="projectName"
@@ -117,9 +114,9 @@ export const CreateCampaignPlatform = () => {
             { required: true, message: "Обязательное поле" },
             {
               validator: (_, value) => {
-                if (/[`~!@#$%^&*()_|+=?;:'"<>”“‘’]/gi.test(value)) {
+                if (/[`~!@#$%^&*_|+=?;:'"<>”“‘’]/gi.test(value)) {
                   return Promise.reject(
-                    "Спецсимволы ~!@#$%^&*()_|+=?;:'<>”“‘’ недоступны"
+                    "Спецсимволы ~!@#$%^&*_|+=?;:'<>”“‘’ недоступны"
                   );
                 }
 
@@ -193,7 +190,7 @@ export const CreateCampaignPlatform = () => {
             />
           </>
         )}
-      </Form>
-    </Wrapper>
+      </Wrapper>
+    </Form>
   );
 };

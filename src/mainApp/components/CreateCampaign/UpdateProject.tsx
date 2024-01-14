@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Form } from "antd";
-import { useLocalState } from "../../context/hooks";
+import { Divider, Form, Input } from "antd";
 import { StyledTitle, Wrapper } from "./styles";
 import { ListOfAreaCheckBox } from "./ListOfAreaCheckBox";
 import { ListOfAreaItem } from "./ListOfAreaItem";
@@ -8,29 +7,26 @@ import { Price } from "./Price";
 import { Footer } from "./Footer";
 import { getCountReviews } from "../../../utils/getCountReviews";
 import { useCreateCampaign } from "../../hooks/useCreateCampaign";
-import { ProjectName } from "./ProjectName";
 import { openNotificationWithIcon } from "../../../utils";
 import { useGetCampaignTariff } from "../../hooks/useGetCampaignTariff";
-import { CashlessBlock } from "./CashlessBlock";
 import { PaymentType } from "./PaymentType";
+import { CashlessBlock } from "./CashlessBlock";
 import { RecurentSwitch } from "./RecurentSwitch";
-import { Promocode } from "./Promocode";
+import { useParams } from "react-router-dom";
+import { useGetCampaingDetails } from "../../hooks/useGetCampaingDetails";
 import { usePerson } from "../../hooks/usePerson";
-import { useLocation } from "react-router-dom";
+import { useLocalState } from "../../context/hooks";
 
-export const ReviewsPiece = () => {
+export const UpdateProject = () => {
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
   const [isErrorForm, setIsErrorForm] = useState(false);
 
   usePerson();
-
-  const { search } = useLocation();
-
-  const params = new URLSearchParams(search);
-  const referral = params.get("referral");
-
   const state = useLocalState();
   const { personInfo } = state;
+
+  const params = useParams();
+  const campaignId = params.id || "";
 
   const handleClickArea = (area: string) => {
     selectedArea.find((item) => item === area)
@@ -68,7 +64,6 @@ export const ReviewsPiece = () => {
             type: formValue?.promoAreaType,
           }
         : undefined,
-      referral: referral ?? undefined,
     };
 
     let isRecurent = formValue?.isRecurent;
@@ -79,7 +74,7 @@ export const ReviewsPiece = () => {
             company: formValue?.company,
             inn: formValue?.inn,
             ogrn: formValue?.ogrn,
-            email: personInfo?.email || "",
+            email: formValue?.email,
             phone: formValue?.phone,
             address: formValue?.address,
           }
@@ -94,7 +89,6 @@ export const ReviewsPiece = () => {
       type: "error",
       message: "",
       description: `Заполните все поля`,
-      placement: "topRight",
     });
   };
 
@@ -103,23 +97,46 @@ export const ReviewsPiece = () => {
     setIsErrorForm(hasErrors);
   };
 
+  const { isLoading: isLoadingDetails } = useGetCampaingDetails({
+    id: campaignId,
+    form,
+    setArea: setSelectedArea,
+  });
+
   return (
     <Form
       name="reviewPiece"
       form={form}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      disabled={isLoading || isLoadingTariff}
+      disabled={isLoading || isLoadingTariff || isLoadingDetails}
       layout="vertical"
-      initialValues={{
-        paymentType: "card",
-        isRecurent: true,
-      }}
+      initialValues={{ paymentType: "card", isRecurent: true }}
       onFieldsChange={handleFormChange}
     >
       <Price tariff={campaignTariff || []} isLoadingTariff={isLoadingTariff} />
       <Wrapper>
-        <ProjectName form={form} />
+        <StyledTitle level={5}>1. Введите название проекта</StyledTitle>
+        <Form.Item
+          name="projectName"
+          rules={[
+            { required: true, message: "Обязательное поле" },
+            {
+              validator: (_, value) => {
+                if (/[`~!@#$%^&*_|+=?;:'"<>”“‘’]/gi.test(value)) {
+                  return Promise.reject(
+                    "Спецсимволы ~!@#$%^&*_|+=?;:'<>”“‘’ недоступны"
+                  );
+                }
+
+                return Promise.resolve();
+              },
+            },
+          ]}
+        >
+          <Input placeholder="Название проекта" style={{ width: "300px" }} />
+        </Form.Item>
+        <Divider />
         {formValue?.projectName && (
           <>
             <StyledTitle level={5}>
@@ -148,11 +165,6 @@ export const ReviewsPiece = () => {
         )}
         {count > 0 && (
           <>
-            <Promocode
-              form={form}
-              count={count}
-              email={personInfo?.email || ""}
-            />
             <StyledTitle level={5}>4. Выберите способ оплаты</StyledTitle>
             <PaymentType />
             {formValue.paymentType !== "cashless" && <RecurentSwitch />}
@@ -165,7 +177,6 @@ export const ReviewsPiece = () => {
               invoiceTemplate={invoiceTemplate}
               isCashless={formValue.paymentType === "cashless"}
               isErrorForm={isErrorForm}
-              giftCount={formValue.giftCount}
             />
           </>
         )}

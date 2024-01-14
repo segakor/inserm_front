@@ -25,6 +25,7 @@ export type Person = {
   email: string;
   phone: string;
   tg: string;
+  tgId: string;
 };
 export type ReqPersonChange = {
   first_name: string;
@@ -560,4 +561,9 @@ export type BriefNote = Omit<Note, "user">;
 export type ReqCreateBriefNote = {
   briefId: number;
   text: string;
+};
+
+export type DetailsCampaing = {
+  projectName: string;
+  groppedByType: GrouppedCampaign[];
 };
