@@ -143,11 +143,11 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     },
     { label: "Управление тарифами", key: "tariff", icon: <TariffIcon /> },
     { label: "Профиль", key: "profile", icon: <ProfileIcon /> },
-    {
+   /*  {
       label: "Уведомления",
       key: "notify",
       icon: <BellFilled style={{ color: "#1579E9" }} />,
-    },
+    }, */
     { label: "База знаний", key: "foundation", icon: <FoundationIcon /> },
     { label: "Контакты", key: "contacts", icon: <ContactsIcon /> },
     /* { label: "Партнерская программа", key: "referral", icon: <ReferralIcon /> }, */ //TODO: включить по готовности
