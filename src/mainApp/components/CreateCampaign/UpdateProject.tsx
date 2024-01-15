@@ -16,6 +16,7 @@ import { useParams } from "react-router-dom";
 import { useGetCampaingDetails } from "../../hooks/useGetCampaingDetails";
 import { usePerson } from "../../hooks/usePerson";
 import { useLocalState } from "../../context/hooks";
+import { useGetListOfBrief } from "../../hooks/useGetListOfBrief";
 
 export const UpdateProject = () => {
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
@@ -23,7 +24,7 @@ export const UpdateProject = () => {
 
   usePerson();
   const state = useLocalState();
-  const { personInfo } = state;
+  const { personInfo, clientCampaign, clientProject } = state;
 
   const params = useParams();
   const campaignId = params.id || "";
@@ -54,9 +55,10 @@ export const UpdateProject = () => {
       email: personInfo?.email || "",
       name: formValue?.projectName.trim() || "",
       cards,
-      brief: formValue?.importBrief
-        ? JSON.parse(formValue?.importBrief)
-        : undefined,
+      brief: {
+        type: "campaign" as any,
+        id: campaignId as any,
+      },
       promo: formValue?.promoLink
         ? {
             name: formValue?.promoCode,
@@ -103,6 +105,16 @@ export const UpdateProject = () => {
     setArea: setSelectedArea,
   });
 
+  const allProject = [clientCampaign, clientProject].flat();
+
+  const listOfProject = allProject?.map((item) => ({
+    label: item?.name,
+    value: JSON.stringify({
+      id: item?.id,
+      type: item?.type,
+    }),
+  }));
+
   return (
     <Form
       name="reviewPiece"
@@ -123,6 +135,14 @@ export const UpdateProject = () => {
             { required: true, message: "Обязательное поле" },
             {
               validator: (_, value) => {
+                if (
+                  listOfProject?.find((item) => item.label === value.trim())
+                ) {
+                  return Promise.reject(
+                    "Проект с таким названием уже существует"
+                  );
+                }
+
                 if (/[`~!@#$%^&*_|+=?;:'"<>”“‘’]/gi.test(value)) {
                   return Promise.reject(
                     "Спецсимволы ~!@#$%^&*_|+=?;:'<>”“‘’ недоступны"
