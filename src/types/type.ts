@@ -316,7 +316,7 @@ export type ReqCreateCampaign = {
   email: string;
   cards: CampaignCardForm[];
   brief?: {
-    type: "camaign" | "project";
+    type: "campaign" | "project";
     id: number;
   };
   promo?: {
