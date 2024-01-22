@@ -51,7 +51,7 @@ const Notifications = () => {
 
   return (
     <Page>
-      <Header>Уведомления</Header>
+      <Header>Интеграция с telegram</Header>
       <Alert
         message="Подключение сервиса приёма данных Telegram"
         description={
