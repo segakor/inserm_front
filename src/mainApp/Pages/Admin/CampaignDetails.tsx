@@ -102,14 +102,8 @@ const CampaignDetails = () => {
         id={data?.id.toString() || ""}
         onUpdate={handleGetReviews}
       />
-      {data?.archive.map((item, index) => (
-        <ArchiveCampaign
-          date={item.date}
-          statuses={item.statuses}
-          reviews={item.reviews}
-          link={item.link}
-          key={index}
-        />
+      {data?.archives.map((item, index) => (
+        <ArchiveCampaign archives={item} key={index} />
       ))}
       <Divider />
       <FooterDetails type={"campaign"} currentPageId={campaignId} />

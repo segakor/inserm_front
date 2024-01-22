@@ -363,7 +363,7 @@ export type GrouppedCampaign = {
   cards: CampaignCard[];
 };
 
-export type ArchiveCampaignCard = {
+export type ArchiveCard = {
   id: number;
   link: string;
   type: string;
@@ -373,6 +373,11 @@ export type ArchiveCampaignCard = {
   statuses: Statuses;
 };
 
+export type ArchiveCampaignCard = {
+  date: number;
+  archive: ArchiveCard[];
+};
+
 export type ResGetCampaignDetails = {
   id: number;
   name: string;
@@ -380,7 +385,7 @@ export type ResGetCampaignDetails = {
   period: number;
   statuses: Statuses;
   groppedByType: GrouppedCampaign[];
-  archive: ArchiveCampaignCard[];
+  archives: ArchiveCampaignCard[];
   userId: number;
 };
 
