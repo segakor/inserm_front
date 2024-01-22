@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Header, Title } from "../../../common/Typography";
+import { Header } from "../../../common/Typography";
 import { Alert, Button, Input, Space, Form } from "antd";
 import { usePerson } from "../../hooks/usePerson";
 import { useLocalState } from "../../context/hooks";
@@ -62,7 +62,7 @@ const Notifications = () => {
               https://t.me/inserm_bot
             </a>{" "}
             и напишите команду /start. Бот активируется и покажет API key,
-            который нужно вставить в поле ниже.
+            который нужно вставить в поле ниже и сохранить.
           </span>
         }
         type="info"
@@ -75,7 +75,7 @@ const Notifications = () => {
             <Input placeholder="API key" />
           </Form.Item>
           <Button type="primary" onClick={onClick}>
-            Добавить
+            Сохранить
           </Button>
         </Space.Compact>
       </Form>
