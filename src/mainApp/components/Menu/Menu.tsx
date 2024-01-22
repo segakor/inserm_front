@@ -23,15 +23,15 @@ import {
   ContactsIcon,
   CreateadminIcon,
   ExitIcon,
-  FoundationIcon,
+  /* FoundationIcon, */
   HelpIcon,
   PaidreviewsIcon,
   ProfileIcon,
   ProjectCheckIcon,
   ProjectIcon,
-  ReferralIcon,
+  /* ReferralIcon, */
   ReviewsforpaymentIcon,
-  SettingIcon,
+  /* SettingIcon, */
   TariffIcon,
 } from "./MenuIcon";
 import styled from "styled-components";
@@ -148,7 +148,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       key: "notify",
       icon: <BellFilled style={{ color: "#1579E9" }} />,
     },
-    { label: "База знаний", key: "foundation", icon: <FoundationIcon /> },
+    /* { label: "База знаний", key: "foundation", icon: <FoundationIcon /> }, */ //TODO: включить после рефакторинга базы
     { label: "Контакты", key: "contacts", icon: <ContactsIcon /> },
     /* { label: "Партнерская программа", key: "referral", icon: <ReferralIcon /> }, */ //TODO: включить по готовности
     {

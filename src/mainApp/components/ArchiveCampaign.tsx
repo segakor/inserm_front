@@ -28,6 +28,7 @@ const Header = styled.div`
 const HeaderAction = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   cursor: pointer;
   div {
     &:not(:last-child) {
@@ -178,14 +179,33 @@ const Item = ({ item }: { item: ArchiveCard }) => {
 };
 
 export const ArchiveCampaign = ({ archives }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <ArchiveCampaignWrapper>
-      <Title style={{ fontSize: "14px", color: "#1579E9", fontWeight: "700" }}>
-        {getDate({ date: archives.date })}
-      </Title>
-      {archives.archive.map((item, index) => (
-        <Item key={index} item={item} />
-      ))}
+      <HeaderAction onClick={() => setIsOpen(!isOpen)}>
+        <Title
+          style={{ fontSize: "14px", color: "#1579E9", fontWeight: "700" }}
+        >
+          {getDate({ date: archives.date })}
+        </Title>
+        <div style={{ display: "flex" }}>
+          <div>
+            {!isOpen ? (
+              <PlusCircleOutlined style={{ color: "#1579E9" }} />
+            ) : (
+              <MinusCircleOutlined style={{ color: "#1579E9" }} />
+            )}
+          </div>
+          <div>
+            <Title style={{ fontSize: "14px", fontWeight: "700" }}>
+              {!isOpen ? "Открыть архив" : "Закрыть архив"}
+            </Title>
+          </div>
+        </div>
+      </HeaderAction>
+      {isOpen &&
+        archives.archive.map((item, index) => <Item key={index} item={item} />)}
     </ArchiveCampaignWrapper>
   );
 };
