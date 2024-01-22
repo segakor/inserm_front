@@ -144,7 +144,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     { label: "Управление тарифами", key: "tariff", icon: <TariffIcon /> },
     { label: "Профиль", key: "profile", icon: <ProfileIcon /> },
     {
-      label: "Уведомления",
+      label: "Интеграция",
       key: "notify",
       icon: <BellFilled style={{ color: "#1579E9" }} />,
     },
