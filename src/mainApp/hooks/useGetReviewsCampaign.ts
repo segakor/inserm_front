@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AllPersonCampaign, ResGetCampaignDetails } from "../../types";
 import { AxiosError } from "axios";
 
-export const useGetReviewsCampaign = (id: string, isAdmin?:boolean) => {
+export const useGetReviewsCampaign = (id: string, isAdmin?: boolean) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<ResGetCampaignDetails | undefined>(
     undefined
@@ -17,13 +17,20 @@ export const useGetReviewsCampaign = (id: string, isAdmin?:boolean) => {
     try {
       setIsLoading(true);
       const response = await getCampaignDetails(id);
-      response.data.archive = response.data.archive.map((arch_item) => ({
-        ...arch_item,
-        reviews: arch_item.reviews.map((rev_item, index) => ({
-          ...rev_item,
-          key: index.toString(),
-        })),
-      }));
+      response.data.archives = response.data.archives.map((item) => {
+        return {
+          ...item,
+          archive: item.archive.map((item_arch) => {
+            return {
+              ...item_arch,
+              reviews: item_arch.reviews.map((reviews, index) => {
+                return { ...reviews, key: index.toString() };
+              }),
+            };
+          }),
+        };
+      });
+
       setData(response.data);
     } catch (err) {
       const typedError = err as AxiosError;

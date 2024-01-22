@@ -8,7 +8,7 @@ import { ButtonBrief } from "../../Button/ButtonBrief";
 import { ModalBrief } from "../../components/Modal";
 import { useGetReviewsCampaign } from "../../hooks/useGetReviewsCampaign";
 import { CampaignReviews } from "../../components/CampaignReviews";
-import { Spin, Typography } from "antd";
+import { Spin } from "antd";
 import { ArchiveCampaign } from "../../components/ArchiveCampaign";
 
 const Page = styled.div`
@@ -81,14 +81,8 @@ const Campaign = () => {
             role={"CLIENT"}
             id={data?.id.toString() || ""}
           />
-          {data?.archive.map((item, index) => (
-            <ArchiveCampaign
-              date={item.date}
-              statuses={item.statuses}
-              reviews={item.reviews}
-              link={item.link}
-              key={index}
-            />
+          {data?.archives.map((item, index) => (
+            <ArchiveCampaign archives={item} key={index} />
           ))}
         </>
       )}
