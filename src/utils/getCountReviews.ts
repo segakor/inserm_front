@@ -5,7 +5,7 @@ export const getCountReviews = (
   campaignTariff: CampaignTariff[] | undefined
 ) => {
   let count = 0;
-  let maxCount = 0;
+  let maxCount;
   let cards = [];
 
   function getMaxOfArray(numArray: number[]) {
@@ -29,7 +29,12 @@ export const getCountReviews = (
       : item.countRange[0]
   );
 
-  const priceForOne = currentPrice?.price || 0
+  const priceForOne = currentPrice?.price || 0;
+
+  maxCount = cards
+    .map((item) => item.map((item2: any) => item2?.amount))
+    .flat()
+    .sort((a, b) => b - a)[0];
 
   return {
     count,
