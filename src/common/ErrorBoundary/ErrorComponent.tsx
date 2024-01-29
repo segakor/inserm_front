@@ -13,9 +13,10 @@ export const ErrorComponent = ({ errMessage }: Props) => {
   };
 
   useEffect(() => {
-    const chunkFailedMessage = /dynamically imported /;
+    const chunkFailedMessage = /dynamically imported/;
     if (errMessage && chunkFailedMessage.test(errMessage)) {
-      window.location.reload();
+      //@ts-ignore
+      window.location.reload(false);
     }
   }, [errMessage]);
 
