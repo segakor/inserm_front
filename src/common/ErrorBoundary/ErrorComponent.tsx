@@ -17,6 +17,7 @@ export const ErrorComponent = ({ errMessage }: Props) => {
     if (errMessage && chunkFailedMessage.test(errMessage)) {
       //@ts-ignore
       window.location.reload(false);
+      console.log(errMessage)
     }
   }, [errMessage]);
 
