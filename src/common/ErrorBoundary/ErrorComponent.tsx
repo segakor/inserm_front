@@ -1,16 +1,24 @@
-import React from "react";
 import { Button, Result } from "antd";
+import { useEffect } from "react";
 
 type Props = {
   errMessage: string;
 };
 
 export const ErrorComponent = ({ errMessage }: Props) => {
-  const gotoMain = () =>{
+  const gotoMain = () => {
     localStorage.removeItem("loginData");
     //@ts-ignore
     window.location.reload(false);
-  }
+  };
+
+  useEffect(() => {
+    const chunkFailedMessage = /dynamically imported /;
+    if (errMessage && chunkFailedMessage.test(errMessage)) {
+      window.location.reload();
+    }
+  }, [errMessage]);
+
   return (
     <Result
       status="500"
