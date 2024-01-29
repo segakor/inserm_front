@@ -236,6 +236,7 @@ export const TableAllClientNew = () => {
             <li>Email: {record.email}</li>
             {record.phone && <li>Телефон: {record.phone}</li>}
             {record.tg && <li>Tg: {record.tg}</li>}
+            {record.tgId && <li>TgId: {record.tgId}</li>}
           </ul>
         );
       },

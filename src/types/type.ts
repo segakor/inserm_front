@@ -257,6 +257,7 @@ export type ClientNew = {
   name: string;
   phone: string;
   tg: string;
+  tgId: string;
   totalPrice: number;
   projects: ClientProjectNew[];
   campaigns: ClientProjectNew[];
