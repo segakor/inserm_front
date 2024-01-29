@@ -79,7 +79,13 @@ export const ModalTemplate = ({ onClose, invoiceTemplate, type }: Props) => {
       }
     >
       {!blob ? (
-        <StyledSpin tip="Загружаем счета на оплату">
+        <StyledSpin
+          tip={
+            type === "payment"
+              ? templateModal.loadPayment
+              : templateModal.loadAct
+          }
+        >
           <div className="content" />
         </StyledSpin>
       ) : (

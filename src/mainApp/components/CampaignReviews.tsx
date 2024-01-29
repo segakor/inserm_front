@@ -4,7 +4,11 @@ import { CampaignCard, GrouppedCampaign, Role } from "../../types";
 import { StatusesFlat } from "./Card/StatusesFlat";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { DownCircleFilled, UpCircleFilled } from "@ant-design/icons";
+import {
+  DownCircleFilled,
+  StarFilled,
+  UpCircleFilled,
+} from "@ant-design/icons";
 import { TableProject } from "../Table/TableProject";
 import { TableProjectNotChangeable } from "../Table/TableProjectNotChangeable";
 import { TableCampaignChangeable } from "../Table/TableCampaignChangeable";
@@ -12,7 +16,7 @@ import { getNumWord } from "../../utils";
 import { ButtonCopy } from "../Button/ButtonCopy";
 import { cliapbord } from "../../utils";
 import { ButtonChangeRow } from "../Button/ButtonChangeRow";
-import { Form, Grid, Input } from "antd";
+import { Form, Grid, Input, InputNumber } from "antd";
 import { useChangeLink } from "../hooks/useChangeLink";
 import { DetailsCard } from "./Card";
 
@@ -24,6 +28,12 @@ type Props = {
   id: string;
   onUpdate?: (campaignId: string) => void;
 };
+
+const StyledForm = styled(Form)`
+  .ant-form-item {
+    margin-bottom: 0px;
+  }
+`;
 
 const WrapperStatuses = styled.div`
   border-radius: 10px;
@@ -90,11 +100,17 @@ const Box = styled.div`
     width: 60%;
   }
 `;
-
-const StyledForm = styled(Form)`
-  .ant-form-item {
-    margin-bottom: 0px;
-  }
+const StyledStarFilled = styled(StarFilled)`
+  color: #fadb14;
+  font-size: 20px;
+`;
+const StarWrapper = styled.div`
+  display: flex;
+  background-color: white;
+  border-radius: 4px;
+  color: black;
+  padding: 1px 5px;
+  grid-gap: 4px;
 `;
 
 const CardComponent = ({
@@ -115,7 +131,7 @@ const CardComponent = ({
 
   const [form] = Form.useForm();
 
-  const { handleChangeLink } = useChangeLink();
+  const { handleChangeLink, handleChangeRate } = useChangeLink();
 
   const onClickChevron = () => {
     setChevron(!chevron);
@@ -131,11 +147,28 @@ const CardComponent = ({
   };
 
   const linkField = Form.useWatch("link", form);
+  const startRatingField = Form.useWatch("startRating", form);
+  const currentRatingField = Form.useWatch("currentRating", form);
 
   const onSave = () => {
-    handleChangeLink({ cardId: card.id, link: linkField });
+    if (linkField !== card.link)
+      handleChangeLink({ cardId: card.id, link: linkField }).then(() => {
+        onUpdate(id);
+      });
+
+    if (
+      startRatingField !== card.startRating ||
+      currentRatingField !== card.currentRating
+    )
+      handleChangeRate({
+        start: startRatingField,
+        current: currentRatingField,
+        cardId: card.id,
+      }).then(() => {
+        onUpdate(id);
+      });
+
     setIsEdit(false);
-    onUpdate(id);
   };
 
   const reviews = card.reviews.map((item, index) => ({
@@ -147,8 +180,8 @@ const CardComponent = ({
     cliapbord(card.link);
   };
 
-    useEffect(() => {
-    role !== 'CLIENT' && setChevron(false);
+  useEffect(() => {
+    role !== "CLIENT" && setChevron(false);
   }, [id]);
 
   return (
@@ -165,6 +198,36 @@ const CardComponent = ({
                 onClickCancel={onReset}
                 onClickSave={onSave}
               />
+            )}
+            <div
+              onClick={(e) => e.stopPropagation()}
+              style={{ display: !isEdit ? "none" : "" }}
+            >
+              <Form.Item
+                name={"startRating"}
+                initialValue={card.startRating || 0}
+                hidden={!isEdit}
+              >
+                <InputNumber style={{ width: 70 }} min="0" max="5" step="0.1" />
+              </Form.Item>
+            </div>
+            <div
+              onClick={(e) => e.stopPropagation()}
+              style={{ display: !isEdit ? "none" : "" }}
+            >
+              <Form.Item
+                name={"currentRating"}
+                initialValue={card.currentRating || 0}
+                hidden={!isEdit}
+              >
+                <InputNumber style={{ width: 70 }} min="0" max="5" step="0.1" />
+              </Form.Item>
+            </div>
+            {!isEdit && role !== "CLIENT" && (
+              <StarWrapper>
+                <StyledStarFilled />
+                <>{`${card.startRating || 0} - ${card.currentRating || 0}`}</>
+              </StarWrapper>
             )}
             {!isEdit && (
               <Link
@@ -219,7 +282,9 @@ const CardComponent = ({
 
 export const CampaignReviews = ({ group, role, id, onUpdate }: Props) => {
   const screens = useBreakpoint();
-  const isMobile = !!screens.xs || !screens.lg;
+  const isMobile = !!screens.xs || (!screens.lg && screens);
+
+  console.log(isMobile);
   return (
     <>
       {group.map((item, index) => (

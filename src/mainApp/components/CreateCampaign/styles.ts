@@ -133,13 +133,10 @@ export const PriceWrapper = styled.div`
 
 export const FooterWrapper = styled.div`
   display: flex;
-  /* width: 100%; */
-  flex-wrap: wrap;
-  /* max-width: 1030px; */
   justify-content: space-between;
-  /* justify-content: flex-start; */
-  @media (max-width: 768px) {
+  @media (max-width: 1200px) {
     grid-gap: 10px;
+    flex-direction: column;
   }
 `;
 
@@ -170,7 +167,7 @@ export const FooterButton = styled(Button)`
   border-radius: 10px;
   height: 50px;
   min-width: 180px;
-  @media (max-width: 768px) {
+  @media (max-width: 1200px) {
     width: 100%;
   }
 `;
@@ -204,7 +201,7 @@ export const Agreement = styled.div`
     color: #1579e9;
     text-decoration-line: underline;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1200px) {
     float: none;
     width: auto;
   }

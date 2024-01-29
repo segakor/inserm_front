@@ -19,7 +19,7 @@ export const TablePromoStatistics = () => {
 
   const navigation = useNavigate();
 
-  const onNavigate = (e: React.MouseEvent<HTMLElement>, id:number) => {
+  const onNavigate = (e: React.MouseEvent<HTMLElement>, id: number) => {
     if (e.ctrlKey) {
       window.open(
         `/app/admin/campaign/${id}`,
@@ -68,9 +68,13 @@ export const TablePromoStatistics = () => {
         return (
           <div>
             {record.map((item, index) => (
-              <a key={index} onClick={(e) => onNavigate(e, item.id)}>
-                {`[${item.id}]`} {item.name}
-              </a>
+              <ul>
+                <li>
+                  <a key={index} onClick={(e) => onNavigate(e, item.id)}>
+                    {`[${item.id}]`} {item.name}
+                  </a>
+                </li>
+              </ul>
             ))}
           </div>
         );

@@ -185,7 +185,7 @@ export const TableProject = ({ reviews, isLoading, withoutLink }: Props) => {
     : columns.filter((item) => item.key !== "link");
 
   const screens = useBreakpoint();
-  const isMobile = !!screens.xs || !screens.lg;
+  const isMobile = !!screens.xs || !screens.lg && screens;
 
   if (isMobile) {
     return <ListOfReviews data={reviews || []} />;

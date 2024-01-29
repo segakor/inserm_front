@@ -51,7 +51,7 @@ export const usePerson = (nowUpdate?: boolean) => {
       openNotificationWithIcon({
         type: "success",
         message: "",
-        description: "API key успешно добавлен",
+        description: `API key успешно ${value.tgId ? "добавлен" : "удален"}`,
       });
     } catch (err) {
       const typedError = err as AxiosError;
