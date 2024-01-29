@@ -205,7 +205,7 @@ const CardComponent = ({
             >
               <Form.Item
                 name={"startRating"}
-                initialValue={card.startRating || 0}
+                initialValue={card.startRating}
                 hidden={!isEdit}
               >
                 <InputNumber style={{ width: 70 }} min="0" max="5" step="0.1" />
@@ -217,7 +217,7 @@ const CardComponent = ({
             >
               <Form.Item
                 name={"currentRating"}
-                initialValue={card.currentRating || 0}
+                initialValue={card.currentRating}
                 hidden={!isEdit}
               >
                 <InputNumber style={{ width: 70 }} min="0" max="5" step="0.1" />
