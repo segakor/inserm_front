@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { changeLink } from "../../request";
+import { changeLink, createCardRating } from "../../request";
 import { openNotificationWithIcon } from "../../utils";
 
 export const useChangeLink = () => {
@@ -28,7 +28,35 @@ export const useChangeLink = () => {
     }
   };
 
+  const handleChangeRate = async ({
+    start,
+    current,
+    cardId,
+  }: {
+    start: number;
+    current: number;
+    cardId: number;
+  }) => {
+    try {
+      await createCardRating({ start, current, cardId });
+      openNotificationWithIcon({
+        type: "success",
+        message: "",
+        description: "Сохранено",
+      });
+    } catch (err) {
+      const typedError = err as AxiosError;
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: "Не удалось изменить рейтинг",
+        status: typedError.status,
+      });
+    }
+  };
+
   return {
     handleChangeLink,
+    handleChangeRate
   };
 };

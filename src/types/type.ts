@@ -355,6 +355,8 @@ export type CampaignCard = {
   statuses: Statuses;
   amount: number;
   isPromo: boolean;
+  startRating:number;
+  currentRating:number;
 };
 
 export type GrouppedCampaign = {
@@ -572,3 +574,5 @@ export type DetailsCampaing = {
   projectName: string;
   groppedByType: GrouppedCampaign[];
 };
+
+export type DetailsTransfer = Omit<ReqCreateCashlessTransfer, "campaignId">;

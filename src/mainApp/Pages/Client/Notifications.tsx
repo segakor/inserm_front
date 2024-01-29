@@ -40,13 +40,15 @@ const Notifications = () => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    personInfo?.tgId && form.setFieldValue("tgId", personInfo?.tgId);
+    form.setFieldValue("tgId", personInfo?.tgId);
   }, [personInfo?.tgId]);
 
   const formValue = Form.useWatch([], form);
 
   const onClick = () => {
-    handleAddTgKey({ tgId: formValue.tgId });
+    personInfo?.tgId
+      ? handleAddTgKey({ tgId: "" })
+      : handleAddTgKey({ tgId: formValue.tgId });
   };
 
   return (
@@ -75,7 +77,7 @@ const Notifications = () => {
             <Input placeholder="API key" />
           </Form.Item>
           <Button type="primary" onClick={onClick}>
-            Сохранить
+            {personInfo?.tgId ? "Удалить" : "Сохранить"}
           </Button>
         </Space.Compact>
       </Form>

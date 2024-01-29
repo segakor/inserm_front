@@ -67,7 +67,7 @@ export const CampaignCard = (campaign: Campaign) => {
 
   const navigation = useNavigate();
 
-  const isCanRefresh = !autopay && !isTransfer && isPaid;
+  const isCanRefresh = !autopay && isPaid;
   const isCanRemove = !isPaid;
 
   const goToCampaign = useCallback(() => {
@@ -174,7 +174,9 @@ export const CampaignCard = (campaign: Campaign) => {
       </div>
       <TariffBlock>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
-        {isCanRefresh && <ButtonRefresh campaignId={id} />}
+        {isCanRefresh && (
+          <ButtonRefresh campaignId={id} isCashless={isTransfer} />
+        )}
         {isCanRemove && <ButtonRemoveCampaign campaignId={id} />}
         <TariffCard>
           <HeaderTariff>

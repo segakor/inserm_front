@@ -12,11 +12,10 @@ import { useGetCampaignTariff } from "../../hooks/useGetCampaignTariff";
 import { PaymentType } from "./PaymentType";
 import { CashlessBlock } from "./CashlessBlock";
 import { RecurentSwitch } from "./RecurentSwitch";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useGetCampaingDetails } from "../../hooks/useGetCampaingDetails";
 import { usePerson } from "../../hooks/usePerson";
 import { useLocalState } from "../../context/hooks";
-import { useGetListOfBrief } from "../../hooks/useGetListOfBrief";
 
 export const UpdateProject = () => {
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
@@ -28,6 +27,8 @@ export const UpdateProject = () => {
 
   const params = useParams();
   const campaignId = params.id || "";
+  const [searchParams] = useSearchParams();
+  const isCashless = Boolean(searchParams.get("isCashless"));
 
   const handleClickArea = (area: string) => {
     selectedArea.find((item) => item === area)
@@ -103,6 +104,7 @@ export const UpdateProject = () => {
     id: campaignId,
     form,
     setArea: setSelectedArea,
+    isCashless
   });
 
   const allProject = [clientCampaign, clientProject].flat();
@@ -123,7 +125,10 @@ export const UpdateProject = () => {
       onFinishFailed={onFinishFailed}
       disabled={isLoading || isLoadingTariff || isLoadingDetails}
       layout="vertical"
-      initialValues={{ paymentType: "card", isRecurent: true }}
+      initialValues={{
+        paymentType: isCashless ? "cashless" : "card",
+        isRecurent: true,
+      }}
       onFieldsChange={handleFormChange}
     >
       <Price tariff={campaignTariff || []} isLoadingTariff={isLoadingTariff} />

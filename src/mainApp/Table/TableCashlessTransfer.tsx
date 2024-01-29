@@ -11,6 +11,8 @@ import {
   FolderAddOutlined,
   FolderOutlined,
 } from "@ant-design/icons";
+import { useActTemplate } from "../hooks/useGetActTemplate";
+import { ModalTemplate } from "../components/Modal";
 
 type TableItem = CashlessTransfer & {
   key: string;
@@ -26,6 +28,7 @@ const WrapperAction = styled.div`
 
 export const TableCashlessTransfer = () => {
   const [status, setStatus] = useState<CashlessStatus>("wait");
+  const [isModalActOpen, setIsModalActOpen] = useState(false);
 
   const {
     cashlessTransfer,
@@ -33,6 +36,8 @@ export const TableCashlessTransfer = () => {
     handleApproveTransfer,
     handleArchiveTransfer,
   } = useGetCashlessTransfer(status);
+
+  const { handleGetAct, tempalate, typeTemplate } = useActTemplate();
 
   const columns: ColumnsType<TableItem> = [
     { title: "transferId", dataIndex: "id", width: 60 },
@@ -81,14 +86,26 @@ export const TableCashlessTransfer = () => {
         return (
           <WrapperAction>
             {isActive && (
-              <a
-                onClick={() =>
-                  handleApproveTransfer({ transferId, isApproved: !isApproved })
-                }
-              >
-                {!isApproved ? <CheckOutlined /> : <CloseOutlined />}
-                {!isApproved ? "Оплачен" : "Не оплачен"}
-              </a>
+              <>
+                <a
+                  onClick={() =>
+                    handleApproveTransfer({
+                      transferId,
+                      isApproved: !isApproved,
+                    })
+                  }
+                >
+                  {!isApproved ? <CheckOutlined /> : <CloseOutlined />}
+                  {!isApproved ? "Оплачен" : "Не оплачен"}
+                </a>
+                <a
+                  onClick={() => {
+                    handleActOpen(transferId);
+                  }}
+                >
+                  Получить акт
+                </a>
+              </>
             )}
             {!isApproved && (
               <a
@@ -105,6 +122,15 @@ export const TableCashlessTransfer = () => {
       },
     },
   ];
+
+  const handleActOpen = (transferId: number) => {
+    setIsModalActOpen(true);
+    handleGetAct(transferId);
+  };
+
+  const handleActClose = () => {
+    setIsModalActOpen(false);
+  };
 
   return (
     <div>
@@ -129,6 +155,13 @@ export const TableCashlessTransfer = () => {
         locale={{ emptyText: "Нет данных" }}
         scroll={{ x: 900 }}
       />
+      {isModalActOpen && (
+        <ModalTemplate
+          onClose={handleActClose}
+          invoiceTemplate={tempalate}
+          type={typeTemplate as "act" | "payment"}
+        />
+      )}
     </div>
   );
 };

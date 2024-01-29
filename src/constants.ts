@@ -137,6 +137,8 @@ export const templateModal = {
   titleModalPayment:
     "Вы можете скачать и оплатить счет. После успешной оплаты, в течение 1-2 рабочих дней на вашем аккаунте будет создан проект и мы возьмем его в работу. В случае возникновения проблем вы можете написать нам на почту info@inserm.ru",
   titleModalAct: "Акт выполненных работ",
+  loadAct: "Загружаем акт выполненных работ",
+  loadPayment: "Загружаем счет на оплату",
 };
 
 export const adminRoleList = ["HOST", "SUPERVISOR", "SUPPORT", "ADMIN"];

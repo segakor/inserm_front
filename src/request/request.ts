@@ -53,6 +53,7 @@ import {
   ReqCreateBriefNote,
   ClientNew,
   DetailsCampaing,
+  DetailsTransfer,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -917,5 +918,23 @@ export const getCampaingPaymentDetails = async (id: string) => {
   const { data, status } = await axiosClient.get<{ result: DetailsCampaing }>(
     URL + `/api/campaign/paymentDetails/${id}`
   );
+  return { data, status };
+};
+
+export const getCampaingTransferDetails = async (id: string) => {
+  const { data, status } = await axiosClient.get<DetailsTransfer>(
+    URL + `/api/transfer/detail/${id}`
+  );
+  return { data, status };
+};
+
+export const createCardRating = async (value: {
+  start: number;
+  current: number;
+  cardId: number;
+}) => {
+  const { data, status } = await axiosClient.post(URL + `/api/card/rating`, {
+    ...value,
+  });
   return { data, status };
 };
