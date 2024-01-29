@@ -77,7 +77,7 @@ const Notifications = () => {
             <Input placeholder="API key" />
           </Form.Item>
           <Button type="primary" onClick={onClick}>
-            {personInfo?.tgId ? "Удалить" : "Сохранить"}
+            {personInfo?.tgId ? "Отключить" : "Сохранить"}
           </Button>
         </Space.Compact>
       </Form>

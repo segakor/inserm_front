@@ -23,7 +23,7 @@ export const ButtonRefresh = ({
 
   return (
     <div>
-      <OutlinedButton onClick={goToUpdate}>Обновить проект</OutlinedButton>
+      <OutlinedButton onClick={goToUpdate}>Повторить заказ</OutlinedButton>
     </div>
   );
 };
