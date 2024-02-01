@@ -77,7 +77,7 @@ export const UpdateProject = () => {
             company: formValue?.company,
             inn: formValue?.inn,
             ogrn: formValue?.ogrn,
-            email: formValue?.email,
+            email: personInfo?.email || 'personInfo?.email',
             phone: formValue?.phone,
             address: formValue?.address,
           }
