@@ -209,6 +209,7 @@ export const TableProjectChangeable = ({
       dataIndex: "link",
       width: "20%",
       editable: isAdmin,
+      ellipsis: true,
       render: (text: string) => (
         <div style={{ display: "inline" }}>
           <a onClick={() => window.open(text, "_blank")}>{text}</a>

@@ -58,6 +58,10 @@ const Link = styled.div`
   border-radius: 10px;
   margin-bottom: 20px;
   margin-top: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: white;
   a {
     color: white;
   }

@@ -32,6 +32,7 @@ export const TableProjectNotChangeable = ({ reviews, isLoading }: Props) => {
       title: "Ссылка на отзыв",
       dataIndex: "link",
       width: "20%",
+      ellipsis: true,
       render: (text: string) => (
         <div style={{ display: "inline" }}>
           <a onClick={() => window.open(text, "_blank")}>{text}</a>

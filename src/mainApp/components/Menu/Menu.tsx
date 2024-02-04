@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Badge, MenuProps } from "antd";
 import { Menu } from "antd";
-
 import {
   ExclamationCircleFilled,
   SignalFilled,
@@ -10,7 +9,7 @@ import {
   BellFilled,
   MailFilled,
 } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useLocalState } from "../../context/hooks";
 import { useAuth } from "../../hooks/useAuth";
 import { useGetProject } from "../../hooks/useGetProject";
@@ -35,7 +34,7 @@ import {
   TariffIcon,
 } from "./MenuIcon";
 import styled from "styled-components";
-import { ButtonCreateIdea } from "../../Button/ButtonCreateIdea";
+import { LinkAndContacts, LinkAndIdea } from "./Components";
 
 type Props = {
   onHeaderClose?: () => void;
@@ -57,6 +56,9 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
   const [selectedKeys, setSelectedKeys] = useState([""]);
 
   const navigation = useNavigate();
+
+  const location = useLocation();
+  console.log(location);
 
   const state = useLocalState();
 
@@ -284,26 +286,13 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     navigation(`${isAdminRole ? "admin" : "client"}/${e.key}`);
   };
 
-  const LinkTg =
-    role === "CLIENT" ? (
-      <div
-        style={{
-          paddingLeft: 20,
-          paddingRight: 20,
-          margin: "50px 0 30px 0",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <ButtonCreateIdea />
-        <div>
-          Подпишитесь на телеграм канал{" "}
-          <a target="_blank" href="https://t.me/inserm">
-            INSERM | Сервис по заказу отзывов
-          </a>
-        </div>
-      </div>
-    ) : null;
+  if (location.pathname === "/app/payment") {
+    return (
+      <StyledMenuContainer>
+        <LinkAndContacts />
+      </StyledMenuContainer>
+    );
+  }
 
   return (
     <>
@@ -318,7 +307,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
             style={{ borderInline: "none" }}
           />
           <div>
-            {LinkTg}
+            <LinkAndIdea role={role} />
             <Menu
               onClick={onClick}
               mode="inline"

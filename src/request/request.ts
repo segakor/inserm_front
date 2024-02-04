@@ -23,7 +23,6 @@ import {
   ReqNote,
   ReqRooms,
   ReqCreateReviewList,
-  ResGetAllClient,
   ResHostStatistics,
   ResGetWarmClient,
   ReqCreateCampaign,
@@ -450,20 +449,10 @@ export const createReviewList = async (value: ReqCreateReviewList) => {
   };
 };
 
-export const getAllClient = async (params?: { status: string }) => {
-  const { data, status } = await axiosClient.get<ResGetAllClient>(
-    URL + `/api/person/all`,
-    { params: { ...params } }
-  );
-  return {
-    data,
-    status,
-  };
-};
-
-export const getAllClientNew = async () => {
+export const getAllClientNew = async (params?: { status: string }) => {
   const { data, status } = await axiosClient.get<{ result: ClientNew[] }>(
-    URL + `/api/person/allNew`
+    URL + `/api/person/allNew`,
+    { params: { ...params } }
   );
   return {
     data,

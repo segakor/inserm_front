@@ -14,6 +14,7 @@ import { CashlessBlock } from "./CashlessBlock";
 import { RecurentSwitch } from "./RecurentSwitch";
 import { Promocode } from "./Promocode";
 import { useLocation } from "react-router-dom";
+import { Banner } from "./Banner";
 
 export const CreateCampaignPlatform = () => {
   const [selectedArea, setSelectedArea] = useState<string[]>([]);
@@ -106,6 +107,7 @@ export const CreateCampaignPlatform = () => {
       onFieldsChange={handleFormChange}
     >
       <Price tariff={campaignTariff || []} isLoadingTariff={isLoadingTariff} />
+      <Banner />
       <Wrapper>
         <StyledTitle level={5}>1. Введите название проекта</StyledTitle>
         <Form.Item
@@ -127,7 +129,7 @@ export const CreateCampaignPlatform = () => {
         >
           <Input placeholder="Название проекта" style={{ width: "300px" }} />
         </Form.Item>
-        <StyledTitle level={5}>2. Введите ваш email</StyledTitle>
+        <StyledTitle level={5}>2. Введите ваш Email</StyledTitle>
         <Form.Item
           name="email"
           rules={[
@@ -139,7 +141,7 @@ export const CreateCampaignPlatform = () => {
             },
           ]}
         >
-          <Input placeholder="email" style={{ width: "300px" }} />
+          <Input placeholder="Email" style={{ width: "300px" }} />
         </Form.Item>
         <Divider />
         {formValue?.projectName && (

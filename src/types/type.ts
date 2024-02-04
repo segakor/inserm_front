@@ -264,10 +264,6 @@ export type ClientNew = {
   date: number;
 };
 
-export type ResGetAllClient = {
-  result: Client[];
-};
-
 export type Host = { name: string; publicated: number };
 
 export type HostStatistics = Omit<Statuses, "all"> & {
@@ -356,8 +352,8 @@ export type CampaignCard = {
   statuses: Statuses;
   amount: number;
   isPromo: boolean;
-  startRating:number;
-  currentRating:number;
+  startRating: number;
+  currentRating: number;
 };
 
 export type GrouppedCampaign = {
@@ -532,7 +528,6 @@ export type ReferralList = {
 
 export type OptionsClientBase =
   | "allClient"
-  | "allClientNew"
   | "warmClient"
   | "cashless"
   | "idea"
