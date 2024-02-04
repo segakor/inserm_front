@@ -246,7 +246,7 @@ export const TableAllClientNew = () => {
     {
       title: "Дата регистрации",
       sortDirections: ["descend", "ascend"],
-      sorter: (a, b) => a.totalPrice - b.totalPrice,
+      sorter: (a, b) => a.date - b.date,
       render: (record: TableItem) => {
         return <> {getDate({ date: record.date })}</>;
       },
