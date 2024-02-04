@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
-import { TableAllClient } from "../../Table/TableAllClient";
 import { useGetWarmClient } from "../../hooks/useGetWarmClient";
 import { TableWarmClient } from "../../Table/TableWarmClient";
 import { Radio, RadioChangeEvent } from "antd";
@@ -51,9 +50,6 @@ const ClientBase = () => {
         buttonStyle="solid"
       />
       {activeTab === "allClient" && (
-        <TableAllClient />
-      )}
-      {activeTab === "allClientNew" && (
         <TableAllClientNew />
       )}
       {activeTab === "cashless" && <TableCashlessTransfer />}

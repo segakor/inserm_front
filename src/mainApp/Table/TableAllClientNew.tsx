@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import styled from "styled-components";
-import { Badge, Table, Tag } from "antd";
+import { Badge, Divider, Radio, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { ClientNew, ClientProjectNew } from "../../types";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import { getDate } from "../../utils";
 import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
 import { getAmountAutoPay } from "../../utils/amountAutoPay";
 import { useGetAllClientNew } from "../hooks/useGetAllClientNew";
+import { useState } from "react";
 
 type TableItem = ClientNew & {
   key: string;
@@ -27,7 +28,9 @@ const FooterInfo = styled.div`
 export const TableAllClientNew = () => {
   const navigation = useNavigate();
 
-  const { isLoading, allClient } = useGetAllClientNew();
+  const [status, setStatus] = useState("buyer");
+
+  const { isLoading, allClient } = useGetAllClientNew(status);
 
   const onNavigate = (
     e: React.MouseEvent<HTMLElement>,
@@ -232,13 +235,20 @@ export const TableAllClientNew = () => {
           <ul>
             <li>Имя: {record.name}</li>
             <li>ClientId: {record.id}</li>
-            <li>Дата регистрации: {getDate({ date: record.date })}</li>
             <li>Email: {record.email}</li>
             {record.phone && <li>Телефон: {record.phone}</li>}
             {record.tg && <li>Tg: {record.tg}</li>}
             {record.tgId && <li>TgId: {record.tgId}</li>}
           </ul>
         );
+      },
+    },
+    {
+      title: "Дата регистрации",
+      sortDirections: ["descend", "ascend"],
+      sorter: (a, b) => a.totalPrice - b.totalPrice,
+      render: (record: TableItem) => {
+        return <> {getDate({ date: record.date })}</>;
       },
     },
     {
@@ -285,6 +295,16 @@ export const TableAllClientNew = () => {
 
   return (
     <div>
+      <Radio.Group
+        onChange={({ target: { value } }) => {
+          setStatus(value);
+        }}
+        value={status}
+      >
+        <Radio value="buyer">С проектами</Radio>
+        <Radio value="beggar">Без проектов</Radio>
+      </Radio.Group>
+      <Divider />
       <Table
         columns={columns}
         expandable={{

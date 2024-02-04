@@ -4,15 +4,17 @@ import { getAllClientNew } from "../../request";
 import { ClientNew } from "../../types";
 import { openNotificationWithIcon } from "../../utils";
 
-export const useGetAllClientNew = () => {
-  const [allClient, setAllClient] = useState<ClientNew[] | undefined>(undefined);
+export const useGetAllClientNew = (status: string) => {
+  const [allClient, setAllClient] = useState<ClientNew[] | undefined>(
+    undefined
+  );
 
   const [isLoading, setIsLoading] = useState(false);
 
   const handleGetAllClient = async () => {
     try {
       setIsLoading(true);
-      const response = await getAllClientNew();
+      const response = await getAllClientNew({status});
       setAllClient(response.data.result);
     } catch (err) {
       const typedError = err as AxiosError;
@@ -26,11 +28,11 @@ export const useGetAllClientNew = () => {
       setIsLoading(false);
     }
   };
-  
+
   useEffect(() => {
     handleGetAllClient();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [status]);
 
   return {
     allClient: allClient?.map((item, index) => ({

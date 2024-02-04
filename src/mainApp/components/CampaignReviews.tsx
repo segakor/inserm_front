@@ -76,6 +76,7 @@ const Cercle = styled.div`
   justify-content: center;
 `;
 const Link = styled.a`
+  max-width: 50%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

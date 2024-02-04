@@ -206,3 +206,15 @@ export const Agreement = styled.div`
     width: auto;
   }
 `;
+
+export const BannerWrapper = styled.div`
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #ffff;
+  margin-bottom: 40px;
+  max-width: 1181px;
+  ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+`;

@@ -120,6 +120,7 @@ export const TableProject = ({ reviews, isLoading, withoutLink }: Props) => {
       title: "Ссылка на отзыв",
       dataIndex: "link",
       key: "link",
+      ellipsis: true,
       // eslint-disable-next-line jsx-a11y/anchor-is-valid
       render: (text) => (
         <a onClick={() => window.open(text, "_blank")}>{text}</a>
@@ -185,9 +186,9 @@ export const TableProject = ({ reviews, isLoading, withoutLink }: Props) => {
     : columns.filter((item) => item.key !== "link");
 
   const screens = useBreakpoint();
-  const isMobile = !!screens.xs || !screens.lg && screens;
+  const isMobile = !!screens.xs || (!screens.lg && screens);
 
-  if (isMobile) {
+  if (isMobile === true) {
     return <ListOfReviews data={reviews || []} />;
   }
 
