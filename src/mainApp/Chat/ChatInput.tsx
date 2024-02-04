@@ -62,6 +62,7 @@ export const ChatInput = ({
           color={"white"}
           overlayStyle={{ maxWidth: "500px" }}
           open={isOpenEmoji}
+          getPopupContainer={triggerNode => triggerNode}
           title={
             <>
               <EmojiPicker
