@@ -54,7 +54,7 @@ export const ChatInput = ({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="Напишите сообщение..."
-        style={{ width: "100%" }}
+        style={{ width: "100%", maxHeight: "100px" }}
         onKeyDown={handleKeyDown}
       />
       {!isMobile && (
@@ -62,7 +62,7 @@ export const ChatInput = ({
           color={"white"}
           overlayStyle={{ maxWidth: "500px" }}
           open={isOpenEmoji}
-          getPopupContainer={triggerNode => triggerNode}
+          getPopupContainer={(triggerNode) => triggerNode}
           title={
             <>
               <EmojiPicker
