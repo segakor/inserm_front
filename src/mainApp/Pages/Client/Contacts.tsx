@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { ReactComponent as Telegram } from "../../../assets/telegram.svg";
 import { ReactComponent as Whatsapp } from "../../../assets/whatsapp.svg";
 import { Title, Header } from "../../../common/Typography";
+import { contacts } from "../../../constants";
 
 const Page = styled.div`
   display: flex;
@@ -57,21 +58,14 @@ const Contacts = () => {
       </Title>
       <ContactsWrapper>
         <ContactsCard
-          onClick={() => window.open("https://t.me/helpotziv", "_blank")}
+          onClick={() => window.open(contacts.tg, "_blank")}
         >
           <Title level={5} style={{ fontWeight: "400", color: "#40B3E0" }}>
             Telegram
           </Title>
           <TelegramIcon />
         </ContactsCard>
-        <ContactsCard
-          onClick={() =>
-            window.open(
-              "https://api.whatsapp.com/send?phone=79913190069",
-              "_blank"
-            )
-          }
-        >
+        <ContactsCard onClick={() => window.open(contacts.whatsup, "_blank")}>
           <Title level={5} style={{ fontWeight: "400", color: "#2CB742" }}>
             Whatsapp
           </Title>
