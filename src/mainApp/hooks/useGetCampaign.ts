@@ -1,15 +1,23 @@
 import { AxiosError } from "axios";
 import { getCampaign } from "../../request";
 import { openNotificationWithIcon } from "../../utils";
-import { setClientCampaign } from "../context/action";
-import { useDispatch } from "../context/hooks";
+import { setClientCampaign, setIsLoadingProject } from "../context/action";
+import { useDispatch, useLocalState } from "../context/hooks";
 
 export const useGetCampaign = () => {
   const dispatch = useDispatch();
 
+  const state = useLocalState();
+
+  const {
+    filterProject: { isActive },
+  } = state;
+  
+
   const handleGetCampaign = async () => {
     try {
-      const response = await getCampaign(false, undefined, undefined);
+      dispatch(setIsLoadingProject(true));
+      const response = await getCampaign(isActive, undefined, undefined);
       const campaignArray = response.data.result.map((item) => ({
         ...item,
         type: "campaign",
@@ -23,6 +31,8 @@ export const useGetCampaign = () => {
         description: "Не удалось загрузить проекты",
         status: typedError.status,
       });
+    } finally {
+      dispatch(setIsLoadingProject(false));
     }
   };
 

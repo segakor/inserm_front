@@ -268,7 +268,7 @@ const CardComponent = ({
               reviews={reviews}
               isLoading={false}
               onUpdate={onUpdate}
-              campaingId={id}
+              campaignId={id}
               cardId={card.id.toString()}
               link={card.link}
             />

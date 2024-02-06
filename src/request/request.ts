@@ -51,7 +51,7 @@ import {
   BriefNote,
   ReqCreateBriefNote,
   ClientNew,
-  DetailsCampaing,
+  DetailsCampaign,
   DetailsTransfer,
 } from "../types";
 
@@ -99,9 +99,10 @@ export const changePersonTgId = async (value: { tgId: string }) => {
   return { data, status };
 };
 
-export const getProject = async () => {
+export const getProject = async (isActive?: boolean) => {
   const { data, status } = await axiosClient.get<ReqGetProject>(
-    URL + "/api/project"
+    URL + "/api/project",
+    { params: { isActive } }
   );
   return { data, status };
 };
@@ -518,7 +519,7 @@ export const createCampaign = async (value: ReqCreateCampaign) => {
 };
 
 export const getCampaign = async (
-  isActive: boolean,
+  isActive?: boolean,
   sortOrder?: string,
   sortKey?: string
 ) => {
@@ -903,14 +904,14 @@ export const createBriefNote = async (value: ReqCreateBriefNote) => {
   return { data, status };
 };
 
-export const getCampaingPaymentDetails = async (id: string) => {
-  const { data, status } = await axiosClient.get<{ result: DetailsCampaing }>(
+export const getCampaignPaymentDetails = async (id: string) => {
+  const { data, status } = await axiosClient.get<{ result: DetailsCampaign }>(
     URL + `/api/campaign/paymentDetails/${id}`
   );
   return { data, status };
 };
 
-export const getCampaingTransferDetails = async (id: string) => {
+export const getCampaignTransferDetails = async (id: string) => {
   const { data, status } = await axiosClient.get<DetailsTransfer>(
     URL + `/api/transfer/detail/${id}`
   );

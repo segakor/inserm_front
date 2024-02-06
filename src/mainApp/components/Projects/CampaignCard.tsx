@@ -26,6 +26,7 @@ import { useActTemplate } from "../../hooks/useGetActTemplate";
 import { ButtonRefresh } from "../../Button/ButtonRefresh";
 import { ButtonRemoveCampaign } from "../../Button/ButtonRemoveCampaign";
 import { ModalBrief, ModalTemplate } from "../Modal";
+import { ButtonArhiveCampaign } from "../../Button/ButtonArhiveCampaign";
 
 export const CampaignCard = (campaign: Campaign) => {
   const {
@@ -38,6 +39,7 @@ export const CampaignCard = (campaign: Campaign) => {
     transferId,
     autopay,
     isProcessOfWriting,
+    isActive,
   } = campaign;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,6 +71,7 @@ export const CampaignCard = (campaign: Campaign) => {
 
   const isCanRefresh = !autopay && isPaid;
   const isCanRemove = !isPaid;
+  const isCompleted = statuses.success >= statuses.all && !autopay;
 
   const goToCampaign = useCallback(() => {
     isPaid ? navigation(`/app/client/campaign/${id}`) : noop;
@@ -88,7 +91,7 @@ export const CampaignCard = (campaign: Campaign) => {
               whiteSpace: "nowrap",
             }}
           >
-            {isPaid ? "Оплачен" : "Ожидает оплаты"}
+            {!isPaid ? "Ожидает оплаты" : isCompleted ? "Завершен" : "Оплачен"}
           </Title>
         </Status>
         <CardBlock color={"#2CAE97"}>
@@ -178,6 +181,13 @@ export const CampaignCard = (campaign: Campaign) => {
           <ButtonRefresh campaignId={id} isCashless={isTransfer} />
         )}
         {isCanRemove && <ButtonRemoveCampaign campaignId={id} />}
+        {isCompleted && isActive &&  (
+          <ButtonArhiveCampaign
+            id={id}
+            type="campaign"
+            isActive={isActive || false}
+          />
+        )}
         <TariffCard>
           <HeaderTariff>
             <Title level={5} style={{ fontWeight: "800" }}>

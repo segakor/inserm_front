@@ -13,7 +13,7 @@ import { PaymentType } from "./PaymentType";
 import { CashlessBlock } from "./CashlessBlock";
 import { RecurentSwitch } from "./RecurentSwitch";
 import { useParams, useSearchParams } from "react-router-dom";
-import { useGetCampaingDetails } from "../../hooks/useGetCampaingDetails";
+import { useGetCampaignDetails } from "../../hooks/useGetCampaignDetails";
 import { usePerson } from "../../hooks/usePerson";
 import { useLocalState } from "../../context/hooks";
 
@@ -100,7 +100,7 @@ export const UpdateProject = () => {
     setIsErrorForm(hasErrors);
   };
 
-  const { isLoading: isLoadingDetails } = useGetCampaingDetails({
+  const { isLoading: isLoadingDetails } = useGetCampaignDetails({
     id: campaignId,
     form,
     setArea: setSelectedArea,

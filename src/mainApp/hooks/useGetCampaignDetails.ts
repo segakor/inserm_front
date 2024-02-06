@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
-  getCampaingPaymentDetails,
-  getCampaingTransferDetails,
+  getCampaignPaymentDetails,
+  getCampaignTransferDetails,
 } from "../../request";
 import { FormInstance } from "antd";
 
@@ -11,7 +11,7 @@ type Props = {
   setArea: (e: string[]) => void;
   isCashless?: boolean;
 };
-export const useGetCampaingDetails = ({
+export const useGetCampaignDetails = ({
   id,
   form,
   setArea,
@@ -22,7 +22,7 @@ export const useGetCampaingDetails = ({
   const handleGet = async () => {
     try {
       setIsLoading(true);
-      const response = await getCampaingPaymentDetails(id);
+      const response = await getCampaignPaymentDetails(id);
 
       const { projectName, groppedByType } = response.data.result;
       form.setFieldValue("projectName", projectName);
@@ -32,7 +32,7 @@ export const useGetCampaingDetails = ({
       setArea(groppedByType.map((item) => item.type));
 
       if (isCashless) {
-        const response = await getCampaingTransferDetails(id);
+        const response = await getCampaignTransferDetails(id);
 
         for (const [key, value] of Object.entries(response.data)) {
           form.setFieldValue(key, value);

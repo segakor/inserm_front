@@ -8,7 +8,19 @@ import { useGetBrief } from "../../hooks/useGetBrief";
 import { Title } from "../../../common/Typography";
 import { getRangeDate } from "../../../utils";
 import { colorCardProject } from "../../../constants";
-import { CardBlock, Header, HeaderTariff, TariffBlock, TariffCard, TitleDate, Wrapper } from "./styles";
+import {
+  CardBlock,
+  Header,
+  HeaderTariff,
+  Status,
+  TariffBlock,
+  TariffCard,
+  TitleDate,
+  Wrapper,
+} from "./styles";
+import { ButtonArhiveCampaign } from "../../Button/ButtonArhiveCampaign";
+import { ReactComponent as WaitIcon } from "../../../assets/transferWait.svg";
+import { ReactComponent as ApproveIcon } from "../../../assets/transferApprove.svg";
 
 export const ProjectCard = (project: Project) => {
   const {
@@ -16,6 +28,8 @@ export const ProjectCard = (project: Project) => {
     tariff: { start, end, name: tariffName },
     statuses,
     id,
+    autopay,
+    isActive,
   } = project;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,60 +45,89 @@ export const ProjectCard = (project: Project) => {
     handleGetBrief();
   };
 
-  const color = colorCardProject.find((item) => item.tariffName === tariffName)?.color;
+  const color = colorCardProject.find(
+    (item) => item.tariffName === tariffName
+  )?.color;
 
   const navigation = useNavigate();
 
+  const isCompleted =
+    statuses && statuses?.success >= statuses?.all && !autopay;
+  const isPaid = true;
+
   const goToProjeсt = useCallback(() => {
-    navigation(`/app/client/project/${id}`)
+    navigation(`/app/client/project/${id}`);
   }, []);
 
   return (
     <Wrapper>
-      <CardBlock color={color}>
-        <Header>
-          <Title
-            level={5}
-            style={{
-              color: "white",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              cursor: "pointer",
-            }}
-            onClick={goToProjeсt}
-          >
-            {name}
-          </Title>
+      <div>
+        <Status>
+          {isPaid ? <ApproveIcon /> : <WaitIcon />}
           <Title
             level={5}
             style={{
               fontSize: "14px",
-              color: "white",
-              fontWeight: "400",
+              color: isPaid ? "#23C915" : "#E73E3E",
+              fontWeight: "500",
               whiteSpace: "nowrap",
             }}
           >
-            {getRangeDate({ start, end })}
+            {!isPaid ? "Ожидает оплаты" : isCompleted ? "Завершен" : "Оплачен"}
           </Title>
-        </Header>
-        <DetailsCard statuses={statuses} />
-        <Title
-          level={5}
-          style={{
-            fontWeight: "500",
-            color: "#FFFFFF",
-            fontSize: "14px",
-            textDecorationLine: "underline",
-            cursor: "pointer",
-          }}
-          onClick={goToProjeсt}
-        >
-          Смотреть отчет
-        </Title>
-      </CardBlock>
+        </Status>
+        <CardBlock color={color}>
+          <Header>
+            <Title
+              level={5}
+              style={{
+                color: "white",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                cursor: "pointer",
+              }}
+              onClick={goToProjeсt}
+            >
+              {name}
+            </Title>
+            <Title
+              level={5}
+              style={{
+                fontSize: "14px",
+                color: "white",
+                fontWeight: "400",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {getRangeDate({ start, end })}
+            </Title>
+          </Header>
+          <DetailsCard statuses={statuses} />
+          <Title
+            level={5}
+            style={{
+              fontWeight: "500",
+              color: "#FFFFFF",
+              fontSize: "14px",
+              textDecorationLine: "underline",
+              cursor: "pointer",
+            }}
+            onClick={goToProjeсt}
+          >
+            Смотреть отчет
+          </Title>
+        </CardBlock>
+      </div>
       <TariffBlock>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
+        {isCompleted && isActive &&  (
+          <ButtonArhiveCampaign
+            id={id}
+            type="project"
+            isActive={isActive || false}
+          />
+        )}
         <TariffCard>
           <HeaderTariff>
             <Title level={5} style={{ fontWeight: "800" }}>
@@ -99,7 +142,7 @@ export const ProjectCard = (project: Project) => {
           onClose={handleClose}
           id={project.id.toString()}
           brief={brief}
-          typeBrief={'project'}
+          typeBrief={"project"}
         />
       )}
     </Wrapper>

@@ -26,12 +26,17 @@ import {
   SET_IS_ACTIVE,
   SET_SORT_KEY,
   SET_SORT_ORDER,
+  SetIsLoadingProject,
+  SET_IS_LOADING_PROJECT,
+  RemoveProject,
+  REMOVE_PROJECT,
 } from "./action";
 
 export const initialState: LocalState = {
   personInfo: undefined,
   clientProject: undefined,
   clientCampaign: undefined,
+  isLoadingProject: false,
   role: undefined,
   listOfAdmin: undefined,
   socketNotify: null,
@@ -73,6 +78,43 @@ function setClientCampaign(
     ...state,
     clientCampaign: payload,
   };
+}
+function setIsLoadingProject(
+  state: LocalState,
+  { payload }: SetIsLoadingProject
+): LocalState {
+  return {
+    ...state,
+    isLoadingProject: payload,
+  };
+}
+
+function removeProject(
+  state: LocalState,
+  { payload }: RemoveProject
+): LocalState {
+  if (payload.type === "project") {
+    return {
+      ...state,
+      clientProject: state.clientProject?.filter(
+        (item) => item.id !== payload.id
+      ),
+    };
+  }
+  if (payload.type === "campaign") {
+    "campaign"
+    console.log('1');
+    return {
+      ...state,
+      clientCampaign: state.clientCampaign?.filter(
+        (item) => item.id !== payload.id
+      ),
+    };
+  }
+
+  console.log(payload)
+
+  return state;
 }
 
 function setListOfAdmin(
@@ -177,6 +219,8 @@ export const reducer = createReducer(initialState, {
   [SET_PERSON_INFO]: setPersonInfo,
   [SET_CLIENT_PROJECT]: setClientProject,
   [SET_CLIENT_CAMPAIGN]: setClientCampaign,
+  [SET_IS_LOADING_PROJECT]: setIsLoadingProject,
+  [REMOVE_PROJECT]: removeProject,
   [SET_LIST_OF_ADMIN]: setListOfAdmin,
   [CLEAR_STATE]: clearState,
   [SET_NOTIFY_REF]: setNotifyRef,

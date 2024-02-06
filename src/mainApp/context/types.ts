@@ -4,6 +4,7 @@ export type LocalState = {
   personInfo: Person | undefined;
   clientProject: Project[] | undefined;
   clientCampaign: Campaign[] | undefined;
+  isLoadingProject: boolean;
   role: "CLIENT" | "HOST" | "SUPERVISOR" | "SUPPORT" | "ADMIN" | undefined;
   listOfAdmin: Admin[] | undefined;
   socketNotify: any | null;

@@ -128,7 +128,7 @@ export const TableAllClientNew = () => {
         ),
       },
       {
-        title: "Ресуры",
+        title: "Ресурсы",
         dataIndex: "platforms",
         width: "20%",
         render: (record: string[]) => {
