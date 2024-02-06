@@ -58,7 +58,6 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
   const navigation = useNavigate();
 
   const location = useLocation();
-  console.log(location);
 
   const state = useLocalState();
 

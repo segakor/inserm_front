@@ -3,6 +3,7 @@ import { Role } from "../../../types";
 import { ButtonCreateIdea } from "../../Button/ButtonCreateIdea";
 import { ReactComponent as Telegram } from "../../../assets/telegram.svg";
 import { ReactComponent as Whatsapp } from "../../../assets/whatsapp.svg";
+import { contacts } from "../../../constants";
 
 const WraperLinkAndIdea = styled.div`
   padding: 0 30px;
@@ -63,17 +64,8 @@ export const LinkAndContacts = () => {
         <ContactsBlock>
           <div>Если у вас есть вопросы, пишите нам</div>
           <WrapperIcon>
-            <Telegram
-              onClick={() => window.open("https://t.me/helpotziv", "_blank")}
-            />
-            <Whatsapp
-              onClick={() =>
-                window.open(
-                  "https://api.whatsapp.com/send?phone=79913190069",
-                  "_blank"
-                )
-              }
-            />
+            <Telegram onClick={() => window.open(contacts.tg, "_blank")} />
+            <Whatsapp onClick={() => window.open(contacts.whatsup, "_blank")} />
           </WrapperIcon>
         </ContactsBlock>
       </WrapperContacts>
