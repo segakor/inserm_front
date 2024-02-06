@@ -63,6 +63,7 @@ export type Project = {
   brief?: boolean;
   type?: string;
   isPaid?: string; //TODO: fake
+  isActive?: boolean;
 };
 
 export type ReqGetProject = {
@@ -337,6 +338,7 @@ export type Campaign = {
   isTransfer: boolean;
   transferId: number;
   isProcessOfWriting: boolean;
+  isActive?: boolean;
 };
 
 export type ResGetCampaign = {
@@ -566,7 +568,7 @@ export type ReqCreateBriefNote = {
   text: string;
 };
 
-export type DetailsCampaing = {
+export type DetailsCampaign = {
   projectName: string;
   groppedByType: GrouppedCampaign[];
 };

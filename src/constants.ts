@@ -116,6 +116,7 @@ export const confirmationText = {
   removeCampaign:
     "Вы точно хотите удалить проект? Восстановить его обратно не получится.",
   removedArchived: "Вы уверены, что хотите удалить последнее продление?",
+  archiveProjectClient: "Вы уверены, что хотите архивировать проект?"
 };
 
 export const optionsSort = [

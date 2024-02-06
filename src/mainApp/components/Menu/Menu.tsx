@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Badge, MenuProps } from "antd";
 import { Menu } from "antd";
 import {
@@ -12,12 +12,10 @@ import {
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useLocalState } from "../../context/hooks";
 import { useAuth } from "../../hooks/useAuth";
-import { useGetProject } from "../../hooks/useGetProject";
 import { clearState } from "../../context/action";
 import { tokenService } from "../../../utils/tokenService";
 import { useIOSocketNotify } from "../../hooks/useIOSocketNotify";
 import { notificationTitle } from "../../../utils/notificationTitle";
-import { useGetCampaign } from "../../hooks/useGetCampaign";
 import {
   ContactsIcon,
   CreateadminIcon,
@@ -67,18 +65,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
   const auth = tokenService.getIsAuth();
   const isAdminRole = tokenService.getIsAdmin();
 
-  const { handleGetClientProject } = useGetProject();
-  const { handleGetCampaign } = useGetCampaign();
-
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (role === "CLIENT") {
-      handleGetClientProject();
-      handleGetCampaign();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [role]);
 
   const { clientProject, clientCampaign, listOfNotify } = state;
 

@@ -1,15 +1,23 @@
 import { AxiosError } from "axios";
 import { getProject } from "../../request";
 import { openNotificationWithIcon } from "../../utils";
-import { setClientProject } from "../context/action";
-import { useDispatch } from "../context/hooks";
+import { setClientProject, setIsLoadingProject } from "../context/action";
+import { useDispatch, useLocalState } from "../context/hooks";
 
 export const useGetProject = () => {
   const dispatch = useDispatch();
 
+  const state = useLocalState();
+
+  const {
+    filterProject: { isActive },
+  } = state;
+  
+
   const handleGetClientProject = async () => {
     try {
-      const response = await getProject();
+      dispatch(setIsLoadingProject(true));
+      const response = await getProject(isActive);
       const projectsArray = response.data.projectsArray.map((item) => ({
         ...item,
         type: "project",
@@ -23,6 +31,8 @@ export const useGetProject = () => {
         description: "Не удалось загрузить проекты",
         status: typedError.status,
       });
+    } finally {
+      dispatch(setIsLoadingProject(false));
     }
   };
 

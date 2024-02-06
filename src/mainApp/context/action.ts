@@ -1,6 +1,8 @@
 export const SET_PERSON_INFO = "SET_PERSON_INFO";
 export const SET_CLIENT_PROJECT = "SET_CLIENT_PROJECT";
 export const SET_CLIENT_CAMPAIGN = "SET_CLIENT_CAMPAIGN";
+export const REMOVE_PROJECT = "REMOVE_PROJECT";
+export const SET_IS_LOADING_PROJECT = "SET_IS_LOADING_PROJECT";
 export const SET_LIST_OF_ADMIN = "SET_LIST_OF_ADMIN";
 export const SET_EMPLOYEE_LOGIN = "SET_EMPLOYEE_LOGIN";
 export const CLEAR_STATE = "CLEAR_STATE";
@@ -23,6 +25,14 @@ export const setClientProject = (payload: any) => ({
 });
 export const setClientCampaign = (payload: any) => ({
   type: SET_CLIENT_CAMPAIGN,
+  payload,
+});
+export const setIsLoadingProject = (payload: boolean) => ({
+  type: SET_IS_LOADING_PROJECT,
+  payload,
+});
+export const removeProject = (payload: { id: number; type: string }) => ({
+  type: REMOVE_PROJECT,
   payload,
 });
 export const setListOfAdmin = (payload: any) => ({
@@ -68,6 +78,8 @@ export const setSortOrder = (payload: string) => ({
 
 export type SetClientProject = ReturnType<typeof setClientProject>;
 export type SetClientCampaign = ReturnType<typeof setClientCampaign>;
+export type SetIsLoadingProject = ReturnType<typeof setIsLoadingProject>;
+export type RemoveProject = ReturnType<typeof removeProject>;
 export type SetPersonInfo = ReturnType<typeof setPersonInfo>;
 export type SetListOfAdmin = ReturnType<typeof setListOfAdmin>;
 export type ClearState = ReturnType<typeof clearState>;
@@ -84,6 +96,8 @@ export type ReducerAction =
   | SetPersonInfo
   | SetClientCampaign
   | SetClientProject
+  | SetIsLoadingProject
+  | RemoveProject
   | SetPersonInfo
   | SetListOfAdmin
   | ClearState

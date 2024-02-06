@@ -13,6 +13,7 @@ import { Content } from "../../../common/Layout/Content";
 import { HeaderComponent } from "../HeaderComponent";
 import { tokenService } from "../../../utils/tokenService";
 import { adminRoleList } from "../../../constants";
+import { ClientRouteWrapper } from "./ClientRouteWrapper";
 
 const StyledLayout = styled(Layout)`
   margin-left: 50px;
@@ -126,7 +127,11 @@ export const MainRoutes = () => {
           {/** CLIENT ROUTE */}
           <Route
             path="/client"
-            element={<ProtectedRoutes allowedRole={["CLIENT"]} />}
+            element={
+              <ClientRouteWrapper>
+                <ProtectedRoutes allowedRole={["CLIENT"]} />
+              </ClientRouteWrapper>
+            }
           >
             <Route path="*" element={<Navigate replace to="projects" />} />
             <Route

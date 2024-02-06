@@ -134,11 +134,11 @@ export const TableProjectModerate = ({
       ellipsis: true,
       render: (text: string) => (
         <div style={{ display: "inline" }}>
-          <a onClick={() => window.open(text, "_blank")}>{text}</a>
           <ButtonCopy
             onClick={() => cliapbord(text)}
-            style={{ marginLeft: 10 }}
+            style={{ marginRight: 10 }}
           />
+          <a onClick={() => window.open(text, "_blank")}>{text}</a>
         </div>
       ),
     },
@@ -149,7 +149,7 @@ export const TableProjectModerate = ({
       render: (text: string) => (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <div>
-          <span>{text}</span>
+          <span>{text.slice(0, 150) + " ..."}</span>
           <ButtonCopy
             onClick={() => cliapbord(text)}
             style={{ marginLeft: 10 }}

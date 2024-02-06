@@ -32,7 +32,7 @@ type Props = {
   reviews: ReviewsTableItem[] | undefined;
   isLoading: boolean;
   onUpdate: (project: string) => void;
-  campaingId: string;
+  campaignId: string;
   cardId: string;
   link: string;
 };
@@ -79,7 +79,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
 export const TableCampaignChangeable = ({
   reviews,
   isLoading,
-  campaingId,
+  campaignId,
   onUpdate,
   cardId,
   link,
@@ -119,7 +119,7 @@ export const TableCampaignChangeable = ({
       row.id = newData[index].id;
       console.log("row_save", row, index, newData[index]);
       handleUpdateReview(row).then(() => {
-        onUpdate(campaingId);
+        onUpdate(campaignId);
       });
       if (index > -1) {
         const item = newData[index];
@@ -146,7 +146,7 @@ export const TableCampaignChangeable = ({
       row.id = newData[index].id;
       console.log("row_save", row, index, newData[index]);
       handleDeleteReview({ id: row.id }).then(() => {
-        onUpdate(campaingId);
+        onUpdate(campaignId);
       });
       if (index > -1) {
         const item = newData[index];
@@ -382,7 +382,7 @@ export const TableCampaignChangeable = ({
               onClose={closeModal}
               cardId={cardId}
               onUpdate={onUpdate}
-              projectId={campaingId}
+              projectId={campaignId}
               type={"campaign"}
               link={link}
             />

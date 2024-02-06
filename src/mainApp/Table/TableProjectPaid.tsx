@@ -135,8 +135,11 @@ export const TableProjectPaid = ({
       ellipsis: true,
       render: (text: string) => (
         <div style={{ display: "inline" }}>
+          <ButtonCopy
+            onClick={() => cliapbord(text)}
+            style={{ marginRight: 10 }}
+          />
           <a onClick={() => window.open(text, "_blank")}>{text}</a>
-          <ButtonCopy onClick={() => cliapbord(text)} style={{marginLeft:10}}/>
         </div>
       ),
     },
@@ -148,7 +151,10 @@ export const TableProjectPaid = ({
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <div>
           <span>{text}</span>
-          <ButtonCopy onClick={() => cliapbord(text)} style={{marginLeft:10}}/>
+          <ButtonCopy
+            onClick={() => cliapbord(text)}
+            style={{ marginLeft: 10 }}
+          />
         </div>
       ),
     },
@@ -188,7 +194,12 @@ export const TableProjectPaid = ({
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <div>
           <span>{text}</span>
-          {text && <ButtonCopy onClick={() => cliapbord(text)} style={{marginLeft:10}}/>}
+          {text && (
+            <ButtonCopy
+              onClick={() => cliapbord(text)}
+              style={{ marginLeft: 10 }}
+            />
+          )}
         </div>
       ),
     },
@@ -257,7 +268,7 @@ export const TableProjectPaid = ({
           loading={isLoading}
           tableLayout={"fixed"}
           scroll={{ x: 1000 }}
-          pagination = {{defaultPageSize: 50}}
+          pagination={{ defaultPageSize: 50 }}
           style={{ whiteSpace: "pre-line" }}
         />
       </ConfigProvider>

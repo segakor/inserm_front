@@ -212,11 +212,11 @@ export const TableProjectChangeable = ({
       ellipsis: true,
       render: (text: string) => (
         <div style={{ display: "inline" }}>
-          <a onClick={() => window.open(text, "_blank")}>{text}</a>
           <ButtonCopy
             onClick={() => cliapbord(text)}
-            style={{ marginLeft: 10 }}
+            style={{ marginRight: 10 }}
           />
+          <a onClick={() => window.open(text, "_blank")}>{text}</a>
         </div>
       ),
     },
