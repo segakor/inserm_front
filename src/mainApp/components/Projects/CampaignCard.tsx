@@ -20,13 +20,13 @@ import {
 import { Tooltip } from "antd";
 import { noop } from "../../../constants";
 import { ReactComponent as WaitIcon } from "../../../assets/transferWait.svg";
-import { ReactComponent as ApproveIcon } from "../../../assets/transferApprove.svg";
 import { ReactComponent as ReviewEmpty } from "../../../assets/reviewEmpty.svg";
 import { useActTemplate } from "../../hooks/useGetActTemplate";
 import { ButtonRefresh } from "../../Button/ButtonRefresh";
 import { ButtonRemoveCampaign } from "../../Button/ButtonRemoveCampaign";
 import { ModalBrief, ModalTemplate } from "../Modal";
 import { ButtonArhiveCampaign } from "../../Button/ButtonArhiveCampaign";
+import { CheckCircleFilled } from "@ant-design/icons";
 
 export const CampaignCard = (campaign: Campaign) => {
   const {
@@ -81,12 +81,18 @@ export const CampaignCard = (campaign: Campaign) => {
     <Wrapper>
       <div>
         <Status>
-          {isPaid ? <ApproveIcon /> : <WaitIcon />}
+          {isPaid ? (
+            <CheckCircleFilled
+              style={{ color: isCompleted ? "#1579e9" : "#23C915" }}
+            />
+          ) : (
+            <WaitIcon />
+          )}
           <Title
             level={5}
             style={{
               fontSize: "14px",
-              color: isPaid ? "#23C915" : "#E73E3E",
+              color: isCompleted ? "#1579e9" : isPaid ? "#23C915" : "#E73E3E",
               fontWeight: "500",
               whiteSpace: "nowrap",
             }}
@@ -181,7 +187,7 @@ export const CampaignCard = (campaign: Campaign) => {
           <ButtonRefresh campaignId={id} isCashless={isTransfer} />
         )}
         {isCanRemove && <ButtonRemoveCampaign campaignId={id} />}
-        {isCompleted && isActive &&  (
+        {isCompleted && isActive && (
           <ButtonArhiveCampaign
             id={id}
             type="campaign"

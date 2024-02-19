@@ -131,14 +131,18 @@ export const TableProjectModerate = ({
       title: "Ссылка на отзыв",
       dataIndex: "link",
       width: "20%",
-      ellipsis: true,
+      /* ellipsis: true, */
       render: (text: string) => (
         <div style={{ display: "inline" }}>
           <ButtonCopy
             onClick={() => cliapbord(text)}
             style={{ marginRight: 10 }}
           />
-          <a onClick={() => window.open(text, "_blank")}>{text}</a>
+          <a onClick={() => window.open(text, "_blank")}>
+            {text.length > 30
+              ? text.slice(8, 30) + "..." + text.slice(-5)
+              : text}
+          </a>
         </div>
       ),
     },
@@ -149,7 +153,7 @@ export const TableProjectModerate = ({
       render: (text: string) => (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <div>
-          <span>{text.slice(0, 150) + " ..."}</span>
+          <span>{text.length > 150 ? text.slice(0, 150) + " ..." : text}</span>
           <ButtonCopy
             onClick={() => cliapbord(text)}
             style={{ marginLeft: 10 }}

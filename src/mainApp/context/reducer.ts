@@ -44,7 +44,7 @@ export const initialState: LocalState = {
   pagesProject: [],
   pagesCampaign: [],
   filterProject: {
-    activeTab: "project",
+    activeTab: "campaign",
     isActive: true,
     sortKey: "success",
     sortOrder: "asc",

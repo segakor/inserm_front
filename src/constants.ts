@@ -104,8 +104,8 @@ export const optionsStatusProject = [
 ];
 
 export const optionsTypeProject = [
-  { label: "Проекты", value: "project" },
   { label: "Проекты штучные", value: "campaign" },
+  { label: "Проекты", value: "project" },
 ];
 
 export const confirmationText = {
@@ -178,7 +178,6 @@ export const optionsReferral = [
   { value: "getLink", label: "Реферальная ссылка" },
   { value: "paymentStatistics", label: "Статистика по оплатам" },
   { value: "exportMoney", label: "Вывод ДС" },
-  { value: "conditions", label: "Условия" },
 ];
 
 export const optionsClientBase = [
@@ -186,7 +185,6 @@ export const optionsClientBase = [
   { label: "Заявки безнала", value: "cashless" },
   { label: "Неоплаченные заявки", value: "warmClient" },
   { label: "Идеи", value: "idea" },
-  { label: "Рефералки", value: "referral" },
 ];
 
 export const optionsPromo = [
@@ -197,6 +195,10 @@ export const optionsPromo = [
 export const optionsStatistics = [
   { value: "host", label: "Выкладка" },
   { value: "finance", label: "Финансы" },
+];
+export const optionsRefferal = [
+  { value: "base", label: "Общая база рефералов" },
+  { value: "conclusion", label: "Запросы на вывод ДС" },
 ];
 
 export const localeLogin = [

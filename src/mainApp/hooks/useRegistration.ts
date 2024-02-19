@@ -3,7 +3,9 @@ import { registration } from "../../request";
 import { openNotificationWithIcon } from "../../utils";
 import { useAuth } from "./useAuth";
 
-export const useRegistartion = () => {
+export const useRegistartion = (
+  type: "clientRegistration" | "partnerRegistration"
+) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { handleLogin } = useAuth();
@@ -14,7 +16,7 @@ export const useRegistartion = () => {
   }) => {
     try {
       setIsLoading(true);
-      await registration(value);
+      await registration({ ...value, type });
       openNotificationWithIcon({
         type: "success",
         message: "",

@@ -478,11 +478,14 @@ export const getHostStatistics = async (params?: {
 export const registration = async (value: {
   email: string;
   password: string;
+  type: "clientRegistration" | "partnerRegistration";
 }) => {
+  const { email, password } = value;
   const { data, status } = await axiosClient.post(
-    URL + `/api/user/clientRegistration`,
+    URL + `/api/user/${value.type}`,
     {
-      ...value,
+      email,
+      password,
     }
   );
   return {
@@ -752,14 +755,14 @@ export const getSubscription = async () => {
 
 export const getReferralLink = async () => {
   const { data, status } = await axiosClient.get<{ result: string }>(
-    URL + `/api/referral/link`
+    URL + `/api/partner/link`
   );
   return { data, status };
 };
 
 export const getReferralList = async () => {
   const { data, status } = await axiosClient.get<{ result: ReferralList[] }>(
-    URL + `/api/referral/list`
+    URL + `/api/partner/list`
   );
   return { data, status };
 };

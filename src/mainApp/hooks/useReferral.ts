@@ -10,6 +10,7 @@ import { openNotificationWithIcon } from "../../utils";
 export const useReferral = () => {
   const [referralLink, setReferralLink] = useState("");
   const [referralList, setReferralList] = useState<ReferralList[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGetLink = async () => {
     try {
@@ -26,6 +27,7 @@ export const useReferral = () => {
 
   const handleGetReferralList = async () => {
     try {
+      setIsLoading(true);
       const res = await getReferralList();
       setReferralList(res.data.result);
     } catch (error) {
@@ -34,6 +36,8 @@ export const useReferral = () => {
         message: "",
         description: "Не удалось получить данные",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -62,5 +66,6 @@ export const useReferral = () => {
       key: index.toString(),
     })),
     handleUpdateReferral,
+    isLoading
   };
 };

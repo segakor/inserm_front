@@ -20,7 +20,7 @@ import {
 } from "./styles";
 import { ButtonArhiveCampaign } from "../../Button/ButtonArhiveCampaign";
 import { ReactComponent as WaitIcon } from "../../../assets/transferWait.svg";
-import { ReactComponent as ApproveIcon } from "../../../assets/transferApprove.svg";
+import { CheckCircleFilled } from "@ant-design/icons";
 
 export const ProjectCard = (project: Project) => {
   const {
@@ -63,12 +63,18 @@ export const ProjectCard = (project: Project) => {
     <Wrapper>
       <div>
         <Status>
-          {isPaid ? <ApproveIcon /> : <WaitIcon />}
+          {isPaid ? (
+            <CheckCircleFilled
+              style={{ color: isCompleted ? "#1579e9" : "#23C915" }}
+            />
+          ) : (
+            <WaitIcon />
+          )}
           <Title
             level={5}
             style={{
               fontSize: "14px",
-              color: isPaid ? "#23C915" : "#E73E3E",
+              color: isCompleted ? "#1579e9" : isPaid ? "#23C915" : "#E73E3E",
               fontWeight: "500",
               whiteSpace: "nowrap",
             }}
@@ -121,7 +127,7 @@ export const ProjectCard = (project: Project) => {
       </div>
       <TariffBlock>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
-        {isCompleted && isActive &&  (
+        {isCompleted && isActive && (
           <ButtonArhiveCampaign
             id={id}
             type="project"

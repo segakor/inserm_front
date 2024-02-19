@@ -14,6 +14,7 @@ import { HeaderComponent } from "../HeaderComponent";
 import { tokenService } from "../../../utils/tokenService";
 import { adminRoleList } from "../../../constants";
 import { ClientRouteWrapper } from "./ClientRouteWrapper";
+import { PartnerRouteWrapper } from "./PartnerRouteWrapper";
 
 const StyledLayout = styled(Layout)`
   margin-left: 50px;
@@ -82,12 +83,8 @@ export const MainRoutes = () => {
   const Project = lazy(() => import("../../Pages/Client/Project"));
   const Campaign = lazy(() => import("../../Pages/Client/Campaign"));
   const Tariff = lazy(() => import("../../Pages/Client/Tariff"));
-  const Profile = lazy(() => import("../../Pages/Client/Profile"));
   const Foundation = lazy(() => import("../../Pages/Client/Foundation"));
-  const Contacts = lazy(() => import("../../Pages/Client/Contacts"));
-  const Help = lazy(() => import("../../Pages/Client/Help"));
   const CreateProject = lazy(() => import("../../Pages/Client/CreateProject"));
-  const Referral = lazy(() => import("../../Pages/Client/Referral"));
   const ClientNews = lazy(() => import("../../Pages/Client/News"));
   const UpdateProject = lazy(() => import("../../Pages/Client/UpdateProject"));
   const Notifications = lazy(() => import("../../Pages/Client/Notifications"));
@@ -114,10 +111,17 @@ export const MainRoutes = () => {
   const Promo = lazy(() => import("../../Pages/Admin/Promo"));
   const News = lazy(() => import("../../Pages/Admin/News"));
   const Mail = lazy(() => import("../../Pages/Admin/Mail"));
+  const ReferralAdmin = lazy(() => import("../../Pages/Admin/Referral"));
+
+  //partner lazy
+  const ReferralPartner = lazy(() => import("../../Pages/Partner/Referral"));
 
   //common lazy
   const Payment = lazy(() => import("../../Pages/Сommon/Payment"));
   const Login = lazy(() => import("../../Pages/Сommon/Login"));
+  const Contacts = lazy(() => import("../../Pages/Сommon/Contacts"));
+  const Profile = lazy(() => import("../../Pages/Сommon/Profile"));
+  const Help = lazy(() => import("../../Pages/Сommon/Help"));
 
   return (
     <StyledLayout>
@@ -219,14 +223,6 @@ export const MainRoutes = () => {
               element={
                 <Suspense fallback={<Spin />}>
                   <Notifications />
-                </Suspense>
-              }
-            />
-            <Route
-              path="referral"
-              element={
-                <Suspense fallback={<Spin />}>
-                  <Referral />
                 </Suspense>
               }
             />
@@ -365,6 +361,58 @@ export const MainRoutes = () => {
                   <ProtectedChildRoutes allowedRole={["ADMIN"]}>
                     <Mail />
                   </ProtectedChildRoutes>
+                </Suspense>
+              }
+            />
+            <Route
+              path="referral"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <ProtectedChildRoutes allowedRole={["ADMIN"]}>
+                    <ReferralAdmin />
+                  </ProtectedChildRoutes>
+                </Suspense>
+              }
+            />
+          </Route>
+          {/** PARTNER ROUTE */}
+          <Route
+            path="/partner"
+            element={
+              <PartnerRouteWrapper>
+                <ProtectedRoutes allowedRole={["PARTNER"]} />
+              </PartnerRouteWrapper>
+            }
+          >
+            <Route
+              path="main"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <ReferralPartner />
+                </Suspense>
+              }
+            />
+            <Route
+              path="profile"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <Profile />
+                </Suspense>
+              }
+            />
+            <Route
+              path="contacts"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <Contacts />
+                </Suspense>
+              }
+            />
+            <Route
+              path="help"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <Help />
                 </Suspense>
               }
             />

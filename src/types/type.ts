@@ -4,6 +4,7 @@ export type Role =
   | "SUPERVISOR"
   | "SUPPORT"
   | "ADMIN"
+  | "PARTNER"
   | null;
 
 export type ResLogin = {
@@ -388,6 +389,7 @@ export type ResGetCampaignDetails = {
   groppedByType: GrouppedCampaign[];
   archives: ArchiveCampaignCard[];
   userId: number;
+  isTransfer: boolean;
 };
 
 export type BriefList = {
@@ -522,10 +524,32 @@ export type OptionsReferral =
   | "exportMoney"
   | "conditions";
 
+export type ReferralHistories = {
+  name: string;
+  price: number;
+  is_paid: boolean;
+  date: number;
+  commission: number;
+  platforms: string[];
+  amount: number;
+};
+export type Referrals = {
+  email: string;
+  date: number;
+  campaignCount: number;
+  total: number;
+  commission: number;
+  histories: ReferralHistories[];
+};
 export type ReferralList = {
-  id: number;
-  isPaid: boolean;
-  campaign: Campaign;
+  email: string;
+  date: number;
+  campaignCount: number;
+  total: number;
+  commission: number;
+  commissionPaid: number;
+  commissionDifference: number;
+  referrals: Referrals[];
 };
 
 export type OptionsClientBase =

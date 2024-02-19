@@ -15,7 +15,7 @@ import { Divider } from "antd";
 import { ArchiveCampaign } from "../../components/ArchiveCampaign";
 import { CampaignList } from "../../components/CampaignList";
 import { ButtonRemovedArchived } from "../../Button/ButtonRemovedArchived";
-import { ButtonDeleteCampaign } from "../../Button/ButtonDeleteCampaign";
+/* import { ButtonDeleteCampaign } from "../../Button/ButtonDeleteCampaign"; */
 
 const Page = styled.div`
   display: flex;
@@ -81,11 +81,12 @@ const CampaignDetails = () => {
         />
         <div>
           <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
-          <ButtonRemovedArchived
+          {!data?.isTransfer && <ButtonRemovedArchived
             campaignId={Number(campaignId)}
             onUpdate={handleGetReviews}
-          />
-          <ButtonDeleteCampaign campaignId={Number(campaignId)} />
+          />}
+          {/* <ButtonDeleteCampaign campaignId={Number(campaignId)} />  //TODO: добавить по готовности*/}
+          
         </div>
       </WrapperCard>
       {isModalOpen && (

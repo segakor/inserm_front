@@ -4,8 +4,11 @@ import { Radio } from "antd";
 import { useState } from "react";
 import { optionsReferral } from "../../../constants";
 import { OptionsReferral } from "../../../types";
-import { TableStatisticsReferral } from "../../Table/TableStatisticsReferral";
-import { InputReferral, ExportMoney, Conditions } from "../../components/Referral";
+import {
+  InputReferral,
+  ExportMoney,
+  PaymentStatistics,
+} from "../../components/Referral";
 
 const Page = styled.div`
   display: flex;
@@ -29,9 +32,8 @@ const Referral = () => {
       />
 
       {option === "getLink" && <InputReferral />}
-      {option === "paymentStatistics" && <TableStatisticsReferral />}
-      {option === "exportMoney" && <ExportMoney />}
-      {option === "conditions" && <Conditions />}
+      {option === "paymentStatistics" && <PaymentStatistics />}
+      {option === "exportMoney" && <>exportMoney</>}
     </Page>
   );
 };
