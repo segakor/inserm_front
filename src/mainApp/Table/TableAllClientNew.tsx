@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import styled from "styled-components";
-import { Badge, Divider, Radio, Table, Tag } from "antd";
+import { Divider, Radio, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { ClientNew, ClientProjectNew } from "../../types";
 import { useNavigate } from "react-router-dom";

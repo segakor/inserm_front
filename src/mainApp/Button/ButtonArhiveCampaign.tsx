@@ -43,7 +43,7 @@ export const ButtonArhiveCampaign = ({
 
   return (
     <div>
-      <OutlinedButton onClick={handleOpen}>В архив</OutlinedButton>
+      <OutlinedButton onClick={handleOpen}>Архивировать</OutlinedButton>
       {isModalOpen && (
         <ModalСonfirmation
           onClose={handleClose}

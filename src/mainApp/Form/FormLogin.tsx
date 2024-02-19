@@ -8,6 +8,7 @@ import { useRegistartion } from "../hooks/useRegistration";
 import ReCAPTCHA from "react-google-recaptcha";
 import { localeLogin } from "../../constants";
 import { openNotificationWithIcon } from "../../utils";
+import { useLocation } from "react-router-dom";
 
 const Wrapper = styled.div`
   background-color: #ffffff;
@@ -75,8 +76,16 @@ export const FormLogin = () => {
 
   const { handleResetPassword } = useResetPassword();
 
+  const { search } = useLocation();
+
+  const params = new URLSearchParams(search);
+  const entry =
+    params.get("entry") === "partners"
+      ? "partnerRegistration"
+      : "clientRegistration";
+
   const { handleRegistartion, isLoading: isLoadingRegistration } =
-    useRegistartion();
+    useRegistartion(entry);
 
   const isLoading = isLoadingRegistration || isLoadingLogin;
 
@@ -97,7 +106,7 @@ export const FormLogin = () => {
     if (typeForm === "login") {
       handleLogin({ email: emailL, password });
     }
-    
+
     if (typeForm === "registration") {
       isVerified
         ? handleRegistartion({ email: emailL, password })

@@ -15,11 +15,18 @@ export const useAuth = () => {
       const response = await login(value);
       tokenService.setJwtToken(response.data);
 
-      response.data.role?.toLowerCase() === "client"
-        ? navigate(`/app/client/projects`)
-        : navigate(`/app/admin/projects`);
+      switch (true) {
+        case response.data.role?.toLowerCase() === "client":
+          navigate(`/app/client/projects`);
+          break;
+        case response.data.role?.toLowerCase() === "partner":
+          navigate(`/app/partner/main`);
+          break;
+        default:
+          navigate(`/app/admin/projects`);
+          break;
+      }
 
-      /* navigate(`/app/${response.data.role?.toLowerCase()}/projects`); */
     } catch {
       openNotificationWithIcon({
         type: "error",

@@ -26,9 +26,8 @@ import {
   ProfileIcon,
   ProjectCheckIcon,
   ProjectIcon,
-  /* ReferralIcon, */
+  ReferralIcon,
   ReviewsforpaymentIcon,
-  /* SettingIcon, */
   TariffIcon,
 } from "./MenuIcon";
 import styled from "styled-components";
@@ -64,6 +63,8 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
   const role = tokenService.getRole();
   const auth = tokenService.getIsAuth();
   const isAdminRole = tokenService.getIsAdmin();
+  const isClientRole = tokenService.getIsClient();
+  const isPartnerRole = tokenService.getIsPartner();
 
   const dispatch = useDispatch();
 
@@ -106,7 +107,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
           Техподдержка <Badge count={notifyCount} />
         </div>
       ),
-      key: role === "CLIENT" ? "help" : "clientquestions",
+      key: isClientRole || isPartnerRole ? "help" : "clientquestions",
       icon: <HelpIcon />,
     },
     { label: "Выход", key: "exit", icon: <ExitIcon /> },
@@ -138,7 +139,6 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     },
     /* { label: "База знаний", key: "foundation", icon: <FoundationIcon /> }, */ //TODO: включить после рефакторинга базы
     { label: "Контакты", key: "contacts", icon: <ContactsIcon /> },
-    /* { label: "Партнерская программа", key: "referral", icon: <ReferralIcon /> }, */ //TODO: включить по готовности
     {
       label: "Обновления сервиса",
       key: "news",
@@ -180,6 +180,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     { label: "Список проектов", key: "projects", icon: <ProjectIcon /> },
     { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },
   ];
+
   const itemAdmin: MenuProps["items"] = [
     { label: "Список проектов", key: "projects", icon: <ProjectIcon /> },
     {
@@ -223,6 +224,21 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       key: "mail",
       icon: <MailFilled style={{ color: "#1579E9" }} />,
     },
+    {
+      label: "Реферальная программа",
+      key: "referral",
+      icon: <ReferralIcon />,
+    },
+  ];
+
+  const itemPartner = [
+    {
+      label: "Партнерская программа",
+      key: "main",
+      icon: <ReferralIcon />,
+    },
+    { label: "Профиль", key: "profile", icon: <ProfileIcon /> },
+    { label: "Контакты", key: "contacts", icon: <ContactsIcon /> },
   ];
 
   const setItem = () => {
@@ -232,6 +248,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       SUPERVISOR: itemSupervisor,
       SUPPORT: itemSupport,
       ADMIN: itemAdmin,
+      PARTNER: itemPartner,
     };
 
     return itemMap[role || "CLIENT"];
@@ -263,13 +280,26 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
   const onNavigate = (e: any) => {
     if (e.domEvent.ctrlKey) {
       window.open(
-        `/app/${isAdminRole ? "admin" : "client"}/${e.key}`,
+        `/app/${isAdminRole ? "admin" : isClientRole ? "client" : "partner"}/${
+          e.key
+        }`,
         "_blank",
         "rel=noopener noreferrer"
       );
       return;
     }
-    navigation(`${isAdminRole ? "admin" : "client"}/${e.key}`);
+
+    switch (true) {
+      case isAdminRole:
+        navigation(`admin/${e.key}`);
+        break;
+      case isClientRole:
+        navigation(`client/${e.key}`);
+        break;
+      default:
+        navigation(`partner/${e.key}`);
+        break;
+    }
   };
 
   if (location.pathname === "/app/payment") {

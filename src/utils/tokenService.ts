@@ -16,6 +16,18 @@ export const tokenService = {
       JSON.parse(localStorage.getItem(JWT_TOKEN_KEY_NAME) ?? "{}").role
     );
   },
+  getIsClient() {
+    return (
+      JSON.parse(localStorage.getItem(JWT_TOKEN_KEY_NAME) ?? "{}").role ===
+      "CLIENT"
+    );
+  },
+  getIsPartner() {
+    return (
+      JSON.parse(localStorage.getItem(JWT_TOKEN_KEY_NAME) ?? "{}").role ===
+      "PARTNER"
+    );
+  },
   getIsAuth() {
     return JSON.parse(localStorage.getItem(JWT_TOKEN_KEY_NAME) ?? "{}").token
       ? true

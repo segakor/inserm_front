@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Header } from "../../../common/Typography";
 import { useGetWarmClient } from "../../hooks/useGetWarmClient";
@@ -9,8 +9,6 @@ import { TableCashlessTransfer } from "../../Table/TableCashlessTransfer";
 import { TableClientIdea } from "../../Table/TableClientIdea";
 import { optionsClientBase } from "../../../constants";
 import { OptionsClientBase } from "../../../types";
-import { TableStatisticsReferral } from "../../Table/TableStatisticsReferral";
-import { useReferral } from "../../hooks/useReferral";
 import { TableAllClientNew } from "../../Table/TableAllClientNew";
 
 const Page = styled.div`
@@ -31,12 +29,6 @@ const ClientBase = () => {
   const onChange = ({ target: { value } }: RadioChangeEvent) => {
     setActiveTab(value);
   };
-
-  const { handleGetReferralList, referralList } = useReferral();
-
-  useEffect(() => {
-    handleGetReferralList();
-  }, []);
 
   return (
     <Page>
@@ -62,11 +54,6 @@ const ClientBase = () => {
       {activeTab === "idea" && (
         <>
           <TableClientIdea />
-        </>
-      )}
-      {activeTab === "referral" && (
-        <>
-          <TableStatisticsReferral isAdmin/>
         </>
       )}
     </Page>
