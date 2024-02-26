@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { Header } from "../../common/Typography";
 import { ButtonCreateNewProjectDemo } from "../components/Button/ButtonCreateNewProjectDemo";
-import { ProjectCardDemo } from "../components/ProjectCardDemo";
-import { demoProject, demoCampaign } from "../constants";
+import { demoCampaign, demoCampaignArhvie } from "../constants";
 import { CampaignCardDemo } from "../components/CampaignCardDemo";
+import { Radio, RadioChangeEvent } from "antd";
+import { optionsStatusProject } from "../../constants";
+import { useState } from "react";
 
 const Page = styled.div`
   display: flex;
@@ -19,16 +21,32 @@ const HeaderFlex = styled.div`
 `;
 
 export const ProjectsDemo = () => {
+  const [isActive, setIsActive] = useState(true);
+
+  const onChangeStatusProject = ({ target: { value } }: RadioChangeEvent) => {
+    setIsActive(value);
+  };
+
   return (
     <Page>
       <HeaderFlex>
         <Header>Мои проекты</Header>
         <ButtonCreateNewProjectDemo />
       </HeaderFlex>
-      {demoProject?.map((item) => (
-        <ProjectCardDemo {...item} key={item.id} />
+      <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+        <Radio.Group
+          size="large"
+          options={optionsStatusProject}
+          onChange={onChangeStatusProject}
+          value={isActive}
+          optionType="button"
+          buttonStyle="solid"
+        />
+      </div>
+      {isActive && demoCampaign?.map((item, index) => (
+        <CampaignCardDemo {...item} key={index} />
       ))}
-      {demoCampaign?.map((item, index) => (
+      {!isActive && demoCampaignArhvie?.map((item, index) => (
         <CampaignCardDemo {...item} key={index} />
       ))}
     </Page>

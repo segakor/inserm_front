@@ -1,10 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { ReferralHistories, ReferralList, Referrals } from "../../types";
-import { getDate } from "../../utils";
-import { useEffect } from "react";
+import { ReferralHistories, ReferralList } from "../../types";
 import { useReferral } from "../hooks/useReferral";
+import { useEffect } from "react";
+import { getDate } from "../../utils";
 import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
 
 type TableItem = ReferralList & {
@@ -18,6 +17,45 @@ export const TableReferralList = () => {
     handleGetReferralList();
   }, []);
 
+  const columns: ColumnsType<TableItem> = [
+    {
+      title: "ID клиента",
+      render: (record: ReferralList) => {
+        return <>{record.id}</>;
+      },
+    },
+    {
+      title: "Дата регистрации",
+      render: (record: ReferralList) => {
+        return <>{getDate({ date: record.date })}</>;
+      },
+    },
+    {
+      title: "Список ID проектов",
+      render: (record: ReferralList) => {
+        return (
+          <ul>
+            {record.campaignIds.map((item,index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        );
+      },
+    },
+    {
+      title: "Сумма, которую привлек клиент",
+      render: (record: ReferralList) => {
+        return <>{record.total}</>;
+      },
+    },
+    {
+      title: "Комиссия реферала",
+      render: (record: ReferralList) => {
+        return <>{record.commission}</>;
+      },
+    },
+  ];
+
   const TableReferralHistories = ({
     referralHistories,
   }: {
@@ -29,12 +67,6 @@ export const TableReferralList = () => {
     }));
 
     const columns: ColumnsType<ReferralHistories & { key: string }> = [
-      {
-        title: "Название проекта",
-        render: (record: ReferralHistories) => {
-          return <>{record.name}</>;
-        },
-      },
       {
         title: "Ресурсы",
         render: (record: ReferralHistories) => {
@@ -56,9 +88,9 @@ export const TableReferralList = () => {
         },
       },
       {
-        title: "Дата оплаты проекта",
+        title: "Дата оплаты",
         render: (record: ReferralHistories) => {
-          return <> {getDate({ date: record.date })}</>;
+          return <>{getDate({ date: record.date })}</>;
         },
       },
       {
@@ -79,7 +111,7 @@ export const TableReferralList = () => {
         render: (record: ReferralHistories) => {
           return (
             <>
-              {record.is_paid ? (
+              {record.isPaid ? (
                 <CheckCircleFilled style={{ color: "#1BBD3F" }} />
               ) : (
                 <CloseCircleFilled style={{ color: "#FF1E1E" }} />
@@ -100,123 +132,24 @@ export const TableReferralList = () => {
     );
   };
 
-  const TableReferrals = ({ referrals }: { referrals: Referrals[] }) => {
-    const dataWithKey = referrals?.map((item, index) => ({
-      ...item,
-      key: index.toString(),
-    }));
-
-    const columns = [
-      {
-        title: "Email клиента",
-        render: (record: Referrals) => <>{record.email}</>,
-      },
-      {
-        title: "Дата регистрации",
-        render: (record: Referrals) => {
-          return <> {getDate({ date: record.date })}</>;
-        },
-      },
-      {
-        title: "Проекты",
-        render: (record: Referrals) => <>{record.campaignCount}</>,
-      },
-      {
-        title: "Сумма привлечения",
-        render: (record: Referrals) => <>{record.total}</>,
-      },
-      {
-        title: "Комиссия реферала",
-        render: (record: Referrals) => <>{record.commission}</>,
-      },
-    ];
-
-    return (
-      <Table
-        columns={columns}
-        dataSource={dataWithKey}
-        pagination={false}
-        tableLayout={"fixed"}
-        expandable={{
-          expandedRowRender: (record) => (
-            <div style={{ border: "2px dashed#32a1ce" }}>
-              <TableReferralHistories referralHistories={record.histories} />
-            </div>
-          ),
-          rowExpandable: (record) => !!record.histories,
-        }}
-      />
-    );
-  };
-
-  const columns: ColumnsType<TableItem> = [
-    {
-      title: "Email партнера",
-      render: (record: TableItem) => {
-        return <>{record.email}</>;
-      },
-    },
-    {
-      title: "Дата регистрации",
-      render: (record: TableItem) => {
-        return <> {getDate({ date: record.date })}</>;
-      },
-    },
-    {
-      title: "Проекты",
-      render: (record: TableItem) => {
-        return <>{record.campaignCount}</>;
-      },
-    },
-    {
-      width: "15%",
-      title: "Сумма привлечения",
-      render: (record: TableItem) => {
-        return <>{record.total}</>;
-      },
-    },
-    {
-      width: "15%",
-      title: "Комиссия реферала",
-      render: (record: TableItem) => {
-        return <>{record.commission}</>;
-      },
-    },
-    {
-      width: "15%",
-      title: "Выплачено комисии",
-      render: (record: TableItem) => {
-        return <>{record.commissionPaid}</>;
-      },
-    },
-    {
-      width: "15%",
-      title: "Наш долг",
-      render: (record: TableItem) => {
-        return <>{record.commissionDifference}</>;
-      },
-    },
-  ];
-
   return (
     <Table
       columns={columns}
       expandable={{
         expandedRowRender: (record) => (
           <div style={{ border: "2px dashed#32a1ce" }}>
-            <TableReferrals referrals={record.referrals} />
+            <TableReferralHistories referralHistories={record.histories} />
           </div>
         ),
-        rowExpandable: (record) => !!record.campaignCount,
+        rowExpandable: (record) => !!record.histories,
       }}
       dataSource={referralList}
       bordered
+      loading={isLoading.table}
       pagination={false}
-      loading={isLoading}
       tableLayout={"fixed"}
-      scroll={{ x: 1000 }}
       locale={{ emptyText: "Нет данных" }}
-      showSorterTooltip={false}
+      scroll={{ x: 900 }}
     />
   );
 };

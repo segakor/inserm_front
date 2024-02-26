@@ -28,12 +28,12 @@ const Referral = () => {
         value={option}
         optionType="button"
         buttonStyle="solid"
-        style={{ marginBottom: "46px" }}
+        style={{ marginBottom: "30px" }}
       />
 
       {option === "getLink" && <InputReferral />}
       {option === "paymentStatistics" && <PaymentStatistics />}
-      {option === "exportMoney" && <>exportMoney</>}
+      {option === "exportMoney" && <ExportMoney/>}
     </Page>
   );
 };

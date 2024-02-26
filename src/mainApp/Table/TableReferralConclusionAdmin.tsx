@@ -6,35 +6,29 @@ type TableItem = Idea & {
   key: string;
 };
 
-export const TableReferralStatistics = () => {
+export const TableReferralConclusionAdmin = () => {
 
   const columns: ColumnsType<TableItem> = [
     {
-      title: "ID клиента",
+      title: "Email партнера",
       render: (record: string) => {
         return <>{record}</>;
       },
     },
     {
-      title: "Дата регистрации",
+      title: "Реквизиты",
       render: (record: string) => {
         return <>{record}</>;
       },
     },
     {
-      title: "Список ID проектов",
+      title: "Сумма выплаты",
       render: (record: string) => {
         return <>{record}</>;
       },
     },
     {
-      title: "Сумма, которую привлек клиент",
-      render: (record: string) => {
-        return <>{record}</>;
-      },
-    },
-    {
-      title: "Комиссия реферала",
+      title: "Статус",
       render: (record: string) => {
         return <>{record}</>;
       },

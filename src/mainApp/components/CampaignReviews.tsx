@@ -285,6 +285,7 @@ const CardComponent = ({
 export const CampaignReviews = ({ group, role, id, onUpdate }: Props) => {
   const screens = useBreakpoint();
   const isMobile = !!screens.xs || (!screens.lg && screens);
+
   return (
     <>
       {group.map((item, index) => (

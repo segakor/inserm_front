@@ -3,8 +3,8 @@ import { Header } from "../../../common/Typography";
 import { Radio, RadioChangeEvent } from "antd";
 import { useState } from "react";
 import { optionsRefferal } from "../../../constants";
-import { TableReferralList } from "../../Table/TableReferralList";
-import { TableReferralConclusion } from "../../Table/TableReferralConclusion";
+import { TableReferralListAdmin } from "../../Table/TableReferralListAdmin";
+import { TableReferralConclusionAdmin } from "../../Table/TableReferralConclusionAdmin";
 
 const Page = styled.div`
   display: flex;
@@ -30,8 +30,8 @@ const Referral = () => {
         optionType="button"
         buttonStyle="solid"
       />
-      {activeTab === "base" && <TableReferralList />}
-      {activeTab === "conclusion" && <TableReferralConclusion />}
+      {activeTab === "base" && <TableReferralListAdmin />}
+      {activeTab === "conclusion" && <TableReferralConclusionAdmin />}
     </Page>
   );
 };

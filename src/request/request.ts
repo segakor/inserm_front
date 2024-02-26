@@ -40,7 +40,6 @@ import {
   CreatePromo,
   PromoCheck,
   TariffList,
-  ReferralList,
   PromoStatistics,
   AllPersonCampaign,
   News,
@@ -53,6 +52,9 @@ import {
   ClientNew,
   DetailsCampaign,
   DetailsTransfer,
+  ReferralListAdmin,
+  ReferralList,
+  PartnerOrderList,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -760,11 +762,33 @@ export const getReferralLink = async () => {
   return { data, status };
 };
 
+export const getReferralListAdmin = async () => {
+  const { data, status } = await axiosClient.get<{
+    result: ReferralListAdmin[];
+  }>(URL + `/api/partner/adminList`);
+  return { data, status };
+};
+
 export const getReferralList = async () => {
   const { data, status } = await axiosClient.get<{ result: ReferralList[] }>(
     URL + `/api/partner/list`
   );
   return { data, status };
+};
+
+export const getPartnerOrderList = async () => {
+  const { data, status } = await axiosClient.get<PartnerOrderList>(
+    URL + `/api/partner/order/list`
+  );
+  return { data, status };
+};
+
+export const createСonclusion = async () => {
+  const { data, status } = await axiosClient.post(URL + `/api/partner/create`);
+  return {
+    data,
+    status,
+  };
 };
 
 export const referralUpdate = async (value: {

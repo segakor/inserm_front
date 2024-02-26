@@ -33,12 +33,14 @@ export const ModalTemplate = ({ onClose, invoiceTemplate, type }: Props) => {
   const [blob, setBlob] = useState<any>();
 
   useEffect(() => {
-    if (invoiceTemplate) {
-      const pdfGenerator = pdfMake.createPdf(invoiceTemplate);
-      pdfGenerator.getBlob((blob) => {
-        setBlob(URL.createObjectURL(blob));
-      });
-    }
+    setTimeout(() => {
+      if (invoiceTemplate) {
+        const pdfGenerator = pdfMake.createPdf(invoiceTemplate);
+        pdfGenerator.getBlob((blob) => {
+          setBlob(URL.createObjectURL(blob));
+        });
+      }
+    }, 1000);
   }, [invoiceTemplate]);
 
   const titleDoc =
