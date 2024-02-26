@@ -527,7 +527,7 @@ export type OptionsReferral =
 export type ReferralHistories = {
   name: string;
   price: number;
-  is_paid: boolean;
+  isPaid: boolean;
   date: number;
   commission: number;
   platforms: string[];
@@ -541,7 +541,7 @@ export type Referrals = {
   commission: number;
   histories: ReferralHistories[];
 };
-export type ReferralList = {
+export type ReferralListAdmin = {
   email: string;
   date: number;
   campaignCount: number;
@@ -551,6 +551,25 @@ export type ReferralList = {
   commissionDifference: number;
   referrals: Referrals[];
 };
+
+export type ReferralList = {
+  commission: number;
+  date: number;
+  id: number;
+  total: number;
+  histories: ReferralHistories[];
+  campaignIds: number[];
+};
+
+export type PartnerOrderList = {
+  balance: number;
+  orders:{
+    id:number;
+    price:number;
+    date:number;
+    status:string;
+  }[]
+}
 
 export type OptionsClientBase =
   | "allClient"

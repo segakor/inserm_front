@@ -285,7 +285,6 @@ export const CampaignReviews = ({ group, role, id, onUpdate }: Props) => {
   const screens = useBreakpoint();
   const isMobile = !!screens.xs || (!screens.lg && screens);
 
-  console.log(isMobile);
   return (
     <>
       {group.map((item, index) => (

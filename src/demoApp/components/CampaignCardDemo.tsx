@@ -11,17 +11,46 @@ import {
   TitleDate,
   Wrapper,
   Header,
-  HeaderTariff
+  HeaderTariff,
+  Status,
+  FooterLink,
 } from "../../mainApp/components/Projects/styles";
 import { ButtonBrief } from "../../mainApp/Button/ButtonBrief";
 import { demoBrief } from "../constants";
 import { noop } from "../../constants";
 import { ModalBriefDemo } from "./ModalBriefDemo";
+import { CheckCircleFilled } from "@ant-design/icons";
+import { ModalTemplate } from "../../mainApp/components/Modal";
+import { template, act } from "../template";
 
 export const CampaignCardDemo = (project: Campaign) => {
-  const { name, statuses, id, period } = project;
+  const { name, statuses, id, period, isTransfer } = project;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [isModalActOpen, setIsModalActOpen] = useState(false);
+
+  const [tempalate, setTempalate] = useState<any>("");
+  const [typeTemplate, setTypeTemplate] = useState("");
+
+  const handleActOpen = (type: "act" | "payment") => {
+    switch (true) {
+      case type === "act":
+        setTypeTemplate("act");
+        setTempalate(act);
+        break;
+
+      default:
+        setTypeTemplate("payment");
+        setTempalate(template);
+        break;
+    }
+    setIsModalActOpen(true);
+  };
+
+  const handleActClose = () => {
+    setIsModalActOpen(false);
+  };
 
   const brief = demoBrief[id - 1];
 
@@ -34,60 +63,111 @@ export const CampaignCardDemo = (project: Campaign) => {
   };
 
   const navigation = useNavigate();
+
+  const isCompleted = statuses.success >= statuses.all;
+
   return (
     <Wrapper>
-      <CardBlock color={"#585858"}>
-        <Header>
-          <Title
-            level={5}
-            style={{
-              color: "white",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-            }}
-          >
-            {name}
-          </Title>
+      <div>
+        <Status>
+          <CheckCircleFilled
+            style={{ color: isCompleted ? "#1579e9" : "#23C915" }}
+          />
           <Title
             level={5}
             style={{
               fontSize: "14px",
-              color: "white",
-              fontWeight: "400",
+              color: isCompleted ? "#1579e9" : "#23C915",
+              fontWeight: "500",
               whiteSpace: "nowrap",
             }}
           >
-            ~ {period} мес.
+            {isCompleted ? "Завершен" : "Оплачен"}
           </Title>
-        </Header>
-        <DetailsCard statuses={statuses} />
-        <Title
-          level={5}
-          style={{
-            fontWeight: "500",
-            color: "#FFFFFF",
-            fontSize: "14px",
-            textDecorationLine: "underline",
-            cursor: project.isPaid ? "pointer" : "not-allowed",
-          }}
-          onClick={
-            project.isPaid
-              ? () => navigation(`/demo/campaign/${id}`)
-              : noop
-          }
-        >
-          <Tooltip
-            title={
-              !project.isPaid
-                ? "Ожидание оплаты может занять несколько минут"
-                : ""
-            }
-          >
-            Смотреть отчет
-          </Tooltip>
-        </Title>
-      </CardBlock>
+        </Status>
+        <CardBlock color={"#2CAE97"}>
+          <Header>
+            <Title
+              level={5}
+              style={{
+                color: "white",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+              }}
+            >
+              {name}
+            </Title>
+            <Title
+              level={5}
+              style={{
+                fontSize: "14px",
+                color: "white",
+                fontWeight: "400",
+                whiteSpace: "nowrap",
+              }}
+            >
+              ~ {period} мес.
+            </Title>
+          </Header>
+          <DetailsCard statuses={statuses} />
+          <FooterLink>
+            <Title
+              level={5}
+              style={{
+                fontWeight: "500",
+                color: "#FFFFFF",
+                fontSize: "14px",
+                textDecorationLine: "underline",
+                cursor: project.isPaid ? "pointer" : "not-allowed",
+              }}
+              onClick={
+                project.isPaid ? () => navigation(`/demo/campaign/${id}`) : noop
+              }
+            >
+              <Tooltip
+                title={
+                  !project.isPaid
+                    ? "Ожидание оплаты может занять несколько минут"
+                    : ""
+                }
+              >
+                Смотреть отчет
+              </Tooltip>
+            </Title>
+            {isTransfer && (
+              <Title
+                onClick={() => handleActOpen("act")}
+                level={5}
+                style={{
+                  fontWeight: "500",
+                  color: "#FFFFFF",
+                  fontSize: "14px",
+                  textDecorationLine: "underline",
+                  cursor: "pointer",
+                }}
+              >
+                Получить акт выполненных работ
+              </Title>
+            )}
+            {isTransfer && (
+              <Title
+                onClick={() => handleActOpen("payment")}
+                level={5}
+                style={{
+                  fontWeight: "500",
+                  color: "#FFFFFF",
+                  fontSize: "14px",
+                  textDecorationLine: "underline",
+                  cursor: "pointer",
+                }}
+              >
+                Получить счет
+              </Title>
+            )}
+          </FooterLink>
+        </CardBlock>
+      </div>
       <TariffBlock>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
         <TariffCard>
@@ -105,6 +185,13 @@ export const CampaignCardDemo = (project: Campaign) => {
           id={project.id.toString()}
           brief={brief}
           typeBrief={"campaign"}
+        />
+      )}
+      {isModalActOpen && (
+        <ModalTemplate
+          onClose={handleActClose}
+          invoiceTemplate={tempalate}
+          type={typeTemplate as "act" | "payment"}
         />
       )}
     </Wrapper>

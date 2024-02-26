@@ -4,13 +4,14 @@ import { Menu } from "antd";
 import { ReactComponent as ProjectIcon } from "../../assets/project.svg";
 import { ReactComponent as TariffIcon } from "../../assets/tariff.svg";
 import { ReactComponent as ProfileIcon } from "../../assets/profile.svg";
-import { ReactComponent as FoundationIcon } from "../../assets/foundation.svg";
 import { ReactComponent as ContactsIcon } from "../../assets/contacts.svg";
 import { ReactComponent as HelpIcon } from "../../assets/help.svg";
 import { ReactComponent as ExitIcon } from "../../assets/exit.svg";
 import { useNavigate } from "react-router-dom";
-import { demoProject, demoCampaign } from "../constants";
+import { demoCampaign } from "../constants";
 import styled from "styled-components";
+import { BellFilled, BulbFilled } from "@ant-design/icons";
+import { ButtonCreateIdeaDemo } from "./Button/ButtonCreateIdeaDemo";
 
 type Props = {
   onHeaderClose?: () => void;
@@ -23,15 +24,29 @@ const StyledMenuContainer = styled.div`
   height: calc(100% - 120px);
 `;
 
+const WraperLinkAndIdea = styled.div`
+  padding: 0 30px;
+  margin: 50px 0 30px 0;
+`;
+
+const LinkTg = () => {
+  return (
+    <div>
+      Подпишитесь на телеграм канал{" "}
+      <a target="_blank" href="https://t.me/inserm">
+        INSERM | Сервис по заказу отзывов
+      </a>
+    </div>
+  );
+};
+
 export const MenuComponentDemo = ({ onHeaderClose }: Props) => {
   const [selectedKeys, setSelectedKeys] = useState([""]);
 
   const navigation = useNavigate();
-
-  const clientProject = demoProject;
   const clientCampaign = demoCampaign;
 
-  const allProject = [clientProject, clientCampaign].flat();
+  const allProject = [clientCampaign].flat();
 
   const projectItem = allProject?.map((item, index) => ({
     label: item?.name,
@@ -61,8 +76,17 @@ export const MenuComponentDemo = ({ onHeaderClose }: Props) => {
     },
     { label: "Управление тарифами", key: "tariff", icon: <TariffIcon /> },
     { label: "Профиль", key: "profile", icon: <ProfileIcon /> },
-    { label: "База знаний", key: "foundation", icon: <FoundationIcon /> },
     { label: "Контакты", key: "contacts", icon: <ContactsIcon /> },
+    {
+      label: "Интеграция",
+      key: "notify",
+      icon: <BellFilled style={{ color: "#1579E9" }} />,
+    },
+    {
+      label: "Обновления сервиса",
+      key: "news",
+      icon: <BulbFilled style={{ color: "#1579E9" }} />,
+    },
   ];
 
   const itemsBottom: MenuProps["items"] = [
@@ -103,23 +127,6 @@ export const MenuComponentDemo = ({ onHeaderClose }: Props) => {
     }
   };
 
-  const LinkTg = (
-    <div
-      style={{
-        paddingLeft: 20,
-        paddingRight: 20,
-        margin: "50px 0 30px 0",
-      }}
-    >
-      <>
-        Подпишитесь на телеграм канал{" "}
-        <a target="_blank" href="https://t.me/inserm">
-          INSERM | Сервис по заказу отзывов
-        </a>
-      </>
-    </div>
-  );
-
   return (
     <StyledMenuContainer>
       <Menu
@@ -129,7 +136,10 @@ export const MenuComponentDemo = ({ onHeaderClose }: Props) => {
         selectedKeys={selectedKeys}
       />
       <div>
-        {LinkTg}
+        <WraperLinkAndIdea>
+          <ButtonCreateIdeaDemo />
+          <LinkTg />
+        </WraperLinkAndIdea>
         <Menu
           onClick={onClick}
           mode="inline"

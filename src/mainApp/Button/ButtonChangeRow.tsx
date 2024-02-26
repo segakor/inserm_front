@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "antd";
 import { EditOutlined, SaveOutlined, CloseOutlined } from "@ant-design/icons";
 import { ButtonChangeRowWrapper } from "./styles";
+import { useLocation } from "react-router-dom";
 
 type Props = {
   onClick: () => void;
@@ -16,6 +17,10 @@ export const ButtonChangeRow = ({
   onClickCancel,
   isEdit,
 }: Props) => {
+  const location = useLocation();
+
+  if (location.pathname.split('/').includes('demo')) return null
+  
   return (
     <ButtonChangeRowWrapper>
       {!isEdit && (

@@ -1,36 +1,45 @@
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Idea } from "../../types";
+import { getDate } from "../../utils";
 
-type TableItem = Idea & {
-  key: string;
+type Order = {
+  date: number;
+  price: number;
+  status: string;
+  id: number;
 };
 
-export const TableReferralConclusion = () => {
+type TableItem = Order;
 
+type Props = {
+  isLoading: boolean;
+  orders: Order[];
+};
+
+export const TableReferralConclusion = ({ orders, isLoading }: Props) => {
   const columns: ColumnsType<TableItem> = [
     {
-      title: "Email партнера",
-      render: (record: string) => {
-        return <>{record}</>;
+      title: "Сумма вывода",
+      render: (record: TableItem) => {
+        return <>{record.price}</>;
       },
     },
     {
-      title: "Реквизиты",
-      render: (record: string) => {
-        return <>{record}</>;
-      },
-    },
-    {
-      title: "Сумма выплаты",
-      render: (record: string) => {
-        return <>{record}</>;
+      title: "Дата запроса",
+      render: (record: TableItem) => {
+        return <>{getDate({ date: record.date })}</>;
       },
     },
     {
       title: "Статус",
-      render: (record: string) => {
-        return <>{record}</>;
+      render: (record: TableItem) => {
+        return (
+          <div
+            style={{ color: record.status === "wait" ? "#1680ee" : "#8bffb3" }}
+          >
+            {record.status === "wait" ? "В процессе" : "Выплачено"}
+          </div>
+        );
       },
     },
   ];
@@ -38,12 +47,13 @@ export const TableReferralConclusion = () => {
   return (
     <Table
       columns={columns}
-      /* dataSource={data} */
+      dataSource={orders}
       bordered
       pagination={false}
       tableLayout={"fixed"}
       locale={{ emptyText: "Нет данных" }}
       scroll={{ x: 900 }}
+      loading={isLoading}
     />
   );
 };

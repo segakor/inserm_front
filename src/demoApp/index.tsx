@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Layout } from "antd";
 import { SiderComponentDemo } from "./components/SiderComponentDemo";
-import { MainRoutesDemo } from "./components/MainRoutesDemo";
+import { MainRoutesDemo } from "./Routes/MainRoutesDemo";
 
 const StyledLayout = styled(Layout)`
   margin-left: 200px;

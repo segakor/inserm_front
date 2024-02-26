@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { TariffItemCampaign } from "../../mainApp/components/TariffItemCampaign";
-import { demoCampaign, demoProject } from "../constants";
+import { demoCampaign } from "../constants";
 
 
 const TariffWrapper = styled.div`
@@ -37,20 +37,6 @@ export const CurrentTariffDemo = () => {
               id={1}
               price={250}
               count={item.statuses.all}
-            />
-          </TariffWrapper>
-        ))}
-        {demoProject?.map((item, index) => (
-          <TariffWrapper key={index}>
-            <TariffItemCampaign
-              autoPay={item.autopay}
-              onChangeAutoPay={()=>console.log()}
-              name={item.name}
-              id={1}
-              price={item.tariff.price}
-              count={item.tariff.amount}
-              start={item.tariff.start}
-              end={item.tariff.end}
             />
           </TariffWrapper>
         ))}
