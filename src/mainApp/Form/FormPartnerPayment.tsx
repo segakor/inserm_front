@@ -58,6 +58,9 @@ const StyledSelect = styled(Select)`
     border-color: #d9d9d9;
     background-color: rgba(0, 0, 0, 0.04);
   }
+  @media (max-width: 768px) {
+    min-width: 100%;
+  }
 `;
 
 const WrapperItem = styled.div`
