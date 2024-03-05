@@ -1001,10 +1001,3 @@ export const createCardRating = async (value: {
   });
   return { data, status };
 };
-
-export const testApi = async () => {
-  const { data, status } = await axiosClient.get(
-    "https://api.tr.plenexy.digital/api/sights?page=1&limit=10&with=category,tags&category_id=22"
-  );
-  return { data, status };
-};
