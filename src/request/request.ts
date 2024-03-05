@@ -55,6 +55,8 @@ import {
   ReferralListAdmin,
   ReferralList,
   PartnerOrderList,
+  ConclusionOrder,
+  PartnerPayment,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -791,6 +793,50 @@ export const createСonclusion = async () => {
   };
 };
 
+export const getConclusionOrder = async () => {
+  const { data, status } = await axiosClient.get<{ result: ConclusionOrder[] }>(
+    URL + `/api/partner/order/adminList`
+  );
+  return {
+    data,
+    status,
+  };
+};
+
+export const createPartnerPayment = async (value: PartnerPayment) => {
+  const { data, status } = await axiosClient.post(
+    URL + `/api/partner/payment`,
+    { ...value }
+  );
+  return {
+    data,
+    status,
+  };
+};
+
+export const getPartnerPayment = async (id: number) => {
+  const { data, status } = await axiosClient.get<{
+    result: PartnerPayment & { id: number };
+  }>(URL + `/api/partner/payment/${id}`);
+  return {
+    data,
+    status,
+  };
+};
+
+export const updateOrderPartner = async (value: {
+  orderId: number;
+  isPaid: boolean;
+}) => {
+  const { data, status } = await axiosClient.post(URL + `/api/partner/update`, {
+    ...value,
+  });
+  return {
+    data,
+    status,
+  };
+};
+
 export const referralUpdate = async (value: {
   referralId: number;
   isPaid: boolean;
@@ -953,5 +999,12 @@ export const createCardRating = async (value: {
   const { data, status } = await axiosClient.post(URL + `/api/card/rating`, {
     ...value,
   });
+  return { data, status };
+};
+
+export const testApi = async () => {
+  const { data, status } = await axiosClient.get(
+    "https://api.tr.plenexy.digital/api/sights?page=1&limit=10&with=category,tags&category_id=22"
+  );
   return { data, status };
 };

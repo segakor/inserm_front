@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Campaign } from "../../types";
 import { Title } from "../../common/Typography";
@@ -22,9 +22,10 @@ import { ModalBriefDemo } from "./ModalBriefDemo";
 import { CheckCircleFilled } from "@ant-design/icons";
 import { ModalTemplate } from "../../mainApp/components/Modal";
 import { template, act } from "../template";
+import { OutlinedButton } from "../../mainApp/Button/styles";
 
 export const CampaignCardDemo = (project: Campaign) => {
-  const { name, statuses, id, period, isTransfer } = project;
+  const { name, statuses, id, period, isTransfer, isPaid } = project;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -66,6 +67,10 @@ export const CampaignCardDemo = (project: Campaign) => {
 
   const isCompleted = statuses.success >= statuses.all;
 
+  const goToCampaign = useCallback(() => {
+    isPaid ? navigation(`/demo/campaign/${id}`) : noop;
+  }, [isPaid]);
+
   return (
     <Wrapper>
       <div>
@@ -94,7 +99,9 @@ export const CampaignCardDemo = (project: Campaign) => {
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
+                cursor: isPaid ? "pointer" : "not-allowed",
               }}
+              onClick={goToCampaign}
             >
               {name}
             </Title>
@@ -119,17 +126,13 @@ export const CampaignCardDemo = (project: Campaign) => {
                 color: "#FFFFFF",
                 fontSize: "14px",
                 textDecorationLine: "underline",
-                cursor: project.isPaid ? "pointer" : "not-allowed",
+                cursor: isPaid ? "pointer" : "not-allowed",
               }}
-              onClick={
-                project.isPaid ? () => navigation(`/demo/campaign/${id}`) : noop
-              }
+              onClick={goToCampaign}
             >
               <Tooltip
                 title={
-                  !project.isPaid
-                    ? "Ожидание оплаты может занять несколько минут"
-                    : ""
+                  !isPaid ? "Ожидание оплаты может занять несколько минут" : ""
                 }
               >
                 Смотреть отчет
@@ -170,6 +173,9 @@ export const CampaignCardDemo = (project: Campaign) => {
       </div>
       <TariffBlock>
         <ButtonBrief brief={brief ? true : false} onClick={handleOpen} />
+        <div>
+          <OutlinedButton>Повторить заказ</OutlinedButton>
+        </div>
         <TariffCard>
           <HeaderTariff>
             <Title level={5} style={{ fontWeight: "800" }}>
@@ -182,7 +188,7 @@ export const CampaignCardDemo = (project: Campaign) => {
       {isModalOpen && (
         <ModalBriefDemo
           onClose={handleClose}
-          id={project.id.toString()}
+          id={id.toString()}
           brief={brief}
           typeBrief={"campaign"}
         />

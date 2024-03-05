@@ -5,6 +5,7 @@ import { ModalTemplate } from "./ModalTemplate";
 import { ModalСonfirmation } from "./ModalСonfirmation";
 import { ModalCreateReviews } from "./ModalCreateReviews";
 import { ModalCreatePromo } from "./ModalCreatePromo";
+import {ModalPartnerPayment} from './ModalPartnerPayment'
 
 export {
   ModalBrief,
@@ -14,4 +15,5 @@ export {
   ModalСonfirmation,
   ModalCreateReviews,
   ModalCreatePromo,
+  ModalPartnerPayment
 };

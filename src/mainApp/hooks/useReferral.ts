@@ -1,14 +1,25 @@
 import { useState } from "react";
 import {
+  createPartnerPayment,
   createСonclusion,
+  getConclusionOrder,
   getPartnerOrderList,
+  getPartnerPayment,
   getReferralLink,
   getReferralList,
   getReferralListAdmin,
   referralUpdate,
+  updateOrderPartner,
 } from "../../request";
-import { PartnerOrderList, ReferralList, ReferralListAdmin } from "../../types";
+import {
+  ConclusionOrder,
+  PartnerOrderList,
+  PartnerPayment,
+  ReferralList,
+  ReferralListAdmin,
+} from "../../types";
 import { openNotificationWithIcon } from "../../utils";
+import { AxiosError } from "axios";
 
 export const useReferral = () => {
   const [referralLink, setReferralLink] = useState("");
@@ -17,7 +28,15 @@ export const useReferral = () => {
   >([]);
   const [referralList, setReferralList] = useState<ReferralList[]>([]);
   const [orderList, setOrderList] = useState<PartnerOrderList>();
-  const [isLoading, setIsLoading] = useState({ table: false, button: false });
+  const [conclusionOrder, setConclusionOrder] = useState<ConclusionOrder[]>([]);
+  const [isLoading, setIsLoading] = useState({
+    table: false,
+    button: false,
+    form: false,
+  });
+  const [partnerPayment, setPartnerPayment] = useState<
+    (PartnerPayment & { id: number }) | null
+  >(null);
 
   const handleGetLink = async () => {
     try {
@@ -96,7 +115,71 @@ export const useReferral = () => {
         description: "Ошибка при выводе средств",
       });
     } finally {
-      setIsLoading((prev) => ({ ...prev, button: true }));
+      setIsLoading((prev) => ({ ...prev, button: false }));
+    }
+  };
+
+  const handleGetConclusionOrder = async () => {
+    try {
+      setIsLoading((prev) => ({ ...prev, table: true }));
+      const response = await getConclusionOrder();
+      setConclusionOrder(response.data.result);
+    } catch (error) {
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: "Не удалось получить данные",
+      });
+    } finally {
+      setIsLoading((prev) => ({ ...prev, table: false }));
+    }
+  };
+
+  const handelCreatePartnerPayment = async (value: PartnerPayment) => {
+    try {
+      setIsLoading((prev) => ({ ...prev, form: true }));
+      await createPartnerPayment(value);
+      await getPartnerPayment(0);
+      openNotificationWithIcon({
+        type: "success",
+        message: "",
+        description: "Данные сохранены",
+      });
+    } catch (error) {
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: "Не удалось сохранить данные",
+      });
+    } finally {
+      setIsLoading((prev) => ({ ...prev, form: false }));
+    }
+  };
+
+  const handelGetPartnerPayment = async (id: number) => {
+    try {
+      setIsLoading((prev) => ({ ...prev, form: true }));
+      const response = await getPartnerPayment(id);
+      setPartnerPayment(response.data.result);
+    } catch (error) {
+    } finally {
+      setIsLoading((prev) => ({ ...prev, form: false }));
+    }
+  };
+
+  const handleUpdateOrderPartner = async (value: {
+    orderId: number;
+    isPaid: boolean;
+  }) => {
+    try {
+      await updateOrderPartner(value);
+      await handleGetConclusionOrder();
+    } catch (error) {
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: "Не удалось обновить статус",
+      });
     }
   };
 
@@ -106,6 +189,10 @@ export const useReferral = () => {
     handleGetReferralList,
     handleGetPartnerOrderList,
     handleCreateСonclusion,
+    handleGetConclusionOrder,
+    handelCreatePartnerPayment,
+    handelGetPartnerPayment,
+    handleUpdateOrderPartner,
     referralLink,
     referralListAdmin: referralListAdmin?.map((item, index) => ({
       ...item,
@@ -116,6 +203,11 @@ export const useReferral = () => {
       key: index.toString(),
     })),
     orderList,
+    conclusionOrder: conclusionOrder?.map((item, index) => ({
+      ...item,
+      key: index.toString(),
+    })),
+    partnerPayment,
     isLoading,
   };
 };

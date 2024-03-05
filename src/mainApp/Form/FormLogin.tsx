@@ -70,7 +70,7 @@ export const FormLogin = () => {
     "login" | "restore" | "registration"
   >("login");
 
-  const [isVerified, setIsVerified] = useState(false);
+  const [isVerified, setIsVerified] = useState(true);
 
   const { handleLogin, isLoading: isLoadingLogin } = useAuth();
 
