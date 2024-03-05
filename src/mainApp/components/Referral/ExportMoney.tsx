@@ -34,6 +34,7 @@ const Wrapper = styled.div`
   display: flex;
   grid-gap: 16px;
   margin-bottom: 30px;
+  margin-top: 28px;
   @media (max-width: 1200px) {
     grid-gap: 10px;
     flex-direction: column;
@@ -59,6 +60,7 @@ export const ExportMoney = ({
   onCreateСonclusion,
   onCreatePartnerPayment,
 }: Props) => {
+  
   const disabledButton =
     orderList?.orders.find((item) => item.status === "wait") ||
     !partnerPayment?.id ||
@@ -66,6 +68,15 @@ export const ExportMoney = ({
 
   return (
     <>
+      <div style={{ margin: "0 0 28px 0" }}>
+        Чтобы вывести денежные средства, заполните форму с реквизитами и нажмите
+        на кнопку <b>Вывод денежных средств.</b>
+      </div>
+      <FormPartnerPayment
+        onCreatePartnerPayment={onCreatePartnerPayment}
+        isLoading={isLoading.form}
+        partnerPayment={partnerPayment}
+      />
       <Wrapper>
         <CardBalance>
           <Title level={5} style={{ color: "black", fontSize: 10 }}>
@@ -83,15 +94,6 @@ export const ExportMoney = ({
       <TableReferralConclusion
         orders={orderList?.orders || []}
         isLoading={isLoading.table}
-      />
-      <div style={{ margin: "28px 0" }}>
-        Чтобы вывести денежные средства, заполните форму с реквизитами и нажмите
-        на кнопку <b>Вывод денежных средств.</b>
-      </div>
-      <FormPartnerPayment
-        onCreatePartnerPayment={onCreatePartnerPayment}
-        isLoading={isLoading.form}
-        partnerPayment={partnerPayment}
       />
     </>
   );

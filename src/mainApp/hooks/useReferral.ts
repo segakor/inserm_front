@@ -135,11 +135,22 @@ export const useReferral = () => {
     }
   };
 
+  const handelGetPartnerPayment = async (id: number) => {
+    try {
+      setIsLoading((prev) => ({ ...prev, form: true }));
+      const response = await getPartnerPayment(id);
+      setPartnerPayment(response.data.result);
+    } catch (error) {
+    } finally {
+      setIsLoading((prev) => ({ ...prev, form: false }));
+    }
+  };
+
   const handelCreatePartnerPayment = async (value: PartnerPayment) => {
     try {
       setIsLoading((prev) => ({ ...prev, form: true }));
       await createPartnerPayment(value);
-      await getPartnerPayment(0);
+      await handelGetPartnerPayment(0);
       openNotificationWithIcon({
         type: "success",
         message: "",
@@ -151,17 +162,6 @@ export const useReferral = () => {
         message: "",
         description: "Не удалось сохранить данные",
       });
-    } finally {
-      setIsLoading((prev) => ({ ...prev, form: false }));
-    }
-  };
-
-  const handelGetPartnerPayment = async (id: number) => {
-    try {
-      setIsLoading((prev) => ({ ...prev, form: true }));
-      const response = await getPartnerPayment(id);
-      setPartnerPayment(response.data.result);
-    } catch (error) {
     } finally {
       setIsLoading((prev) => ({ ...prev, form: false }));
     }
