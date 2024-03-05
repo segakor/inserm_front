@@ -1,22 +1,20 @@
 import { Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { ReferralHistories, ReferralList } from "../../types";
-import { useReferral } from "../hooks/useReferral";
-import { useEffect } from "react";
 import { getDate } from "../../utils";
 import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
 
-type TableItem = ReferralList & {
-  key: string;
+type TableItem = ReferralList;
+
+type Props = {
+  referralList: ReferralList[];
+  isLoading: {
+    table: boolean;
+    button: boolean;
+  };
 };
 
-export const TableReferralList = () => {
-  const { handleGetReferralList, referralList, isLoading } = useReferral();
-
-  useEffect(() => {
-    handleGetReferralList();
-  }, []);
-
+export const TableReferralList = ({ referralList, isLoading }: Props) => {
   const columns: ColumnsType<TableItem> = [
     {
       title: "ID клиента",
@@ -35,7 +33,7 @@ export const TableReferralList = () => {
       render: (record: ReferralList) => {
         return (
           <ul>
-            {record.campaignIds.map((item,index) => (
+            {record.campaignIds.map((item, index) => (
               <li key={index}>{item}</li>
             ))}
           </ul>

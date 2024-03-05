@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { Title } from "../../../common/Typography";
 import { Button } from "antd";
-import { useEffect } from "react";
-import { useReferral } from "../../hooks/useReferral";
 import { TableReferralConclusion } from "../../Table/TableReferralConclusion";
+import { FormPartnerPayment } from "../../Form/FormPartnerPayment";
+import { PartnerOrderList, PartnerPayment } from "../../../types";
 
-const FooterCardAmount = styled.div`
+const CardBalance = styled.div`
   height: 50px;
   border-radius: 10px;
   padding: 8px 20px 20px 20px;
@@ -15,23 +15,22 @@ const FooterCardAmount = styled.div`
   @media (max-width: 768px) {
     width: auto;
   }
-`;
-const FooterCardPrice = styled(FooterCardAmount)`
   background-color: transparent;
   border: 2px solid #1579e9;
 `;
 
-const FooterButton = styled(Button)`
+const StyledButton = styled(Button)`
   background: #1579e9;
   border-radius: 10px;
   height: 50px;
   min-width: 360px;
   @media (max-width: 1200px) {
     width: 100%;
+    min-width: auto;
   }
 `;
 
-const FooterWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   grid-gap: 16px;
   margin-bottom: 30px;
@@ -41,44 +40,58 @@ const FooterWrapper = styled.div`
   }
 `;
 
-export const ExportMoney = () => {
-  const {
-    handleGetPartnerOrderList,
-    orderList,
-    handleCreateСonclusion,
-    isLoading,
-  } = useReferral();
+type Props = {
+  isLoading: {
+    table: boolean;
+    button: boolean;
+    form: boolean;
+  };
+  orderList?: PartnerOrderList;
+  onCreateСonclusion: () => void;
+  onCreatePartnerPayment: (value: PartnerPayment) => void;
+  partnerPayment: (PartnerPayment & { id: number }) | null;
+};
 
-  useEffect(() => {
-    handleGetPartnerOrderList();
-  }, []);
-
-  const disabledButton = orderList?.orders.find(
-    (item) => item.status === "wait"
-  );
+export const ExportMoney = ({
+  isLoading,
+  orderList,
+  partnerPayment,
+  onCreateСonclusion,
+  onCreatePartnerPayment,
+}: Props) => {
+  const disabledButton =
+    orderList?.orders.find((item) => item.status === "wait") ||
+    !partnerPayment?.id ||
+    !orderList?.balance;
 
   return (
     <>
-      <FooterWrapper>
-        <FooterCardPrice>
+      <Wrapper>
+        <CardBalance>
           <Title level={5} style={{ color: "black", fontSize: 10 }}>
             Баланс:
           </Title>
           <Title level={5} style={{ color: "black" }}>
             {orderList?.balance} ₽
           </Title>
-        </FooterCardPrice>
-        <FooterButton
-          onClick={() => handleCreateСonclusion()}
-          disabled={!!disabledButton}
-        >
+        </CardBalance>
+        <StyledButton onClick={onCreateСonclusion} disabled={!!disabledButton}>
           <div style={{ color: "white" }}>Вывод денежных средств</div>
-        </FooterButton>
-      </FooterWrapper>
-      <div style={{ marginBottom: "16px" }}>Статистика</div>
+        </StyledButton>
+      </Wrapper>
+      <div style={{ marginBottom: "16px" }}>История выводов</div>
       <TableReferralConclusion
         orders={orderList?.orders || []}
         isLoading={isLoading.table}
+      />
+      <div style={{ margin: "28px 0" }}>
+        Чтобы вывести денежные средства, заполните форму с реквизитами и нажмите
+        на кнопку <b>Вывод денежных средств.</b>
+      </div>
+      <FormPartnerPayment
+        onCreatePartnerPayment={onCreatePartnerPayment}
+        isLoading={isLoading.form}
+        partnerPayment={partnerPayment}
       />
     </>
   );

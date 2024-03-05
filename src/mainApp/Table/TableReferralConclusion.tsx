@@ -35,7 +35,7 @@ export const TableReferralConclusion = ({ orders, isLoading }: Props) => {
       render: (record: TableItem) => {
         return (
           <div
-            style={{ color: record.status === "wait" ? "#1680ee" : "#8bffb3" }}
+            style={{ color: record.status === "wait" ? "#1680ee" : "#1bbd3f" }}
           >
             {record.status === "wait" ? "В процессе" : "Выплачено"}
           </div>

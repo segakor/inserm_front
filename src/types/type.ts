@@ -563,13 +563,37 @@ export type ReferralList = {
 
 export type PartnerOrderList = {
   balance: number;
-  orders:{
-    id:number;
-    price:number;
-    date:number;
-    status:string;
-  }[]
-}
+  orders: {
+    id: number;
+    price: number;
+    date: number;
+    status: string;
+  }[];
+};
+
+export type ConclusionOrder = {
+  email: string;
+  type: string;
+  company: string;
+  name: string;
+  price: number;
+  paymentId: number;
+};
+
+export type PartnerPayment = {
+  type: string;
+  name: string;
+  address: string;
+  inn: string;
+  email: string;
+  phone: string;
+  ogrn: string;
+  bic: string;
+  rs: string;
+  ks: string;
+  bank_inn: string;
+  company: string;
+};
 
 export type OptionsClientBase =
   | "allClient"
