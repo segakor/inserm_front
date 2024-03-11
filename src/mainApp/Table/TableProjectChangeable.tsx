@@ -113,7 +113,6 @@ export const TableProjectChangeable = ({
       const newData = [...reviews];
       const index = newData.findIndex((item) => key === item.key);
       row.id = newData[index].id;
-      console.log("row_save", row, index, newData[index]);
       handleUpdateReview(row).then(() => {
         onUpdate(projectId);
       });
@@ -140,7 +139,6 @@ export const TableProjectChangeable = ({
       const newData = [...reviews];
       const index = newData.findIndex((item) => key === item.key);
       row.id = newData[index].id;
-      console.log("row_save", row, index, newData[index]);
       handleDeleteReview({ id: row.id }).then(() => {
         onUpdate(projectId);
       });

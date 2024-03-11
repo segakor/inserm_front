@@ -28,6 +28,11 @@ export type Person = {
   tg: string;
   tgId: string;
 };
+export type NotificationSettings = {
+  isEmailInfo: boolean;
+  isTgInfo: boolean;
+  isTgSystem: boolean;
+};
 export type ReqPersonChange = {
   first_name: string;
   last_name: string;
@@ -71,6 +76,8 @@ export type ReqGetProject = {
   projectsArray: Project[];
 };
 
+export type RemoveRequestStatus = "not" | "wait" | "rejected" | "approved";
+
 export type Reviews = {
   id: string;
   link: string;
@@ -84,6 +91,17 @@ export type Reviews = {
   key: string;
   is_edited?: boolean; // project
   isEdited?: boolean; // campaign
+  removeRequestStatus: RemoveRequestStatus;
+};
+
+export type RemovedReviews = {
+  id: number;
+  name: string;
+  text: string;
+  link: string;
+  status: RemoveRequestStatus;
+  campaignId: number;
+  date: number;
 };
 
 export type ReqGetProjectDetails = {

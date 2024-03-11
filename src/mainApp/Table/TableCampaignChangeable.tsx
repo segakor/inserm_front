@@ -117,7 +117,6 @@ export const TableCampaignChangeable = ({
       const newData = [...reviews];
       const index = newData.findIndex((item) => key === item.key);
       row.id = newData[index].id;
-      console.log("row_save", row, index, newData[index]);
       handleUpdateReview(row).then(() => {
         onUpdate(campaignId);
       });
@@ -144,7 +143,6 @@ export const TableCampaignChangeable = ({
       const newData = [...reviews];
       const index = newData.findIndex((item) => key === item.key);
       row.id = newData[index].id;
-      console.log("row_save", row, index, newData[index]);
       handleDeleteReview({ id: row.id }).then(() => {
         onUpdate(campaignId);
       });

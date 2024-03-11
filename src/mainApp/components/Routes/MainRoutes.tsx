@@ -112,6 +112,7 @@ export const MainRoutes = () => {
   const News = lazy(() => import("../../Pages/Admin/News"));
   const Mail = lazy(() => import("../../Pages/Admin/Mail"));
   const ReferralAdmin = lazy(() => import("../../Pages/Admin/Referral"));
+  const RemovedReviews = lazy(() => import("../../Pages/Admin/RemovedReviews"));
 
   //partner lazy
   const ReferralPartner = lazy(() => import("../../Pages/Partner/Referral"));
@@ -370,6 +371,16 @@ export const MainRoutes = () => {
                 <Suspense fallback={<Spin />}>
                   <ProtectedChildRoutes allowedRole={["ADMIN"]}>
                     <ReferralAdmin />
+                  </ProtectedChildRoutes>
+                </Suspense>
+              }
+            />
+            <Route
+              path="removedreviews"
+              element={
+                <Suspense fallback={<Spin />}>
+                  <ProtectedChildRoutes allowedRole={["ADMIN", "SUPERVISOR"]}>
+                    <RemovedReviews />
                   </ProtectedChildRoutes>
                 </Suspense>
               }

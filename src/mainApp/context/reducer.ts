@@ -103,7 +103,6 @@ function removeProject(
   }
   if (payload.type === "campaign") {
     "campaign"
-    console.log('1');
     return {
       ...state,
       clientCampaign: state.clientCampaign?.filter(
@@ -111,8 +110,6 @@ function removeProject(
       ),
     };
   }
-
-  console.log(payload)
 
   return state;
 }

@@ -8,6 +8,7 @@ import {
   BulbFilled,
   BellFilled,
   MailFilled,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useLocalState } from "../../context/hooks";
@@ -133,7 +134,7 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
     { label: "Управление тарифами", key: "tariff", icon: <TariffIcon /> },
     { label: "Профиль", key: "profile", icon: <ProfileIcon /> },
     {
-      label: "Интеграция",
+      label: "Уведомления",
       key: "notify",
       icon: <BellFilled style={{ color: "#1579E9" }} />,
     },
@@ -168,6 +169,11 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       key: "projectpaid",
       icon: <PaidreviewsIcon />,
     },
+    {
+      label: "Удаленные отзывы",
+      key: "removedreviews",
+      icon: <ExclamationCircleFilled style={{ color: "#1579E9" }} />,
+    },
     { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },
     {
       label: "Статистика",
@@ -197,6 +203,11 @@ export const MenuComponent = ({ onHeaderClose }: Props) => {
       label: "Оплаченные отзывы",
       key: "projectpaid",
       icon: <PaidreviewsIcon />,
+    },
+    {
+      label: "Удаленные отзывы",
+      key: "removedreviews",
+      icon: <ExclamationCircleFilled style={{ color: "#1579E9" }} />,
     },
     { label: "Общая база клиентов", key: "clientbase", icon: <ProfileIcon /> },
     {

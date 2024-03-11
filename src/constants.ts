@@ -116,7 +116,7 @@ export const confirmationText = {
   removeCampaign:
     "Вы точно хотите удалить проект? Восстановить его обратно не получится.",
   removedArchived: "Вы уверены, что хотите удалить последнее продление?",
-  archiveProjectClient: "Вы уверены, что хотите архивировать проект?"
+  archiveProjectClient: "Вы уверены, что хотите архивировать проект?",
 };
 
 export const optionsSort = [
@@ -248,3 +248,49 @@ export const contacts = {
   tg: "https://t.me/helpotziv",
   whatsup: "https://api.whatsapp.com/send?phone=79107775066",
 };
+
+export const statusReviews = [
+  {
+    status: "success",
+    label: "Опубликовано",
+  },
+  {
+    status: "moderate",
+    label: "На модерации",
+  },
+  {
+    status: "delete",
+    label: "Удалено",
+  },
+  {
+    status: "reject",
+    label: "Не прошло",
+  },
+  {
+    status: "wait",
+    label: "В очереди",
+  },
+];
+
+export const statusRemovedReviews = [
+  {
+    status: "not",
+    label: "Сообщить об ошибке",
+    color: "",
+  },
+  {
+    status: "wait",
+    label: "Заявка на рассмотрении",
+    color: "#FFD600",
+  },
+  {
+    status: "rejected",
+    label: "Отказано",
+    color: "#FF1E1E",
+  },
+  {
+    status: "approved",
+    label: "Принято",
+    color: "#1BBD3F",
+  },
+];

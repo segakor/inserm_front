@@ -91,7 +91,6 @@ export const TableProjectModerate = ({
       const newData = [...reviews];
       const index = newData.findIndex((item) => key === item.key);
       row.id = newData[index].id;
-      console.log("row_save", row, index, newData[index]);
       handleUpdateReview(row).then(() => onUpdate());
       if (index > -1) {
         const item = newData[index];

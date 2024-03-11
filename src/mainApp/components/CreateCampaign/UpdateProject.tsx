@@ -50,7 +50,6 @@ export const UpdateProject = () => {
     useCreateCampaign();
 
   const onFinish = (values: any) => {
-    console.log("Success:", values);
 
     let value = {
       email: personInfo?.email || "",

@@ -3,14 +3,16 @@ import { Reviews } from "../../types";
 import { ButtonChangeRow } from "../Button/ButtonChangeRow";
 import { useState } from "react";
 import { StatusComponent } from "./StatusComponent";
-import { getDate } from "../../utils";
+import { getDate, isCanRemoveRequest } from "../../utils";
 import { Form, Input } from "antd";
 import { useUpdateReview } from "../hooks/useUpdateReview";
+import { ButtonCreateRemoveRequest } from "../Button/ButtonCreateRemoveRequest";
 
 const { TextArea } = Input;
 
 type Props = {
   item: Reviews;
+  onCreateRemove: (revieId: number) => void;
 };
 
 const Wrapper = styled.div`
@@ -58,7 +60,7 @@ const ListWrapper = styled.div`
   }
 `;
 
-export const ReviewItem = ({ item }: Props) => {
+const ReviewItem = ({ item, onCreateRemove }: Props) => {
   const [isFullText, setIsFullText] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
@@ -66,12 +68,13 @@ export const ReviewItem = ({ item }: Props) => {
 
   const [form] = Form.useForm();
 
-  const formText = form.getFieldValue('text')
+  const formText = form.getFieldValue("text");
 
   const text =
-  textLength && !isFullText ? formText?.slice(0, 100) + " ..." : formText;
+    textLength && !isFullText ? formText?.slice(0, 100) + " ..." : formText;
 
-  const { handleUpdateReviewByClient } = useUpdateReview();
+  const { handleUpdateReviewByClient, handleCreateRemoveReviewRequest } =
+    useUpdateReview();
 
   const onEdit = () => {
     setIsEdit(true);
@@ -98,6 +101,16 @@ export const ReviewItem = ({ item }: Props) => {
             onClick={onEdit}
             onClickCancel={onCancel}
             onClickSave={onSave}
+            isTag
+          />
+        )}
+        {isCanRemoveRequest({
+          date: item.date as number,
+          status: item.status,
+        }) && (
+          <ButtonCreateRemoveRequest
+            onClick={() => onCreateRemove(Number(item.id))}
+            removeRequestStatus={item.removeRequestStatus}
           />
         )}
       </Row>
@@ -110,16 +123,13 @@ export const ReviewItem = ({ item }: Props) => {
             )}
           </div>
         ) : (
-          <Form.Item
-            name={"text"}
-            style={{ width: "100%" }}
-          >
+          <Form.Item name={"text"} style={{ width: "100%" }}>
             <TextArea maxLength={1000} autoSize showCount />
           </Form.Item>
         )}
       </Form>
       <Row>
-        <StatusComponent status={item.status} withOutBorder/>
+        <StatusComponent status={item.status} withOutBorder />
         <b>
           {typeof item.date === "number"
             ? getDate({ date: item.date })
@@ -130,11 +140,17 @@ export const ReviewItem = ({ item }: Props) => {
   );
 };
 
-export const ListOfReviews = ({ data }: { data: Reviews[] }) => {
+export const ListOfReviewsAdaptive = ({
+  data,
+  onCreateRemove,
+}: {
+  data: Reviews[];
+  onCreateRemove: (revieId: number) => void;
+}) => {
   return (
     <ListWrapper>
       {data?.map((item, index) => (
-        <ReviewItem item={item} key={index} />
+        <ReviewItem item={item} key={index} onCreateRemove={onCreateRemove} />
       ))}
     </ListWrapper>
   );

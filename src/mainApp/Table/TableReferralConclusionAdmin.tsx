@@ -4,6 +4,7 @@ import { ConclusionOrder } from "../../types";
 import { useReferral } from "../hooks/useReferral";
 import { useEffect, useState } from "react";
 import { ModalPartnerPayment } from "../components/Modal";
+import { CheckOutlined } from "@ant-design/icons";
 
 type TableItem = ConclusionOrder & {
   key: string;
@@ -13,10 +14,7 @@ export const TableReferralConclusionAdmin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onModalOpen = (id: number) => {
-    handelGetPartnerPayment(id).then(()=>setIsModalOpen(true));
-   /*  setTimeout(()=>{
-      setIsModalOpen(true);
-    },200) */
+    handelGetPartnerPayment(id).then(() => setIsModalOpen(true));
   };
 
   const onModalClose = () => {
@@ -74,7 +72,7 @@ export const TableReferralConclusionAdmin = () => {
                 })
               }
             >
-              Оплачен
+              <CheckOutlined /> Оплачен
             </a>
           </>
         );

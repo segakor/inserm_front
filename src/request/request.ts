@@ -57,6 +57,8 @@ import {
   PartnerOrderList,
   ConclusionOrder,
   PartnerPayment,
+  RemovedReviews,
+  NotificationSettings,
 } from "../types";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -99,6 +101,22 @@ export const changePersonTgId = async (value: { tgId: string }) => {
     {
       ...value,
     }
+  );
+  return { data, status };
+};
+
+export const getNotificationSettings = async () => {
+  const { data, status } = await axiosClient.get<NotificationSettings>(
+    URL + "/api/person/notificationSettings"
+  );
+  return { data, status };
+};
+export const updateNotificationSettings = async (
+  value: NotificationSettings
+) => {
+  const { data, status } = await axiosClient.post(
+    URL + "/api/person/notificationSettings/update",
+    { ...value }
   );
   return { data, status };
 };
@@ -220,6 +238,30 @@ export const getReviewsWithType = async (
 ) => {
   const { data, status } = await axiosClient.get<ReqGetReviewsWithType>(
     URL + `/api/review/${type}`
+  );
+  return {
+    data,
+    status,
+  };
+};
+
+export const getRemovedReviews = async () => {
+  const { data, status } = await axiosClient.get<{ result: RemovedReviews[] }>(
+    URL + `/api/review/removeRequest/list`
+  );
+  return {
+    data,
+    status,
+  };
+};
+
+export const updateRemovedReviewsStatus = async (value: {
+  requestId: number;
+  status: string;
+}) => {
+  const { data, status } = await axiosClient.post(
+    URL + `/api/review/removeRequest/update`,
+    { ...value }
   );
   return {
     data,
@@ -999,5 +1041,17 @@ export const createCardRating = async (value: {
   const { data, status } = await axiosClient.post(URL + `/api/card/rating`, {
     ...value,
   });
+  return { data, status };
+};
+
+export const createRemoveReviewRequest = async (value: {
+  reviewId: number;
+}) => {
+  const { data, status } = await axiosClient.post(
+    URL + `/api/review/removeRequest/create `,
+    {
+      ...value,
+    }
+  );
   return { data, status };
 };
