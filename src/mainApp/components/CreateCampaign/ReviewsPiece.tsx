@@ -52,7 +52,6 @@ export const ReviewsPiece = () => {
     useCreateCampaign();
 
   const onFinish = (values: any) => {
-    console.log("Success:", values);
 
     let value = {
       email: personInfo?.email || "",

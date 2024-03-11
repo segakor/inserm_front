@@ -1,12 +1,19 @@
-import { useEffect } from "react";
-import { getPerson, changePerson, changePersonTgId } from "../../request";
+import { useEffect, useState } from "react";
+import {
+  getPerson,
+  changePerson,
+  changePersonTgId,
+  getNotificationSettings,
+  updateNotificationSettings,
+} from "../../request";
 import { openNotificationWithIcon } from "../../utils";
 import { setPersonInfo } from "../context/action";
 import { useDispatch, useLocalState } from "../context/hooks";
-import { ReqPersonChange } from "../../types";
+import { NotificationSettings, ReqPersonChange } from "../../types";
 import { AxiosError } from "axios";
 
 export const usePerson = (nowUpdate?: boolean) => {
+  const [notifySettings, setNotifySettings] = useState<NotificationSettings>();
   const dispatch = useDispatch();
   const state = useLocalState();
 
@@ -64,6 +71,39 @@ export const usePerson = (nowUpdate?: boolean) => {
     }
   };
 
+  const handleGetNotificationSettings = async () => {
+    try {
+      const response = await getNotificationSettings();
+      setNotifySettings(response.data);
+    } catch (error) {
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: "Не удалось получить настройки",
+      });
+    }
+  };
+
+  const handleUpdateNotificationSettings = async (
+    value: NotificationSettings
+  ) => {
+    try {
+      await updateNotificationSettings(value);
+      await handleGetNotificationSettings()
+      openNotificationWithIcon({
+        type: "success",
+        message: "",
+        description: "Настройки сохранены",
+      });
+    } catch (error) {
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: "Не удалось получить настройки",
+      });
+    }
+  };
+
   useEffect(() => {
     if (!state.personInfo && !nowUpdate) {
       handleGetPerson();
@@ -71,5 +111,12 @@ export const usePerson = (nowUpdate?: boolean) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { handleChangePerson, handleGetPerson, handleAddTgKey };
+  return {
+    handleChangePerson,
+    handleGetPerson,
+    handleAddTgKey,
+    handleGetNotificationSettings,
+    handleUpdateNotificationSettings,
+    notifySettings,
+  };
 };

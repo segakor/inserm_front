@@ -57,7 +57,6 @@ export const ModalBrief = ({ onClose, id, brief, typeBrief }: Props) => {
       : briefField.mainField.filter((item) => !item?.canHide);
 
   const onFinish = (values: any) => {
-    console.log("Success:", values);
     handleCreateBrief(fieldValue).then(() => onClose());
   };
 

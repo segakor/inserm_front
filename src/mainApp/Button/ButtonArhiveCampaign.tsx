@@ -23,7 +23,6 @@ export const ButtonArhiveCampaign = ({
 
   const onChangeStatus = () => {
     handleChangeProjectStatus({ id, isActive: !isActive }).then(() => {
-      console.log('sdasd')
       dispatch(removeProject({ id, type }));
     });
   };

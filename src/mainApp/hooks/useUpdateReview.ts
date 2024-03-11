@@ -1,4 +1,8 @@
-import { updateReview, updateReviewByClient } from "../../request";
+import {
+  createRemoveReviewRequest,
+  updateReview,
+  updateReviewByClient,
+} from "../../request";
 import { Reviews } from "../../types";
 import { openNotificationWithIcon } from "../../utils";
 
@@ -30,8 +34,28 @@ export const useUpdateReview = () => {
     }
   };
 
+  const handleCreateRemoveReviewRequest = async (value: {
+    reviewId: number;
+  }) => {
+    try {
+      await createRemoveReviewRequest(value);
+      openNotificationWithIcon({
+        type: "success",
+        message: "",
+        description: "Ваш запрос успешно отправлен",
+      });
+    } catch (error) {
+      openNotificationWithIcon({
+        type: "error",
+        message: "",
+        description: "Не удалось отправить запрос",
+      });
+    }
+  };
+
   return {
     handleUpdateReview,
-    handleUpdateReviewByClient
+    handleUpdateReviewByClient,
+    handleCreateRemoveReviewRequest
   };
 };

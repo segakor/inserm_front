@@ -45,7 +45,6 @@ export const CreateCampaignPlatform = () => {
     useCreateCampaign();
 
   const onFinish = (values: any) => {
-    console.log("Success:", values);
 
     let value = {
       email: formValue?.email || "",

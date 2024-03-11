@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { Table, ConfigProvider, Empty, Form, Input, Grid } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Reviews } from "../../types";
-import { getDate } from "../../utils";
+import { getDate, isCanRemoveRequest } from "../../utils";
 import { StatusComponent } from "../components/StatusComponent";
 import { ButtonChangeRow } from "../Button/ButtonChangeRow";
 import { useUpdateReview } from "../hooks/useUpdateReview";
-import { ListOfReviews } from "../components/ReviewItem";
+import { ListOfReviewsAdaptive } from "../components/ListOfReviewsAdaptive";
+import { ButtonCreateRemoveRequest } from "../Button/ButtonCreateRemoveRequest";
 
 const { useBreakpoint } = Grid;
 
@@ -65,7 +66,18 @@ export const TableProject = ({ reviews, isLoading, withoutLink }: Props) => {
     setDataSource(reviews);
   }, [reviews]);
 
-  const { handleUpdateReviewByClient } = useUpdateReview();
+  const { handleUpdateReviewByClient, handleCreateRemoveReviewRequest } =
+    useUpdateReview();
+
+  const onHandleCreateRemoveReviewRequest = (reviewId: number) => {
+    handleCreateRemoveReviewRequest({ reviewId }).then(() => {
+      // @ts-ignore TODO:доделать!
+      const newDate = [...dataSource];
+      const targetRow = newDate.find((item) => item.id === reviewId);
+      targetRow.removeRequestStatus = "wait";
+      setDataSource(newDate);
+    });
+  };
 
   const isEditing = (record: ReviewsTableItem) => record.key === editingKey;
 
@@ -86,7 +98,6 @@ export const TableProject = ({ reviews, isLoading, withoutLink }: Props) => {
       const newData = [...dataSource];
       const index = newData.findIndex((item) => key === item.key);
       row.id = newData[index].id;
-      console.log("row_save", row, index, newData[index]);
       handleUpdateReviewByClient({ id: Number(row.id), text: row.text });
       if (index > -1) {
         const item = newData[index];
@@ -154,6 +165,16 @@ export const TableProject = ({ reviews, isLoading, withoutLink }: Props) => {
                   }}
                   onClickCancel={onCancel}
                   onClickSave={() => onSave(record.key)}
+                  isTag
+                />
+              )}
+              {isCanRemoveRequest({
+                date: record.date,
+                status: record.status,
+              }) && (
+                <ButtonCreateRemoveRequest
+                  removeRequestStatus={record.removeRequestStatus}
+                  onClick={() => onHandleCreateRemoveReviewRequest(record.id)}
                 />
               )}
             </div>
@@ -189,7 +210,12 @@ export const TableProject = ({ reviews, isLoading, withoutLink }: Props) => {
   const isMobile = !!screens.xs || (!screens.lg && screens);
 
   if (isMobile === true) {
-    return <ListOfReviews data={reviews || []} />;
+    return (
+      <ListOfReviewsAdaptive
+        data={reviews || []}
+        onCreateRemove={onHandleCreateRemoveReviewRequest}
+      />
+    );
   }
 
   return (

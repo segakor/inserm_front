@@ -29,6 +29,21 @@ export const getDate = ({ date = 0 }: { date?: number }) => {
   return `${new Date(date * 1000).toLocaleString("ru", options)}`;
 };
 
+export const isCanRemoveRequest = ({
+  date = 0,
+  status,
+}: {
+  date?: number;
+  status: string;
+}) => {
+  const endDate = new Date(
+    new Date(date * 1000).getTime() + 50 * 24 * 60 * 60 * 1000
+  );
+
+  if (status === "success" && endDate > new Date()) return true;
+  return false;
+};
+
 export const getDateWithTime = ({ date = 0 }: { date?: number }) => {
   return `${new Date(date * 1000).toLocaleString("ru", optionsWithTime)}`;
 };

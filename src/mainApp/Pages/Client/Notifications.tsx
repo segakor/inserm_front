@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Header } from "../../../common/Typography";
-import { Alert, Button, Input, Space, Form } from "antd";
+import { Header, Title } from "../../../common/Typography";
+import { Alert, Button, Input, Space, Form, Checkbox } from "antd";
 import { usePerson } from "../../hooks/usePerson";
 import { useLocalState } from "../../context/hooks";
 import { useEffect } from "react";
@@ -27,7 +27,7 @@ const Page = styled.div`
   }
   .ant-form-item {
     width: 100%;
-    margin: 0;
+    /* margin: 0; */
   }
 `;
 
@@ -35,15 +35,42 @@ const Notifications = () => {
   const state = useLocalState();
   const { personInfo } = state;
 
-  const { handleAddTgKey } = usePerson();
+  const {
+    handleAddTgKey,
+    handleGetNotificationSettings,
+    handleUpdateNotificationSettings,
+    notifySettings,
+  } = usePerson();
 
   const [form] = Form.useForm();
+  const [form2] = Form.useForm();
+
+  const disabledTg = !personInfo?.tgId;
 
   useEffect(() => {
     form.setFieldValue("tgId", personInfo?.tgId);
   }, [personInfo?.tgId]);
 
+  useEffect(() => {
+    handleGetNotificationSettings();
+    form2.setFieldValue("isEmailInfo", notifySettings?.isEmailInfo);
+    form2.setFieldValue("isTgInfo", notifySettings?.isTgInfo);
+    form2.setFieldValue("isTgSystem", notifySettings?.isTgSystem);
+  }, []);
+
+  useEffect(() => {
+    form2.setFieldValue("isEmailInfo", notifySettings?.isEmailInfo);
+    if (disabledTg) {
+      form2.setFieldValue("isTgInfo", false);
+      form2.setFieldValue("isTgSystem", false);
+    } else {
+      form2.setFieldValue("isTgInfo", notifySettings?.isTgInfo);
+      form2.setFieldValue("isTgSystem", notifySettings?.isTgSystem);
+    }
+  }, [notifySettings, personInfo?.tgId]);
+
   const formValue = Form.useWatch([], form);
+  const formValue2 = Form.useWatch([], form2);
 
   const onClick = () => {
     personInfo?.tgId
@@ -51,9 +78,18 @@ const Notifications = () => {
       : handleAddTgKey({ tgId: formValue.tgId });
   };
 
+  const onFinish = () => {
+    handleUpdateNotificationSettings(formValue2);
+  };
+
+  const disabledSaveForm2 =
+    formValue2?.isEmailInfo === notifySettings?.isEmailInfo &&
+    formValue2?.isTgInfo === notifySettings?.isTgInfo &&
+    formValue2?.isTgSystem === notifySettings?.isTgSystem;
+
   return (
     <Page>
-      <Header>Интеграция с telegram</Header>
+      <Header>Уведомления</Header>
       <Alert
         message="Подключение сервиса приёма данных Telegram"
         description={
@@ -74,12 +110,28 @@ const Notifications = () => {
       <Form form={form}>
         <Space.Compact size="large">
           <Form.Item name={"tgId"}>
-            <Input placeholder="API key" />
+            <Input placeholder="API key" disabled={!!personInfo?.tgId} />
           </Form.Item>
           <Button type="primary" onClick={onClick}>
-            {personInfo?.tgId ? "Отключить" : "Сохранить"}
+            {personInfo?.tgId ? "Отключить" : "Подключить"}
           </Button>
         </Space.Compact>
+      </Form>
+      <Form form={form2} onFinish={onFinish}>
+        <Title level={5}>Email:</Title>
+        <Form.Item name={"isEmailInfo"} valuePropName="checked">
+          <Checkbox>Информационная рассылка</Checkbox>
+        </Form.Item>
+        <Title level={5}>Telegram:</Title>
+        <Form.Item name={"isTgSystem"} valuePropName="checked">
+          <Checkbox disabled={disabledTg}>Системные уведомления</Checkbox>
+        </Form.Item>
+        <Form.Item name={"isTgInfo"} valuePropName="checked">
+          <Checkbox disabled={disabledTg}>Информационные уведомления</Checkbox>
+        </Form.Item>
+        <Button type="primary" htmlType="submit" disabled={disabledSaveForm2}>
+          Сохранить
+        </Button>
       </Form>
     </Page>
   );
