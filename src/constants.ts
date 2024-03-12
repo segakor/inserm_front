@@ -275,8 +275,9 @@ export const statusReviews = [
 export const statusRemovedReviews = [
   {
     status: "not",
-    label: "Сообщить об ошибке",
+    label: "Сообщить об удалении отзыва",
     color: "",
+    desc: "Нажимая на эту кнопку вы подтверждаете, что данный отзыв удален с данного профиля компании на соответствующем ресурсе",
   },
   {
     status: "wait",
@@ -285,8 +286,9 @@ export const statusRemovedReviews = [
   },
   {
     status: "rejected",
-    label: "Отказано",
+    label: "Отзыв опубликован",
     color: "#FF1E1E",
+    desc: "Мы подтверждаем наличие данного текста на картах в момент проверки",
   },
   {
     status: "approved",

@@ -1,12 +1,14 @@
 import { Form, Input, InputNumber, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { RemovedReviews } from "../../types";
-import { getDate } from "../../utils";
+import { cliapbord, getDate } from "../../utils";
 import { useGetReviewsRemoved } from "../hooks/useGetReviewsRemoved";
 import { statusRemovedReviews } from "../../constants";
 import { useState } from "react";
 import { CheckOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
 import { StatusSelect } from "../components/StatusSelect";
+import { ButtonCopy } from "../Button/ButtonCopy";
+import { useNavigate } from "react-router-dom";
 
 type TableItem = RemovedReviews & {
   key: string;
@@ -50,6 +52,8 @@ const EditableCell: React.FC<EditableCellProps> = ({
 export const TableRemovedReviews = () => {
   const { data, isLoading, handleUpdateStatus } = useGetReviewsRemoved();
 
+  const navigation = useNavigate();
+  
   const [form] = Form.useForm();
   const [editingKey, setEditingKey] = useState("");
 
@@ -108,19 +112,31 @@ export const TableRemovedReviews = () => {
     {
       title: "Проект",
       render: (record: RemovedReviews) => {
-        return <>{record.name}</>;
+        return <a onClick={()=>navigation(`/app/admin/campaign/${record.campaignId}`)}>{record.name}</a>;
       },
     },
     {
       title: "Текст",
       render: (record: RemovedReviews) => {
-        return <>{record.text}</>;
+        return (
+          <div>
+            {record.text}{" "}
+            <ButtonCopy
+              onClick={() => cliapbord(record.text)}
+              style={{ marginLeft: 10 }}
+            />
+          </div>
+        );
       },
     },
     {
       title: "Ссылка на отзыв",
       render: (record: RemovedReviews) => {
-        return <>{record.link}</>;
+        return (
+          <a onClick={() => window.open(record.link, "_blank")}>
+            {record.link}
+          </a>
+        );
       },
     },
     {
