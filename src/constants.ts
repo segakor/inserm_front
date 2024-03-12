@@ -283,6 +283,7 @@ export const statusRemovedReviews = [
     status: "wait",
     label: "Заявка на рассмотрении",
     color: "#FFD600",
+    desc: "Мы проверяем наличие отзыва на картах, ожидайте",
   },
   {
     status: "rejected",
