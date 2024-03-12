@@ -1,5 +1,8 @@
-import { Tag } from "antd";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { Tag, Tooltip } from "antd";
+import {
+  ExclamationCircleOutlined,
+  QuestionCircleFilled,
+} from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
 import { RemoveRequestStatus } from "../../types";
 import { statusRemovedReviews } from "../../constants";
@@ -17,6 +20,10 @@ export const ButtonCreateRemoveRequest = ({
 
   if (location.pathname.split("/").includes("demo")) return null;
 
+  const targetStatus = statusRemovedReviews.find(
+    (item) => item.status === removeRequestStatus
+  );
+
   return (
     <>
       <Tag
@@ -27,8 +34,11 @@ export const ButtonCreateRemoveRequest = ({
         color="error"
         onClick={() => removeRequestStatus === "not" && onClick()}
       >
-        {statusRemovedReviews.find((item=>item.status === removeRequestStatus))?.label}
+        {targetStatus?.label}
       </Tag>
+      <Tooltip title={targetStatus?.desc}>
+        <QuestionCircleFilled style={{ color: "#1579E9", cursor: "pointer" }} />
+      </Tooltip>
     </>
   );
 };
