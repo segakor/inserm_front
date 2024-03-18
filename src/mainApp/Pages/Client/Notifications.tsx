@@ -93,7 +93,6 @@ const Notifications = () => {
         "isTgSupport",
         "isTgReport",
       ].map((item) => formCheckbox.setFieldValue(item, true));
-      console.log(1);
     } else {
       [
         "isTgPaid",
@@ -102,7 +101,6 @@ const Notifications = () => {
         "isTgSupport",
         "isTgReport",
       ].map((item) => formCheckbox.setFieldValue(item, false));
-      console.log(2);
     }
   };
 
@@ -145,6 +143,11 @@ const Notifications = () => {
           <Title level={5}>Email:</Title>
           <Form.Item name={"isEmailInfo"} valuePropName="checked">
             <Checkbox>Информационная рассылка</Checkbox>
+          </Form.Item>
+          <Form.Item>
+            <Checkbox disabled defaultChecked>
+              Системные уведомления
+            </Checkbox>
           </Form.Item>
           <Title level={5}>Telegram:</Title>
           <Form.Item name={"isTgSystem"} valuePropName="checked">

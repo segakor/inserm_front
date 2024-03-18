@@ -1,8 +1,5 @@
 import { Tag, Tooltip } from "antd";
-import {
-  ExclamationCircleOutlined,
-  QuestionCircleFilled,
-} from "@ant-design/icons";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
 import { RemoveRequestStatus } from "../../types";
 import { statusRemovedReviews } from "../../constants";
@@ -25,7 +22,7 @@ export const ButtonCreateRemoveRequest = ({
   );
 
   return (
-    <>
+    <Tooltip title={targetStatus?.desc}>
       <Tag
         style={{
           cursor: removeRequestStatus === "not" ? "pointer" : " not-allowed",
@@ -36,9 +33,6 @@ export const ButtonCreateRemoveRequest = ({
       >
         {targetStatus?.label}
       </Tag>
-      <Tooltip title={targetStatus?.desc}>
-        <QuestionCircleFilled style={{ color: "#1579E9", cursor: "pointer" }} />
-      </Tooltip>
-    </>
+    </Tooltip>
   );
 };

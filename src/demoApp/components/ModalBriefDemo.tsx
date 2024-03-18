@@ -13,13 +13,6 @@ const StyledTitle = styled(Title)`
 const StyledTextArea = styled(TextArea)`
   border-radius: 10px;
 `;
-const StyledButton = styled(Button)`
-  border-radius: 10px;
-  height: 50px;
-  background: transparent;
-  border: 2px solid #1579e9;
-  color: #1579e9;
-`;
 
 type Props = {
   onClose: () => void;
