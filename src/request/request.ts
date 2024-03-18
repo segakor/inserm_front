@@ -245,9 +245,10 @@ export const getReviewsWithType = async (
   };
 };
 
-export const getRemovedReviews = async () => {
+export const getRemovedReviews = async (params: { status: string }) => {
   const { data, status } = await axiosClient.get<{ result: RemovedReviews[] }>(
-    URL + `/api/review/removeRequest/list`
+    URL + `/api/review/removeRequest/list`,
+    { params: { ...params } }
   );
   return {
     data,

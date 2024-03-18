@@ -21,7 +21,7 @@ export const TableReferralConclusion = ({ orders, isLoading }: Props) => {
     {
       title: "Сумма вывода",
       render: (record: TableItem) => {
-        return <>{record.price}</>;
+        return <>{record.price.toLocaleString()}</>;
       },
     },
     {

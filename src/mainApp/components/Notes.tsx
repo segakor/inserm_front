@@ -40,8 +40,9 @@ const CloseWrapper = styled.div`
   align-items: center;
   grid-gap: 8px;
 `;
-const Message = styled.div`
-  border: 1px solid #4096ff;
+const Message = styled.div<{ isClient: boolean }>`
+  border: ${(props) =>
+    !props.isClient ? "1px solid #4096ff" : "1px solid #1bbd42"};
   border-radius: 10px;
   padding: 8px;
   margin-bottom: 5px;
@@ -89,7 +90,7 @@ export const Notes = ({ type, id }: Props) => {
     <Wrapper>
       <MessageBox ref={element}>
         {notes?.map((item, index) => (
-          <Message key={index}>
+          <Message key={index} isClient={item.isClient}>
             <MessageTitle>
               <Title level={5}>{item.user}</Title>
               <CloseWrapper>

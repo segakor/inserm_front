@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button, Form, Input } from "antd";
 import { Title } from "../../common/Typography";
@@ -79,6 +79,7 @@ export const FormLogin = () => {
   const { search } = useLocation();
 
   const params = new URLSearchParams(search);
+
   const entry =
     params.get("entry") === "partners"
       ? "partnerRegistration"
@@ -89,7 +90,7 @@ export const FormLogin = () => {
 
   const isLoading = isLoadingRegistration || isLoadingLogin;
 
-  const title = localeLogin.find((item) => item.type === typeForm);
+  const title = localeLogin[entry].find((item) => item.type === typeForm);
 
   const onChangeCapcha = (value: any) => {
     value ? setIsVerified(true) : setIsVerified(false);
@@ -130,6 +131,17 @@ export const FormLogin = () => {
       description: `Заполните все поля`,
     });
   };
+
+  const backButton =
+    entry === "partnerRegistration" && typeForm === "registration"
+      ? "Уже есть аккаунт"
+      : "Назад";
+
+  useEffect(() => {
+    if (entry === "partnerRegistration") {
+      setTypeForm("registration");
+    }
+  }, []);
 
   return (
     <>
@@ -246,7 +258,7 @@ export const FormLogin = () => {
               >
                 <StyledInputPassword placeholder="Повторите пароль" />
               </Form.Item>
-              <SubTitle onClick={handleBack}>Назад</SubTitle>
+              <SubTitle onClick={handleBack}>{backButton}</SubTitle>
               <ReCAPTCHA
                 style={{ marginBottom: 16 }}
                 sitekey="6Le3qHYlAAAAAEeZz21F3gumg3ohJGIyyjVFadnM"

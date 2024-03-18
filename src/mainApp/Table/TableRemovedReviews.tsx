@@ -1,4 +1,4 @@
-import { Form, Input, InputNumber, Table, Tag, Typography } from "antd";
+import { Divider, Form, Input, InputNumber, Radio, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { RemovedReviews } from "../../types";
 import { cliapbord, getDate } from "../../utils";
@@ -50,7 +50,9 @@ const EditableCell: React.FC<EditableCellProps> = ({
 };
 
 export const TableRemovedReviews = () => {
-  const { data, isLoading, handleUpdateStatus } = useGetReviewsRemoved();
+  const [status, setStatus] = useState("wait");
+
+  const { data, isLoading, handleUpdateStatus } = useGetReviewsRemoved(status);
 
   const navigation = useNavigate();
   
@@ -198,6 +200,16 @@ export const TableRemovedReviews = () => {
 
   return (
     <Form form={form} component={false}>
+       <Radio.Group
+        onChange={({ target: { value } }) => {
+          setStatus(value);
+        }}
+        value={status}
+      >
+        <Radio value="wait">На рассмотрении</Radio>
+        <Radio value="all">Все</Radio>
+      </Radio.Group>
+      <Divider />
       <Table
         components={{
           body: {

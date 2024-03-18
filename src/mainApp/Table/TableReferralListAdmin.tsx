@@ -65,13 +65,13 @@ export const TableReferralListAdmin = () => {
       {
         title: "Сумма привлечения",
         render: (record: ReferralHistories) => {
-          return <> {record.price}</>;
+          return <> {record.price.toLocaleString()}</>;
         },
       },
       {
         title: "Комиссия реферала",
         render: (record: ReferralHistories) => {
-          return <> {record.commission}</>;
+          return <> {record.commission.toLocaleString()}</>;
         },
       },
       {
@@ -124,11 +124,11 @@ export const TableReferralListAdmin = () => {
       },
       {
         title: "Сумма привлечения",
-        render: (record: Referrals) => <>{record.total}</>,
+        render: (record: Referrals) => <>{record.total.toLocaleString()}</>,
       },
       {
         title: "Комиссия реферала",
-        render: (record: Referrals) => <>{record.commission}</>,
+        render: (record: Referrals) => <>{record.commission.toLocaleString()}</>,
       },
     ];
 

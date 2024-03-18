@@ -173,7 +173,14 @@ export const TableAllClientNew = () => {
         dataIndex: "payType",
         width: "10%",
       },
-      { title: "Потрачено", dataIndex: "price", width: "10%" },
+      {
+        title: "Потрачено",
+        dataIndex: "price",
+        width: "10%",
+        render: (record: string) => {
+          return <>{record.toLocaleString()}</>;
+        },
+      },
     ];
 
     if (!projects?.length) {
@@ -290,6 +297,9 @@ export const TableAllClientNew = () => {
       dataIndex: "totalPrice",
       sortDirections: ["descend"],
       sorter: (a, b) => a.totalPrice - b.totalPrice,
+      render: (record: string) => {
+        return <>{record.toLocaleString()}</>;
+      },
     },
   ];
 

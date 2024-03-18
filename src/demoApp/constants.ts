@@ -1341,3 +1341,87 @@ export const demoBrief = [
     field_12: "",
   },
 ];
+
+export const referralData = {
+  isLoading: {
+    table: false,
+    button: false,
+    form: false,
+  },
+  referralList: [
+    {
+      key: "1",
+      id: 53,
+      date: 1706776417,
+      campaignIds: [127],
+      total: 29500,
+      commission: 2950,
+      histories: [
+        {
+          id: 127,
+          platforms: ["яндекс", "гугл"],
+          date: 1708869962,
+          price: 29500,
+          commission: 2950,
+          isPaid: true,
+          amount: 50,
+          name: "",
+        },
+      ],
+    },
+    {
+      key: "2",
+      id: 13,
+      date: 1709282017,
+      campaignIds: [213, 219],
+      total: 169070,
+      commission: 16907,
+      histories: [
+        {
+          id: 127,
+          platforms: ["яндекс", "гугл"],
+          date: 1710059617,
+          price: 53900,
+          commission: 5390,
+          isPaid: true,
+          amount: 100,
+          name: "",
+        },
+        {
+          id: 127,
+          platforms: ["2гис"],
+          date: 1710750817,
+          price: 109780,
+          commission: 10978,
+          isPaid: true,
+          amount: 220,
+          name: "",
+        },
+      ],
+    },
+    {
+      key: "3",
+      id: 59,
+      date: 1707122017,
+      campaignIds: [923],
+      total: 35400,
+      commission: 3540,
+      histories: [
+        {
+          id: 127,
+          platforms: ["яндекс", "гугл", "2гис"],
+          date: 1707554017,
+          price: 35400,
+          commission: 3540,
+          isPaid: true,
+          amount: 60,
+          name: "",
+        },
+      ],
+    },
+  ],
+  orderList: {
+    balance: 1000,
+    orders:[]
+  },
+};

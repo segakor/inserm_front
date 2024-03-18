@@ -33,12 +33,19 @@ const PublicRoutes = () => {
   const params = useParams();
   const { search } = useLocation();
 
+  const entryPartners = new URLSearchParams(search).get("entry") === "partners";
+
   if (params["*"] === "payment" && bodyPath === "client") {
     return auth ? (
       <Navigate to={"/app/client/createproject" + search} />
     ) : (
       <Outlet />
     );
+  }
+
+  if (entryPartners) {
+    tokenService.removeJwtToken();
+    return <Outlet />;
   }
 
   const page = `/app/${bodyPath}/projects`;

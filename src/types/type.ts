@@ -32,6 +32,11 @@ export type NotificationSettings = {
   isEmailInfo: boolean;
   isTgInfo: boolean;
   isTgSystem: boolean;
+  isTgPaid: boolean;
+  isTgReview: boolean;
+  isTgFinished: boolean;
+  isTgSupport: boolean;
+  isTgReport: boolean;
 };
 export type ReqPersonChange = {
   first_name: string;
@@ -206,6 +211,7 @@ export type Note = {
   text: string;
   user: string;
   date: number;
+  isClient: boolean;
 };
 
 export type ReqNote = {

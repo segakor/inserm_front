@@ -201,23 +201,42 @@ export const optionsRefferal = [
   { value: "conclusion", label: "Запросы на вывод ДС" },
 ];
 
-export const localeLogin = [
-  {
-    type: "login",
-    formTitle: "Войдите в свой личный кабинет",
-    submitTitle: "Войти",
-  },
-  {
-    type: "restore",
-    formTitle: "Восстановление пароля",
-    submitTitle: "Отправить",
-  },
-  {
-    type: "registration",
-    formTitle: "Регистрация",
-    submitTitle: "Зарегистрироваться",
-  },
-];
+export const localeLogin = {
+  clientRegistration: [
+    {
+      type: "login",
+      formTitle: "Войдите в свой личный кабинет",
+      submitTitle: "Войти",
+    },
+    {
+      type: "restore",
+      formTitle: "Восстановление пароля",
+      submitTitle: "Отправить",
+    },
+    {
+      type: "registration",
+      formTitle: "Регистрация",
+      submitTitle: "Зарегистрироваться",
+    },
+  ],
+  partnerRegistration: [
+    {
+      type: "login",
+      formTitle: "Войдите в свой личный кабинет как партнер",
+      submitTitle: "Войти",
+    },
+    {
+      type: "restore",
+      formTitle: "Восстановление пароля",
+      submitTitle: "Отправить",
+    },
+    {
+      type: "registration",
+      formTitle: "Регистрация в партнерской программе",
+      submitTitle: "Зарегистрироваться",
+    },
+  ],
+};
 
 export const newsMonth = [
   "января",
