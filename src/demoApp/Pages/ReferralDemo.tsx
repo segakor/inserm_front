@@ -16,10 +16,10 @@ const Page = styled.div`
   width: 100%;
 `;
 
-const { referralList, isLoading,orderList } = referralData;
+const { referralList, isLoading, orderList } = referralData;
 
 export const ReferralDemo = () => {
-  const [option, setOption] = useState<OptionsReferral>("getLink");
+  const [option, setOption] = useState<OptionsReferral>("paymentStatistics");
 
   return (
     <Page>

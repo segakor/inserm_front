@@ -1421,7 +1421,7 @@ export const referralData = {
     },
   ],
   orderList: {
-    balance: 1000,
+    balance: 23397,
     orders:[]
   },
 };
