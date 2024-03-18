@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Header, Title } from "../../../common/Typography";
-import { Alert, Button, Input, Space, Form, Checkbox } from "antd";
+import { Alert, Button, Input, Space, Form, Checkbox, Spin } from "antd";
 import { usePerson } from "../../hooks/usePerson";
 import { useLocalState } from "../../context/hooks";
 import { useEffect } from "react";
@@ -27,8 +27,11 @@ const Page = styled.div`
   }
   .ant-form-item {
     width: 100%;
-    /* margin: 0; */
   }
+`;
+
+const SystemGroup = styled.div`
+  margin-left: 24px;
 `;
 
 const Notifications = () => {
@@ -43,7 +46,7 @@ const Notifications = () => {
   } = usePerson();
 
   const [form] = Form.useForm();
-  const [form2] = Form.useForm();
+  const [formCheckbox] = Form.useForm();
 
   const disabledTg = !personInfo?.tgId;
 
@@ -53,24 +56,10 @@ const Notifications = () => {
 
   useEffect(() => {
     handleGetNotificationSettings();
-    form2.setFieldValue("isEmailInfo", notifySettings?.isEmailInfo);
-    form2.setFieldValue("isTgInfo", notifySettings?.isTgInfo);
-    form2.setFieldValue("isTgSystem", notifySettings?.isTgSystem);
   }, []);
 
-  useEffect(() => {
-    form2.setFieldValue("isEmailInfo", notifySettings?.isEmailInfo);
-    if (disabledTg) {
-      form2.setFieldValue("isTgInfo", false);
-      form2.setFieldValue("isTgSystem", false);
-    } else {
-      form2.setFieldValue("isTgInfo", notifySettings?.isTgInfo);
-      form2.setFieldValue("isTgSystem", notifySettings?.isTgSystem);
-    }
-  }, [notifySettings, personInfo?.tgId]);
-
   const formValue = Form.useWatch([], form);
-  const formValue2 = Form.useWatch([], form2);
+  const formValueCheckbox = Form.useWatch([], formCheckbox);
 
   const onClick = () => {
     personInfo?.tgId
@@ -79,13 +68,43 @@ const Notifications = () => {
   };
 
   const onFinish = () => {
-    handleUpdateNotificationSettings(formValue2);
+    handleUpdateNotificationSettings(formValueCheckbox);
   };
 
-  const disabledSaveForm2 =
-    formValue2?.isEmailInfo === notifySettings?.isEmailInfo &&
-    formValue2?.isTgInfo === notifySettings?.isTgInfo &&
-    formValue2?.isTgSystem === notifySettings?.isTgSystem;
+  useEffect(() => {
+    if (notifySettings) {
+      if (
+        ["isTgPaid", "isTgFinished", "isTgReview", "isTgSupport", "isTgReport"]
+          .map((item) => formValueCheckbox?.[item])
+          .includes(true) &&
+        !formValueCheckbox?.isTgSystem
+      ) {
+        formCheckbox.setFieldValue("isTgSystem", true);
+      }
+    }
+  }, [formValueCheckbox]);
+
+  const onClickAll = (e: boolean) => {
+    if (e) {
+      [
+        "isTgPaid",
+        "isTgFinished",
+        "isTgReview",
+        "isTgSupport",
+        "isTgReport",
+      ].map((item) => formCheckbox.setFieldValue(item, true));
+      console.log(1);
+    } else {
+      [
+        "isTgPaid",
+        "isTgFinished",
+        "isTgReview",
+        "isTgSupport",
+        "isTgReport",
+      ].map((item) => formCheckbox.setFieldValue(item, false));
+      console.log(2);
+    }
+  };
 
   return (
     <Page>
@@ -107,7 +126,7 @@ const Notifications = () => {
         showIcon
         style={{ marginBottom: "24px" }}
       />
-      <Form form={form}>
+      <Form form={form} initialValues={notifySettings}>
         <Space.Compact size="large">
           <Form.Item name={"tgId"}>
             <Input placeholder="API key" disabled={!!personInfo?.tgId} />
@@ -117,22 +136,54 @@ const Notifications = () => {
           </Button>
         </Space.Compact>
       </Form>
-      <Form form={form2} onFinish={onFinish}>
-        <Title level={5}>Email:</Title>
-        <Form.Item name={"isEmailInfo"} valuePropName="checked">
-          <Checkbox>Информационная рассылка</Checkbox>
-        </Form.Item>
-        <Title level={5}>Telegram:</Title>
-        <Form.Item name={"isTgSystem"} valuePropName="checked">
-          <Checkbox disabled={disabledTg}>Системные уведомления</Checkbox>
-        </Form.Item>
-        <Form.Item name={"isTgInfo"} valuePropName="checked">
-          <Checkbox disabled={disabledTg}>Информационные уведомления</Checkbox>
-        </Form.Item>
-        <Button type="primary" htmlType="submit" disabled={disabledSaveForm2}>
-          Сохранить
-        </Button>
-      </Form>
+      {notifySettings ? (
+        <Form
+          form={formCheckbox}
+          onFinish={onFinish}
+          initialValues={notifySettings}
+        >
+          <Title level={5}>Email:</Title>
+          <Form.Item name={"isEmailInfo"} valuePropName="checked">
+            <Checkbox>Информационная рассылка</Checkbox>
+          </Form.Item>
+          <Title level={5}>Telegram:</Title>
+          <Form.Item name={"isTgSystem"} valuePropName="checked">
+            <Checkbox
+              onChange={(e) => onClickAll(e.target.checked)}
+              disabled={disabledTg}
+            >
+              Системные уведомления
+            </Checkbox>
+          </Form.Item>
+          <SystemGroup>
+            <Form.Item name={"isTgPaid"} valuePropName="checked">
+              <Checkbox disabled={disabledTg}>Проект оплачен</Checkbox>
+            </Form.Item>
+            <Form.Item name={"isTgReview"} valuePropName="checked">
+              <Checkbox disabled={disabledTg}>Отзыв опубликован</Checkbox>
+            </Form.Item>
+            <Form.Item name={"isTgFinished"} valuePropName="checked">
+              <Checkbox disabled={disabledTg}>Проект закончен</Checkbox>
+            </Form.Item>
+            <Form.Item name={"isTgSupport"} valuePropName="checked">
+              <Checkbox disabled={disabledTg}>Уведомления из чата ТП</Checkbox>
+            </Form.Item>
+            <Form.Item name={"isTgReport"} valuePropName="checked">
+              <Checkbox disabled={disabledTg}>Еженедельный отчет</Checkbox>
+            </Form.Item>
+          </SystemGroup>
+          <Form.Item name={"isTgInfo"} valuePropName="checked">
+            <Checkbox disabled={disabledTg}>
+              Информационные уведомления
+            </Checkbox>
+          </Form.Item>
+          <Button type="primary" htmlType="submit">
+            Сохранить
+          </Button>
+        </Form>
+      ) : (
+        <Spin />
+      )}
     </Page>
   );
 };

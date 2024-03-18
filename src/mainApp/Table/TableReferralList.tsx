@@ -21,6 +21,7 @@ export const TableReferralList = ({ referralList, isLoading }: Props) => {
       render: (record: ReferralList) => {
         return <>{record.id}</>;
       },
+      width:'10%'
     },
     {
       title: "Дата регистрации",
@@ -43,13 +44,13 @@ export const TableReferralList = ({ referralList, isLoading }: Props) => {
     {
       title: "Сумма, которую привлек клиент",
       render: (record: ReferralList) => {
-        return <>{record.total}</>;
+        return <>{record.total.toLocaleString()}</>;
       },
     },
     {
       title: "Комиссия реферала",
       render: (record: ReferralList) => {
-        return <>{record.commission}</>;
+        return <>{record.commission.toLocaleString()}</>;
       },
     },
   ];
@@ -94,13 +95,13 @@ export const TableReferralList = ({ referralList, isLoading }: Props) => {
       {
         title: "Сумма привлечения",
         render: (record: ReferralHistories) => {
-          return <> {record.price}</>;
+          return <> {record.price.toLocaleString()}</>;
         },
       },
       {
         title: "Комиссия реферала",
         render: (record: ReferralHistories) => {
-          return <> {record.commission}</>;
+          return <> {record.commission.toLocaleString()}</>;
         },
       },
       {

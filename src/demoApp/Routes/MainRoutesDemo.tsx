@@ -12,6 +12,7 @@ import { HeaderComponentDemo } from "../components/HeaderComponentDemo";
 import { CampaignDemo } from "../Pages/CampaignDemo";
 import { NotificationsDemo } from "../Pages/NotificationsDemo";
 import News from "../../mainApp/Pages/Client/News";
+import { ReferralDemo } from "../Pages/ReferralDemo";
 
 const StyledLayout = styled(Layout)`
   margin-left: 50px;
@@ -30,8 +31,7 @@ export const MainRoutesDemo = () => {
       <HeaderComponentDemo />
       <Content>
         <Routes>
-          <Route path="/" element={<PublicRoutes />}>
-            <Route path="*" element={<Navigate replace to="projects" />} />
+          <Route path="/client" element={<PublicRoutes />}>
             <Route path="projects" element={<ProjectsDemo />} />
             <Route path="campaign/:campaignId" element={<CampaignDemo />} />
             <Route path="tariff" element={<TariffDemo />} />
@@ -42,6 +42,13 @@ export const MainRoutesDemo = () => {
             <Route path="notify" element={<NotificationsDemo />} />
             <Route path="news" element={<News />} />
           </Route>
+          <Route path="/partner" element={<PublicRoutes />}>
+            <Route path="main" element={<ReferralDemo />} />
+            <Route path="contacts" element={<Contacts />} />
+            <Route path="help" element={<Help />} />
+            <Route path="profile" element={<ProfileDemo />} />
+          </Route>
+          <Route path="*" element={<Navigate replace to="client/projects" />} />
         </Routes>
       </Content>
     </StyledLayout>

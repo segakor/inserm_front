@@ -7,11 +7,12 @@ import { ReactComponent as ProfileIcon } from "../../assets/profile.svg";
 import { ReactComponent as ContactsIcon } from "../../assets/contacts.svg";
 import { ReactComponent as HelpIcon } from "../../assets/help.svg";
 import { ReactComponent as ExitIcon } from "../../assets/exit.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { demoCampaign } from "../constants";
 import styled from "styled-components";
 import { BellFilled, BulbFilled } from "@ant-design/icons";
 import { ButtonCreateIdeaDemo } from "./Button/ButtonCreateIdeaDemo";
+import { ReferralIcon } from "../../mainApp/components/Menu/MenuIcon";
 
 type Props = {
   onHeaderClose?: () => void;
@@ -44,6 +45,13 @@ export const MenuComponentDemo = ({ onHeaderClose }: Props) => {
   const [selectedKeys, setSelectedKeys] = useState([""]);
 
   const navigation = useNavigate();
+  const location = useLocation();
+
+  const entry = location.pathname.split("/").includes("client")
+    ? "client"
+    : "partner";
+
+  console.log(location);
   const clientCampaign = demoCampaign;
 
   const allProject = [clientCampaign].flat();
@@ -89,6 +97,23 @@ export const MenuComponentDemo = ({ onHeaderClose }: Props) => {
     },
   ];
 
+  const itemPartner = [
+    {
+      label: "Партнерская программа",
+      key: "main",
+      icon: <ReferralIcon />,
+    },
+    { label: "Профиль", key: "profile", icon: <ProfileIcon /> },
+    { label: "Контакты", key: "contacts", icon: <ContactsIcon /> },
+  ];
+
+  const setItem = () => {
+    if (entry === "partner") {
+      return itemPartner;
+    }
+    return itemClient;
+  };
+
   const itemsBottom: MenuProps["items"] = [
     {
       type: "divider",
@@ -118,7 +143,7 @@ export const MenuComponentDemo = ({ onHeaderClose }: Props) => {
         navigation(`/app/login`);
         break;
       default:
-        navigation(`/demo/${e.key}`);
+        navigation(`/demo/${entry}/${e.key}`);
         break;
     }
 
@@ -131,15 +156,17 @@ export const MenuComponentDemo = ({ onHeaderClose }: Props) => {
     <StyledMenuContainer>
       <Menu
         onClick={onClick}
-        items={itemClient}
+        items={setItem()}
         mode="inline"
         selectedKeys={selectedKeys}
       />
       <div>
-        <WraperLinkAndIdea>
-          <ButtonCreateIdeaDemo />
-          <LinkTg />
-        </WraperLinkAndIdea>
+        {entry === "client" && (
+          <WraperLinkAndIdea>
+            <ButtonCreateIdeaDemo />
+            <LinkTg />
+          </WraperLinkAndIdea>
+        )}
         <Menu
           onClick={onClick}
           mode="inline"

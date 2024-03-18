@@ -29,7 +29,9 @@ export const useRegistartion = (
         message: "",
         description:
           err?.data?.message === "email is duplicate!"
-            ? `Пользователь с почтой ${value.email} уже зарегистрирован`
+            ? type === "clientRegistration"
+              ? `Пользователь с почтой ${value.email} уже зарегистрирован`
+              : `На почте ${value.email} есть существующий аккаунт, необходимо зарегистрировать партнерский аккаунт на новую почту.`
             : "Что-то пошло не так",
       });
     } finally {

@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { RemovedReviews } from "../../types";
 import { AxiosError } from "axios";
 
-export const useGetReviewsRemoved = () => {
+export const useGetReviewsRemoved = (status: string) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<RemovedReviews[]>([]);
 
   const handleGetReviews = async () => {
     try {
       setIsLoading(true);
-      const response = await getRemovedReviews();
+      const response = await getRemovedReviews({ status });
       setData(response.data.result);
     } catch (err) {
       const typedError = err as AxiosError;
@@ -54,7 +54,7 @@ export const useGetReviewsRemoved = () => {
   useEffect(() => {
     handleGetReviews();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [status]);
 
   return {
     isLoading,
