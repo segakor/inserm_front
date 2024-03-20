@@ -72,7 +72,7 @@ export const TableCashlessTransfer = () => {
       render: (record: CashlessTransfer) => {
         return (
           <ul>
-            <li>Цена: {record.price.toLocaleString()}</li>
+            <li>Цена: {record.price?.toLocaleString()}</li>
             <li>Колличество: {record.amount}</li>
           </ul>
         );

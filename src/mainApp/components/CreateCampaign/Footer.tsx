@@ -70,7 +70,7 @@ export const Footer = ({
               Итоговая стоимость
             </Title>
             <Title level={5} style={{ color: "white" }}>
-              {(priceForOne * count).toLocaleString()} руб.
+              {(priceForOne * count)?.toLocaleString()} руб.
             </Title>
           </FooterCardAmount>
           <FooterCardPrice>
