@@ -83,7 +83,7 @@ export const ExportMoney = ({
             Баланс:
           </Title>
           <Title level={5} style={{ color: "black" }}>
-            {orderList?.balance.toLocaleString()} ₽
+            {orderList?.balance?.toLocaleString()} ₽
           </Title>
         </CardBalance>
         <StyledButton onClick={onCreateСonclusion} disabled={!!disabledButton}>

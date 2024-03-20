@@ -178,7 +178,7 @@ export const TableAllClientNew = () => {
         dataIndex: "price",
         width: "10%",
         render: (record: string) => {
-          return <>{record.toLocaleString()}</>;
+          return <>{record?.toLocaleString()}</>;
         },
       },
     ];
@@ -298,7 +298,7 @@ export const TableAllClientNew = () => {
       sortDirections: ["descend"],
       sorter: (a, b) => a.totalPrice - b.totalPrice,
       render: (record: string) => {
-        return <>{record.toLocaleString()}</>;
+        return <>{record?.toLocaleString()}</>;
       },
     },
   ];

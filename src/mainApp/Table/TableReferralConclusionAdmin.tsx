@@ -56,7 +56,7 @@ export const TableReferralConclusionAdmin = () => {
     {
       title: "Сумма выплаты",
       render: (record: ConclusionOrder) => {
-        return <>{record.price.toLocaleString()}</>;
+        return <>{record.price?.toLocaleString()}</>;
       },
     },
     {
