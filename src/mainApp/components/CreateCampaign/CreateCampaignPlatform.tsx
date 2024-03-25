@@ -45,7 +45,6 @@ export const CreateCampaignPlatform = () => {
     useCreateCampaign();
 
   const onFinish = (values: any) => {
-
     let value = {
       email: formValue?.email || "",
       name: formValue?.projectName.trim() || "",
@@ -77,7 +76,19 @@ export const CreateCampaignPlatform = () => {
           }
         : null;
 
-    handleCreateCampaign(value, priceTotal, cashlessData, isRecurent);
+    handleCreateCampaign(value, priceTotal, cashlessData, isRecurent).then(
+      (e: any) => {
+        if (e?.data?.message === "name is duplicate") {
+          form.setFields([
+            {
+              name: "projectName",
+              errors: ["Проект с таким названием уже существует"],
+            },
+          ]);
+          form.scrollToField("projectName");
+        }
+      }
+    );
   };
 
   const onFinishFailed = (errorInfo: any) => {

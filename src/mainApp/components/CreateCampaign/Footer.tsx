@@ -127,7 +127,7 @@ export const Footer = ({
           />
           <label>
             Нажимая на кнопку, вы соглашаетесь с{" "}
-            <Link className="decorate" to="/offer.docx" target="_blank">
+            <Link className="decorate" to="/offer.pdf" target="_blank">
               Офертой
             </Link>{" "}
             и{" "}

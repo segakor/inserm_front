@@ -1,3 +1,4 @@
+import axios from "axios";
 import { axiosClient } from "../axios";
 import {
   ReqLogin,
@@ -234,10 +235,12 @@ export const createReview = async (value: {
 };
 
 export const getReviewsWithType = async (
-  type: "moderate" | "isPaid" | "noPaid"
+  type: "moderate" | "isPaid" | "noPaid",
+  search?: string
 ) => {
   const { data, status } = await axiosClient.get<ReqGetReviewsWithType>(
-    URL + `/api/review/${type}`
+    URL + `/api/review/${type}`,
+    { params: { search: search } }
   );
   return {
     data,
@@ -1055,4 +1058,26 @@ export const createRemoveReviewRequest = async (value: {
     }
   );
   return { data, status };
+};
+
+export const uploadImgBB = async (data: any) => {
+  //NOTE: data type UploadRequestOption
+  console.log(data.file);
+  try {
+    let body = new FormData();
+    body.append("image", data.file);
+    body.append("test", "test");
+    const response = await fetch(
+      "https://api.imgbb.com/1/upload?expiration=600&key=e4e66ebc0393850d4c6198b88812d20f",
+      { method: "POST", body }
+    );
+    const response2 = await fetch("http://localhost:5000/upload", {
+      method: "POST",
+      body,
+    });
+    const result = await response.json();
+    data.onSuccess(result);
+  } catch (error) {
+    data.onError(error);
+  }
 };

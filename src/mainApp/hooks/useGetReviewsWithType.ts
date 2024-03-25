@@ -4,14 +4,18 @@ import { useEffect, useState } from "react";
 import { ReqGetReviewsWithType } from "../../types";
 import { AxiosError } from "axios";
 
-export const useGetReviewsWithType = (type: "moderate" | "isPaid" | "noPaid") => {
+export const useGetReviewsWithType = (
+  type: "moderate" | "isPaid" | "noPaid"
+) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<ReqGetReviewsWithType | undefined>(undefined);
+  const [data, setData] = useState<ReqGetReviewsWithType | undefined>(
+    undefined
+  );
 
-  const handleGetReviews = async () => {
+  const handleGetReviews = async (search?: string) => {
     try {
       setIsLoading(true);
-      const response = await getReviewsWithType(type);
+      const response = await getReviewsWithType(type, search);
       setData(response.data);
     } catch (err) {
       const typedError = err as AxiosError;
@@ -19,7 +23,7 @@ export const useGetReviewsWithType = (type: "moderate" | "isPaid" | "noPaid") =>
         type: "error",
         message: "",
         description: "Не удалось загрузить отзывы клиента",
-        status: typedError.status
+        status: typedError.status,
       });
     } finally {
       setIsLoading(false);
@@ -37,6 +41,6 @@ export const useGetReviewsWithType = (type: "moderate" | "isPaid" | "noPaid") =>
       ...item,
       key: index.toString(),
     })),
-    handleGetReviews
+    handleGetReviews,
   };
 };

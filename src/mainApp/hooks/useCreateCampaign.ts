@@ -52,11 +52,13 @@ export const useCreateCampaign = () => {
         isRecurent: isRecurent,
       });
     } catch (err) {
+      console.log(err)
       openNotificationWithIcon({
         type: "error",
         message: "",
         description: `Не удалось создать проект`,
       });
+      return err
     } finally {
       setIsLoading(false);
     }

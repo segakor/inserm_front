@@ -18,20 +18,12 @@ import {
   setSortKey,
   setSortOrder,
 } from "../../context/action";
+import { SearchPanel } from "../../components/SearchPanel";
 
 const Page = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-`;
-
-const SearchPanel = styled(Input)`
-  background: #ffffff;
-  border-radius: 10px;
-  height: 40px;
-  padding: 12px 20px 12px 20px;
-  display: flex;
-  margin-bottom: 24px;
 `;
 
 const WrapperPanel = styled.div`
@@ -79,11 +71,7 @@ const AllProjects = () => {
         optionType="button"
         buttonStyle="solid"
       />
-      <SearchPanel
-        suffix={<SearchOutlined />}
-        placeholder="Поиск проектов"
-        onChange={onChangeInput}
-      />
+      <SearchPanel placeholder="Поиск проектов" onChange={onChangeInput} />
       <WrapperPanel>
         <Radio.Group
           options={optionsStatusProject}

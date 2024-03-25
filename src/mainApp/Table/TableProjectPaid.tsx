@@ -192,7 +192,15 @@ export const TableProjectPaid = ({
       render: (text: string) => (
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         <div>
-          <span>{text}</span>
+          <span>
+            {text?.includes("https://") ? (
+              <a href={text} target="_blank">
+                <>{text}</>
+              </a>
+            ) : (
+              <>{text}</>
+            )}
+          </span>
           {text && (
             <ButtonCopy
               onClick={() => cliapbord(text)}
